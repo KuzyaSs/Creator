@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Creator</string>
+    <string name="feed">Лента</string>
+    <string name="account">Аккаунт</string>
+    <string name="chats">Чаты</string>
+    <string name="email">Электронная почта</string>
+    <string name="password">Пароль</string>
+    <string name="sign_in">Авторизоваться</string>
+    <string name="sign_in_label">Авторизация</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="don_t_have_an_account_sign_up">Ещё нет аккаунта? <u><big><font color="#9146FF">Зарегистрироваться</font></big></u></string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="sign_up_label">Регистрация</string>
+    <string name="confirm_password">Подтвердить пароль</string>
+    <string name="loading">Загрузка</string>
+
+    <string name="network_exception">Ошибка сети</string>
+    <string name="empty_data_exception">Заполните все поля</string>
+    <string name="email_format_exception">Некорректный адрес электронной почты</string>
+    <string name="passwords_don_t_match_exception">Пароли не совпадают</string>
+    <string name="weak_password_exception">Пароль не должен быть меньше 6 символов</string>
+    <string name="email_collision_exception">Адрес электронной почты уже используется</string>
+    <string name="invalid_user_exception">Некорректный пользователь</string>
+    <string name="unknown_exception">Неизвестная ошибка</string>
+    <string name="verify_your_email">Подтвердите ваш адрес электронной почты</string>
+    <string name="email_description"><![CDATA[На адрес <b><font color=#9146FF>%1$s</font></b> было отправлено письмо для подтверждения его действительности. После получения письма перейдите по указанной ссылке для завершения регистрации]]></string>
+    <string name="_continue">Продолжить</string>
+</resources>
