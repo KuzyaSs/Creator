@@ -1,10 +1,9 @@
-package ru.ermakov.creator.presentation.fragment
+package ru.ermakov.creator.presentation.fragment.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,8 +12,8 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSignUpBinding
 import ru.ermakov.creator.domain.model.SignUpData
-import ru.ermakov.creator.presentation.viewModel.signUp.SignUpViewModel
-import ru.ermakov.creator.presentation.viewModel.signUp.SignUpViewModelFactory
+import ru.ermakov.creator.presentation.viewModel.auth.signUp.SignUpViewModel
+import ru.ermakov.creator.presentation.viewModel.auth.signUp.SignUpViewModelFactory
 import ru.ermakov.creator.util.Constant.Companion.EMAIL_COLLISION_EXCEPTION
 import ru.ermakov.creator.util.Constant.Companion.EMAIL_FORMAT_EXCEPTION
 import ru.ermakov.creator.util.Constant.Companion.EMPTY_DATA_EXCEPTION
@@ -61,20 +60,22 @@ class SignUpFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        signUpViewModel.user.observe(viewLifecycleOwner) { userResource ->
+        signUpViewModel.signUpData.observe(viewLifecycleOwner) { userResource ->
             when (userResource) {
                 is Resource.Success -> {
                     hideProgressBar()
                     if (signUpViewModel.isNavigationAvailable) {
-                        navigateToSignUpFragment(userResource.data?.email ?: EMPTY_STRING)
+                        navigateToVerificationEmailFragment(
+                            userResource.data?.email ?: EMPTY_STRING
+                        )
                         signUpViewModel.resetIsNavigationAvailable()
                     }
                 }
 
                 is Resource.Error -> {
                     hideProgressBar()
-                    val errorMessage = defineException(
-                        exceptionString = userResource.message ?: EMPTY_STRING
+                    val errorMessage = localizeError(
+                        errorMessage = userResource.message ?: EMPTY_STRING
                     )
                     showError(errorMessage = errorMessage)
                 }
@@ -102,14 +103,14 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun navigateToSignUpFragment(email: String) {
-        val action = SignUpFragmentDirections
-            .actionSignUpFragmentToVerificationEmailFragment(email = email)
+    private fun navigateToVerificationEmailFragment(email: String) {
+        val action =
+            SignUpFragmentDirections.actionSignUpFragmentToVerificationEmailFragment(email = email)
         findNavController().navigate(action)
     }
 
-    private fun defineException(exceptionString: String): String {
-        return when (exceptionString) {
+    private fun localizeError(errorMessage: String): String {
+        return when (errorMessage) {
             NETWORK_EXCEPTION -> {
                 getString(R.string.network_exception)
             }

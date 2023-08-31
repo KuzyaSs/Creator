@@ -1,4 +1,4 @@
-package ru.ermakov.creator.domain.useCase.signUp
+package ru.ermakov.creator.domain.useCase.auth.signUp
 
 import ru.ermakov.creator.domain.model.SignUpData
 

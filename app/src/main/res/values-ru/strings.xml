@@ -13,14 +13,18 @@
     <string name="sign_up_label">Регистрация</string>
     <string name="confirm_password">Подтвердить пароль</string>
     <string name="loading">Загрузка</string>
+    <string name="offline_mode">Автономный режим</string>
 
     <string name="network_exception">Ошибка сети</string>
     <string name="empty_data_exception">Заполните все поля</string>
     <string name="email_format_exception">Некорректный адрес электронной почты</string>
+    <string name="email_verification_exception">Подтвердите адрес электронной почты вашей учетной записи</string>
+    <string name="invalid_password_exception">Неверный пароль</string>
     <string name="passwords_don_t_match_exception">Пароли не совпадают</string>
     <string name="weak_password_exception">Пароль не должен быть меньше 6 символов</string>
     <string name="email_collision_exception">Адрес электронной почты уже используется</string>
-    <string name="invalid_user_exception">Некорректный пользователь</string>
+    <string name="invalid_user_exception">Нет записи пользователя с такой электронной почтой</string>
+    <string name="too_many_requests_exception">Аккаунт заблокирован. Сбросьте пароль или повторите попытку позже</string>
     <string name="unknown_exception">Неизвестная ошибка</string>
     <string name="verify_your_email">Подтвердите ваш адрес электронной почты</string>
     <string name="email_description"><![CDATA[На адрес <b><font color=#9146FF>%1$s</font></b> было отправлено письмо для подтверждения его действительности. После получения письма перейдите по указанной ссылке для завершения регистрации]]></string>

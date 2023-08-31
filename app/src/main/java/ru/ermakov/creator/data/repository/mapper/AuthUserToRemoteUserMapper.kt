@@ -1,14 +1,13 @@
 package ru.ermakov.creator.data.repository.mapper
 
 import com.google.firebase.auth.FirebaseUser
-import ru.ermakov.creator.domain.model.User
+import ru.ermakov.creator.data.storage.remote.model.RemoteUser
 import ru.ermakov.creator.util.Constant.Companion.EMPTY_STRING
 
-class AuthUserToDomainUserMapper : Mapper<FirebaseUser, User> {
-    override fun map(source: FirebaseUser): User {
+class AuthUserToRemoteUserMapper : Mapper<FirebaseUser, RemoteUser> {
+    override fun map(source: FirebaseUser): RemoteUser {
         source.apply {
-            return User(
-                id = uid,
+            return RemoteUser(
                 email = email.toString(),
                 username = uid,
                 image = EMPTY_STRING,

@@ -2,26 +2,27 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signInFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
-        android:id="@+id/feedFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.FeedFragment"
-        android:label="FeedFragment" />
-
-    <fragment
-        android:id="@+id/chatsFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.ChatsFragment"
-        android:label="ChatsFragment" />
-
-    <fragment
-        android:id="@+id/accountFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.AccountFragment"
-        android:label="AccountFragment" />
+        android:id="@+id/splashFragment"
+        android:name="ru.ermakov.creator.presentation.fragment.SplashFragment"
+        android:label="SplashFragment">
+        <action
+            android:id="@+id/action_splashFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_feedFragment"
+            app:destination="@id/feedFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.SignInFragment"
+        android:name="ru.ermakov.creator.presentation.fragment.auth.SignInFragment"
         android:label="SignInFragment">
         <action
             android:id="@+id/action_signInFragment_to_feedFragment"
@@ -46,7 +47,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.SignUpFragment"
+        android:name="ru.ermakov.creator.presentation.fragment.auth.SignUpFragment"
         android:label="SignUpFragment">
         <action
             android:id="@+id/action_signUpFragment_to_verificationEmailFragment"
@@ -59,7 +60,7 @@
 
     <fragment
         android:id="@+id/verificationEmailFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.VerificationEmailFragment"
+        android:name="ru.ermakov.creator.presentation.fragment.auth.VerificationEmailFragment"
         android:label="VerificationEmailFragment">
         <action
             android:id="@+id/action_verificationEmailFragment_to_signInFragment"
@@ -74,4 +75,19 @@
             android:name="email"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="ru.ermakov.creator.presentation.fragment.FeedFragment"
+        android:label="FeedFragment" />
+
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="ru.ermakov.creator.presentation.fragment.ChatsFragment"
+        android:label="ChatsFragment" />
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="ru.ermakov.creator.presentation.fragment.AccountFragment"
+        android:label="AccountFragment" />
 </navigation>

@@ -3,15 +3,39 @@ package ru.ermakov.creator.di.domain
 import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.repository.AuthRepository
-import ru.ermakov.creator.domain.useCase.signUp.PasswordsAreTheSameUseCase
-import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
-import ru.ermakov.creator.domain.useCase.signUp.IsEmptyDataUseCase
+import ru.ermakov.creator.domain.useCase.auth.signIn.IsEmptySignInDataUseCase
+import ru.ermakov.creator.domain.useCase.auth.signIn.SignInUseCase
+import ru.ermakov.creator.domain.useCase.auth.signIn.SignedInUseCase
+import ru.ermakov.creator.domain.useCase.auth.signUp.IsEmptySignUpDataUseCase
+import ru.ermakov.creator.domain.useCase.auth.signUp.PasswordsAreTheSameUseCase
+import ru.ermakov.creator.domain.useCase.auth.signUp.SignUpUseCase
 
 @Module
 class UseCaseModule {
     @Provides
-    fun provideIsEmptyDataUseCase(): IsEmptyDataUseCase {
-        return IsEmptyDataUseCase()
+    fun provideIsEmptySignInDataUseCase(): IsEmptySignInDataUseCase {
+        return IsEmptySignInDataUseCase()
+    }
+
+    @Provides
+    fun provideSignedInUseCase(authRepository: AuthRepository): SignedInUseCase {
+        return SignedInUseCase(authRepository = authRepository)
+    }
+
+    @Provides
+    fun provideSignInUseCase(
+        authRepository: AuthRepository,
+        isEmptySignInDataUseCase: IsEmptySignInDataUseCase,
+    ): SignInUseCase {
+        return SignInUseCase(
+            authRepository = authRepository,
+            isEmptySignInDataUseCase = isEmptySignInDataUseCase
+        )
+    }
+
+    @Provides
+    fun provideIsEmptySignUpDataUseCase(): IsEmptySignUpDataUseCase {
+        return IsEmptySignUpDataUseCase()
     }
 
     @Provides
@@ -22,12 +46,12 @@ class UseCaseModule {
     @Provides
     fun provideSignUpUseCase(
         authRepository: AuthRepository,
-        isEmptyDataUseCase: IsEmptyDataUseCase,
+        isEmptySignUpDataUseCase: IsEmptySignUpDataUseCase,
         passwordsAreTheSameUseCase: PasswordsAreTheSameUseCase
     ): SignUpUseCase {
         return SignUpUseCase(
             authRepository = authRepository,
-            isEmptyDataUseCase = isEmptyDataUseCase,
+            isEmptySignUpDataUseCase = isEmptySignUpDataUseCase,
             passwordsAreTheSameUseCase = passwordsAreTheSameUseCase
         )
     }

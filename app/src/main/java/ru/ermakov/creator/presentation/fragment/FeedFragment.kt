@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import ru.ermakov.creator.databinding.FragmentFeedBinding
 
 class FeedFragment : Fragment() {

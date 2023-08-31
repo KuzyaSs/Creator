@@ -1,7 +1,6 @@
-package ru.ermakov.creator.domain.model
+package ru.ermakov.creator.data.storage.remote.model
 
-data class User(
-    val id: String,
+data class RemoteUser(
     val email: String,
     val username: String,
     val image: String,

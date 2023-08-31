@@ -1,8 +1,8 @@
-package ru.ermakov.creator.presentation.viewModel.signUp
+package ru.ermakov.creator.presentation.viewModel.auth.signUp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
+import ru.ermakov.creator.domain.useCase.auth.signUp.SignUpUseCase
 
 class SignUpViewModelFactory(private val signUpUseCase: SignUpUseCase) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -1,13 +1,15 @@
-package ru.ermakov.creator.presentation.viewModel.signIn
+package ru.ermakov.creator.presentation.viewModel.auth.signIn
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import ru.ermakov.creator.domain.useCase.auth.signIn.SignInUseCase
 
-class SignInViewModelFactory : ViewModelProvider.Factory {
+class SignInViewModelFactory(private val signInUseCase: SignInUseCase) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SignInViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return SignInViewModel() as T
+            return SignInViewModel(signInUseCase = signInUseCase) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

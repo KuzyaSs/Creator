@@ -3,6 +3,7 @@ package ru.ermakov.creator.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import ru.ermakov.creator.di.data.LocalModule
 import ru.ermakov.creator.di.data.MapperModule
 import ru.ermakov.creator.di.data.RemoteModule
 import ru.ermakov.creator.di.data.RepositoryModule
@@ -12,11 +13,13 @@ import ru.ermakov.creator.presentation.activity.CreatorActivity
 import ru.ermakov.creator.presentation.fragment.AccountFragment
 import ru.ermakov.creator.presentation.fragment.ChatsFragment
 import ru.ermakov.creator.presentation.fragment.FeedFragment
-import ru.ermakov.creator.presentation.fragment.SignInFragment
-import ru.ermakov.creator.presentation.fragment.SignUpFragment
+import ru.ermakov.creator.presentation.fragment.SplashFragment
+import ru.ermakov.creator.presentation.fragment.auth.SignInFragment
+import ru.ermakov.creator.presentation.fragment.auth.SignUpFragment
 
 @Component(
     modules = [
+        LocalModule::class,
         MapperModule::class,
         RemoteModule::class,
         RepositoryModule::class,
@@ -34,6 +37,7 @@ interface ApplicationComponent {
     fun inject(activity: CreatorActivity)
 
     // Fragments
+    fun inject(fragment: SplashFragment)
     fun inject(fragment: SignInFragment)
     fun inject(fragment: SignUpFragment)
     fun inject(fragment: FeedFragment)

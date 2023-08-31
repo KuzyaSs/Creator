@@ -2,15 +2,23 @@ package ru.ermakov.creator.di.presentation
 
 import dagger.Module
 import dagger.Provides
-import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
-import ru.ermakov.creator.presentation.viewModel.signIn.SignInViewModelFactory
-import ru.ermakov.creator.presentation.viewModel.signUp.SignUpViewModelFactory
+import ru.ermakov.creator.domain.useCase.auth.signIn.SignInUseCase
+import ru.ermakov.creator.domain.useCase.auth.signIn.SignedInUseCase
+import ru.ermakov.creator.domain.useCase.auth.signUp.SignUpUseCase
+import ru.ermakov.creator.presentation.viewModel.auth.signIn.SignInViewModelFactory
+import ru.ermakov.creator.presentation.viewModel.auth.signUp.SignUpViewModelFactory
+import ru.ermakov.creator.presentation.viewModel.splash.SplashViewModelFactory
 
 @Module
 class ViewModelFactoryModule {
     @Provides
-    fun provideSignInViewModelFactory(): SignInViewModelFactory {
-        return SignInViewModelFactory()
+    fun provideSplashViewModelFactory(signedInUseCase: SignedInUseCase): SplashViewModelFactory {
+        return SplashViewModelFactory(signedInUseCase = signedInUseCase)
+    }
+
+    @Provides
+    fun provideSignInViewModelFactory(signInUseCase: SignInUseCase): SignInViewModelFactory {
+        return SignInViewModelFactory(signInUseCase = signInUseCase)
     }
 
     @Provides

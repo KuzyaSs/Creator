@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.fragment
+package ru.ermakov.creator.presentation.fragment.auth
 
 import android.os.Bundle
 import android.text.Html
@@ -46,8 +46,10 @@ class VerificationEmailFragment : Fragment() {
     }
 
     private fun navigateToSignInFragment(email: String) {
-        val action = VerificationEmailFragmentDirections
-            .actionVerificationEmailFragmentToSignInFragment(email = email)
+        val action =
+            VerificationEmailFragmentDirections.actionVerificationEmailFragmentToSignInFragment(
+                email = email
+            )
         findNavController().navigate(action)
     }
 
