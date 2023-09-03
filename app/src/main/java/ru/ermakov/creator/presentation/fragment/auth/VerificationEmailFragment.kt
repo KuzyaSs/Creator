@@ -46,14 +46,17 @@ class VerificationEmailFragment : Fragment() {
     }
 
     private fun navigateToSignInFragment(email: String) {
-        val action =
-            VerificationEmailFragmentDirections.actionVerificationEmailFragmentToSignInFragment(
-                email = email
-            )
+        val action = VerificationEmailFragmentDirections
+                .actionVerificationEmailFragmentToSignInFragment(email = email)
         findNavController().navigate(action)
     }
 
     private fun goBack() {
         requireActivity().onBackPressedDispatcher.onBackPressed()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

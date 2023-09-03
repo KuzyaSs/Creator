@@ -3,8 +3,7 @@
 
     <style name="TextInputLayout">
         <item name="android:textColorHint">?attr/colorPrimary</item>
-        <item name="boxStrokeColor">@color/purple</item>
-        <item name="boxStrokeErrorColor">@color/red</item>
+        <item name="boxStrokeColor">?attr/colorAccent</item>
         <item name="endIconTint">?attr/colorPrimary</item>
     </style>
 
@@ -25,13 +24,25 @@
 
     <style name="PrimaryButton">
         <item name="android:textColor">@color/white</item>
-        <item name="android:backgroundTint">@color/purple</item>
+        <item name="android:backgroundTint">?attr/colorAccent</item>
     </style>
 
     <style name="ProgressBar">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:indeterminate">true</item>
-        <item name="indicatorColor">@color/purple</item>
+        <item name="indicatorColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="BottomNavigationActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:width">0dp</item>
+        <item name="android:height">0dp</item>
+        <item name="marginHorizontal">0dp</item>
+        <item name="android:color">@android:color/transparent</item>
+    </style>
+
+    <style name="BottomNavigationText">
+        <item name="android:textSize">12sp</item>
+        <item name="fontFamily">sans-serif-thin</item>
     </style>
 </resources>

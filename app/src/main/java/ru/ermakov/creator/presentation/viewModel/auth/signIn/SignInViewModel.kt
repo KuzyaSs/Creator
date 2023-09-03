@@ -20,8 +20,4 @@ class SignInViewModel(private val signInUseCase: SignInUseCase) : ViewModel() {
             _signInData.postValue(signInUseCase.execute(signInData = signInData))
         }
     }
-
-    fun resetPassword() {
-
-    }
 }

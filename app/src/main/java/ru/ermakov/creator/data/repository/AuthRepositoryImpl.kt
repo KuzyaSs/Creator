@@ -129,4 +129,30 @@ class AuthRepositoryImpl(
             }
         }
     }
+
+    override suspend fun resetPassword(email: String): Resource<String> {
+        try {
+            authService.sendPasswordResetEmail(email)
+            return Resource.Success(data = email)
+
+        } catch (exception: Exception) {
+            return when (exception) {
+                is FirebaseNetworkException -> {
+                    Resource.Error(data = null, message = NETWORK_EXCEPTION)
+                }
+
+                is FirebaseAuthInvalidCredentialsException -> {
+                    Resource.Error(data = null, message = EMAIL_FORMAT_EXCEPTION)
+                }
+
+                is FirebaseAuthInvalidUserException -> {
+                    Resource.Error(data = null, message = INVALID_USER_EXCEPTION)
+                }
+
+                else -> {
+                    Resource.Error(data = null, message = UNKNOWN_EXCEPTION)
+                }
+            }
+        }
+    }
 }

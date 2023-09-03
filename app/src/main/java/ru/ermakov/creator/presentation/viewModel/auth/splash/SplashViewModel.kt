@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.viewModel.splash
+package ru.ermakov.creator.presentation.viewModel.auth.splash
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

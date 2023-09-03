@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.ermakov.creator.databinding.FragmentAccountBinding
+import ru.ermakov.creator.presentation.activity.CreatorActivity
 
 class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
@@ -18,6 +19,11 @@ class AccountFragment : Fragment() {
     ): View {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as CreatorActivity).showBottomNavigationView()
     }
 
     override fun onDestroyView() {

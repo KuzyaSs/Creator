@@ -13,7 +13,8 @@ import ru.ermakov.creator.presentation.activity.CreatorActivity
 import ru.ermakov.creator.presentation.fragment.AccountFragment
 import ru.ermakov.creator.presentation.fragment.ChatsFragment
 import ru.ermakov.creator.presentation.fragment.FeedFragment
-import ru.ermakov.creator.presentation.fragment.SplashFragment
+import ru.ermakov.creator.presentation.fragment.auth.PasswordRecoveryFragment
+import ru.ermakov.creator.presentation.fragment.auth.SplashFragment
 import ru.ermakov.creator.presentation.fragment.auth.SignInFragment
 import ru.ermakov.creator.presentation.fragment.auth.SignUpFragment
 
@@ -40,6 +41,7 @@ interface ApplicationComponent {
     fun inject(fragment: SplashFragment)
     fun inject(fragment: SignInFragment)
     fun inject(fragment: SignUpFragment)
+    fun inject(fragment: PasswordRecoveryFragment)
     fun inject(fragment: FeedFragment)
     fun inject(fragment: ChatsFragment)
     fun inject(fragment: AccountFragment)

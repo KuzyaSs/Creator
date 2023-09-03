@@ -9,6 +9,6 @@ interface AuthRepository {
     suspend fun signedIn(): Resource<SignInData>
     suspend fun signUp(signUpData: SignUpData): Resource<SignUpData>
 
+    suspend fun resetPassword(email: String): Resource<String>
     // fun signOut()
-    // fun validateEmail(signUpData: SignUpData)
 }

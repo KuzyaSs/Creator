@@ -35,11 +35,11 @@
 
         <TextView
             android:id="@+id/textViewSignUp"
+            style="@style/BaseTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/sign_up_label"
-            android:textColor="?attr/colorPrimary"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +128,7 @@
             app:layout_constraintTop_toBottomOf="@id/textInputLayoutConfirmPassword" />
 
         <TextView
-            android:id="@+id/textViewError"
+            android:id="@+id/textViewErrorMessage"
             style="@style/ErrorTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

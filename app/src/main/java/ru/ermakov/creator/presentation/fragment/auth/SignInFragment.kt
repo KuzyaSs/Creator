@@ -62,7 +62,7 @@ class SignInFragment : Fragment() {
 
     private fun setUpListeners() {
         binding.buttonSignIn.setOnClickListener { signIn() }
-        binding.textViewForgotPassword.setOnClickListener { navigateToForgotPasswordFragment() }
+        binding.textViewForgotPassword.setOnClickListener { navigateToPasswordRecoveryFragment() }
         binding.textViewSignUp.setOnClickListener { navigateToSignUpFragment() }
     }
 
@@ -91,7 +91,6 @@ class SignInFragment : Fragment() {
     }
 
     private fun signIn() {
-        Toast.makeText(requireContext(), "*Sign In*", Toast.LENGTH_SHORT).show()
         binding.apply {
             val signInData = SignInData(
                 email = textInputEditTextEmail.text.toString(),
@@ -101,13 +100,11 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun navigateToForgotPasswordFragment() {
-        Toast.makeText(requireContext(), "*Forgot Password*", Toast.LENGTH_SHORT).show()
-        /*        FirebaseAuth.getInstance().sendPasswordResetEmail("123").addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Update", Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener {
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
-                }*/
+    private fun navigateToPasswordRecoveryFragment() {
+        val action = SignInFragmentDirections.actionSignInFragmentToPasswordRecoveryFragment(
+            binding.textInputEditTextEmail.text.toString()
+        )
+        findNavController().navigate(action)
     }
 
     private fun navigateToSignUpFragment() {
@@ -171,14 +168,14 @@ class SignInFragment : Fragment() {
     }
 
     private fun showError(errorMessage: String) {
-        binding.textViewError.apply {
+        binding.textViewErrorMessage.apply {
             text = errorMessage
             isVisible = true
         }
     }
 
     private fun hideError() {
-        binding.textViewError.isVisible = false
+        binding.textViewErrorMessage.isVisible = false
     }
 
     override fun onDestroyView() {

@@ -161,14 +161,14 @@ class SignUpFragment : Fragment() {
     }
 
     private fun showError(errorMessage: String) {
-        binding.textViewError.apply {
+        binding.textViewErrorMessage.apply {
             text = errorMessage
             isVisible = true
         }
     }
 
     private fun hideError() {
-        binding.textViewError.isVisible = false
+        binding.textViewErrorMessage.isVisible = false
     }
 
     override fun onDestroyView() {

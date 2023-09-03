@@ -3,6 +3,7 @@ package ru.ermakov.creator.di.domain
 import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.repository.AuthRepository
+import ru.ermakov.creator.domain.useCase.auth.passwordRecovery.PasswordRecoveryUseCase
 import ru.ermakov.creator.domain.useCase.auth.signIn.IsEmptySignInDataUseCase
 import ru.ermakov.creator.domain.useCase.auth.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.auth.signIn.SignedInUseCase
@@ -12,6 +13,11 @@ import ru.ermakov.creator.domain.useCase.auth.signUp.SignUpUseCase
 
 @Module
 class UseCaseModule {
+    @Provides
+    fun providePasswordRecoveryUseCase(authRepository: AuthRepository): PasswordRecoveryUseCase {
+        return PasswordRecoveryUseCase(authRepository = authRepository)
+    }
+
     @Provides
     fun provideIsEmptySignInDataUseCase(): IsEmptySignInDataUseCase {
         return IsEmptySignInDataUseCase()

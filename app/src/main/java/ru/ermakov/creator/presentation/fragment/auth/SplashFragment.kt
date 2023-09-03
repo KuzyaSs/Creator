@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.fragment
+package ru.ermakov.creator.presentation.fragment.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSplashBinding
-import ru.ermakov.creator.presentation.viewModel.splash.SplashViewModel
-import ru.ermakov.creator.presentation.viewModel.splash.SplashViewModelFactory
+import ru.ermakov.creator.presentation.viewModel.auth.splash.SplashViewModel
+import ru.ermakov.creator.presentation.viewModel.auth.splash.SplashViewModelFactory
 import ru.ermakov.creator.util.Constant.Companion.EMPTY_STRING
 import ru.ermakov.creator.util.Constant.Companion.NETWORK_EXCEPTION
 import ru.ermakov.creator.util.Resource
@@ -75,7 +75,8 @@ class SplashFragment : Fragment() {
     }
 
     private fun navigateToSignInFragment() {
-        val action = SplashFragmentDirections.actionSplashFragmentToSignInFragment(email = EMPTY_STRING)
+        val action =
+            SplashFragmentDirections.actionSplashFragmentToSignInFragment(email = EMPTY_STRING)
         findNavController().navigate(action)
     }
 
