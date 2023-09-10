@@ -8,8 +8,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import kotlinx.coroutines.delay
 import ru.ermakov.creator.data.repository.mapper.AuthUserToRemoteUserMapper
-import ru.ermakov.creator.data.service.auth.AuthService
-import ru.ermakov.creator.data.storage.local.UserDataSource
+import ru.ermakov.creator.data.service.AuthService
+import ru.ermakov.creator.data.storage.local.SingInDataSource
 import ru.ermakov.creator.data.storage.remote.UserRemoteDataSource
 import ru.ermakov.creator.domain.model.SignInData
 import ru.ermakov.creator.domain.model.SignUpData
@@ -29,13 +29,13 @@ import ru.ermakov.creator.util.exception.InvalidUserException
 class AuthRepositoryImpl(
     private val authService: AuthService,
     private val userRemoteDataSource: UserRemoteDataSource,
-    private val userDataSource: UserDataSource,
+    private val singInDataSource: SingInDataSource,
     private val authUserToRemoteUserMapper: AuthUserToRemoteUserMapper,
 ) : AuthRepository {
     override suspend fun signIn(signInData: SignInData): Resource<SignInData> {
         try {
             authService.signIn(signInData = signInData)
-            userDataSource.save(signInData = signInData)
+            singInDataSource.save(signInData = signInData)
             return Resource.Success(data = signInData)
         } catch (exception: Exception) {
             return when (exception) {
@@ -75,7 +75,7 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun signedIn(): Resource<SignInData> {
-        val signInData = userDataSource.get()
+        val signInData = singInDataSource.get()
         delay(SPLASH_SCREEN_DELAY)
         return try {
             authService.signedIn(signInData = signInData)

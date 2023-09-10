@@ -7,7 +7,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
-import ru.ermakov.creator.data.service.auth.AuthService
+import ru.ermakov.creator.data.service.AuthService
 import ru.ermakov.creator.data.storage.remote.UserRemoteDataSource
 
 @Module

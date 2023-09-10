@@ -10,9 +10,11 @@ import ru.ermakov.creator.di.data.RepositoryModule
 import ru.ermakov.creator.di.domain.UseCaseModule
 import ru.ermakov.creator.di.presentation.ViewModelFactoryModule
 import ru.ermakov.creator.presentation.activity.CreatorActivity
-import ru.ermakov.creator.presentation.fragment.AccountFragment
+import ru.ermakov.creator.presentation.fragment.account.AccountFragment
 import ru.ermakov.creator.presentation.fragment.ChatsFragment
 import ru.ermakov.creator.presentation.fragment.FeedFragment
+import ru.ermakov.creator.presentation.fragment.account.AccountSettingsFragment
+import ru.ermakov.creator.presentation.fragment.account.EditProfileFragment
 import ru.ermakov.creator.presentation.fragment.auth.PasswordRecoveryFragment
 import ru.ermakov.creator.presentation.fragment.auth.SplashFragment
 import ru.ermakov.creator.presentation.fragment.auth.SignInFragment
@@ -45,4 +47,6 @@ interface ApplicationComponent {
     fun inject(fragment: FeedFragment)
     fun inject(fragment: ChatsFragment)
     fun inject(fragment: AccountFragment)
+    fun inject(fragment: AccountSettingsFragment)
+    fun inject(fragment: EditProfileFragment)
 }

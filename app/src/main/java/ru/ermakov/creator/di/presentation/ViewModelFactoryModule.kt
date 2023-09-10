@@ -6,6 +6,8 @@ import ru.ermakov.creator.domain.useCase.auth.passwordRecovery.PasswordRecoveryU
 import ru.ermakov.creator.domain.useCase.auth.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.auth.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.auth.signUp.SignUpUseCase
+import ru.ermakov.creator.presentation.viewModel.account.account.AccountViewModelFactory
+import ru.ermakov.creator.presentation.viewModel.account.editProfile.EditProfileViewModelFactory
 import ru.ermakov.creator.presentation.viewModel.auth.passwordRecovery.PasswordRecoveryViewModelFactory
 import ru.ermakov.creator.presentation.viewModel.auth.signIn.SignInViewModelFactory
 import ru.ermakov.creator.presentation.viewModel.auth.signUp.SignUpViewModelFactory
@@ -33,5 +35,15 @@ class ViewModelFactoryModule {
         passwordRecoveryUseCase: PasswordRecoveryUseCase
     ): PasswordRecoveryViewModelFactory {
         return PasswordRecoveryViewModelFactory(passwordRecoveryUseCase = passwordRecoveryUseCase)
+    }
+
+    @Provides
+    fun provideAccountViewModelFactory(): AccountViewModelFactory {
+        return AccountViewModelFactory()
+    }
+
+    @Provides
+    fun provideEditProfileViewModelFactory(): EditProfileViewModelFactory {
+        return EditProfileViewModelFactory()
     }
 }

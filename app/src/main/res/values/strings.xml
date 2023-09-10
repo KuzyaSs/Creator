@@ -31,4 +31,20 @@
     <string name="reset_password">Reset password</string>
     <string name="password_recovery_email">Password recovery email sent to your email</string>
     <string name="tell_some_information">Tell us some information about your account</string>
+    <string name="my_blog">My blog</string>
+    <string name="subscriptions">Subscriptions</string>
+    <string name="account_settings">Account settings</string>
+    <string name="wallet">Wallet</string>
+    <string name="support">Support</string>
+    <string name="files">Files</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="three_dots">. . .</string>
+    <string name="username">Username</string>
+    <string name="id">ID</string>
+    <string name="edit">Edit</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="change_password">Change password</string>
+    <string name="about">About</string>
+    <string name="profile_background">Profile background</string>
+    <string name="profile_avatar">Profile avatar</string>
 </resources>

@@ -4,7 +4,7 @@ class Constant {
     companion object {
         const val SPLASH_SCREEN_DELAY = 1500L
 
-        const val SHARED_PREFS_NAME = "ru.ermakov.creator"
+        const val PROJECT_NAME = "ru.ermakov.creator"
         const val KEY_EMAIL = "email"
         const val KEY_PASSWORD = "password"
 

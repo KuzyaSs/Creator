@@ -6,7 +6,7 @@ import ru.ermakov.creator.util.Constant.Companion.EMPTY_STRING
 import ru.ermakov.creator.util.Constant.Companion.KEY_EMAIL
 import ru.ermakov.creator.util.Constant.Companion.KEY_PASSWORD
 
-class UserDataSource(private val sharedPreferences: SharedPreferences) {
+class SingInDataSource(private val sharedPreferences: SharedPreferences) {
     fun save(signInData: SignInData) {
         sharedPreferences.edit().apply {
             putString(KEY_EMAIL, signInData.email)

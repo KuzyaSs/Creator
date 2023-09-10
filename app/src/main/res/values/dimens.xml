@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="extra_large_font_size">20sp</dimen>
+    <dimen name="large_font_size">18sp</dimen>
+    <dimen name="base_font_size">16sp</dimen>
+    <dimen name="small_font_size">12sp</dimen>
+
+    <dimen name="base_margin_size">16dp</dimen>
+    <dimen name="medium_margin_size">12dp</dimen>
+    <dimen name="small_margin_size">8dp</dimen>
+
+    <dimen name="profile_background_height">175dp</dimen>
+    <dimen name="profile_avatar_size">125dp</dimen>
+    <dimen name="profile_avatar_margin_top">90dp</dimen>
+</resources>

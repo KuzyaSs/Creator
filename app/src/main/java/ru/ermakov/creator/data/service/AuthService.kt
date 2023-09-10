@@ -1,4 +1,4 @@
-package ru.ermakov.creator.data.service.auth
+package ru.ermakov.creator.data.service
 
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth

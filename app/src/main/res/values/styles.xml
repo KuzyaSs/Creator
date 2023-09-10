@@ -12,9 +12,9 @@
     </style>
 
     <style name="ErrorTextView">
-        <item name="android:drawablePadding">4dp</item>
+        <item name="android:drawablePadding">@dimen/small_margin_size</item>
         <item name="android:textColor">?attr/colorPrimary</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/base_font_size</item>
         <item name="drawableStartCompat">@drawable/ic_error</item>
     </style>
 
@@ -23,7 +23,7 @@
     </style>
 
     <style name="PrimaryButton">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">?attr/colorButtonNormal</item>
         <item name="android:backgroundTint">?attr/colorAccent</item>
     </style>
 
@@ -42,7 +42,21 @@
     </style>
 
     <style name="BottomNavigationText">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/small_font_size</item>
         <item name="fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="LabelTextView" parent="BaseTextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/base_margin_size</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_size</item>
+        <item name="android:layout_marginEnd">@dimen/base_margin_size</item>
+        <item name="android:background">@drawable/label_background</item>
+        <item name="android:drawablePadding">@dimen/small_margin_size</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/base_margin_size</item>
+        <item name="android:textSize">@dimen/base_font_size</item>
+        <item name="drawableTint">?attr/colorAccent</item>
     </style>
 </resources>
