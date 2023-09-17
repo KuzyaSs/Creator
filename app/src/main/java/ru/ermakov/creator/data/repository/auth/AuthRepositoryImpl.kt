@@ -1,4 +1,4 @@
-package ru.ermakov.creator.data.repository
+package ru.ermakov.creator.data.repository.auth
 
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -7,13 +7,13 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import kotlinx.coroutines.delay
-import ru.ermakov.creator.data.repository.mapper.AuthUserToRemoteUserMapper
 import ru.ermakov.creator.data.service.AuthService
-import ru.ermakov.creator.data.storage.local.SingInDataSource
-import ru.ermakov.creator.data.storage.remote.UserRemoteDataSource
+import ru.ermakov.creator.data.dataSource.local.SingInLocalDataSource
+import ru.ermakov.creator.data.toUser
 import ru.ermakov.creator.domain.model.SignInData
 import ru.ermakov.creator.domain.model.SignUpData
 import ru.ermakov.creator.domain.repository.AuthRepository
+import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.util.Constant.Companion.EMAIL_COLLISION_EXCEPTION
 import ru.ermakov.creator.util.Constant.Companion.EMAIL_FORMAT_EXCEPTION
 import ru.ermakov.creator.util.Constant.Companion.INVALID_USER_EXCEPTION
@@ -27,18 +27,17 @@ import ru.ermakov.creator.util.exception.EmailVerificationException
 import ru.ermakov.creator.util.exception.InvalidUserException
 
 class AuthRepositoryImpl(
-    private val authService: AuthService,
-    private val userRemoteDataSource: UserRemoteDataSource,
-    private val singInDataSource: SingInDataSource,
-    private val authUserToRemoteUserMapper: AuthUserToRemoteUserMapper,
+    private val userRepository: UserRepository,
+    private val singInLocalDataSource: SingInLocalDataSource,
+    private val authService: AuthService
 ) : AuthRepository {
     override suspend fun signIn(signInData: SignInData): Resource<SignInData> {
-        try {
+        return try {
             authService.signIn(signInData = signInData)
-            singInDataSource.save(signInData = signInData)
-            return Resource.Success(data = signInData)
+            singInLocalDataSource.save(signInData = signInData)
+            Resource.Success(data = signInData)
         } catch (exception: Exception) {
-            return when (exception) {
+            when (exception) {
                 is FirebaseNetworkException -> {
                     Resource.Error(data = null, message = NETWORK_EXCEPTION)
                 }
@@ -75,7 +74,7 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun signedIn(): Resource<SignInData> {
-        val signInData = singInDataSource.get()
+        val signInData = singInLocalDataSource.get()
         delay(SPLASH_SCREEN_DELAY)
         return try {
             authService.signedIn(signInData = signInData)
@@ -94,15 +93,12 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun signUp(signUpData: SignUpData): Resource<SignUpData> {
-        try {
+        return try {
             val authUser = authService.signUp(signUpData = signUpData)
-            userRemoteDataSource.insert(
-                remoteUser = authUserToRemoteUserMapper.map(source = authUser),
-                id = authUser.uid
-            )
-            return Resource.Success(data = signUpData)
+            userRepository.insertUser(authUser.toUser())
+            Resource.Success(data = signUpData)
         } catch (exception: Exception) {
-            return when (exception) {
+            when (exception) {
                 is FirebaseNetworkException -> {
                     Resource.Error(data = null, message = NETWORK_EXCEPTION)
                 }
@@ -131,12 +127,12 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun resetPassword(email: String): Resource<String> {
-        try {
+        return try {
             authService.sendPasswordResetEmail(email)
-            return Resource.Success(data = email)
+            Resource.Success(data = email)
 
         } catch (exception: Exception) {
-            return when (exception) {
+            when (exception) {
                 is FirebaseNetworkException -> {
                     Resource.Error(data = null, message = NETWORK_EXCEPTION)
                 }

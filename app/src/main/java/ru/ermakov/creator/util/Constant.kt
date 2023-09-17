@@ -7,6 +7,7 @@ class Constant {
         const val PROJECT_NAME = "ru.ermakov.creator"
         const val KEY_EMAIL = "email"
         const val KEY_PASSWORD = "password"
+        const val KEY_PROFILE_AVATAR = "profileAvatar"
 
         const val EMPTY_STRING = ""
 

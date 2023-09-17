@@ -1,4 +1,4 @@
-package ru.ermakov.creator.data.storage.local.database.dao
+package ru.ermakov.creator.data.dataSource.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-import ru.ermakov.creator.data.storage.local.database.model.UserEntity
+import ru.ermakov.creator.data.dataSource.local.database.model.UserEntity
 
 @Dao
 interface UserDao {
@@ -21,7 +21,7 @@ interface UserDao {
     suspend fun update(userEntity: UserEntity)
 
     @Query("SELECT * FROM user WHERE id = :id")
-    fun getUserById(id: Int): UserEntity?
+    fun getUserById(id: String): Flow<UserEntity?>
 
     @Query("SELECT * FROM user WHERE id != :currentUserId")
     fun getUserList(currentUserId: Int): Flow<List<UserEntity>>

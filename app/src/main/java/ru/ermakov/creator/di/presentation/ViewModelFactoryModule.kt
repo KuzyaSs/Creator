@@ -2,6 +2,7 @@ package ru.ermakov.creator.di.presentation
 
 import dagger.Module
 import dagger.Provides
+import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.useCase.auth.passwordRecovery.PasswordRecoveryUseCase
 import ru.ermakov.creator.domain.useCase.auth.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.auth.signIn.SignedInUseCase
@@ -38,8 +39,8 @@ class ViewModelFactoryModule {
     }
 
     @Provides
-    fun provideAccountViewModelFactory(): AccountViewModelFactory {
-        return AccountViewModelFactory()
+    fun provideAccountViewModelFactory(userRepository: UserRepository): AccountViewModelFactory {
+        return AccountViewModelFactory(userRepository = userRepository)
     }
 
     @Provides

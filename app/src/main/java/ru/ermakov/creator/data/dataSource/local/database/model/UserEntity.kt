@@ -1,4 +1,4 @@
-package ru.ermakov.creator.data.storage.local.database.model
+package ru.ermakov.creator.data.dataSource.local.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -10,8 +10,9 @@ data class UserEntity(
     val id: String,
     val email: String,
     val username: String,
-    val image: String,
-    @ColumnInfo(name = "background_image")
-    val backgroundImage: String,
+    @ColumnInfo(name = "profile_avatar")
+    val profileAvatar: String,
+    @ColumnInfo(name = "profile_background")
+    val profileBackground: String,
     val about: String
 )

@@ -4,7 +4,6 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.ermakov.creator.di.data.LocalModule
-import ru.ermakov.creator.di.data.MapperModule
 import ru.ermakov.creator.di.data.RemoteModule
 import ru.ermakov.creator.di.data.RepositoryModule
 import ru.ermakov.creator.di.domain.UseCaseModule
@@ -19,17 +18,19 @@ import ru.ermakov.creator.presentation.fragment.auth.PasswordRecoveryFragment
 import ru.ermakov.creator.presentation.fragment.auth.SplashFragment
 import ru.ermakov.creator.presentation.fragment.auth.SignInFragment
 import ru.ermakov.creator.presentation.fragment.auth.SignUpFragment
+import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Component(
     modules = [
         LocalModule::class,
-        MapperModule::class,
         RemoteModule::class,
         RepositoryModule::class,
         UseCaseModule::class,
         ViewModelFactoryModule::class
     ]
 )
+@Singleton
 interface ApplicationComponent {
     @Component.Factory
     interface Factory {

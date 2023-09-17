@@ -43,7 +43,7 @@ class AuthService(private val firebaseAuth: FirebaseAuth) {
         firebaseAuth.sendPasswordResetEmail(email).await()
     }
 
-    private fun getCurrentUser(): FirebaseUser {
+    fun getCurrentUser(): FirebaseUser {
         return firebaseAuth.currentUser ?: throw InvalidUserException()
     }
 
