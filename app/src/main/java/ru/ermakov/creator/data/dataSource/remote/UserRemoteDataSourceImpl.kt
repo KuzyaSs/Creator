@@ -5,7 +5,6 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 import ru.ermakov.creator.data.dataSource.remote.model.RemoteUser
-import ru.ermakov.creator.data.repository.user.UserRemoteDataSource
 import ru.ermakov.creator.data.toRemoteUser
 import ru.ermakov.creator.data.toUser
 import ru.ermakov.creator.domain.model.User

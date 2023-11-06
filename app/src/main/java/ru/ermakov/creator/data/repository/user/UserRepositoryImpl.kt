@@ -6,15 +6,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import ru.ermakov.creator.data.dataSource.local.UserLocalDataSource
+import ru.ermakov.creator.data.dataSource.remote.UserRemoteDataSource
 import ru.ermakov.creator.data.service.AuthService
 import ru.ermakov.creator.data.service.LocalStorage
 import ru.ermakov.creator.data.service.RemoteStorage
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.util.Constant.Companion.NETWORK_EXCEPTION
 import ru.ermakov.creator.util.Constant.Companion.UNKNOWN_EXCEPTION
 import ru.ermakov.creator.util.Resource
-import ru.ermakov.creator.util.exception.InvalidUserException
+import ru.ermakov.creator.data.exception.InvalidUserException
 
 class UserRepositoryImpl(
     private val userLocalDataSource: UserLocalDataSource,

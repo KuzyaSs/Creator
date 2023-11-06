@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Creator"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.activity.CreatorActivity"
+            android:name=".presentation.screen.CreatorActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

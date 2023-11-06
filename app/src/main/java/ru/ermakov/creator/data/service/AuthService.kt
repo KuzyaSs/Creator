@@ -6,8 +6,8 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.tasks.await
 import ru.ermakov.creator.domain.model.SignInData
 import ru.ermakov.creator.domain.model.SignUpData
-import ru.ermakov.creator.util.exception.EmailVerificationException
-import ru.ermakov.creator.util.exception.InvalidUserException
+import ru.ermakov.creator.data.exception.EmailVerificationException
+import ru.ermakov.creator.data.exception.InvalidUserException
 
 class AuthService(private val firebaseAuth: FirebaseAuth) {
     suspend fun signIn(signInData: SignInData) {
@@ -39,19 +39,19 @@ class AuthService(private val firebaseAuth: FirebaseAuth) {
         throw InvalidUserException()
     }
 
-    suspend fun sendPasswordResetEmail(email: String) {
-        firebaseAuth.sendPasswordResetEmail(email).await()
+    private fun signOut() {
+        firebaseAuth.signOut()
     }
 
     fun getCurrentUser(): FirebaseUser {
         return firebaseAuth.currentUser ?: throw InvalidUserException()
     }
 
-    private fun signOut() {
-        firebaseAuth.signOut()
-    }
-
     private suspend fun sendEmailVerification(authUser: FirebaseUser) {
         authUser.sendEmailVerification().await()
+    }
+
+    suspend fun sendPasswordResetEmail(email: String) {
+        firebaseAuth.sendPasswordResetEmail(email).await()
     }
 }

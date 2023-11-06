@@ -3,22 +3,16 @@ package ru.ermakov.creator.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.ermakov.creator.di.data.LocalModule
-import ru.ermakov.creator.di.data.RemoteModule
-import ru.ermakov.creator.di.data.RepositoryModule
-import ru.ermakov.creator.di.domain.UseCaseModule
-import ru.ermakov.creator.di.presentation.ViewModelFactoryModule
-import ru.ermakov.creator.presentation.activity.CreatorActivity
-import ru.ermakov.creator.presentation.fragment.account.AccountFragment
-import ru.ermakov.creator.presentation.fragment.ChatsFragment
-import ru.ermakov.creator.presentation.fragment.FeedFragment
-import ru.ermakov.creator.presentation.fragment.account.AccountSettingsFragment
-import ru.ermakov.creator.presentation.fragment.account.EditProfileFragment
-import ru.ermakov.creator.presentation.fragment.auth.PasswordRecoveryFragment
-import ru.ermakov.creator.presentation.fragment.auth.SplashFragment
-import ru.ermakov.creator.presentation.fragment.auth.SignInFragment
-import ru.ermakov.creator.presentation.fragment.auth.SignUpFragment
-import javax.inject.Qualifier
+import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.account.AccountFragment
+import ru.ermakov.creator.presentation.screen.chats.ChatsFragment
+import ru.ermakov.creator.presentation.screen.feed.FeedFragment
+import ru.ermakov.creator.presentation.screen.accountSettings.AccountSettingsFragment
+import ru.ermakov.creator.presentation.screen.editProfile.EditProfileFragment
+import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment
+import ru.ermakov.creator.presentation.screen.splash.SplashFragment
+import ru.ermakov.creator.presentation.screen.signIn.SignInFragment
+import ru.ermakov.creator.presentation.screen.signUp.SignUpFragment
 import javax.inject.Singleton
 
 @Component(
@@ -27,7 +21,8 @@ import javax.inject.Singleton
         RemoteModule::class,
         RepositoryModule::class,
         UseCaseModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
+        ExceptionModule::class
     ]
 )
 @Singleton

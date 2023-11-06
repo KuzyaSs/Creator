@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.auth.SplashFragment"
+        android:name="ru.ermakov.creator.presentation.screen.splash.SplashFragment"
         android:label="SplashFragment">
         <action
             android:id="@+id/action_splashFragment_to_signInFragment"
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.auth.SignInFragment"
+        android:name="ru.ermakov.creator.presentation.screen.signIn.SignInFragment"
         android:label="SignInFragment">
         <action
             android:id="@+id/action_signInFragment_to_feedFragment"
@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.auth.SignUpFragment"
+        android:name="ru.ermakov.creator.presentation.screen.signUp.SignUpFragment"
         android:label="SignUpFragment">
         <action
             android:id="@+id/action_signUpFragment_to_verificationEmailFragment"
@@ -67,7 +67,7 @@
 
     <fragment
         android:id="@+id/passwordRecoveryFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.auth.PasswordRecoveryFragment"
+        android:name="ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment"
         android:label="PasswordRecoveryFragment">
         <argument
             android:name="email"
@@ -76,7 +76,7 @@
 
     <fragment
         android:id="@+id/verificationEmailFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.auth.VerificationEmailFragment"
+        android:name="ru.ermakov.creator.presentation.screen.verificationEmail.VerificationEmailFragment"
         android:label="VerificationEmailFragment">
         <action
             android:id="@+id/action_verificationEmailFragment_to_signInFragment"
@@ -94,17 +94,17 @@
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.FeedFragment"
+        android:name="ru.ermakov.creator.presentation.screen.feed.FeedFragment"
         android:label="FeedFragment" />
 
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.ChatsFragment"
+        android:name="ru.ermakov.creator.presentation.screen.chats.ChatsFragment"
         android:label="ChatsFragment" />
 
     <fragment
         android:id="@+id/accountFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.account.AccountFragment"
+        android:name="ru.ermakov.creator.presentation.screen.account.AccountFragment"
         android:label="AccountFragment">
         <action
             android:id="@+id/action_accountFragment_to_accountSettingsFragment"
@@ -117,7 +117,7 @@
 
     <fragment
         android:id="@+id/accountSettingsFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.account.AccountSettingsFragment"
+        android:name="ru.ermakov.creator.presentation.screen.accountSettings.AccountSettingsFragment"
         android:label="AccountSettingsFragment">
         <action
             android:id="@+id/action_accountSettingsFragment_to_editProfileFragment"
@@ -130,6 +130,6 @@
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="ru.ermakov.creator.presentation.fragment.account.EditProfileFragment"
+        android:name="ru.ermakov.creator.presentation.screen.editProfile.EditProfileFragment"
         android:label="EditProfileFragment" />
 </navigation>

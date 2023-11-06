@@ -3,7 +3,6 @@ package ru.ermakov.creator.data.dataSource.local
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.ermakov.creator.data.dataSource.local.database.dao.UserDao
-import ru.ermakov.creator.data.repository.user.UserLocalDataSource
 import ru.ermakov.creator.data.toUser
 import ru.ermakov.creator.data.toUserEntity
 import ru.ermakov.creator.domain.model.User
