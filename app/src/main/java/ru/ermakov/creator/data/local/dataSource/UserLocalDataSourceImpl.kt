@@ -1,10 +1,10 @@
-package ru.ermakov.creator.data.dataSource.local
+package ru.ermakov.creator.data.local.dataSource
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import ru.ermakov.creator.data.dataSource.local.database.dao.UserDao
-import ru.ermakov.creator.data.toUser
-import ru.ermakov.creator.data.toUserEntity
+import ru.ermakov.creator.data.local.dao.UserDao
+import ru.ermakov.creator.data.mapper.toUser
+import ru.ermakov.creator.data.mapper.toUserEntity
 import ru.ermakov.creator.domain.model.User
 import ru.ermakov.creator.util.Constant.Companion.INVALID_USER_EXCEPTION
 import ru.ermakov.creator.util.Resource

@@ -6,40 +6,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
-import ru.ermakov.creator.data.dataSource.local.UserLocalDataSource
-import ru.ermakov.creator.data.dataSource.remote.UserRemoteDataSource
-import ru.ermakov.creator.data.service.AuthService
-import ru.ermakov.creator.data.service.LocalStorage
-import ru.ermakov.creator.data.service.RemoteStorage
+import ru.ermakov.creator.data.exception.InvalidUserException
+import ru.ermakov.creator.data.local.dataSource.FileLocalDataSource
+import ru.ermakov.creator.data.local.dataSource.UserLocalDataSource
+import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
+import ru.ermakov.creator.data.remote.model.AuthUserRemote
 import ru.ermakov.creator.domain.model.User
 import ru.ermakov.creator.util.Constant.Companion.NETWORK_EXCEPTION
 import ru.ermakov.creator.util.Constant.Companion.UNKNOWN_EXCEPTION
 import ru.ermakov.creator.util.Resource
-import ru.ermakov.creator.data.exception.InvalidUserException
 
 class UserRepositoryImpl(
-    private val userLocalDataSource: UserLocalDataSource,
     private val userRemoteDataSource: UserRemoteDataSource,
-    private val localStorage: LocalStorage,
-    private val remoteStorage: RemoteStorage,
-    private val authService: AuthService
+    private val fileRemoteDataSource: FileRemoteDataSource,
+    private val authRemoteDataSource: AuthRemoteDataSource
 ) : UserRepository {
-    override suspend fun insertUser(user: User): Resource<User> {
-        return try {
-            userRemoteDataSource.insert(user = user)
-            Resource.Success(data = user)
-        } catch (exception: Exception) {
-            when (exception) {
-                is FirebaseNetworkException -> {
-                    Resource.Error(data = user, message = NETWORK_EXCEPTION)
-                }
-
-                else -> {
-                    Resource.Error(data = user, message = UNKNOWN_EXCEPTION)
-                }
-            }
-        }
-    }
 
     override suspend fun getUser(id: String): Flow<Resource<User>> {
         return try {
@@ -47,21 +30,21 @@ class UserRepositoryImpl(
                 CoroutineScope(Dispatchers.IO).launch {
                     var changedUser = user.copy()
                     if (user.profileAvatar.isNotEmpty()) {
-                        remoteStorage.download(
-                            file = localStorage.save(path = user.profileAvatar),
+                        fileRemoteDataSource.download(
+                            file = fileLocalDataSource.save(path = user.profileAvatar),
                             path = user.profileAvatar
                         )
                         changedUser = changedUser.copy(
-                            profileAvatar = localStorage.getRootPath() + changedUser.profileAvatar
+                            profileAvatar = fileLocalDataSource.getRootPath() + changedUser.profileAvatar
                         )
                     }
                     if (user.profileBackground.isNotEmpty()) {
-                        remoteStorage.download(
-                            file = localStorage.save(path = user.profileBackground),
+                        fileRemoteDataSource.download(
+                            file = fileLocalDataSource.save(path = user.profileBackground),
                             path = user.profileBackground
                         )
                         changedUser = changedUser.copy(
-                            profileBackground = localStorage.getRootPath() + changedUser.profileBackground
+                            profileBackground = fileLocalDataSource.getRootPath() + changedUser.profileBackground
                         )
                     }
                     userLocalDataSource.insert(user = changedUser)
@@ -85,15 +68,15 @@ class UserRepositoryImpl(
         }
     }
 
-    override suspend fun getCurrentUser(): Flow<Resource<User>> {
-        val id = authService.getCurrentUser().uid
+    override suspend fun getCurrentUser(): Resource<User> {
+        val id = authRemoteDataSource.getCurrentUser().uid
         return getUser(id = id)
     }
 
-    override suspend fun updateUser(user: User): Resource<User> {
+    override suspend fun insertUser(authUserRemote: AuthUserRemote): Resource<AuthUserRemote> {
         return try {
-            userRemoteDataSource.update(user = user)
-            Resource.Success(data = user)
+            userRemoteDataSource.insertUser(authUserRemote = authUserRemote)
+            Resource.Success(data = authUserRemote)
         } catch (exception: Exception) {
             when (exception) {
                 is FirebaseNetworkException -> {
@@ -107,7 +90,20 @@ class UserRepositoryImpl(
         }
     }
 
-    override fun detachUserListener() {
-        userRemoteDataSource.detachListener()
+    override suspend fun updateUser(user: User): Resource<User> {
+        return try {
+            userRemoteDataSource.updateUser(user = user)
+            Resource.Success(data = user)
+        } catch (exception: Exception) {
+            when (exception) {
+                is FirebaseNetworkException -> {
+                    Resource.Error(data = user, message = NETWORK_EXCEPTION)
+                }
+
+                else -> {
+                    Resource.Error(data = user, message = UNKNOWN_EXCEPTION)
+                }
+            }
+        }
     }
 }

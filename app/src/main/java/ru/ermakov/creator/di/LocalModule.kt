@@ -5,12 +5,14 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import ru.ermakov.creator.data.dataSource.local.AuthLocalDataSource
-import ru.ermakov.creator.data.dataSource.local.UserLocalDataSourceImpl
-import ru.ermakov.creator.data.dataSource.local.database.CreatorDatabase
-import ru.ermakov.creator.data.dataSource.local.database.dao.UserDao
-import ru.ermakov.creator.data.dataSource.local.UserLocalDataSource
-import ru.ermakov.creator.data.service.LocalStorage
+import ru.ermakov.creator.data.local.dataSource.AuthLocalDataSourceImpl
+import ru.ermakov.creator.data.local.dataSource.UserLocalDataSourceImpl
+import ru.ermakov.creator.data.local.CreatorDatabase
+import ru.ermakov.creator.data.local.dao.UserDao
+import ru.ermakov.creator.data.local.dataSource.AuthLocalDataSource
+import ru.ermakov.creator.data.local.dataSource.FileLocalDataSource
+import ru.ermakov.creator.data.local.dataSource.UserLocalDataSource
+import ru.ermakov.creator.data.local.dataSource.FileLocalDataSourceImpl
 import ru.ermakov.creator.util.Constant.Companion.PROJECT_NAME
 import java.io.File
 import javax.inject.Singleton
@@ -23,8 +25,8 @@ class LocalModule {
     }
 
     @Provides
-    fun provideLocalStorage(externalStorageFilesDir: File): LocalStorage {
-        return LocalStorage(externalStorageFilesDir = externalStorageFilesDir)
+    fun provideFileLocalDataSource(externalStorageFilesDir: File): FileLocalDataSource {
+        return FileLocalDataSourceImpl(externalStorageFilesDir = externalStorageFilesDir)
     }
 
     @Provides
@@ -33,8 +35,8 @@ class LocalModule {
     }
 
     @Provides
-    fun provideAuthDataSource(sharedPreferences: SharedPreferences): AuthLocalDataSource {
-        return AuthLocalDataSource(sharedPreferences = sharedPreferences)
+    fun provideAuthLocalDataSource(sharedPreferences: SharedPreferences): AuthLocalDataSource {
+        return AuthLocalDataSourceImpl(sharedPreferences = sharedPreferences)
     }
 
     @Singleton

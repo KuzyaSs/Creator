@@ -5,12 +5,9 @@ import ru.ermakov.creator.data.repository.user.auth.AuthRepository
 import ru.ermakov.creator.util.Constant.Companion.EMPTY_DATA_EXCEPTION
 import ru.ermakov.creator.util.Resource
 
-class SignInUseCase(
-    private val authRepository: AuthRepository,
-    private val isEmptySignInDataUseCase: IsEmptySignInDataUseCase
-) {
+class SignInUseCase(private val authRepository: AuthRepository) {
     suspend fun execute(signInData: SignInData): Resource<SignInData> {
-        if (isEmptySignInDataUseCase.execute(signInData = signInData)) {
+        if (signInData.email.isBlank() || signInData.password.isBlank()) {
             return Resource.Error(data = null, message = EMPTY_DATA_EXCEPTION)
         }
         return authRepository.signIn(signInData = signInData)

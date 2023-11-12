@@ -1,9 +1,9 @@
-package ru.ermakov.creator.data.dataSource.local.database
+package ru.ermakov.creator.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ru.ermakov.creator.data.dataSource.local.database.dao.UserDao
-import ru.ermakov.creator.data.dataSource.local.database.model.UserEntity
+import ru.ermakov.creator.data.local.dao.UserDao
+import ru.ermakov.creator.data.local.entity.UserEntity
 
 @Database(
     entities = [UserEntity::class],

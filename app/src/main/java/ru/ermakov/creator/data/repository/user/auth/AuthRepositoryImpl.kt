@@ -1,25 +1,24 @@
 package ru.ermakov.creator.data.repository.user.auth
 
 import kotlinx.coroutines.delay
-import ru.ermakov.creator.data.dataSource.local.AuthLocalDataSource
 import ru.ermakov.creator.data.exception.ExceptionHandler
-import ru.ermakov.creator.data.service.AuthService
-import ru.ermakov.creator.data.toUser
+import ru.ermakov.creator.data.local.dataSource.AuthLocalDataSource
+import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
+import ru.ermakov.creator.data.remote.model.AuthUserRemote
+import ru.ermakov.creator.data.repository.user.UserRepository
 import ru.ermakov.creator.domain.model.SignInData
 import ru.ermakov.creator.domain.model.SignUpData
-import ru.ermakov.creator.data.repository.user.UserRepository
 import ru.ermakov.creator.util.Constant.Companion.SPLASH_SCREEN_DELAY
 import ru.ermakov.creator.util.Resource
 
 class AuthRepositoryImpl(
-    private val userRepository: UserRepository,
     private val authLocalDataSource: AuthLocalDataSource,
-    private val authService: AuthService,
+    private val authRemoteDataSource: AuthRemoteDataSource,
     private val exceptionHandler: ExceptionHandler
 ) : AuthRepository {
     override suspend fun signIn(signInData: SignInData): Resource<SignInData> {
         return try {
-            authService.signIn(signInData = signInData)
+            authRemoteDataSource.signIn(signInData = signInData)
             authLocalDataSource.save(signInData = signInData)
             Resource.Success(data = signInData)
         } catch (exception: Exception) {
@@ -32,7 +31,7 @@ class AuthRepositoryImpl(
         val signInData = authLocalDataSource.get()
         delay(SPLASH_SCREEN_DELAY)
         return try {
-            authService.signedIn(signInData = signInData)
+            authRemoteDataSource.signedIn(signInData = signInData)
             Resource.Success(data = signInData)
         } catch (exception: Exception) {
             val message = exceptionHandler.handleException(exception = exception)
@@ -40,11 +39,10 @@ class AuthRepositoryImpl(
         }
     }
 
-    override suspend fun signUp(signUpData: SignUpData): Resource<SignUpData> {
+    override suspend fun signUp(signUpData: SignUpData): Resource<AuthUserRemote> {
         return try {
-            val authUser = authService.signUp(signUpData = signUpData)
-            userRepository.insertUser(authUser.toUser())
-            Resource.Success(data = signUpData)
+            val authUserRemote = authRemoteDataSource.signUp(signUpData = signUpData)
+            Resource.Success(data = authUserRemote)
         } catch (exception: Exception) {
             val message = exceptionHandler.handleException(exception = exception)
             Resource.Error(data = null, message = message)
@@ -53,7 +51,7 @@ class AuthRepositoryImpl(
 
     override suspend fun resetPassword(email: String): Resource<String> {
         return try {
-            authService.sendPasswordResetEmail(email)
+            authRemoteDataSource.sendPasswordResetEmail(email)
             Resource.Success(data = email)
         } catch (exception: Exception) {
             val message = exceptionHandler.handleException(exception = exception)

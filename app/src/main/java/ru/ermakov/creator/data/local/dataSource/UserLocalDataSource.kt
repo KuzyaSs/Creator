@@ -1,4 +1,4 @@
-package ru.ermakov.creator.data.dataSource.local
+package ru.ermakov.creator.data.local.dataSource
 
 import kotlinx.coroutines.flow.Flow
 import ru.ermakov.creator.domain.model.User

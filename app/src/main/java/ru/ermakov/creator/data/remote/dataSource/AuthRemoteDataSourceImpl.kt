@@ -1,4 +1,4 @@
-package ru.ermakov.creator.data.service
+package ru.ermakov.creator.data.remote.dataSource
 
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -8,50 +8,46 @@ import ru.ermakov.creator.domain.model.SignInData
 import ru.ermakov.creator.domain.model.SignUpData
 import ru.ermakov.creator.data.exception.EmailVerificationException
 import ru.ermakov.creator.data.exception.InvalidUserException
+import ru.ermakov.creator.data.mapper.toAuthUserRemote
+import ru.ermakov.creator.data.remote.model.AuthUserRemote
 
-class AuthService(private val firebaseAuth: FirebaseAuth) {
-    suspend fun signIn(signInData: SignInData) {
+class AuthRemoteDataSourceImpl(private val firebaseAuth: FirebaseAuth) : AuthRemoteDataSource {
+    override suspend fun signIn(signInData: SignInData) {
         val task = firebaseAuth.signInWithEmailAndPassword(
             signInData.email, signInData.password
         ).await()
         val authUser = task.user ?: throw InvalidUserException()
         if (!authUser.isEmailVerified) {
             signOut()
-            sendEmailVerification(authUser = authUser)
+            authUser.sendEmailVerification().await()
             throw EmailVerificationException()
         }
     }
 
-    suspend fun signedIn(signInData: SignInData) {
+    override suspend fun signedIn(signInData: SignInData) {
         val authUser = getCurrentUser()
         val credential = EmailAuthProvider.getCredential(signInData.email, signInData.password)
         authUser.reauthenticate(credential).await()
     }
 
-    suspend fun signUp(signUpData: SignUpData): FirebaseUser {
+    override suspend fun signUp(signUpData: SignUpData): AuthUserRemote {
         val task = firebaseAuth.createUserWithEmailAndPassword(
             signUpData.email, signUpData.password
         ).await()
-        task.user?.let { authUser ->
-            sendEmailVerification(authUser = authUser)
-            return authUser
-        }
-        throw InvalidUserException()
+        val authUser = task.user ?: throw InvalidUserException()
+        authUser.sendEmailVerification().await()
+        return authUser.toAuthUserRemote()
     }
 
-    private fun signOut() {
+    override fun signOut() {
         firebaseAuth.signOut()
     }
 
-    fun getCurrentUser(): FirebaseUser {
+    override fun getCurrentUser(): FirebaseUser {
         return firebaseAuth.currentUser ?: throw InvalidUserException()
     }
 
-    private suspend fun sendEmailVerification(authUser: FirebaseUser) {
-        authUser.sendEmailVerification().await()
-    }
-
-    suspend fun sendPasswordResetEmail(email: String) {
+    override suspend fun sendPasswordResetEmail(email: String) {
         firebaseAuth.sendPasswordResetEmail(email).await()
     }
 }

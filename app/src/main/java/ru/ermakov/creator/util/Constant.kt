@@ -3,11 +3,11 @@ package ru.ermakov.creator.util
 class Constant {
     companion object {
         const val SPLASH_SCREEN_DELAY = 1500L
+        const val BASE_URL = "http://77.233.213.217:8080/api/"
 
         const val PROJECT_NAME = "ru.ermakov.creator"
         const val KEY_EMAIL = "email"
         const val KEY_PASSWORD = "password"
-        const val KEY_PROFILE_AVATAR = "profileAvatar"
 
         const val EMPTY_STRING = ""
 
@@ -22,7 +22,5 @@ class Constant {
         const val TOO_MANY_REQUESTS_EXCEPTION = "The account has been blocked. Reset your password or try again later"
         const val INVALID_USER_EXCEPTION = "There is no user record with this email"
         const val UNKNOWN_EXCEPTION = "Unknown error"
-
-        const val USERS_COLLECTION = "Users"
     }
 }

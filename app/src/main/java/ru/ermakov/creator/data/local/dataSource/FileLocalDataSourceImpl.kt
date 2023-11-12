@@ -1,15 +1,15 @@
-package ru.ermakov.creator.data.service
+package ru.ermakov.creator.data.local.dataSource
 
 import java.io.File
 
-class LocalStorage(val externalStorageFilesDir: File) {
-    fun save(path: String): File {
+class FileLocalDataSourceImpl(val externalStorageFilesDir: File) : FileLocalDataSource {
+    override fun save(path: String): File {
         val fileName = path.takeLastWhile { it != '/' }
         val filePath = createFolder(path = path)
         return File(filePath, fileName)
     }
 
-    fun getRootPath(): String {
+    override fun getRootPath(): String {
         return externalStorageFilesDir.path + File.separator
     }
 

@@ -1,4 +1,4 @@
-package ru.ermakov.creator.data.dataSource.local.database.dao
+package ru.ermakov.creator.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-import ru.ermakov.creator.data.dataSource.local.database.model.UserEntity
+import ru.ermakov.creator.data.local.entity.UserEntity
 
 @Dao
 interface UserDao {

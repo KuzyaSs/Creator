@@ -80,13 +80,13 @@ class AccountFragment : Fragment() {
 
     private fun setProfile(user: User) {
         binding.apply {
-            if (user.profileAvatar.isNotEmpty()) {
-                imageViewProfileAvatar.setImageURI(Uri.parse(user.profileAvatar))
+            if (user.profileAvatarUrl.isNotEmpty()) {
+                imageViewProfileAvatar.setImageURI(Uri.parse(user.profileAvatarUrl))
             } else {
                 imageViewProfileAvatar.setImageResource(R.drawable.default_profile_avatar)
             }
-            if (user.profileBackground.isNotEmpty()) {
-                imageViewProfileBackground.setImageURI(Uri.parse(user.profileBackground))
+            if (user.profileBackgroundUrl.isNotEmpty()) {
+                imageViewProfileBackground.setImageURI(Uri.parse(user.profileBackgroundUrl))
             } else {
                 imageViewProfileBackground.setImageResource(R.drawable.default_profile_background)
             }

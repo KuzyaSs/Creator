@@ -2,19 +2,23 @@ package ru.ermakov.creator.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.firestoreSettings
-import com.google.firebase.firestore.ktx.memoryCacheSettings
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import dagger.Module
 import dagger.Provides
-import ru.ermakov.creator.data.dataSource.remote.UserRemoteDataSourceImpl
-import ru.ermakov.creator.data.dataSource.remote.UserRemoteDataSource
-import ru.ermakov.creator.data.service.AuthService
-import ru.ermakov.creator.data.service.RemoteStorage
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import ru.ermakov.creator.data.remote.api.UserApi
+import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSourceImpl
+import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSourceImpl
+import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSourceImpl
+import ru.ermakov.creator.util.Constant.Companion.BASE_URL
 
 @Module
 class RemoteModule {
@@ -24,8 +28,8 @@ class RemoteModule {
     }
 
     @Provides
-    fun provideAuthService(firebaseAuth: FirebaseAuth): AuthService {
-        return AuthService(firebaseAuth = firebaseAuth)
+    fun provideAuthRemoteDataSource(firebaseAuth: FirebaseAuth): AuthRemoteDataSource {
+        return AuthRemoteDataSourceImpl(firebaseAuth = firebaseAuth)
     }
 
     @Provides
@@ -34,22 +38,33 @@ class RemoteModule {
     }
 
     @Provides
-    fun provideRemoteStorage(remoteStorage: FirebaseStorage): RemoteStorage {
-        return RemoteStorage(remoteStorage = remoteStorage)
+    fun provideFileRemoteDataSource(firebaseStorage: FirebaseStorage): FileRemoteDataSource {
+        return FileRemoteDataSourceImpl(firebaseStorage = firebaseStorage)
     }
 
     @Provides
-    fun provideFirebaseFirestore(): FirebaseFirestore {
-        val settings = firestoreSettings {
-            setLocalCacheSettings(memoryCacheSettings {})
-        }
-        val db = Firebase.firestore
-        db.firestoreSettings = settings
-        return db
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
     }
 
     @Provides
-    fun provideUserRemoteDataSource(remoteDataSource: FirebaseFirestore): UserRemoteDataSource {
-        return UserRemoteDataSourceImpl(remoteDataSource = remoteDataSource)
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+    }
+
+    @Provides
+    fun provideUserApi(retrofit: Retrofit): UserApi {
+        return retrofit.create(UserApi::class.java)
+    }
+
+    @Provides
+    fun provideUserRemoteDataSource(userApi: UserApi): UserRemoteDataSource {
+        return UserRemoteDataSourceImpl(userApi = userApi)
     }
 }
