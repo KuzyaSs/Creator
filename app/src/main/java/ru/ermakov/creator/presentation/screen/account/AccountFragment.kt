@@ -8,25 +8,29 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentAccountBinding
 import ru.ermakov.creator.domain.model.User
+import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
-import ru.ermakov.creator.util.Resource
+import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModel
+import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
 import javax.inject.Inject
 
 class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
 
-    private val accountViewModel: AccountViewModel by viewModels {
-        accountViewModelFactory
-    }
-
     @Inject
     lateinit var accountViewModelFactory: AccountViewModelFactory
+    private lateinit var accountViewModel: AccountViewModel
+
+    @Inject
+    lateinit var exceptionLocalizer: ExceptionLocalizer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +44,8 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
+        accountViewModel =
+            ViewModelProvider(this, accountViewModelFactory)[AccountViewModel::class.java]
         (activity as CreatorActivity).showBottomNavigationView()
         setUpListeners()
         setUpObservers()
@@ -58,20 +64,21 @@ class AccountFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        accountViewModel.user.observe(viewLifecycleOwner) { userResource ->
-            when (userResource) {
-                is Resource.Success -> {
+        accountViewModel.accountUiState.observe(viewLifecycleOwner) { accountUiState ->
+            when (accountUiState.state) {
+                State.SUCCESS -> {
                     Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
-                    userResource.data?.let { user ->
-                        setProfile(user = user)
-                    }
+                    setProfile(accountUiState.currentUser!!)
                 }
 
-                is Resource.Error -> {
-                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                State.ERROR -> {
+                    val errorMessage = exceptionLocalizer.localizeException(
+                        errorMessage = accountUiState.errorMessage
+                    )
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                 }
 
-                is Resource.Loading -> {
+                State.LOADING -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -122,6 +129,5 @@ class AccountFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        accountViewModel.detachUserListeners()
     }
 }

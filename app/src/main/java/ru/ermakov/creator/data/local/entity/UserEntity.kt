@@ -17,5 +17,5 @@ data class UserEntity(
     @ColumnInfo(name = "profile_background_url")
     val profileBackgroundUrl: String,
     @ColumnInfo(name = "registration_date")
-    val registrationDate: LocalDate
+    val registrationDate: Long
 )

@@ -6,17 +6,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.ermakov.creator.domain.model.SignInData
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
-import ru.ermakov.creator.util.Resource
+import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.exception.ExceptionHandler
 
-class SplashViewModel(private val signedInUseCase: SignedInUseCase) : ViewModel() {
-    private val _signInData = MutableLiveData<Resource<SignInData>>()
-    val signInData: LiveData<Resource<SignInData>> = _signInData
+class SplashViewModel(
+    private val signedInUseCase: SignedInUseCase,
+    private val exceptionHandler: ExceptionHandler
+) : ViewModel() {
+    private val _splashUiState = MutableLiveData<SplashUiState>()
+    val splashUiState: LiveData<SplashUiState> = _splashUiState
 
     fun checkSignedInStatus() {
         viewModelScope.launch(Dispatchers.IO) {
-            _signInData.postValue(signedInUseCase.execute())
+            try {
+                signedInUseCase()
+                _splashUiState.postValue(_splashUiState.value?.copy(state = State.SUCCESS))
+            } catch (exception: Exception) {
+                val errorMessage = exceptionHandler.handleException(exception = exception)
+                _splashUiState.postValue(
+                    _splashUiState.value?.copy(
+                        errorMessage = errorMessage,
+                        state = State.ERROR
+                    )
+                )
+            }
         }
     }
 }

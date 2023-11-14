@@ -11,9 +11,8 @@ import androidx.navigation.fragment.findNavController
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSignUpBinding
 import ru.ermakov.creator.domain.model.SignUpData
+import ru.ermakov.creator.presentation.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
-import ru.ermakov.creator.util.Constant.Companion.EMPTY_STRING
-import ru.ermakov.creator.util.Resource
 import javax.inject.Inject
 
 class SignUpFragment : Fragment() {
@@ -52,27 +51,24 @@ class SignUpFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        signUpViewModel.signUpData.observe(viewLifecycleOwner) { signUpDataResource ->
-            when (signUpDataResource) {
-                is Resource.Success -> {
-                    hideProgressBar()
-                    if (signUpViewModel.isNavigationAvailable) {
-                        navigateToVerificationEmailFragment(
-                            signUpDataResource.data?.email ?: EMPTY_STRING
-                        )
+        signUpViewModel.signUpUiState.observe(viewLifecycleOwner) { signUpUiState ->
+            when (signUpUiState.state) {
+                State.SUCCESS -> {
+                    if (signUpUiState.isNavigationAvailable) {
+                        navigateToVerificationEmailFragment(signUpUiState.signUpData!!.email)
                         signUpViewModel.resetIsNavigationAvailable()
                     }
                 }
 
-                is Resource.Error -> {
+                State.ERROR -> {
                     hideProgressBar()
-                    val message = exceptionLocalizer.localizeException(
-                        message = signUpDataResource.message ?: EMPTY_STRING
+                    val errorMessage = exceptionLocalizer.localizeException(
+                        errorMessage = signUpUiState.errorMessage
                     )
-                    showError(errorMessage = message)
+                    showError(errorMessage = errorMessage)
                 }
 
-                is Resource.Loading -> {
+                State.LOADING -> {
                     hideError()
                     showProgressBar()
                 }
@@ -91,14 +87,25 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun navigateToVerificationEmailFragment(email: String) {
+    private fun navigateToVerificationEmailFragment(email: String?) {
         val action =
-            SignUpFragmentDirections.actionSignUpFragmentToVerificationEmailFragment(email = email)
+            SignUpFragmentDirections.actionSignUpFragmentToVerificationEmailFragment(email = email.toString())
         findNavController().navigate(action)
     }
 
     private fun goBack() {
         requireActivity().onBackPressedDispatcher.onBackPressed()
+    }
+
+    private fun showError(errorMessage: String) {
+        binding.textViewErrorMessage.apply {
+            text = errorMessage
+            isVisible = true
+        }
+    }
+
+    private fun hideError() {
+        binding.textViewErrorMessage.isVisible = false
     }
 
     private fun showProgressBar() {
@@ -113,17 +120,6 @@ class SignUpFragment : Fragment() {
             progressBar.isVisible = false
             buttonSignUp.isVisible = true
         }
-    }
-
-    private fun showError(errorMessage: String) {
-        binding.textViewErrorMessage.apply {
-            text = errorMessage
-            isVisible = true
-        }
-    }
-
-    private fun hideError() {
-        binding.textViewErrorMessage.isVisible = false
     }
 
     override fun onDestroyView() {

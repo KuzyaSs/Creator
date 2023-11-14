@@ -1,31 +1,28 @@
 package ru.ermakov.creator.domain.useCase.signUp
 
-import ru.ermakov.creator.data.repository.user.UserRepository
+import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.model.SignUpData
-import ru.ermakov.creator.data.repository.user.auth.AuthRepository
-import ru.ermakov.creator.util.Constant.Companion.EMPTY_DATA_EXCEPTION
-import ru.ermakov.creator.util.Constant.Companion.PASSWORDS_DON_T_MATCH_EXCEPTION
-import ru.ermakov.creator.util.Resource
+import ru.ermakov.creator.domain.repository.AuthRepository
+import ru.ermakov.creator.domain.exception.EmptyDataException
+import ru.ermakov.creator.domain.exception.PasswordMismatchException
 
 class SignUpUseCase(
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository
 ) {
-    suspend fun execute(signUpData: SignUpData): Resource<SignUpData> {
+    suspend operator fun invoke(signUpData: SignUpData) {
         if (signUpData.email.isBlank() ||
             signUpData.password.isBlank() ||
             signUpData.confirmationPassword.isBlank()
         ) {
-            return Resource.Error(data = null, message = EMPTY_DATA_EXCEPTION)
-        }
-        if (signUpData.password != signUpData.confirmationPassword) {
-            return Resource.Error(data = null, message = PASSWORDS_DON_T_MATCH_EXCEPTION)
+            throw EmptyDataException()
         }
 
-        val authUserRemoteResource = authRepository.signUp(signUpData = signUpData)
-        authUserRemoteResource.data?.let {
-            userRepository.insertUser(authUserRemote = authUserRemoteResource.data)
-            return Resource.Success(data = signUpData)
+        if (signUpData.password != signUpData.confirmationPassword) {
+            throw PasswordMismatchException()
         }
+
+        val authUser = authRepository.signUp(signUpData = signUpData)
+        userRepository.insertUser(authUser = authUser)
     }
 }

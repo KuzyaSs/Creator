@@ -5,7 +5,7 @@
     <string name="email_format_exception">The email address is badly formatted</string>
     <string name="email_verification_exception">Verify your account email</string>
     <string name="invalid_password_exception">The password is invalid</string>
-    <string name="passwords_don_t_match_exception">Passwords don\'t match</string>
+    <string name="password_mismatch_exception">Passwords don\'t match</string>
     <string name="weak_password_exception">Password should be at least 6 characters</string>
     <string name="email_collision_exception">The email address is already in use by another account</string>
     <string name="invalid_user_exception">There is no user record with this email</string>

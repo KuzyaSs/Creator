@@ -7,17 +7,37 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.useCase.passwordRecovery.PasswordRecoveryUseCase
-import ru.ermakov.creator.util.Resource
+import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.exception.ExceptionHandler
 
-class PasswordRecoveryViewModel(private val passwordRecoveryUseCase: PasswordRecoveryUseCase) :
+class PasswordRecoveryViewModel(
+    private val passwordRecoveryUseCase: PasswordRecoveryUseCase,
+    private val exceptionHandler: ExceptionHandler
+) :
     ViewModel() {
-    private val _email = MutableLiveData<Resource<String>>()
-    val email: LiveData<Resource<String>> = _email
+    private val _passwordRecoveryUiState = MutableLiveData<PasswordRecoveryUiState>()
+    val passwordRecoveryUiState: LiveData<PasswordRecoveryUiState> get() = _passwordRecoveryUiState
 
     fun resetPassword(email: String) {
-        _email.postValue(Resource.Loading())
+        _passwordRecoveryUiState.value = _passwordRecoveryUiState.value?.copy(state = State.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
-            _email.postValue(passwordRecoveryUseCase.execute(email = email))
+            try {
+                passwordRecoveryUseCase(email = email)
+                _passwordRecoveryUiState.postValue(
+                    _passwordRecoveryUiState.value?.copy(
+                        email = email,
+                        state = State.SUCCESS
+                    )
+                )
+            } catch (exception: Exception) {
+                val errorMessage = exceptionHandler.handleException(exception = exception)
+                _passwordRecoveryUiState.postValue(
+                    _passwordRecoveryUiState.value?.copy(
+                        errorMessage = errorMessage,
+                        state = State.ERROR
+                    )
+                )
+            }
         }
     }
 }

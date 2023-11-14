@@ -1,14 +1,13 @@
 package ru.ermakov.creator.domain.useCase.passwordRecovery
 
-import ru.ermakov.creator.data.repository.user.auth.AuthRepository
-import ru.ermakov.creator.util.Constant.Companion.EMPTY_DATA_EXCEPTION
-import ru.ermakov.creator.util.Resource
+import ru.ermakov.creator.domain.exception.EmptyDataException
+import ru.ermakov.creator.domain.repository.AuthRepository
 
 class PasswordRecoveryUseCase(private val authRepository: AuthRepository) {
-    suspend fun execute(email: String): Resource<String> {
+    suspend operator fun invoke(email: String) {
         if (email.isBlank()) {
-            return Resource.Error(data = null, message = EMPTY_DATA_EXCEPTION)
+            throw EmptyDataException()
         }
-        return authRepository.resetPassword(email = email)
+        authRepository.resetPassword(email = email)
     }
 }

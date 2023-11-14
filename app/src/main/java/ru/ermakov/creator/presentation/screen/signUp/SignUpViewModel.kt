@@ -8,24 +8,43 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.model.SignUpData
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
-import ru.ermakov.creator.util.Resource
+import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.exception.ExceptionHandler
 
-class SignUpViewModel(private val signUpUseCase: SignUpUseCase) : ViewModel() {
-    private val _signUpData = MutableLiveData<Resource<SignUpData>>()
-    val signUpData: LiveData<Resource<SignUpData>> get() = _signUpData
-
-    private var _isNavigationAvailable = false
-    val isNavigationAvailable get() = _isNavigationAvailable
+class SignUpViewModel(
+    private val signUpUseCase: SignUpUseCase,
+    private val exceptionHandler: ExceptionHandler
+) : ViewModel() {
+    private val _signUpUiState = MutableLiveData<SignUpUiState>()
+    val signUpUiState: LiveData<SignUpUiState> = _signUpUiState
 
     fun signUp(signUpData: SignUpData) {
-        _isNavigationAvailable = true
-        _signUpData.postValue(Resource.Loading())
+        _signUpUiState.value = _signUpUiState.value?.copy(
+            isNavigationAvailable = true,
+            state = State.LOADING
+        )
         viewModelScope.launch(Dispatchers.IO) {
-            _signUpData.postValue(signUpUseCase.execute(signUpData = signUpData))
+            try {
+                signUpUseCase(signUpData = signUpData)
+                _signUpUiState.postValue(
+                    _signUpUiState.value?.copy(
+                        signUpData = signUpData,
+                        state = State.SUCCESS
+                    )
+                )
+            } catch (exception: Exception) {
+                val errorMessage = exceptionHandler.handleException(exception = exception)
+                _signUpUiState.postValue(
+                    _signUpUiState.value?.copy(
+                        errorMessage = errorMessage,
+                        state = State.ERROR
+                    )
+                )
+            }
         }
     }
 
     fun resetIsNavigationAvailable() {
-        _isNavigationAvailable = false
+        _signUpUiState.value = _signUpUiState.value?.copy(isNavigationAvailable = false)
     }
 }

@@ -1,6 +1,6 @@
 package ru.ermakov.creator.data.exception
 
-import ru.ermakov.creator.util.Constant.Companion.INVALID_USER_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_USER_EXCEPTION
 
 class InvalidUserException : Exception() {
     override val message: String

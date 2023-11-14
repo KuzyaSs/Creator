@@ -13,12 +13,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.ermakov.creator.data.remote.api.UserApi
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
-import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSourceImpl
-import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSourceImpl
-import ru.ermakov.creator.util.Constant.Companion.BASE_URL
+import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSourceImpl
+
 
 @Module
 class RemoteModule {

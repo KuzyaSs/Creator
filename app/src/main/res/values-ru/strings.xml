@@ -5,7 +5,7 @@
     <string name="email_format_exception">Некорректный адрес электронной почты</string>
     <string name="email_verification_exception">Подтвердите адрес электронной почты вашей учетной записи</string>
     <string name="invalid_password_exception">Неверный пароль</string>
-    <string name="passwords_don_t_match_exception">Пароли не совпадают</string>
+    <string name="password_mismatch_exception">Пароли не совпадают</string>
     <string name="weak_password_exception">Пароль не должен быть меньше 6 символов</string>
     <string name="email_collision_exception">Адрес электронной почты уже используется</string>
     <string name="invalid_user_exception">Нет записи пользователя с такой электронной почтой</string>

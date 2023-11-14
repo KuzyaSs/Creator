@@ -5,17 +5,18 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import ru.ermakov.creator.data.local.dataSource.AuthLocalDataSourceImpl
-import ru.ermakov.creator.data.local.dataSource.UserLocalDataSourceImpl
 import ru.ermakov.creator.data.local.CreatorDatabase
 import ru.ermakov.creator.data.local.dao.UserDao
 import ru.ermakov.creator.data.local.dataSource.AuthLocalDataSource
+import ru.ermakov.creator.data.local.dataSource.AuthLocalDataSourceImpl
 import ru.ermakov.creator.data.local.dataSource.FileLocalDataSource
-import ru.ermakov.creator.data.local.dataSource.UserLocalDataSource
 import ru.ermakov.creator.data.local.dataSource.FileLocalDataSourceImpl
-import ru.ermakov.creator.util.Constant.Companion.PROJECT_NAME
+import ru.ermakov.creator.data.local.dataSource.UserLocalDataSource
+import ru.ermakov.creator.data.local.dataSource.UserLocalDataSourceImpl
 import java.io.File
 import javax.inject.Singleton
+
+private const val PROJECT_NAME = "ru.ermakov.creator"
 
 @Module
 class LocalModule {

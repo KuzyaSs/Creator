@@ -1,9 +1,13 @@
 package ru.ermakov.creator.data.mapper
 
 import com.google.firebase.auth.FirebaseUser
+import com.google.type.DateTime
 import ru.ermakov.creator.data.local.entity.UserEntity
-import ru.ermakov.creator.data.remote.model.AuthUserRemote
+import ru.ermakov.creator.domain.model.AuthUser
 import ru.ermakov.creator.domain.model.User
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
 
 fun User.toUserEntity(): UserEntity {
     return UserEntity(
@@ -13,7 +17,7 @@ fun User.toUserEntity(): UserEntity {
         about = about,
         profileAvatarUrl = profileAvatarUrl,
         profileBackgroundUrl = profileBackgroundUrl,
-        registrationDate = registrationDate
+        registrationDate = registrationDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
     )
 }
 
@@ -25,12 +29,15 @@ fun UserEntity.toUser(): User {
         about = about,
         profileAvatarUrl = profileAvatarUrl,
         profileBackgroundUrl = profileBackgroundUrl,
-        registrationDate = registrationDate
+        registrationDate = Instant
+            .ofEpochMilli(registrationDate)
+            .atZone(ZoneOffset.UTC)
+            .toLocalDate()
     )
 }
 
-fun FirebaseUser.toAuthUserRemote(): AuthUserRemote {
-    return AuthUserRemote(
+fun FirebaseUser.toAuthUser(): AuthUser {
+    return AuthUser(
         id = uid,
         username = uid,
         email = email.toString()

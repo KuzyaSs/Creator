@@ -1,4 +1,4 @@
-package ru.ermakov.creator.data.exception
+package ru.ermakov.creator.presentation.exception
 
 import java.lang.Exception
 

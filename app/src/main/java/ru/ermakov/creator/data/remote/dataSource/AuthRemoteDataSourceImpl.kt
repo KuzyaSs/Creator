@@ -8,8 +8,8 @@ import ru.ermakov.creator.domain.model.SignInData
 import ru.ermakov.creator.domain.model.SignUpData
 import ru.ermakov.creator.data.exception.EmailVerificationException
 import ru.ermakov.creator.data.exception.InvalidUserException
-import ru.ermakov.creator.data.mapper.toAuthUserRemote
-import ru.ermakov.creator.data.remote.model.AuthUserRemote
+import ru.ermakov.creator.data.mapper.toAuthUser
+import ru.ermakov.creator.domain.model.AuthUser
 
 class AuthRemoteDataSourceImpl(private val firebaseAuth: FirebaseAuth) : AuthRemoteDataSource {
     override suspend fun signIn(signInData: SignInData) {
@@ -30,13 +30,13 @@ class AuthRemoteDataSourceImpl(private val firebaseAuth: FirebaseAuth) : AuthRem
         authUser.reauthenticate(credential).await()
     }
 
-    override suspend fun signUp(signUpData: SignUpData): AuthUserRemote {
+    override suspend fun signUp(signUpData: SignUpData): AuthUser {
         val task = firebaseAuth.createUserWithEmailAndPassword(
             signUpData.email, signUpData.password
         ).await()
         val authUser = task.user ?: throw InvalidUserException()
         authUser.sendEmailVerification().await()
-        return authUser.toAuthUserRemote()
+        return authUser.toAuthUser()
     }
 
     override fun signOut() {

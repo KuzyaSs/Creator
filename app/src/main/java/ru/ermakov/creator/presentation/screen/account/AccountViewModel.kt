@@ -6,24 +6,37 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.data.repository.user.UserRepository
-import ru.ermakov.creator.util.Resource
+import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
+import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.exception.ExceptionHandler
 
-class AccountViewModel(private val userRepository: UserRepository) : ViewModel() {
-    private val _user = MutableLiveData<Resource<User>>()
-    val user: LiveData<Resource<User>> = _user
+class AccountViewModel(
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val exceptionHandler: ExceptionHandler
+) : ViewModel() {
+    private val _accountUiState = MutableLiveData<AccountUiState>()
+    val accountUiState: LiveData<AccountUiState> get() = _accountUiState
 
     fun setUser() {
-        _user.postValue(Resource.Loading())
+        _accountUiState.value = _accountUiState.value?.copy(state = State.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
-            userRepository.getCurrentUser().collect { userResource ->
-                _user.postValue(userResource)
+            try {
+                val currentUser = getCurrentUserUseCase()
+                _accountUiState.postValue(
+                    _accountUiState.value?.copy(
+                        currentUser = currentUser,
+                        state = State.SUCCESS
+                    )
+                )
+            } catch (exception: Exception) {
+                val errorMessage = exceptionHandler.handleException(exception = exception)
+                _accountUiState.postValue(
+                    _accountUiState.value?.copy(
+                        errorMessage = errorMessage,
+                        state = State.ERROR
+                    )
+                )
             }
         }
-    }
-
-    fun detachUserListeners() {
-        userRepository.detachUserListener()
     }
 }

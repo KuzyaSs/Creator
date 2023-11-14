@@ -2,25 +2,20 @@ package ru.ermakov.creator.data.local.dataSource
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import ru.ermakov.creator.data.exception.InvalidUserException
 import ru.ermakov.creator.data.local.dao.UserDao
 import ru.ermakov.creator.data.mapper.toUser
 import ru.ermakov.creator.data.mapper.toUserEntity
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.util.Constant.Companion.INVALID_USER_EXCEPTION
-import ru.ermakov.creator.util.Resource
 
 class UserLocalDataSourceImpl(private val userDao: UserDao) : UserLocalDataSource {
     override suspend fun insert(user: User) {
         userDao.insert(user.toUserEntity())
     }
 
-    override suspend fun get(id: String): Flow<Resource<User>> {
+    override suspend fun get(id: String): Flow<User> {
         return userDao.getUserById(id = id).map { userEntity ->
-            if (userEntity != null) {
-                Resource.Success(userEntity.toUser())
-            } else {
-                Resource.Error(data = null, message = INVALID_USER_EXCEPTION)
-            }
+            userEntity?.toUser() ?: throw InvalidUserException()
         }
     }
 

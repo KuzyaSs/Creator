@@ -2,49 +2,58 @@ package ru.ermakov.creator.presentation.exception
 
 import android.content.Context
 import ru.ermakov.creator.R
-import ru.ermakov.creator.util.Constant
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_COLLISION_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_FORMAT_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_VERIFICATION_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMPTY_DATA_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_PASSWORD_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_USER_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.NETWORK_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.PASSWORD_MISMATCH_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TOO_MANY_REQUESTS_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWORD_EXCEPTION
 
 class ExceptionLocalizerImpl(private val context: Context) : ExceptionLocalizer {
-    override fun localizeException(message: String): String {
-        return when (message) {
-            Constant.NETWORK_EXCEPTION -> {
+    override fun localizeException(errorMessage: String): String {
+        return when (errorMessage) {
+            NETWORK_EXCEPTION -> {
                 context.getString(R.string.network_exception)
             }
 
-            Constant.EMPTY_DATA_EXCEPTION -> {
+            EMPTY_DATA_EXCEPTION -> {
                 context.getString(R.string.empty_data_exception)
             }
 
-            Constant.EMAIL_FORMAT_EXCEPTION -> {
+            EMAIL_FORMAT_EXCEPTION -> {
                 context.getString(R.string.email_format_exception)
             }
 
-            Constant.EMAIL_VERIFICATION_EXCEPTION -> {
+            EMAIL_VERIFICATION_EXCEPTION -> {
                 context.getString(R.string.email_verification_exception)
             }
 
-            Constant.EMAIL_COLLISION_EXCEPTION -> {
+            EMAIL_COLLISION_EXCEPTION -> {
                 context.getString(R.string.email_collision_exception)
             }
 
-            Constant.INVALID_PASSWORD_EXCEPTION -> {
+            INVALID_PASSWORD_EXCEPTION -> {
                 context.getString(R.string.invalid_password_exception)
             }
 
-            Constant.PASSWORDS_DON_T_MATCH_EXCEPTION -> {
-                context.getString(R.string.passwords_don_t_match_exception)
+            PASSWORD_MISMATCH_EXCEPTION -> {
+                context.getString(R.string.password_mismatch_exception)
             }
 
-            Constant.WEAK_PASSWORD_EXCEPTION -> {
+            WEAK_PASSWORD_EXCEPTION -> {
                 context.getString(R.string.weak_password_exception)
 
             }
 
-            Constant.INVALID_USER_EXCEPTION -> {
+            INVALID_USER_EXCEPTION -> {
                 context.getString(R.string.invalid_user_exception)
             }
 
-            Constant.TOO_MANY_REQUESTS_EXCEPTION -> {
+            TOO_MANY_REQUESTS_EXCEPTION -> {
                 context.getString(R.string.too_many_requests_exception)
             }
 

@@ -12,9 +12,8 @@ import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentPasswordRecoveryBinding
+import ru.ermakov.creator.presentation.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
-import ru.ermakov.creator.util.Constant.Companion.EMPTY_STRING
-import ru.ermakov.creator.util.Resource
 import javax.inject.Inject
 
 class PasswordRecoveryFragment : Fragment() {
@@ -57,23 +56,23 @@ class PasswordRecoveryFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        passwordRecoveryViewModel.email.observe(viewLifecycleOwner) { emailResource ->
-            when (emailResource) {
-                is Resource.Success -> {
+        passwordRecoveryViewModel.passwordRecoveryUiState.observe(viewLifecycleOwner) { passwordRecoveryUiState ->
+            when (passwordRecoveryUiState.state) {
+                State.SUCCESS -> {
                     hideProgressBar()
                     setEmailSendingSuccessfulState()
                     showMessage(getString(R.string.password_recovery_email))
                 }
 
-                is Resource.Error -> {
+                State.ERROR -> {
                     hideProgressBar()
-                    val message = exceptionLocalizer.localizeException(
-                        message = emailResource.message ?: EMPTY_STRING
+                    val errorMessage = exceptionLocalizer.localizeException(
+                        errorMessage = passwordRecoveryUiState.errorMessage
                     )
-                    showError(errorMessage = message)
+                    showError(errorMessage = errorMessage)
                 }
 
-                is Resource.Loading -> {
+                State.LOADING -> {
                     hideError()
                     showProgressBar()
                 }
@@ -105,6 +104,17 @@ class PasswordRecoveryFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
+    private fun showError(errorMessage: String) {
+        binding.textViewErrorMessage.apply {
+            text = errorMessage
+            isVisible = true
+        }
+    }
+
+    private fun hideError() {
+        binding.textViewErrorMessage.isVisible = false
+    }
+
     private fun showProgressBar() {
         binding.apply {
             progressBar.isVisible = true
@@ -117,17 +127,6 @@ class PasswordRecoveryFragment : Fragment() {
             progressBar.isVisible = false
             buttonResetPassword.isVisible = true
         }
-    }
-
-    private fun showError(errorMessage: String) {
-        binding.textViewErrorMessage.apply {
-            text = errorMessage
-            isVisible = true
-        }
-    }
-
-    private fun hideError() {
-        binding.textViewErrorMessage.isVisible = false
     }
 
     override fun onDestroyView() {

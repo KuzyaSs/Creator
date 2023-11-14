@@ -12,9 +12,8 @@ import androidx.navigation.fragment.findNavController
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSplashBinding
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
-import ru.ermakov.creator.util.Constant.Companion.EMPTY_STRING
-import ru.ermakov.creator.util.Constant.Companion.NETWORK_EXCEPTION
-import ru.ermakov.creator.util.Resource
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.NETWORK_EXCEPTION
+import ru.ermakov.creator.presentation.State
 import javax.inject.Inject
 
 class SplashFragment : Fragment() {
@@ -47,27 +46,27 @@ class SplashFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        splashViewModel.signInData.observe(viewLifecycleOwner) { signInDataResource ->
-            when (signInDataResource) {
-                is Resource.Success -> {
+        splashViewModel.splashUiState.observe(viewLifecycleOwner) { splashUiState ->
+            when (splashUiState.state) {
+                State.SUCCESS -> {
                     hideProgressBar()
                     navigateToFeedFragment()
                 }
 
-                is Resource.Error -> {
+                State.ERROR -> {
                     hideProgressBar()
-                    if (signInDataResource.message == NETWORK_EXCEPTION) {
-                        navigateToFeedFragment()
-                        val message = exceptionLocalizer.localizeException(
-                            message = signInDataResource.message
+                    if (splashUiState.errorMessage == NETWORK_EXCEPTION) {
+                        val errorMessage = exceptionLocalizer.localizeException(
+                            errorMessage = splashUiState.errorMessage
                         )
-                        showToast(message = message)
+                        showToast(message = errorMessage)
+                        navigateToFeedFragment()
                     } else {
                         navigateToSignInFragment()
                     }
                 }
 
-                is Resource.Loading -> {
+                State.LOADING -> {
                     showProgressBar()
                 }
             }
@@ -76,7 +75,7 @@ class SplashFragment : Fragment() {
 
     private fun navigateToSignInFragment() {
         val action =
-            SplashFragmentDirections.actionSplashFragmentToSignInFragment(email = EMPTY_STRING)
+            SplashFragmentDirections.actionSplashFragmentToSignInFragment("")
         findNavController().navigate(action)
     }
 

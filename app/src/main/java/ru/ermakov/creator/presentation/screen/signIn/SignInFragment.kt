@@ -12,9 +12,8 @@ import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSignInBinding
 import ru.ermakov.creator.domain.model.SignInData
+import ru.ermakov.creator.presentation.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
-import ru.ermakov.creator.util.Constant.Companion.EMPTY_STRING
-import ru.ermakov.creator.util.Resource
 import javax.inject.Inject
 
 class SignInFragment : Fragment() {
@@ -58,22 +57,22 @@ class SignInFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        signInViewModel.signInData.observe(viewLifecycleOwner) { signInDataResource ->
-            when (signInDataResource) {
-                is Resource.Success -> {
+        signInViewModel.signInUiState.observe(viewLifecycleOwner) { signInUiState ->
+            when (signInUiState.state) {
+                State.SUCCESS -> {
                     hideProgressBar()
                     navigateToFeedFragment()
                 }
 
-                is Resource.Error -> {
+                State.ERROR -> {
                     hideProgressBar()
-                    val message = exceptionLocalizer.localizeException(
-                        message = signInDataResource.message ?: EMPTY_STRING
+                    val errorMessage = exceptionLocalizer.localizeException(
+                        errorMessage = signInUiState.errorMessage
                     )
-                    showError(message = message)
+                    showError(errorMessage = errorMessage)
                 }
 
-                is Resource.Loading -> {
+                State.LOADING -> {
                     hideError()
                     showProgressBar()
                 }
@@ -110,6 +109,17 @@ class SignInFragment : Fragment() {
         findNavController().navigate(action)
     }
 
+    private fun showError(errorMessage: String) {
+        binding.textViewErrorMessage.apply {
+            text = errorMessage
+            isVisible = true
+        }
+    }
+
+    private fun hideError() {
+        binding.textViewErrorMessage.isVisible = false
+    }
+
     private fun showProgressBar() {
         binding.apply {
             progressBar.isVisible = true
@@ -122,17 +132,6 @@ class SignInFragment : Fragment() {
             progressBar.isVisible = false
             buttonSignIn.isVisible = true
         }
-    }
-
-    private fun showError(message: String) {
-        binding.textViewErrorMessage.apply {
-            text = message
-            isVisible = true
-        }
-    }
-
-    private fun hideError() {
-        binding.textViewErrorMessage.isVisible = false
     }
 
     override fun onDestroyView() {
