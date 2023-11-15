@@ -11,5 +11,5 @@
 
     <dimen name="profile_background_height">175dp</dimen>
     <dimen name="profile_avatar_size">125dp</dimen>
-    <dimen name="profile_avatar_margin_top">90dp</dimen>
+    <dimen name="profile_avatar_margin_top">45dp</dimen>
 </resources>

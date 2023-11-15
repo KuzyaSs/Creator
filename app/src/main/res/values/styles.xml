@@ -2,28 +2,28 @@
 <resources>
 
     <style name="TextInputLayout">
-        <item name="android:textColorHint">?attr/colorPrimary</item>
+        <item name="android:textColorHint">?android:textColorPrimary</item>
         <item name="boxStrokeColor">?attr/colorAccent</item>
-        <item name="endIconTint">?attr/colorPrimary</item>
+        <item name="endIconTint">?android:textColorPrimary</item>
     </style>
 
     <style name="TextInputEditText">
-        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
     <style name="ErrorTextView">
         <item name="android:drawablePadding">@dimen/small_margin_size</item>
-        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:textSize">@dimen/base_font_size</item>
         <item name="drawableStartCompat">@drawable/ic_error</item>
     </style>
 
     <style name="BaseTextView">
-        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
     <style name="PrimaryButton">
-        <item name="android:textColor">?attr/colorButtonNormal</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:backgroundTint">?attr/colorAccent</item>
     </style>
 
@@ -57,6 +57,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">@dimen/base_margin_size</item>
         <item name="android:textSize">@dimen/base_font_size</item>
-        <item name="drawableTint">?attr/colorAccent</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="drawableTint">?android:textColorPrimary</item>
     </style>
 </resources>

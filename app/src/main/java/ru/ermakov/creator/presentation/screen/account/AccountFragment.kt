@@ -89,16 +89,6 @@ class AccountFragment : Fragment() {
 
     private fun setProfile(user: User) {
         binding.apply {
-            if (user.profileAvatarUrl.isNotEmpty()) {
-                imageViewProfileAvatar.setImageURI(Uri.parse(user.profileAvatarUrl))
-            } else {
-                imageViewProfileAvatar.setImageResource(R.drawable.default_profile_avatar)
-            }
-            if (user.profileBackgroundUrl.isNotEmpty()) {
-                imageViewProfileBackground.setImageURI(Uri.parse(user.profileBackgroundUrl))
-            } else {
-                imageViewProfileBackground.setImageResource(R.drawable.default_profile_background)
-            }
             Glide.with(binding.root)
                 .load(user.profileAvatarUrl)
                 .placeholder(R.drawable.default_profile_avatar)

@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.ermakov.creator.domain.model.User
 import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
 import ru.ermakov.creator.presentation.State
 import ru.ermakov.creator.presentation.exception.ExceptionHandler
+import java.time.LocalDate
 
 class AccountViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
@@ -21,7 +23,16 @@ class AccountViewModel(
         _accountUiState.value = _accountUiState.value?.copy(state = State.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val currentUser = getCurrentUserUseCase()
+                // temporarily
+                val currentUser = User(
+                    "12",
+                    "Kuzya",
+                    "skepy@,ail.ru",
+                    "about",
+                    "https://firebasestorage.googleapis.com/v0/b/creator-26c44.appspot.com/o/myAvatar.png?alt=media&token=e564220f-2ed0-4016-92fd-52f1253072f9",
+                    "-",
+                    LocalDate.now()
+                    )   // getCurrentUserUseCase()
                 _accountUiState.postValue(
                     _accountUiState.value?.copy(
                         currentUser = currentUser,
