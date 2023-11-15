@@ -14,10 +14,11 @@ class SplashViewModel(
     private val signedInUseCase: SignedInUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
-    private val _splashUiState = MutableLiveData<SplashUiState>()
+    private val _splashUiState = MutableLiveData(SplashUiState())
     val splashUiState: LiveData<SplashUiState> = _splashUiState
 
     fun checkSignedInStatus() {
+        _splashUiState.value = _splashUiState.value?.copy(state = State.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 signedInUseCase()

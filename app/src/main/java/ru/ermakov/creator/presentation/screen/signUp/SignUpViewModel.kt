@@ -15,14 +15,11 @@ class SignUpViewModel(
     private val signUpUseCase: SignUpUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
-    private val _signUpUiState = MutableLiveData<SignUpUiState>()
+    private val _signUpUiState = MutableLiveData(SignUpUiState())
     val signUpUiState: LiveData<SignUpUiState> = _signUpUiState
 
     fun signUp(signUpData: SignUpData) {
-        _signUpUiState.value = _signUpUiState.value?.copy(
-            isNavigationAvailable = true,
-            state = State.LOADING
-        )
+        _signUpUiState.value = _signUpUiState.value?.copy(state = State.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 signUpUseCase(signUpData = signUpData)
@@ -44,7 +41,7 @@ class SignUpViewModel(
         }
     }
 
-    fun resetIsNavigationAvailable() {
-        _signUpUiState.value = _signUpUiState.value?.copy(isNavigationAvailable = false)
+    fun setInitialStateWithSignUpData() {
+        _signUpUiState.value = _signUpUiState.value?.copy(state = State.INITIAL)
     }
 }

@@ -36,10 +36,6 @@ class AccountSettingsFragment : Fragment() {
         }
     }
 
-    private fun goBack() {
-        requireActivity().onBackPressedDispatcher.onBackPressed()
-    }
-
     private fun navigateToEditProfileFragment() {
         val action =
             AccountSettingsFragmentDirections.actionAccountSettingsFragmentToEditProfileFragment()
@@ -48,6 +44,10 @@ class AccountSettingsFragment : Fragment() {
 
     private fun navigateToChangePasswordFragment() {
 
+    }
+
+    private fun goBack() {
+        requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 
     override fun onDestroyView() {

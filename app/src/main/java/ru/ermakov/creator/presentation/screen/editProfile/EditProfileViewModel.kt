@@ -15,8 +15,8 @@ class EditProfileViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
-    private val _editProfileUiState = MutableLiveData<EditProfileUiState>()
-    val editProfileUiState: LiveData<EditProfileUiState> get() = _editProfileUiState
+    private val _editProfileUiState = MutableLiveData(EditProfileUiState())
+    val editProfileUiState: LiveData<EditProfileUiState> = _editProfileUiState
 
     fun setUser() {
         _editProfileUiState.value = _editProfileUiState.value?.copy(state = State.LOADING)
@@ -39,9 +39,5 @@ class EditProfileViewModel(
                 )
             }
         }
-    }
-
-    fun editUsername() {
-        // editProfileUseCase.execute(user)
     }
 }

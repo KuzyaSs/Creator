@@ -59,6 +59,7 @@ class SignInFragment : Fragment() {
     private fun setUpObservers() {
         signInViewModel.signInUiState.observe(viewLifecycleOwner) { signInUiState ->
             when (signInUiState.state) {
+                State.INITIAL -> {}
                 State.SUCCESS -> {
                     hideProgressBar()
                     navigateToFeedFragment()

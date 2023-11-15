@@ -46,16 +46,11 @@ class EditProfileFragment : Fragment() {
     private fun setUpListeners() {
         binding.apply {
             imageViewBack.setOnClickListener { goBack() }
-            // buttonEditProfile.setOnClickListener { editProfile() }
         }
     }
 
     private fun goBack() {
         requireActivity().onBackPressedDispatcher.onBackPressed()
-    }
-
-    private fun editProfile() {
-
     }
 
     override fun onDestroyView() {

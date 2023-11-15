@@ -2,9 +2,8 @@ package ru.ermakov.creator.di
 
 import dagger.Module
 import dagger.Provides
-import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
-import ru.ermakov.creator.domain.useCase.passwordRecovery.PasswordRecoveryUseCase
+import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
@@ -53,11 +52,11 @@ class ViewModelFactoryModule {
 
     @Provides
     fun providePasswordRecoveryViewModelFactory(
-        passwordRecoveryUseCase: PasswordRecoveryUseCase,
+        recoverPasswordByEmailUseCase: RecoverPasswordByEmailUseCase,
         exceptionHandler: ExceptionHandler
     ): PasswordRecoveryViewModelFactory {
         return PasswordRecoveryViewModelFactory(
-            passwordRecoveryUseCase = passwordRecoveryUseCase,
+            recoverPasswordByEmailUseCase = recoverPasswordByEmailUseCase,
             exceptionHandler = exceptionHandler
         )
     }

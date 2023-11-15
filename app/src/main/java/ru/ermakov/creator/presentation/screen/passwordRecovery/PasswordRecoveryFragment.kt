@@ -58,6 +58,7 @@ class PasswordRecoveryFragment : Fragment() {
     private fun setUpObservers() {
         passwordRecoveryViewModel.passwordRecoveryUiState.observe(viewLifecycleOwner) { passwordRecoveryUiState ->
             when (passwordRecoveryUiState.state) {
+                State.INITIAL -> {}
                 State.SUCCESS -> {
                     hideProgressBar()
                     setEmailSendingSuccessfulState()

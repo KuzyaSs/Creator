@@ -5,6 +5,6 @@ import ru.ermakov.creator.presentation.State
 
 data class EditProfileUiState(
     val currentUser: User? = null,
-    val state: State = State.LOADING,
+    val state: State = State.INITIAL,
     val errorMessage: String = ""
 )

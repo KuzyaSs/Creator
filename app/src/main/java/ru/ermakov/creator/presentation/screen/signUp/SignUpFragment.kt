@@ -53,11 +53,10 @@ class SignUpFragment : Fragment() {
     private fun setUpObservers() {
         signUpViewModel.signUpUiState.observe(viewLifecycleOwner) { signUpUiState ->
             when (signUpUiState.state) {
+                State.INITIAL -> {}
                 State.SUCCESS -> {
-                    if (signUpUiState.isNavigationAvailable) {
-                        navigateToVerificationEmailFragment(signUpUiState.signUpData!!.email)
-                        signUpViewModel.resetIsNavigationAvailable()
-                    }
+                    navigateToVerificationEmailFragment(signUpUiState.signUpData!!.email)
+                    signUpViewModel.setInitialStateWithSignUpData()
                 }
 
                 State.ERROR -> {

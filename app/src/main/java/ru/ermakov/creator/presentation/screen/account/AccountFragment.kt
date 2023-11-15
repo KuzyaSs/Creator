@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentAccountBinding
@@ -66,6 +67,7 @@ class AccountFragment : Fragment() {
     private fun setUpObservers() {
         accountViewModel.accountUiState.observe(viewLifecycleOwner) { accountUiState ->
             when (accountUiState.state) {
+                State.INITIAL -> {}
                 State.SUCCESS -> {
                     Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
                     setProfile(accountUiState.currentUser!!)
@@ -97,6 +99,10 @@ class AccountFragment : Fragment() {
             } else {
                 imageViewProfileBackground.setImageResource(R.drawable.default_profile_background)
             }
+            Glide.with(binding.root)
+                .load(user.profileAvatarUrl)
+                .placeholder(R.drawable.default_profile_avatar)
+                .into(imageViewProfileAvatar)
             textViewUsername.text = user.username
         }
     }

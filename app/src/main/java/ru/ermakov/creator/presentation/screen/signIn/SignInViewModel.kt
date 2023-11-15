@@ -15,7 +15,7 @@ class SignInViewModel(
     private val signInUseCase: SignInUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
-    private val _signInUiState = MutableLiveData<SignInUiState>()
+    private val _signInUiState = MutableLiveData(SignInUiState())
     val signInUiState: LiveData<SignInUiState> get() = _signInUiState
 
     fun signIn(signInData: SignInData) {

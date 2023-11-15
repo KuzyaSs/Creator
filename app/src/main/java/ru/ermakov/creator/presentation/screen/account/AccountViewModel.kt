@@ -14,8 +14,8 @@ class AccountViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
-    private val _accountUiState = MutableLiveData<AccountUiState>()
-    val accountUiState: LiveData<AccountUiState> get() = _accountUiState
+    private val _accountUiState = MutableLiveData(AccountUiState())
+    val accountUiState: LiveData<AccountUiState> = _accountUiState
 
     fun setUser() {
         _accountUiState.value = _accountUiState.value?.copy(state = State.LOADING)

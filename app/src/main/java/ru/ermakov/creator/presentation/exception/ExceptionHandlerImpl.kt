@@ -14,10 +14,28 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TOO_MANY_REQ
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.UNKNOWN_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWORD_EXCEPTION
 import ru.ermakov.creator.data.exception.InvalidUserException
+import ru.ermakov.creator.domain.exception.EmptyDataException
+import ru.ermakov.creator.domain.exception.PasswordMismatchException
 
 class ExceptionHandlerImpl : ExceptionHandler {
     override fun handleException(exception: Exception): String {
         return when (exception) {
+            is EmptyDataException -> {
+                exception.message
+            }
+
+            is PasswordMismatchException -> {
+                exception.message
+            }
+
+            is EmailVerificationException -> {
+                exception.message
+            }
+
+            is InvalidUserException -> {
+                exception.message
+            }
+
             is FirebaseNetworkException -> {
                 NETWORK_EXCEPTION
             }
@@ -42,14 +60,6 @@ class ExceptionHandlerImpl : ExceptionHandler {
 
             is FirebaseAuthUserCollisionException -> {
                 EMAIL_COLLISION_EXCEPTION
-            }
-
-            is EmailVerificationException -> {
-                exception.message
-            }
-
-            is InvalidUserException -> {
-                exception.message
             }
 
             else -> {

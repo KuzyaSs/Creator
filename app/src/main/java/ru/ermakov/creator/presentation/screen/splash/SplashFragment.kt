@@ -48,6 +48,7 @@ class SplashFragment : Fragment() {
     private fun setUpObservers() {
         splashViewModel.splashUiState.observe(viewLifecycleOwner) { splashUiState ->
             when (splashUiState.state) {
+                State.INITIAL -> {}
                 State.SUCCESS -> {
                     hideProgressBar()
                     navigateToFeedFragment()

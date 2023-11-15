@@ -5,7 +5,6 @@ import ru.ermakov.creator.presentation.State
 
 data class SignUpUiState(
     val signUpData: SignUpData? = null,
-    val isNavigationAvailable: Boolean = false,
-    val state: State = State.LOADING,
+    val state: State = State.INITIAL,
     val errorMessage: String = ""
 )

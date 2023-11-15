@@ -19,6 +19,7 @@ import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSourceImpl
 
+private const val BASE_URL = "*"
 
 @Module
 class RemoteModule {
