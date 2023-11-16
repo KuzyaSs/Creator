@@ -14,8 +14,8 @@
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_splashFragment_to_feedFragment"
-            app:destination="@id/feedFragment"
+            android:id="@+id/action_splashFragment_to_followingFragment"
+            app:destination="@id/followingFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -25,8 +25,8 @@
         android:name="ru.ermakov.creator.presentation.screen.signIn.SignInFragment"
         android:label="SignInFragment">
         <action
-            android:id="@+id/action_signInFragment_to_feedFragment"
-            app:destination="@id/feedFragment"
+            android:id="@+id/action_signInFragment_to_followingFragment"
+            app:destination="@id/followingFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -94,22 +94,22 @@
     </fragment>
 
     <fragment
-        android:id="@+id/feedFragment"
-        android:name="ru.ermakov.creator.presentation.screen.feed.FeedFragment"
-        android:label="FeedFragment" />
+        android:id="@+id/followingFragment"
+        android:name="ru.ermakov.creator.presentation.screen.following.FollowingFragment"
+        android:label="followingFragment" />
 
     <fragment
-        android:id="@+id/chatsFragment"
-        android:name="ru.ermakov.creator.presentation.screen.chats.ChatsFragment"
-        android:label="ChatsFragment" />
+        android:id="@+id/discoverFragment"
+        android:name="ru.ermakov.creator.presentation.screen.discover.DiscoverFragment"
+        android:label="discoverFragment" />
 
     <fragment
-        android:id="@+id/accountFragment"
+        android:id="@+id/searchFragment"
         android:name="ru.ermakov.creator.presentation.screen.account.AccountFragment"
-        android:label="AccountFragment">
+        android:label="searchFragment">
         <action
-            android:id="@+id/action_accountFragment_to_accountSettingsFragment"
-            app:destination="@id/accountSettingsFragment"
+            android:id="@+id/action_accountFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -117,11 +117,11 @@
     </fragment>
 
     <fragment
-        android:id="@+id/accountSettingsFragment"
-        android:name="ru.ermakov.creator.presentation.screen.accountSettings.AccountSettingsFragment"
-        android:label="AccountSettingsFragment">
+        android:id="@+id/settingsFragment"
+        android:name="ru.ermakov.creator.presentation.screen.settings.SettingsFragment"
+        android:label="settingsFragment">
         <action
-            android:id="@+id/action_accountSettingsFragment_to_editProfileFragment"
+            android:id="@+id/action_settingsFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

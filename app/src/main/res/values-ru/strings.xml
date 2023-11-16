@@ -33,10 +33,10 @@
     <string name="tell_some_information">Уточните некоторую информацию о вашей учетной записи</string>
     <string name="my_blog">Мой блог</string>
     <string name="subscriptions">Подписки</string>
-    <string name="account_settings">Настройки аккаунта</string>
-    <string name="wallet">Кошелёк</string>
+    <string name="settings">Настройки</string>
+    <string name="statistics">Статистика</string>
     <string name="support">Поддержка</string>
-    <string name="files">Файлы</string>
+    <string name="downloads">Загрузки</string>
     <string name="sign_out">Выйти</string>
     <string name="three_dots">. . .</string>
     <string name="username">Имя пользователя</string>
@@ -47,4 +47,9 @@
     <string name="about">О себе</string>
     <string name="profile_background">Фон профиля</string>
     <string name="profile_avatar">Аватар профиля</string>
+    <string name="discover">Обзор</string>
+    <string name="following">Отслеживаемое</string>
+    <string name="search">Поиск</string>
+    <string name="log_out">Выйти</string>
+
 </resources>

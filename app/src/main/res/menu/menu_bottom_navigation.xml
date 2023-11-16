@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/feedFragment"
-        android:icon="@drawable/feed_icon_selector"
-        android:title="@string/feed" />
-    <item
-        android:id="@+id/chatsFragment"
-        android:icon="@drawable/chats_icon_selector"
-        android:title="@string/chats" />
+        android:id="@+id/followingFragment"
+        android:icon="@drawable/icon_selector_favorite"
+        android:title="@string/following" />
 
     <item
-        android:id="@+id/accountFragment"
-        android:icon="@drawable/account_icon_selector"
-        android:title="@string/account" />
+        android:id="@+id/discoverFragment"
+        android:icon="@drawable/icon_selector_discover"
+        android:title="@string/discover" />
+
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search" />
 </menu>

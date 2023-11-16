@@ -6,6 +6,7 @@
     <color name="colorError">#ED4245</color>
     <color name="colorSecondary">#F4F4F4</color>
     <color name="colorSecondaryContainer">#D9D9D9</color>
+    <color name="iconTint">#23272A</color>
     <color name="colorBackground">#FFFFFFFF</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/colorSecondary</color>

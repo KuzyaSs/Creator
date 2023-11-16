@@ -1,49 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="BaseTextView">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/base_text_size</item>
+    </style>
+
+    <style name="TitleTextView" parent="BaseTextView">
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+
+    <style name="ExtraLargeTextView" parent="BaseTextView">
+        <item name="android:textSize">@dimen/extra_large_text_size</item>
+    </style>
+
+    <style name="LargeTextView" parent="BaseTextView">
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
+    <style name="SmallTextView" parent="BaseTextView">
+        <item name="android:textSize">@dimen/small_text_size</item>
+    </style>
+
+    <style name="ErrorTextView" parent="BaseTextView">
+        <item name="android:drawablePadding">@dimen/small_margin_size</item>
+        <item name="drawableStartCompat">@drawable/ic_error</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextViewInList" parent="LargeTextView">
+        <item name="android:layout_marginTop">@dimen/base_margin_size</item>
+        <item name="android:drawablePadding">@dimen/small_margin_size</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/small_margin_size</item>
+    </style>
+
     <style name="TextInputLayout">
         <item name="android:textColorHint">?android:textColorPrimary</item>
         <item name="boxStrokeColor">?attr/colorAccent</item>
-        <item name="endIconTint">?android:textColorPrimary</item>
+        <item name="endIconTint">?attr/iconTint</item>
+        <item name="startIconTint">?attr/iconTint</item>
     </style>
 
-    <style name="TextInputEditText">
-        <item name="android:textColor">?android:textColorPrimary</item>
-    </style>
-
-    <style name="ErrorTextView">
-        <item name="android:drawablePadding">@dimen/small_margin_size</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="android:textSize">@dimen/base_font_size</item>
-        <item name="drawableStartCompat">@drawable/ic_error</item>
-    </style>
-
-    <style name="BaseTextView">
-        <item name="android:textColor">?android:textColorPrimary</item>
-    </style>
-
-    <style name="PrimaryButton">
+    <style name="PrimaryButton" parent="LargeTextView">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:backgroundTint">?attr/colorAccent</item>
     </style>
 
     <style name="ProgressBar">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:indeterminate">true</item>
         <item name="indicatorColor">?attr/colorAccent</item>
-    </style>
-
-    <style name="BottomNavigationActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:width">0dp</item>
-        <item name="android:height">0dp</item>
-        <item name="marginHorizontal">0dp</item>
-        <item name="android:color">@android:color/transparent</item>
-    </style>
-
-    <style name="BottomNavigationText">
-        <item name="android:textSize">@dimen/small_font_size</item>
-        <item name="fontFamily">sans-serif-thin</item>
     </style>
 
     <style name="LabelTextView" parent="BaseTextView">
@@ -56,8 +62,29 @@
         <item name="android:drawablePadding">@dimen/small_margin_size</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">@dimen/base_margin_size</item>
-        <item name="android:textSize">@dimen/base_font_size</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="drawableTint">?android:textColorPrimary</item>
+    </style>
+
+    <style name="BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">?android:windowBackground</item>
+        <item name="itemActiveIndicatorStyle">@style/BottomNavigationActiveIndicator</item>
+        <item name="itemIconSize">@dimen/base_icon_size</item>
+        <item name="itemIconTint">@drawable/color_selector</item>
+        <item name="itemPaddingBottom">@dimen/small_margin_size</item>
+        <item name="itemPaddingTop">@dimen/small_margin_size</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavigationText</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavigationText</item>
+        <item name="itemTextColor">@drawable/color_selector</item>
+        <item name="labelVisibilityMode">selected</item>
+    </style>
+
+    <style name="BottomNavigationText" parent="BaseTextView">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="BottomNavigationActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
     </style>
 </resources>

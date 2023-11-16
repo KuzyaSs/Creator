@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
+    android:paddingStart="@dimen/base_margin_size"
+    android:paddingEnd="@dimen/base_margin_size"
     android:scrollbars="none">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/imageViewBack"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="@dimen/base_icon_size"
+            android:layout_height="@dimen/base_icon_size"
+            android:layout_marginTop="@dimen/base_margin_size"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,9 +23,9 @@
 
         <ImageView
             android:id="@+id/imageViewEmail"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="200dp"
+            android:layout_width="@dimen/large_image_size"
+            android:layout_height="@dimen/large_image_size"
+            android:layout_marginTop="175dp"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_email"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,13 +34,11 @@
 
         <TextView
             android:id="@+id/textViewVerifyYourEmail"
-            style="@style/BaseTextView"
+            style="@style/TitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/verify_your_email"
             android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageViewEmail" />
@@ -50,7 +48,7 @@
             style="@style/BaseTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/small_margin_size"
             android:text="@string/email_description"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +60,7 @@
             style="@style/PrimaryButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/base_margin_size"
             android:text="@string/_continue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

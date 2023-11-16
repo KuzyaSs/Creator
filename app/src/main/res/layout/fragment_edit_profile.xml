@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_margin_size"
             android:text="@string/edit_profile"
-            android:textSize="@dimen/extra_large_font_size"
+            android:textSize="@dimen/title_text_size"
             app:layout_constraintBottom_toBottomOf="@id/imageViewBack"
             app:layout_constraintStart_toEndOf="@id/imageViewBack"
             app:layout_constraintTop_toTopOf="@id/imageViewBack" />
@@ -46,9 +46,9 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewProfileAvatar"
-            android:layout_width="@dimen/profile_avatar_size"
-            android:layout_height="@dimen/profile_avatar_size"
-            android:layout_marginTop="@dimen/profile_avatar_margin_top"
+            android:layout_width="@dimen/large_image_size"
+            android:layout_height="@dimen/large_image_size"
+            android:layout_marginTop="45dp"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             android:src="@drawable/default_profile_avatar"

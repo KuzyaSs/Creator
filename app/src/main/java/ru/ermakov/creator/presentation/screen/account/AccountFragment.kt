@@ -2,6 +2,7 @@ package ru.ermakov.creator.presentation.screen.account
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,11 +57,9 @@ class AccountFragment : Fragment() {
     private fun setUpListeners() {
         binding.apply {
             textViewMyBlog.setOnClickListener { navigateToMyBlogFragment() }
-            textViewSubscriptions.setOnClickListener { navigateToSubscriptionsFragment() }
-            textViewAccountSettings.setOnClickListener { navigateToAccountSettingsFragment() }
-            textViewWallet.setOnClickListener { navigateToWalletFragment() }
-            textViewSupport.setOnClickListener { navigateToSupportFragment() }
-            textViewFiles.setOnClickListener { navigateToFilesFragment() }
+            textViewSettings.setOnClickListener { navigateToAccountSettingsFragment() }
+            textViewStatistics.setOnClickListener { navigateToWalletFragment() }
+            textViewDownloads.setOnClickListener { navigateToFilesFragment() }
         }
     }
 
@@ -106,7 +105,7 @@ class AccountFragment : Fragment() {
     }
 
     private fun navigateToAccountSettingsFragment() {
-        val action = AccountFragmentDirections.actionAccountFragmentToAccountSettingsFragment()
+        val action = AccountFragmentDirections.actionAccountFragmentToSettingsFragment()
         findNavController().navigate(action)
     }
 
@@ -125,5 +124,6 @@ class AccountFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        Log.d("MY_TAG", "onDestroyView")
     }
 }

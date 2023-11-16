@@ -62,7 +62,7 @@ class SignInFragment : Fragment() {
                 State.INITIAL -> {}
                 State.SUCCESS -> {
                     hideProgressBar()
-                    navigateToFeedFragment()
+                    navigateToFollowingFragment()
                 }
 
                 State.ERROR -> {
@@ -105,8 +105,8 @@ class SignInFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun navigateToFeedFragment() {
-        val action = SignInFragmentDirections.actionSignInFragmentToFeedFragment()
+    private fun navigateToFollowingFragment() {
+        val action = SignInFragmentDirections.actionSignInFragmentToFollowingFragment()
         findNavController().navigate(action)
     }
 

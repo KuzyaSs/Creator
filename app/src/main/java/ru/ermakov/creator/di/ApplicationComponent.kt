@@ -5,9 +5,9 @@ import dagger.BindsInstance
 import dagger.Component
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import ru.ermakov.creator.presentation.screen.account.AccountFragment
-import ru.ermakov.creator.presentation.screen.chats.ChatsFragment
-import ru.ermakov.creator.presentation.screen.feed.FeedFragment
-import ru.ermakov.creator.presentation.screen.accountSettings.AccountSettingsFragment
+import ru.ermakov.creator.presentation.screen.discover.DiscoverFragment
+import ru.ermakov.creator.presentation.screen.following.FollowingFragment
+import ru.ermakov.creator.presentation.screen.settings.SettingsFragment
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileFragment
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment
 import ru.ermakov.creator.presentation.screen.splash.SplashFragment
@@ -40,9 +40,9 @@ interface ApplicationComponent {
     fun inject(fragment: SignInFragment)
     fun inject(fragment: SignUpFragment)
     fun inject(fragment: PasswordRecoveryFragment)
-    fun inject(fragment: FeedFragment)
-    fun inject(fragment: ChatsFragment)
+    fun inject(fragment: FollowingFragment)
+    fun inject(fragment: DiscoverFragment)
     fun inject(fragment: AccountFragment)
-    fun inject(fragment: AccountSettingsFragment)
+    fun inject(fragment: SettingsFragment)
     fun inject(fragment: EditProfileFragment)
 }

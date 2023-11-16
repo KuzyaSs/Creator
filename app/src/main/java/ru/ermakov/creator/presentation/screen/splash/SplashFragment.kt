@@ -51,7 +51,7 @@ class SplashFragment : Fragment() {
                 State.INITIAL -> {}
                 State.SUCCESS -> {
                     hideProgressBar()
-                    navigateToFeedFragment()
+                    navigateToFollowingFragment()
                 }
 
                 State.ERROR -> {
@@ -61,7 +61,7 @@ class SplashFragment : Fragment() {
                             errorMessage = splashUiState.errorMessage
                         )
                         showToast(message = errorMessage)
-                        navigateToFeedFragment()
+                        navigateToFollowingFragment()
                     } else {
                         navigateToSignInFragment()
                     }
@@ -80,8 +80,8 @@ class SplashFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun navigateToFeedFragment() {
-        val action = SplashFragmentDirections.actionSplashFragmentToFeedFragment()
+    private fun navigateToFollowingFragment() {
+        val action = SplashFragmentDirections.actionSplashFragmentToFollowingFragment()
         findNavController().navigate(action)
     }
 

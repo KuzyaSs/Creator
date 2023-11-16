@@ -11,9 +11,7 @@
     <string name="invalid_user_exception">There is no user record with this email</string>
     <string name="too_many_requests_exception">The account has been blocked. Reset your password or try again later</string>
     <string name="unknown_exception">Unknown error</string>
-    <string name="feed">Feed</string>
     <string name="account">Account</string>
-    <string name="chats">Chats</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign In</string>
@@ -33,10 +31,10 @@
     <string name="tell_some_information">Tell us some information about your account</string>
     <string name="my_blog">My blog</string>
     <string name="subscriptions">Subscriptions</string>
-    <string name="account_settings">Account settings</string>
-    <string name="wallet">Wallet</string>
+    <string name="settings">Settings</string>
+    <string name="statistics">Statistics</string>
     <string name="support">Support</string>
-    <string name="files">Files</string>
+    <string name="downloads">Downloads</string>
     <string name="sign_out">Sign Out</string>
     <string name="three_dots">. . .</string>
     <string name="username">Username</string>
@@ -47,4 +45,9 @@
     <string name="about">About</string>
     <string name="profile_background">Profile background</string>
     <string name="profile_avatar">Profile avatar</string>
+    <string name="discover">Discover</string>
+    <string name="following">Following</string>
+    <string name="search">Search</string>
+    <string name="log_out">Log out</string>
+    <string name="password_recovery">Password recovery</string>
 </resources>

@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/imageViewLogo"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="@dimen/large_image_size"
+        android:layout_height="@dimen/large_image_size"
         android:layout_marginTop="225dp"
         android:importantForAccessibility="no"
         android:src="@drawable/logo"
@@ -18,6 +18,8 @@
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
         style="@style/ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
