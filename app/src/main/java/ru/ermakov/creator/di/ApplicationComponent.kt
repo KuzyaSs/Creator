@@ -10,6 +10,7 @@ import ru.ermakov.creator.presentation.screen.following.FollowingFragment
 import ru.ermakov.creator.presentation.screen.settings.SettingsFragment
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileFragment
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment
+import ru.ermakov.creator.presentation.screen.search.SearchFragment
 import ru.ermakov.creator.presentation.screen.splash.SplashFragment
 import ru.ermakov.creator.presentation.screen.signIn.SignInFragment
 import ru.ermakov.creator.presentation.screen.signUp.SignUpFragment
@@ -42,7 +43,8 @@ interface ApplicationComponent {
     fun inject(fragment: PasswordRecoveryFragment)
     fun inject(fragment: FollowingFragment)
     fun inject(fragment: DiscoverFragment)
-    fun inject(fragment: AccountFragment)
+    fun inject(fragment: SearchFragment)
+    fun inject(fragment: AccountFragment) // ?
     fun inject(fragment: SettingsFragment)
     fun inject(fragment: EditProfileFragment)
 }

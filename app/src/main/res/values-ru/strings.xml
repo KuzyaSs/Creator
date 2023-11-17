@@ -11,9 +11,7 @@
     <string name="invalid_user_exception">Нет записи пользователя с такой электронной почтой</string>
     <string name="too_many_requests_exception">Аккаунт заблокирован. Сбросьте пароль или повторите попытку позже</string>
     <string name="unknown_exception">Неизвестная ошибка</string>
-    <string name="feed">Лента</string>
     <string name="account">Аккаунт</string>
-    <string name="chats">Чаты</string>
     <string name="email">Электронная почта</string>
     <string name="password">Пароль</string>
     <string name="sign_in">Авторизоваться</string>
@@ -43,7 +41,7 @@
     <string name="id">ID</string>
     <string name="edit">Редактировать</string>
     <string name="edit_profile">Редактирование профиля</string>
-    <string name="change_password">Сменить пароль</string>
+    <string name="change_password">Сменина пароля</string>
     <string name="about">О себе</string>
     <string name="profile_background">Фон профиля</string>
     <string name="profile_avatar">Аватар профиля</string>
@@ -51,5 +49,7 @@
     <string name="following">Отслеживаемое</string>
     <string name="search">Поиск</string>
     <string name="log_out">Выйти</string>
+    <string name="password_recovery">Восстановление пароля</string>
+    <string name="CR_edits">CR-едиты</string>
 
 </resources>

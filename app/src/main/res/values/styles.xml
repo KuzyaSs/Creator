@@ -30,6 +30,7 @@
 
     <style name="TextViewInList" parent="LargeTextView">
         <item name="android:layout_marginTop">@dimen/base_margin_size</item>
+        <item name="android:layout_marginEnd">@dimen/base_margin_size</item>
         <item name="android:drawablePadding">@dimen/small_margin_size</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">@dimen/small_margin_size</item>

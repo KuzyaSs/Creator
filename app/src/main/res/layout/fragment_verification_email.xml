@@ -15,7 +15,7 @@
             android:id="@+id/imageViewBack"
             android:layout_width="@dimen/base_icon_size"
             android:layout_height="@dimen/base_icon_size"
-            android:layout_marginTop="@dimen/base_margin_size"
+            android:layout_marginTop="@dimen/small_margin_size"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"

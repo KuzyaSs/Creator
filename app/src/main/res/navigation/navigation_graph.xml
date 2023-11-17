@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
+    android:id="@+id/navigation_graph"
     app:startDestination="@id/splashFragment">
 
     <fragment
@@ -96,19 +96,9 @@
     <fragment
         android:id="@+id/followingFragment"
         android:name="ru.ermakov.creator.presentation.screen.following.FollowingFragment"
-        android:label="followingFragment" />
-
-    <fragment
-        android:id="@+id/discoverFragment"
-        android:name="ru.ermakov.creator.presentation.screen.discover.DiscoverFragment"
-        android:label="discoverFragment" />
-
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="ru.ermakov.creator.presentation.screen.account.AccountFragment"
-        android:label="searchFragment">
+        android:label="FollowingFragment">
         <action
-            android:id="@+id/action_accountFragment_to_settingsFragment"
+            android:id="@+id/action_followingFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -117,9 +107,19 @@
     </fragment>
 
     <fragment
+        android:id="@+id/discoverFragment"
+        android:name="ru.ermakov.creator.presentation.screen.discover.DiscoverFragment"
+        android:label="DiscoverFragment" />
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="ru.ermakov.creator.presentation.screen.search.SearchFragment"
+        android:label="SearchFragment" />
+
+    <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.ermakov.creator.presentation.screen.settings.SettingsFragment"
-        android:label="settingsFragment">
+        android:label="SettingsFragment">
         <action
             android:id="@+id/action_settingsFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment"

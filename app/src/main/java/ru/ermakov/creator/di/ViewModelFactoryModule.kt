@@ -8,9 +8,10 @@ import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
 import ru.ermakov.creator.presentation.exception.ExceptionHandler
-import ru.ermakov.creator.presentation.screen.account.AccountViewModelFactory
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFactory
+import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
+import ru.ermakov.creator.presentation.screen.search.SearchViewModelFactory
 import ru.ermakov.creator.presentation.screen.signIn.SignInViewModelFactory
 import ru.ermakov.creator.presentation.screen.signUp.SignUpViewModelFactory
 import ru.ermakov.creator.presentation.screen.splash.SplashViewModelFactory
@@ -62,14 +63,19 @@ class ViewModelFactoryModule {
     }
 
     @Provides
-    fun provideAccountViewModelFactory(
+    fun provideFollowingViewModelFactory(
         exceptionHandler: ExceptionHandler,
         getCurrentUserUseCase: GetCurrentUserUseCase
-    ): AccountViewModelFactory {
-        return AccountViewModelFactory(
-            exceptionHandler = exceptionHandler,
-            getCurrentUserUseCase = getCurrentUserUseCase
+    ): FollowingViewModelFactory {
+        return FollowingViewModelFactory(
+            getCurrentUserUseCase = getCurrentUserUseCase,
+            exceptionHandler = exceptionHandler
         )
+    }
+
+    @Provides
+    fun provideSearchViewModelFactory(exceptionHandler: ExceptionHandler): SearchViewModelFactory {
+        return SearchViewModelFactory(exceptionHandler = exceptionHandler)
     }
 
     @Provides
@@ -78,8 +84,8 @@ class ViewModelFactoryModule {
         getCurrentUserUseCase: GetCurrentUserUseCase
     ): EditProfileViewModelFactory {
         return EditProfileViewModelFactory(
-            exceptionHandler = exceptionHandler,
-            getCurrentUserUseCase = getCurrentUserUseCase
+            getCurrentUserUseCase = getCurrentUserUseCase,
+            exceptionHandler = exceptionHandler
         )
     }
 }

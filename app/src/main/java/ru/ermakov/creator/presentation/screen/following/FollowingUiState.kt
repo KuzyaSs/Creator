@@ -1,9 +1,9 @@
-package ru.ermakov.creator.presentation.screen.account
+package ru.ermakov.creator.presentation.screen.following
 
 import ru.ermakov.creator.domain.model.User
 import ru.ermakov.creator.presentation.State
 
-data class AccountUiState(
+data class FollowingUiState(
     val currentUser: User? = null,
     val state: State = State.INITIAL,
     val errorMessage: String = ""
