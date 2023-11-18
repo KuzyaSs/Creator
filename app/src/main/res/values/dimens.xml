@@ -16,5 +16,6 @@
     <dimen name="small_margin_size">8dp</dimen>
 
 
-    <dimen name="profile_background_height">175dp</dimen>
+    <dimen name="profile_background_size">175dp</dimen>
+    <dimen name="profile_margin_size">90dp</dimen>
 </resources>

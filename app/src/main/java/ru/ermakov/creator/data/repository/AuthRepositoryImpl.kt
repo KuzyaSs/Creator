@@ -29,6 +29,11 @@ class AuthRepositoryImpl(
         return authRemoteDataSource.signUp(signUpData = signUpData)
     }
 
+    override fun signOut() {
+        authLocalDataSource.clearSignInData()
+        authRemoteDataSource.signOut()
+    }
+
     override suspend fun resetPassword(email: String) {
         authRemoteDataSource.sendPasswordResetEmail(email)
     }

@@ -30,8 +30,9 @@ class SettingsFragment : Fragment() {
 
     private fun setUpListeners() {
         binding.apply {
-            imageViewBack.setOnClickListener { goBack() }
+            textViewTitleWithBackButton.setOnClickListener { goBack() }
             textViewEditProfile.setOnClickListener { navigateToEditProfileFragment() }
+            textViewChooseCategory.setOnClickListener { navigateToChooseCategoryFragment() }
             textViewChangePassword.setOnClickListener { navigateToChangePasswordFragment() }
         }
     }
@@ -39,6 +40,10 @@ class SettingsFragment : Fragment() {
     private fun navigateToEditProfileFragment() {
         val action = SettingsFragmentDirections.actionSettingsFragmentToEditProfileFragment()
         findNavController().navigate(action)
+    }
+
+    private fun navigateToChooseCategoryFragment() {
+
     }
 
     private fun navigateToChangePasswordFragment() {

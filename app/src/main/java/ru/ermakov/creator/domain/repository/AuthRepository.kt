@@ -8,7 +8,7 @@ interface AuthRepository {
     suspend fun signIn(signInData: SignInData)
     suspend fun signedIn()
     suspend fun signUp(signUpData: SignUpData): AuthUser
+    fun signOut()
     suspend fun resetPassword(email: String)
     suspend fun getCurrentUserId(): String
-    // fun signOut()
 }

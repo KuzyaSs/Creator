@@ -3,6 +3,8 @@ package ru.ermakov.creator.di
 import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.EditProfileAvatarUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
@@ -64,11 +66,13 @@ class ViewModelFactoryModule {
 
     @Provides
     fun provideFollowingViewModelFactory(
-        exceptionHandler: ExceptionHandler,
-        getCurrentUserUseCase: GetCurrentUserUseCase
+        getCurrentUserUseCase: GetCurrentUserUseCase,
+        signOutUseCase: SignOutUseCase,
+        exceptionHandler: ExceptionHandler
     ): FollowingViewModelFactory {
         return FollowingViewModelFactory(
             getCurrentUserUseCase = getCurrentUserUseCase,
+            signOutUseCase = signOutUseCase,
             exceptionHandler = exceptionHandler
         )
     }
@@ -80,11 +84,13 @@ class ViewModelFactoryModule {
 
     @Provides
     fun provideEditProfileViewModelFactory(
-        exceptionHandler: ExceptionHandler,
-        getCurrentUserUseCase: GetCurrentUserUseCase
+        getCurrentUserUseCase: GetCurrentUserUseCase,
+        editProfileAvatarUseCase: EditProfileAvatarUseCase,
+        exceptionHandler: ExceptionHandler
     ): EditProfileViewModelFactory {
         return EditProfileViewModelFactory(
             getCurrentUserUseCase = getCurrentUserUseCase,
+            editProfileAvatarUseCase = editProfileAvatarUseCase,
             exceptionHandler = exceptionHandler
         )
     }

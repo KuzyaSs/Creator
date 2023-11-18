@@ -2,9 +2,12 @@ package ru.ermakov.creator.di
 
 import dagger.Module
 import dagger.Provides
+import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.domain.repository.AuthRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.EditProfileAvatarUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
@@ -31,6 +34,11 @@ class UseCaseModule {
     }
 
     @Provides
+    fun provideSignOutUseCase(authRepository: AuthRepository): SignOutUseCase {
+        return SignOutUseCase(authRepository = authRepository)
+    }
+
+    @Provides
     fun provideRecoverPasswordByEmailUseCase(authRepository: AuthRepository): RecoverPasswordByEmailUseCase {
         return RecoverPasswordByEmailUseCase(authRepository = authRepository)
     }
@@ -42,6 +50,17 @@ class UseCaseModule {
     ): GetCurrentUserUseCase {
         return GetCurrentUserUseCase(
             authRepository = authRepository,
+            userRepository = userRepository
+        )
+    }
+
+    @Provides
+    fun provideEditProfileAvatarUseCase(
+        fileRemoteDataSource: FileRemoteDataSource,
+        userRepository: UserRepository
+    ): EditProfileAvatarUseCase {
+        return EditProfileAvatarUseCase(
+            fileRemoteDataSource = fileRemoteDataSource,
             userRepository = userRepository
         )
     }

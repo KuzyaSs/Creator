@@ -2,53 +2,54 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
     android:scrollbars="none">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageViewBack"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="@dimen/base_margin_size"
-            android:layout_marginTop="@dimen/base_margin_size"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewTitle"
-            style="@style/BaseTextView"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewTitle"
+            style="@style/CardView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_margin_size"
-            android:text="@string/edit_profile"
-            android:textSize="@dimen/title_text_size"
-            app:layout_constraintBottom_toBottomOf="@id/imageViewBack"
-            app:layout_constraintStart_toEndOf="@id/imageViewBack"
-            app:layout_constraintTop_toTopOf="@id/imageViewBack" />
+            android:backgroundTint="?android:windowBackground"
+            app:cardElevation="@dimen/base_margin_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textViewTitleWithBackButton"
+                style="@style/TitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_margin_size"
+                android:drawablePadding="@dimen/small_margin_size"
+                android:paddingTop="@dimen/small_margin_size"
+                android:paddingBottom="@dimen/small_margin_size"
+                android:text="@string/edit_profile"
+                app:drawableStartCompat="@drawable/ic_back" />
+        </androidx.cardview.widget.CardView>
 
         <ImageView
             android:id="@+id/imageViewProfileBackground"
             android:layout_width="0dp"
-            android:layout_height="@dimen/profile_background_height"
-            android:layout_marginTop="@dimen/base_margin_size"
+            android:layout_height="@dimen/profile_background_size"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             android:src="@drawable/default_profile_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+            app:layout_constraintTop_toBottomOf="@id/cardViewTitle" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewProfileAvatar"
             android:layout_width="@dimen/large_image_size"
             android:layout_height="@dimen/large_image_size"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="@dimen/profile_margin_size"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             android:src="@drawable/default_profile_avatar"
@@ -58,38 +59,124 @@
 
         <TextView
             android:id="@+id/textViewProfileAvatar"
-            style="@style/LabelTextView"
-            android:layout_marginTop="@dimen/base_margin_size"
+            style="@style/TextViewInList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/profile_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageViewProfileAvatar" />
 
+        <ImageView
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:importantForAccessibility="no"
+            android:scaleX="-1"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/textViewProfileAvatar"
+            app:layout_constraintEnd_toEndOf="@id/textViewProfileAvatar"
+            app:layout_constraintTop_toTopOf="@id/textViewProfileAvatar" />
+
         <TextView
             android:id="@+id/textViewProfileBackground"
-            style="@style/LabelTextView"
+            style="@style/TextViewInList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/profile_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewProfileAvatar" />
 
+        <ImageView
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:importantForAccessibility="no"
+            android:scaleX="-1"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/textViewProfileBackground"
+            app:layout_constraintEnd_toEndOf="@id/textViewProfileBackground"
+            app:layout_constraintTop_toTopOf="@id/textViewProfileBackground" />
+
         <TextView
             android:id="@+id/textViewUsername"
-            style="@style/LabelTextView"
-            android:layout_marginTop="@dimen/base_margin_size"
+            style="@style/TextViewInList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewProfileBackground" />
 
+        <ImageView
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:importantForAccessibility="no"
+            android:scaleX="-1"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/textViewUsername"
+            app:layout_constraintEnd_toEndOf="@id/textViewUsername"
+            app:layout_constraintTop_toTopOf="@id/textViewUsername" />
+
         <TextView
             android:id="@+id/textViewAbout"
-            style="@style/LabelTextView"
+            style="@style/TextViewInList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/about"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewUsername" />
 
+        <ImageView
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:importantForAccessibility="no"
+            android:scaleX="-1"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/textViewAbout"
+            app:layout_constraintEnd_toEndOf="@id/textViewAbout"
+            app:layout_constraintTop_toTopOf="@id/textViewAbout" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_margin_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewAbout" />
+
+        <View
+            android:id="@+id/viewLoading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?android:windowBackground"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardViewTitle" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBar"
+            style="@style/ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardViewTitle" />
+
+        <TextView
+            android:id="@+id/textViewErrorMessage"
+            style="@style/ErrorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardViewTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

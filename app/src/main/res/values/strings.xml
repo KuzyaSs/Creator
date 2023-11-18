@@ -48,7 +48,7 @@
     <string name="discover">Discover</string>
     <string name="following">Following</string>
     <string name="search">Search</string>
-    <string name="log_out">Log out</string>
     <string name="password_recovery">Password recovery</string>
     <string name="CR_edits">CR-edits</string>
+    <string name="choose_category">Choose category</string>
 </resources>

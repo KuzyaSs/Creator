@@ -1,6 +1,5 @@
 package ru.ermakov.creator.presentation.screen.following
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,12 +9,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.model.User
 import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.presentation.State
 import ru.ermakov.creator.presentation.exception.ExceptionHandler
 import java.time.LocalDate
 
 class FollowingViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val signOutUseCase: SignOutUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
     private val _followingUiState = MutableLiveData(FollowingUiState())
@@ -23,7 +24,6 @@ class FollowingViewModel(
 
     init {
         setCurrentUser()
-        Log.d("MY_TAG", "FollowingViewModel initialized")
     }
 
     fun setCurrentUser() {
@@ -59,8 +59,7 @@ class FollowingViewModel(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("MY_TAG", "FollowingViewModel - onCleared")
+    fun signOut() {
+        signOutUseCase()
     }
 }

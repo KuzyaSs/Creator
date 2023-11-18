@@ -14,6 +14,7 @@ import ru.ermakov.creator.databinding.FragmentSignInBinding
 import ru.ermakov.creator.domain.model.SignInData
 import ru.ermakov.creator.presentation.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.screen.CreatorActivity
 import javax.inject.Inject
 
 class SignInFragment : Fragment() {
@@ -40,6 +41,7 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as CreatorActivity).hideBottomNavigationView()
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
         signInViewModel =
             ViewModelProvider(this, signInViewModelFactory)[SignInViewModel::class.java]

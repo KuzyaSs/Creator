@@ -17,7 +17,11 @@ class SplashViewModel(
     private val _splashUiState = MutableLiveData(SplashUiState())
     val splashUiState: LiveData<SplashUiState> = _splashUiState
 
-    fun checkSignedInStatus() {
+    init {
+        checkSignedInStatus()
+    }
+
+    private fun checkSignedInStatus() {
         _splashUiState.value = _splashUiState.value?.copy(state = State.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
             try {

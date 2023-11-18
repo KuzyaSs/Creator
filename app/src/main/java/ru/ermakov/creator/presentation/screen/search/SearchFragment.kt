@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSearchBinding
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.screen.CreatorActivity
 import javax.inject.Inject
 
 class SearchFragment : Fragment() {
@@ -33,6 +35,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as CreatorActivity).showBottomNavigationView()
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
         searchViewModel =
             ViewModelProvider(this, searchViewModelFactory)[SearchViewModel::class.java]
@@ -46,6 +49,10 @@ class SearchFragment : Fragment() {
 
     private fun setUpObservers() {
 
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

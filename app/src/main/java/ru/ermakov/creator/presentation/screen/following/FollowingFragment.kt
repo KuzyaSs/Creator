@@ -1,7 +1,6 @@
 package ru.ermakov.creator.presentation.screen.following
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,40 +42,16 @@ class FollowingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as CreatorActivity).showBottomNavigationView()
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
         followingViewModel =
             ViewModelProvider(
                 requireActivity(),
                 followingViewModelFactory
             )[FollowingViewModel::class.java]
-        (activity as CreatorActivity).showBottomNavigationView()
         setUpSwipeRefreshLayout()
         setUpListeners()
         setUpObservers()
-    }
-
-    private fun setUpObservers() {
-        followingViewModel.followingUiState.observe(viewLifecycleOwner) { followingUiState ->
-            when (followingUiState.state) {
-                State.INITIAL -> {}
-                State.SUCCESS -> {
-                    hideProgressBar()
-                    setProfileAvatar(followingUiState.currentUser!!)
-                }
-
-                State.ERROR -> {
-                    hideProgressBar()
-                    val errorMessage = exceptionLocalizer.localizeException(
-                        errorMessage = followingUiState.errorMessage
-                    )
-                    showToast(errorMessage)
-                }
-
-                State.LOADING -> {
-                    showProgressBar()
-                }
-            }
-        }
     }
 
     private fun setUpSwipeRefreshLayout() {
@@ -108,10 +83,36 @@ class FollowingFragment : Fragment() {
         }
     }
 
+    private fun setUpObservers() {
+        followingViewModel.followingUiState.observe(viewLifecycleOwner) { followingUiState ->
+            when (followingUiState.state) {
+                State.INITIAL -> {}
+                State.SUCCESS -> {
+                    hideProgressBar()
+                    setProfileAvatar(followingUiState.currentUser!!)
+                }
+
+                State.ERROR -> {
+                    hideProgressBar()
+                    val errorMessage = exceptionLocalizer.localizeException(
+                        errorMessage = followingUiState.errorMessage
+                    )
+                    showToast(errorMessage)
+                }
+
+                State.LOADING -> {
+                    showProgressBar()
+                }
+            }
+        }
+    }
+
     private fun setProfileAvatar(user: User) {
-        Glide.with(binding.root)
-            .load(user.profileAvatarUrl)
-            .into(binding.imageViewProfileAvatar)
+        if (user.profileAvatarUrl.isNotEmpty()) {
+            Glide.with(binding.root)
+                .load(user.profileAvatarUrl)
+                .into(binding.imageViewProfileAvatar)
+        }
     }
 
     private fun showAccountFragment() {
@@ -133,6 +134,5 @@ class FollowingFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        Log.d("MY_TAG", "FollowingFragment - onDestroyView")
     }
 }

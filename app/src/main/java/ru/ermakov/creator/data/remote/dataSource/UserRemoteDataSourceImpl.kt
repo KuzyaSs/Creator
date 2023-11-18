@@ -11,10 +11,11 @@ class UserRemoteDataSourceImpl(private val userApi: UserApi) : UserRemoteDataSou
     }
 
     override suspend fun insertUser(authUser: AuthUser) {
-        Log.d("MY_TAG", "INSERT_USER: ${authUser.toString()}")
+        Log.d("MY_TAG", "INSERT_USER: $authUser")
     }
 
     override suspend fun updateUser(user: User) {
+        Log.d("MY_TAG", "UPDATE_USER: $user")
 
     }
 }

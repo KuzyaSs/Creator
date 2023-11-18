@@ -42,7 +42,6 @@ class SplashFragment : Fragment() {
         splashViewModel =
             ViewModelProvider(this, splashViewModelFactory)[SplashViewModel::class.java]
         setUpObservers()
-        splashViewModel.checkSignedInStatus()
     }
 
     private fun setUpObservers() {
@@ -76,7 +75,7 @@ class SplashFragment : Fragment() {
 
     private fun navigateToSignInFragment() {
         val action =
-            SplashFragmentDirections.actionSplashFragmentToSignInFragment("")
+            SplashFragmentDirections.actionSplashFragmentToSignInFragment(null)
         findNavController().navigate(action)
     }
 

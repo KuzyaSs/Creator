@@ -34,8 +34,7 @@
                 style="@style/TitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/small_margin_size"
+                android:layout_gravity="center"
                 android:text="@string/following" />
         </androidx.cardview.widget.CardView>
 
