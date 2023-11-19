@@ -2,12 +2,14 @@ package ru.ermakov.creator.di
 
 import dagger.Module
 import dagger.Provides
-import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.domain.repository.AuthRepository
+import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.UserRepository
-import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
-import ru.ermakov.creator.domain.useCase.editProfile.EditProfileAvatarUseCase
+import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.common.UpdateUserUseCase
+import ru.ermakov.creator.domain.useCase.common.UploadFileUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
@@ -55,13 +57,17 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideEditProfileAvatarUseCase(
-        fileRemoteDataSource: FileRemoteDataSource,
-        userRepository: UserRepository
-    ): EditProfileAvatarUseCase {
-        return EditProfileAvatarUseCase(
-            fileRemoteDataSource = fileRemoteDataSource,
-            userRepository = userRepository
-        )
+    fun provideUpdateUserUseCase(userRepository: UserRepository): UpdateUserUseCase {
+        return UpdateUserUseCase(userRepository = userRepository)
+    }
+
+    @Provides
+    fun provideUploadFileUseCase(fileRepository: FileRepository): UploadFileUseCase {
+        return UploadFileUseCase(fileRepository = fileRepository)
+    }
+
+    @Provides
+    fun provideCancelUploadTaskUseCase(fileRepository: FileRepository): CancelUploadTaskUseCase {
+        return CancelUploadTaskUseCase(fileRepository = fileRepository)
     }
 }

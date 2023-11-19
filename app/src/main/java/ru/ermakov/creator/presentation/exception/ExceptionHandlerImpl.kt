@@ -1,5 +1,6 @@
 package ru.ermakov.creator.presentation.exception
 
+import android.util.Log
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -18,7 +19,8 @@ import ru.ermakov.creator.domain.exception.EmptyDataException
 import ru.ermakov.creator.domain.exception.PasswordMismatchException
 
 class ExceptionHandlerImpl : ExceptionHandler {
-    override fun handleException(exception: Exception): String {
+    override fun handleException(exception: Throwable): String {
+        Log.d("MY_TAG", "EXCEPTION: ${exception.message}")
         return when (exception) {
             is EmptyDataException -> {
                 exception.message

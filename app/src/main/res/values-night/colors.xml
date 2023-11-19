@@ -7,7 +7,7 @@
     <color name="colorSecondary">#26252B</color>
     <color name="colorSecondaryContainer">#D9D9D9</color>
     <color name="iconTint">#FFFFFF</color>
-    <color name="colorBackground">#18181A</color>
+    <color name="backgroundColor">#18181A</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/colorSecondary</color>
 </resources>

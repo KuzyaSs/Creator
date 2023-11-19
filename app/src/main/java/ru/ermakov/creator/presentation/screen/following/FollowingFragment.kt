@@ -17,7 +17,7 @@ import ru.ermakov.creator.domain.model.User
 import ru.ermakov.creator.presentation.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
-import ru.ermakov.creator.presentation.screen.account.AccountFragment
+import ru.ermakov.creator.presentation.screen.account.AccountBottomSheetDialogFragment
 import javax.inject.Inject
 
 class FollowingFragment : Fragment() {
@@ -59,7 +59,7 @@ class FollowingFragment : Fragment() {
             setProgressBackgroundColorSchemeColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.colorBackground
+                    R.color.backgroundColor
                 )
             )
             setColorSchemeColors(
@@ -77,8 +77,13 @@ class FollowingFragment : Fragment() {
                 followingViewModel.setCurrentUser()
                 swipeRefreshLayout.isRefreshing = false
             }
+            val accountBottomSheetDialogFragment = AccountBottomSheetDialogFragment()
             imageViewProfileAvatar.setOnClickListener {
-                showAccountFragment()
+                if (!accountBottomSheetDialogFragment.isVisible) {
+                    accountBottomSheetDialogFragment.show(childFragmentManager, this.toString())
+                } else {
+                    accountBottomSheetDialogFragment.dismiss()
+                }
             }
         }
     }
@@ -111,12 +116,9 @@ class FollowingFragment : Fragment() {
         if (user.profileAvatarUrl.isNotEmpty()) {
             Glide.with(binding.root)
                 .load(user.profileAvatarUrl)
+                .placeholder(R.drawable.default_profile_avatar)
                 .into(binding.imageViewProfileAvatar)
         }
-    }
-
-    private fun showAccountFragment() {
-        AccountFragment().show(childFragmentManager, this.toString())
     }
 
     private fun showToast(message: String) {

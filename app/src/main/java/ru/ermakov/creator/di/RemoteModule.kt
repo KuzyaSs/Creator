@@ -18,6 +18,7 @@ import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSourceImpl
+import javax.inject.Singleton
 
 private const val BASE_URL = "https://ya.ru/"
 
@@ -38,6 +39,7 @@ class RemoteModule {
         return Firebase.storage
     }
 
+    @Singleton
     @Provides
     fun provideFileRemoteDataSource(firebaseStorage: FirebaseStorage): FileRemoteDataSource {
         return FileRemoteDataSourceImpl(firebaseStorage = firebaseStorage)

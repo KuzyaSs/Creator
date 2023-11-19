@@ -2,13 +2,17 @@ package ru.ermakov.creator.presentation.screen.editProfile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
-import ru.ermakov.creator.domain.useCase.editProfile.EditProfileAvatarUseCase
+import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.common.UpdateUserUseCase
+import ru.ermakov.creator.domain.useCase.common.UploadFileUseCase
 import ru.ermakov.creator.presentation.exception.ExceptionHandler
 
 class EditProfileViewModelFactory(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
-    private val editProfileAvatarUseCase: EditProfileAvatarUseCase,
+    private val updateUserUseCase: UpdateUserUseCase,
+    private val uploadFileUseCase: UploadFileUseCase,
+    private val cancelUploadTaskUseCase: CancelUploadTaskUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -16,7 +20,9 @@ class EditProfileViewModelFactory(
             @Suppress("UNCHECKED_CAST")
             return EditProfileViewModel(
                 getCurrentUserUseCase = getCurrentUserUseCase,
-                editProfileAvatarUseCase = editProfileAvatarUseCase,
+                updateUserUseCase = updateUserUseCase,
+                uploadFileUseCase = uploadFileUseCase,
+                cancelUploadTaskUseCase = cancelUploadTaskUseCase,
                 exceptionHandler = exceptionHandler
             ) as T
         }

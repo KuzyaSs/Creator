@@ -11,7 +11,9 @@ import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
 import ru.ermakov.creator.data.repository.UserRepositoryImpl
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
+import ru.ermakov.creator.data.repository.FileRepositoryImpl
 import ru.ermakov.creator.domain.repository.AuthRepository
+import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 
 @Module
@@ -33,6 +35,17 @@ class RepositoryModule {
     ): UserRepository {
         return UserRepositoryImpl(
             userRemoteDataSource = userRemoteDataSource,
+        )
+    }
+
+    @Provides
+    fun provideFileRepository(
+        fileLocalDataSource: FileLocalDataSource,
+        fileRemoteDataSource: FileRemoteDataSource
+    ): FileRepository {
+        return FileRepositoryImpl(
+            fileLocalDataSource = fileLocalDataSource,
+            fileRemoteDataSource = fileRemoteDataSource
         )
     }
 }

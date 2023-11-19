@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentAccountBinding
 import ru.ermakov.creator.domain.model.User
@@ -20,7 +21,7 @@ import ru.ermakov.creator.presentation.screen.following.FollowingViewModel
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import javax.inject.Inject
 
-class AccountFragment : BottomSheetDialogFragment() {
+class AccountBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
 
@@ -84,7 +85,10 @@ class AccountFragment : BottomSheetDialogFragment() {
 
     private fun setUserProfile(user: User) {
         binding.apply {
-            Glide.with(binding.root).load(user.profileAvatarUrl).into(imageViewProfileAvatar)
+            Glide.with(binding.root)
+                .load(user.profileAvatarUrl)
+                .placeholder(R.drawable.default_profile_avatar)
+                .into(imageViewProfileAvatar)
             textViewUsername.text = user.username
         }
     }

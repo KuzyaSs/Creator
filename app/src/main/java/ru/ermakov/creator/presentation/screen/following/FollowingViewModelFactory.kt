@@ -2,7 +2,7 @@ package ru.ermakov.creator.presentation.screen.following
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.presentation.exception.ExceptionHandler
 

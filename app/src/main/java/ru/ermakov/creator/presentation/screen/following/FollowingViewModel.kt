@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.domain.useCase.account.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.presentation.State
 import ru.ermakov.creator.presentation.exception.ExceptionHandler

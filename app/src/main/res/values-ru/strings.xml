@@ -22,6 +22,7 @@
     <string name="sign_up_label">Регистрация</string>
     <string name="confirm_password">Подтвердить пароль</string>
     <string name="loading">Загрузка</string>
+    <string name="please_wait">Пожалуйста, подождите…</string>
     <string name="offline_mode">Автономный режим</string>
     <string name="verify_your_email">Подтвердите ваш адрес электронной почты</string>
     <string name="email_description"><![CDATA[На адрес <b><font color=#9146FF>%1$s</font></b> было отправлено письмо для подтверждения его действительности. После получения письма перейдите по указанной ссылке для завершения регистрации]]></string>

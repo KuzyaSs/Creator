@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.ermakov.creator.presentation.screen.CreatorActivity
-import ru.ermakov.creator.presentation.screen.account.AccountFragment
+import ru.ermakov.creator.presentation.screen.account.AccountBottomSheetDialogFragment
 import ru.ermakov.creator.presentation.screen.discover.DiscoverFragment
 import ru.ermakov.creator.presentation.screen.following.FollowingFragment
 import ru.ermakov.creator.presentation.screen.settings.SettingsFragment
@@ -44,7 +44,7 @@ interface ApplicationComponent {
     fun inject(fragment: FollowingFragment)
     fun inject(fragment: DiscoverFragment)
     fun inject(fragment: SearchFragment)
-    fun inject(fragment: AccountFragment) // ?
+    fun inject(fragment: AccountBottomSheetDialogFragment) // ?
     fun inject(fragment: SettingsFragment)
     fun inject(fragment: EditProfileFragment)
 }

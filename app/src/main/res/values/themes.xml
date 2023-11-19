@@ -7,9 +7,9 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
         <item name="iconTint">@color/iconTint</item>
-        <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="android:statusBarColor">@color/colorBackground</item>
-        <item name="android:navigationBarColor">@color/colorBackground</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
+        <item name="android:statusBarColor">@color/backgroundColor</item>
+        <item name="android:navigationBarColor">@color/backgroundColor</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
