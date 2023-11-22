@@ -13,7 +13,7 @@ import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSplashBinding
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.NETWORK_EXCEPTION
-import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.model.State
 import javax.inject.Inject
 
 class SplashFragment : Fragment() {

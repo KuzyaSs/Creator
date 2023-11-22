@@ -1,12 +1,10 @@
 package ru.ermakov.creator.data.mapper
 
 import com.google.firebase.auth.FirebaseUser
-import com.google.type.DateTime
 import ru.ermakov.creator.data.local.entity.UserEntity
 import ru.ermakov.creator.domain.model.AuthUser
 import ru.ermakov.creator.domain.model.User
 import java.time.Instant
-import java.time.LocalDate
 import java.time.ZoneOffset
 
 fun User.toUserEntity(): UserEntity {
@@ -14,7 +12,7 @@ fun User.toUserEntity(): UserEntity {
         id = id,
         username = username,
         email = email,
-        about = about,
+        bio = bio,
         profileAvatarUrl = profileAvatarUrl,
         profileBackgroundUrl = profileBackgroundUrl,
         registrationDate = registrationDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
@@ -26,7 +24,7 @@ fun UserEntity.toUser(): User {
         id = id,
         username = username,
         email = email,
-        about = about,
+        bio = bio,
         profileAvatarUrl = profileAvatarUrl,
         profileBackgroundUrl = profileBackgroundUrl,
         registrationDate = Instant

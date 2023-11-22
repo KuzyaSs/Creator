@@ -17,12 +17,17 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWOR
 import ru.ermakov.creator.data.exception.InvalidUserException
 import ru.ermakov.creator.domain.exception.EmptyDataException
 import ru.ermakov.creator.domain.exception.PasswordMismatchException
+import ru.ermakov.creator.domain.exception.ShortUsernameException
 
 class ExceptionHandlerImpl : ExceptionHandler {
     override fun handleException(exception: Throwable): String {
         Log.d("MY_TAG", "EXCEPTION: ${exception.message}")
         return when (exception) {
             is EmptyDataException -> {
+                exception.message
+            }
+
+            is ShortUsernameException -> {
                 exception.message
             }
 

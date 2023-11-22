@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.model.SignInData
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
-import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.model.State
 import ru.ermakov.creator.presentation.exception.ExceptionHandler
 
 class SignInViewModel(

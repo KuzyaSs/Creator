@@ -14,10 +14,9 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentFollowingBinding
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.model.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
-import ru.ermakov.creator.presentation.screen.account.AccountBottomSheetDialogFragment
 import javax.inject.Inject
 
 class FollowingFragment : Fragment() {
@@ -77,13 +76,9 @@ class FollowingFragment : Fragment() {
                 followingViewModel.setCurrentUser()
                 swipeRefreshLayout.isRefreshing = false
             }
-            val accountBottomSheetDialogFragment = AccountBottomSheetDialogFragment()
+            val accountFragment = AccountFragment()
             imageViewProfileAvatar.setOnClickListener {
-                if (!accountBottomSheetDialogFragment.isVisible) {
-                    accountBottomSheetDialogFragment.show(childFragmentManager, this.toString())
-                } else {
-                    accountBottomSheetDialogFragment.dismiss()
-                }
+                showAccountFragment(accountFragment = accountFragment)
             }
         }
     }
@@ -118,6 +113,14 @@ class FollowingFragment : Fragment() {
                 .load(user.profileAvatarUrl)
                 .placeholder(R.drawable.default_profile_avatar)
                 .into(binding.imageViewProfileAvatar)
+        }
+    }
+
+    private fun showAccountFragment(accountFragment: AccountFragment) {
+        if (!accountFragment.isVisible) {
+            accountFragment.show(childFragmentManager, accountFragment.toString())
+        } else {
+            accountFragment.dismiss()
         }
     }
 

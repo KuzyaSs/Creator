@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.screen.account
+package ru.ermakov.creator.presentation.screen.following
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,15 +13,12 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentAccountBinding
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.model.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
-import ru.ermakov.creator.presentation.screen.following.FollowingFragmentDirections
-import ru.ermakov.creator.presentation.screen.following.FollowingViewModel
-import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import javax.inject.Inject
 
-class AccountBottomSheetDialogFragment : BottomSheetDialogFragment() {
+class AccountFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
 

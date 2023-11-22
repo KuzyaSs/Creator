@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
-import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.model.State
 import ru.ermakov.creator.presentation.exception.ExceptionHandler
 
 class SplashViewModel(

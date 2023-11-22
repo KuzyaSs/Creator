@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSignUpBinding
 import ru.ermakov.creator.domain.model.SignUpData
-import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.model.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
 import javax.inject.Inject
 

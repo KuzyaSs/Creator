@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSignInBinding
 import ru.ermakov.creator.domain.model.SignInData
-import ru.ermakov.creator.presentation.State
+import ru.ermakov.creator.presentation.model.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import javax.inject.Inject

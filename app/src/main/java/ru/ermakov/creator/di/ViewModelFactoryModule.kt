@@ -2,11 +2,13 @@ package ru.ermakov.creator.di
 
 import dagger.Module
 import dagger.Provides
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
-import ru.ermakov.creator.domain.useCase.common.UpdateUserUseCase
-import ru.ermakov.creator.domain.useCase.common.UploadFileUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
@@ -87,15 +89,19 @@ class ViewModelFactoryModule {
     @Provides
     fun provideEditProfileViewModelFactory(
         getCurrentUserUseCase: GetCurrentUserUseCase,
-        updateUserUseCase: UpdateUserUseCase,
-        uploadFileUseCase: UploadFileUseCase,
+        updateUserImageUseCase: UpdateUserImageUseCase,
+        updateUsernameUseCase: UpdateUsernameUseCase,
+        updateBioUseCase: UpdateBioUseCase,
+        uploadProfileFileUseCase: UploadProfileFileUseCase,
         cancelUploadTaskUseCase: CancelUploadTaskUseCase,
         exceptionHandler: ExceptionHandler
     ): EditProfileViewModelFactory {
         return EditProfileViewModelFactory(
             getCurrentUserUseCase = getCurrentUserUseCase,
-            updateUserUseCase = updateUserUseCase,
-            uploadFileUseCase = uploadFileUseCase,
+            updateUserImageUseCase = updateUserImageUseCase,
+            updateUsernameUseCase = updateUsernameUseCase,
+            updateBioUseCase = updateBioUseCase,
+            uploadProfileFileUseCase = uploadProfileFileUseCase,
             cancelUploadTaskUseCase = cancelUploadTaskUseCase,
             exceptionHandler = exceptionHandler
         )

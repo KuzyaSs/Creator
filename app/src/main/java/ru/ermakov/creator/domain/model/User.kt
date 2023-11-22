@@ -6,7 +6,7 @@ data class User(
     val id: String,
     val username: String,
     val email: String,
-    val about: String,
+    val bio: String,
     val profileAvatarUrl: String,
     val profileBackgroundUrl: String,
     val registrationDate: LocalDate

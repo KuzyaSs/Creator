@@ -8,6 +8,7 @@
 
     <style name="TitleTextView" parent="BaseTextView">
         <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="ExtraLargeTextView" parent="BaseTextView">
@@ -59,6 +60,7 @@
     <style name="ProgressBar">
         <item name="android:indeterminate">true</item>
         <item name="indicatorColor">?attr/colorAccent</item>
+        <item name="indicatorSize">@dimen/base_icon_size</item>
     </style>
 
     <style name="LabelTextView" parent="BaseTextView">

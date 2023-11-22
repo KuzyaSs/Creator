@@ -10,8 +10,8 @@ data class RemoteUser(
     val username: String,
     @SerializedName("email")
     val email: String,
-    @SerializedName("about")
-    val about: String,
+    @SerializedName("bio")
+    val bio: String,
     @SerializedName("profileAvatarUrl")
     val profileAvatarUrl: String,
     @SerializedName("profileBackgroundUrl")

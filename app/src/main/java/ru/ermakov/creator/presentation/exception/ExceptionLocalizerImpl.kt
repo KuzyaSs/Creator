@@ -10,6 +10,7 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_PASS
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_USER_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.NETWORK_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.PASSWORD_MISMATCH_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SHORT_USERNAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TOO_MANY_REQUESTS_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWORD_EXCEPTION
 
@@ -18,6 +19,10 @@ class ExceptionLocalizerImpl(private val context: Context) : ExceptionLocalizer 
         return when (errorMessage) {
             NETWORK_EXCEPTION -> {
                 context.getString(R.string.network_exception)
+            }
+
+            SHORT_USERNAME_EXCEPTION -> {
+                context.getString(R.string.short_username_exception)
             }
 
             EMPTY_DATA_EXCEPTION -> {

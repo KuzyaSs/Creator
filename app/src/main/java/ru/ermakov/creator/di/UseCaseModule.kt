@@ -9,7 +9,10 @@ import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.common.UpdateUserUseCase
-import ru.ermakov.creator.domain.useCase.common.UploadFileUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
+import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
@@ -62,8 +65,41 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideUploadFileUseCase(fileRepository: FileRepository): UploadFileUseCase {
-        return UploadFileUseCase(fileRepository = fileRepository)
+    fun provideUpdateUserImageUseCase(
+        getCurrentUserUseCase: GetCurrentUserUseCase,
+        updateUserUseCase: UpdateUserUseCase
+    ): UpdateUserImageUseCase {
+        return UpdateUserImageUseCase(
+            getCurrentUserUseCase = getCurrentUserUseCase,
+            updateUserUseCase = updateUserUseCase
+        )
+    }
+
+    @Provides
+    fun provideUpdateUsernameUseCase(
+        getCurrentUserUseCase: GetCurrentUserUseCase,
+        updateUserUseCase: UpdateUserUseCase
+    ): UpdateUsernameUseCase {
+        return UpdateUsernameUseCase(
+            getCurrentUserUseCase = getCurrentUserUseCase,
+            updateUserUseCase = updateUserUseCase
+        )
+    }
+
+    @Provides
+    fun provideUpdateBioUseCase(
+        getCurrentUserUseCase: GetCurrentUserUseCase,
+        updateUserUseCase: UpdateUserUseCase
+    ): UpdateBioUseCase {
+        return UpdateBioUseCase(
+            getCurrentUserUseCase = getCurrentUserUseCase,
+            updateUserUseCase = updateUserUseCase
+        )
+    }
+
+    @Provides
+    fun provideUploadFileUseCase(fileRepository: FileRepository): UploadProfileFileUseCase {
+        return UploadProfileFileUseCase(fileRepository = fileRepository)
     }
 
     @Provides

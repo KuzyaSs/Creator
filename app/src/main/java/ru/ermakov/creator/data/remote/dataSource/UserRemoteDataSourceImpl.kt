@@ -27,6 +27,7 @@ class UserRemoteDataSourceImpl(private val userApi: UserApi) : UserRemoteDataSou
     }
 
     override suspend fun updateUser(user: User) {
+        delay(2000)
         Log.d("MY_TAG", "UPDATE_USER: $user")
     }
 }

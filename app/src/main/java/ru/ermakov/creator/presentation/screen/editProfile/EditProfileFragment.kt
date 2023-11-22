@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +21,6 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentEditProfileBinding
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.presentation.State
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
 import javax.inject.Inject
 
@@ -57,9 +57,27 @@ class EditProfileFragment : Fragment() {
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
         editProfileViewModel =
             ViewModelProvider(this, editProfileViewModelFactory)[EditProfileViewModel::class.java]
+        setUpSwipeRefreshLayout()
         setUpLoadingDialog()
         setUpListeners()
         setUpObservers()
+    }
+
+    private fun setUpSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.apply {
+            setProgressBackgroundColorSchemeColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.backgroundColor
+                )
+            )
+            setColorSchemeColors(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorAccent
+                )
+            )
+        }
     }
 
     private fun registerMediaPicker() {
@@ -67,9 +85,9 @@ class EditProfileFragment : Fragment() {
             ActivityResultContracts.PickVisualMedia(),
         ) { uri ->
             if (uri != null) {
-                editProfileViewModel.uploadFile(
+                editProfileViewModel.editProfileImage(
                     uri = uri,
-                    name = uri.lastPathSegment.toString()
+                    fileName = uri.lastPathSegment.toString()
                 )
             }
         }
@@ -87,44 +105,44 @@ class EditProfileFragment : Fragment() {
 
     private fun setUpListeners() {
         binding.apply {
+            swipeRefreshLayout.setOnRefreshListener {
+                editProfileViewModel.refreshCurrentUser()
+            }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
-            textViewProfileAvatar.setOnClickListener { showEditProfileAvatarFragment() }
-            imageViewProfileBackground.setOnClickListener { showEditProfileBackgroundFragment() }
-            textViewUsername.setOnClickListener { showEditUsernameFragment() }
-            textViewAbout.setOnClickListener { showEditAboutFragment() }
+            textViewProfileAvatar.setOnClickListener { editProfileAvatar() }
+            textViewProfileBackground.setOnClickListener { editProfileBackground() }
+            val editUsernameFragment = EditUsernameFragment()
+            textViewUsername.setOnClickListener {
+                setEditUsernameFragment(editUsernameFragment = editUsernameFragment)
+            }
+            val editBioFragment = EditBioFragment()
+            textViewBio.setOnClickListener {
+                setEditBioFragment(editBioFragment = editBioFragment)
+            }
             viewLoading.setOnClickListener { }
         }
     }
 
     private fun setUpObservers() {
         editProfileViewModel.editProfileUiState.observe(viewLifecycleOwner) { editProfileUiState ->
-            when (editProfileUiState.state) {
-                State.INITIAL -> {}
-                State.SUCCESS -> {
-                    hideProgressBar()
-                    hideLoadingView()
-                    hideLoadingDialog()
-                    setProfileAvatarAndBackground(editProfileUiState.currentUser!!)
-                }
-
-                State.ERROR -> {
-                    hideProgressBar()
-                    hideLoadingDialog()
-                    val errorMessage = exceptionLocalizer.localizeException(
-                        errorMessage = editProfileUiState.errorMessage
+            editProfileUiState.apply {
+                if (currentUser != null) {
+                    setProfileAvatarAndBackground(user = currentUser)
+                    setLoading(isLoadingShown = isLoadingShown)
+                    setErrorMessage(
+                        errorMessage = editProfileErrorMessage,
+                        isErrorMessageShown = isEditProfileErrorMessageShown
                     )
-                    showToast(errorMessage)
                 }
-
-                State.LOADING -> {
-                    hideError()
-                    if (editProfileUiState.currentUser == null) {
-                        showProgressBar()
-                        showLoadingView()
-                    }
-                    if (editProfileUiState.isFileUploading) {
-                        showLoadingDialog()
-                    }
+                binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
+                binding.viewLoading.isVisible = currentUser == null
+                binding.progressBar.isVisible =
+                    !isEditProfileErrorMessageShown && currentUser == null
+                binding.textViewErrorMessage.apply {
+                    text = exceptionLocalizer.localizeException(
+                        errorMessage = editProfileErrorMessage
+                    )
+                    isVisible = isEditProfileErrorMessageShown && currentUser == null
                 }
             }
         }
@@ -145,67 +163,49 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    private fun showEditProfileAvatarFragment() {
+    private fun editProfileAvatar() {
+        editProfileViewModel.setEditProfileOptionToProfileAvatar()
         mediaPicker?.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
-    private fun showEditProfileBackgroundFragment() {
-
+    private fun editProfileBackground() {
+        editProfileViewModel.setEditProfileOptionToProfileBackground()
+        mediaPicker?.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
-    private fun showEditUsernameFragment() {
-
+    private fun setEditUsernameFragment(editUsernameFragment: EditUsernameFragment) {
+        if (!editUsernameFragment.isVisible) {
+            editUsernameFragment.show(childFragmentManager, editUsernameFragment.toString())
+        } else {
+            editUsernameFragment.dismiss()
+        }
     }
 
-    private fun showEditAboutFragment() {
-
+    private fun setEditBioFragment(editBioFragment: EditBioFragment) {
+        if (!editBioFragment.isVisible) {
+            editBioFragment.show(childFragmentManager, editBioFragment.toString())
+        } else {
+            editBioFragment.dismiss()
+        }
     }
 
     private fun goBack() {
         requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showError(errorMessage: String) {
-        binding.textViewErrorMessage.apply {
-            text = errorMessage
-            isVisible = true
+    private fun setLoading(isLoadingShown: Boolean) {
+        if (isLoadingShown) {
+            loadingDialog?.show()
+        } else {
+            loadingDialog?.cancel()
         }
     }
 
-    private fun hideError() {
-        binding.textViewErrorMessage.isVisible = false
-    }
-
-    private fun showProgressBar() {
-        binding.progressBar.isVisible = true
-    }
-
-    private fun hideProgressBar() {
-        binding.progressBar.isVisible = false
-    }
-
-    // Hide content during loading screen.
-    private fun showLoadingView() {
-        binding.viewLoading.isVisible = true
-    }
-
-    // Show content after loading screen.
-    private fun hideLoadingView() {
-        binding.viewLoading.isVisible = false
-    }
-
-    // Show loading dialog during uploading file.
-    private fun showLoadingDialog() {
-        loadingDialog?.show()
-    }
-
-    // Hide loading dialog after uploading file.
-    private fun hideLoadingDialog() {
-        loadingDialog?.cancel()
+    private fun setErrorMessage(errorMessage: String, isErrorMessageShown: Boolean) {
+        if (isErrorMessageShown) {
+            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            editProfileViewModel.clearEditProfileErrorMessage()
+        }
     }
 
     override fun onDestroyView() {

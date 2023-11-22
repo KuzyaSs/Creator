@@ -2,6 +2,7 @@
     <string name="app_name">Creator</string>
     <string name="network_exception">Network error</string>
     <string name="empty_data_exception">Fill in all the fields</string>
+    <string name="short_username_exception">Username should be at least 3 characters long</string>
     <string name="email_format_exception">The email address is badly formatted</string>
     <string name="email_verification_exception">Verify your account email</string>
     <string name="invalid_password_exception">The password is invalid</string>
@@ -43,7 +44,7 @@
     <string name="edit">Edit</string>
     <string name="edit_profile">Edit profile</string>
     <string name="change_password">Change password</string>
-    <string name="about">About</string>
+    <string name="bio">Bio</string>
     <string name="profile_background">Profile background</string>
     <string name="profile_avatar">Profile avatar</string>
     <string name="discover">Discover</string>
@@ -52,4 +53,8 @@
     <string name="password_recovery">Password recovery</string>
     <string name="CR_edits">CR-edits</string>
     <string name="choose_category">Choose category</string>
+    <string name="edit_username_description">You can set a username to make it easier for other people to find you. This name should be unique and at least 3 characters long.</string>
+    <string name="edit_bio_description">Write something about your entertainment, plans or activities.</string>
+    <string name="edit_username">Edit username</string>
+    <string name="edit_bio">Edit bio</string>
 </resources>

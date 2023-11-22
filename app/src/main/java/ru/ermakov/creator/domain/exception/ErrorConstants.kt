@@ -4,6 +4,7 @@ class ErrorConstants {
     companion object {
         const val NETWORK_EXCEPTION = "Network error"
         const val EMPTY_DATA_EXCEPTION = "Fill in all the fields"
+        const val SHORT_USERNAME_EXCEPTION = "Username should be at least 3 characters long"
         const val EMAIL_FORMAT_EXCEPTION = "The email address is badly formatted"
         const val EMAIL_COLLISION_EXCEPTION = "The email address is already in use by another account"
         const val EMAIL_VERIFICATION_EXCEPTION = "Verify your account email"
