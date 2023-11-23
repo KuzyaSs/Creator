@@ -3,13 +3,15 @@
     <string name="network_exception">Network error</string>
     <string name="empty_data_exception">Fill in all the fields</string>
     <string name="short_username_exception">Username should be at least 3 characters long</string>
+    <string name="username_in_use_exception">This username is already in use</string>
+    <string name="user_not_found_exception">User is not found</string>
     <string name="email_format_exception">The email address is badly formatted</string>
     <string name="email_verification_exception">Verify your account email</string>
+    <string name="email_collision_exception">The email address is already in use by another account</string>
+    <string name="unknown_email_exception">There is no user record with this email</string>
     <string name="invalid_password_exception">The password is invalid</string>
     <string name="password_mismatch_exception">Passwords don\'t match</string>
     <string name="weak_password_exception">Password should be at least 6 characters</string>
-    <string name="email_collision_exception">The email address is already in use by another account</string>
-    <string name="invalid_user_exception">There is no user record with this email</string>
     <string name="too_many_requests_exception">The account has been blocked. Reset your password or try again later</string>
     <string name="unknown_exception">Unknown error</string>
     <string name="account">Account</string>

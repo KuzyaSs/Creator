@@ -3,6 +3,8 @@ package ru.ermakov.creator.di
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
+import ru.ermakov.creator.data.exception.ApiExceptionLocalizerImpl
 import ru.ermakov.creator.presentation.exception.ExceptionHandler
 import ru.ermakov.creator.presentation.exception.ExceptionHandlerImpl
 import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
@@ -18,5 +20,10 @@ class ExceptionModule {
     @Provides
     fun provideExceptionLocalizer(context: Context): ExceptionLocalizer {
         return ExceptionLocalizerImpl(context = context)
+    }
+
+    @Provides
+    fun provideApiExceptionLocalizer(): ApiExceptionLocalizer {
+        return ApiExceptionLocalizerImpl()
     }
 }

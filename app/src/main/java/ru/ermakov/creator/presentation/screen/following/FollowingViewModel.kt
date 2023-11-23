@@ -5,14 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
-import ru.ermakov.creator.presentation.model.State
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.presentation.exception.ExceptionHandler
-import java.time.LocalDate
+import ru.ermakov.creator.presentation.model.State
 
 class FollowingViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
@@ -30,17 +27,7 @@ class FollowingViewModel(
         _followingUiState.value = _followingUiState.value?.copy(state = State.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                delay(2000) // remove
-                // temporarily
-                val currentUser = User(
-                    "12",
-                    "Kuzya",
-                    "skepy@,ail.ru",
-                    "about",
-                    "https://firebasestorage.googleapis.com/v0/b/creator-26c44.appspot.com/o/myAvatar.png?alt=media&token=e564220f-2ed0-4016-92fd-52f1253072f9",
-                    "-",
-                    LocalDate.now()
-                )   // getCurrentUserUseCase()
+                val currentUser = getCurrentUserUseCase()
                 _followingUiState.postValue(
                     _followingUiState.value?.copy(
                         currentUser = currentUser,

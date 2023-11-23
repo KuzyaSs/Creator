@@ -5,12 +5,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.remote.api.UserApi
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSourceImpl
@@ -20,7 +22,7 @@ import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSourceImpl
 import javax.inject.Singleton
 
-private const val BASE_URL = "https://ya.ru/"
+private const val BASE_URL = "http://77.233.213.217:8080/api/"
 
 @Module
 class RemoteModule {
@@ -46,6 +48,11 @@ class RemoteModule {
     }
 
     @Provides
+    fun provideGson(): Gson {
+        return Gson()
+    }
+
+    @Provides
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -67,7 +74,15 @@ class RemoteModule {
     }
 
     @Provides
-    fun provideUserRemoteDataSource(userApi: UserApi): UserRemoteDataSource {
-        return UserRemoteDataSourceImpl(userApi = userApi)
+    fun provideUserRemoteDataSource(
+        userApi: UserApi,
+        gson: Gson,
+        apiExceptionLocalizer: ApiExceptionLocalizer
+    ): UserRemoteDataSource {
+        return UserRemoteDataSourceImpl(
+            userApi = userApi,
+            gson = gson,
+            apiExceptionLocalizer = apiExceptionLocalizer
+        )
     }
 }

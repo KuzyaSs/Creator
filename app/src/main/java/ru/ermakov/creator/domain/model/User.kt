@@ -9,5 +9,6 @@ data class User(
     val bio: String,
     val profileAvatarUrl: String,
     val profileBackgroundUrl: String,
+    val isModerator: Boolean,
     val registrationDate: LocalDate
 )

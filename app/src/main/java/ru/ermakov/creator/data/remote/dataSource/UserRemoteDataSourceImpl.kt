@@ -1,25 +1,35 @@
 package ru.ermakov.creator.data.remote.dataSource
 
 import android.util.Log
-import kotlinx.coroutines.delay
+import com.google.gson.Gson
+import ru.ermakov.creator.data.exception.ApiExceptionBody
+import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
+import ru.ermakov.creator.data.mapper.toRemoteUser
+import ru.ermakov.creator.data.mapper.toUser
 import ru.ermakov.creator.data.remote.api.UserApi
 import ru.ermakov.creator.domain.model.AuthUser
 import ru.ermakov.creator.domain.model.User
-import java.time.LocalDate
 
-class UserRemoteDataSourceImpl(private val userApi: UserApi) : UserRemoteDataSource {
+class UserRemoteDataSourceImpl(
+    private val userApi: UserApi,
+    private val gson: Gson,
+    private val apiExceptionLocalizer: ApiExceptionLocalizer
+) :
+    UserRemoteDataSource {
     override suspend fun getUserById(userId: String): User {
-        // Temporarily.
-        delay(2000)
-        return User(
-            userId,
-            "Kuzya",
-            "skepy@,ail.ru",
-            "about",
-            "https://firebasestorage.googleapis.com/v0/b/creator-26c44.appspot.com/o/myAvatar.png?alt=media&token=e564220f-2ed0-4016-92fd-52f1253072f9",
-            "",
-            LocalDate.now()
+        val remoteUserResponse = userApi.getUserById(userId = userId)
+        if (remoteUserResponse.isSuccessful) {
+            remoteUserResponse.body()?.let { remoteUser ->
+                Log.d("MY_TAG", "GET_USER_BY_ID (SUCCESS): $remoteUser")
+                return remoteUser.toUser()
+            }
+        }
+
+        val apiExceptionBody = gson.fromJson(
+            remoteUserResponse.errorBody()?.string(), ApiExceptionBody::class.java
         )
+        Log.d("MY_TAG", "GET_USER_BY_ID (ERROR): $apiExceptionBody")
+        throw apiExceptionLocalizer.localizeApiException(apiExceptionBody = apiExceptionBody)
     }
 
     override suspend fun insertUser(authUser: AuthUser) {
@@ -27,7 +37,15 @@ class UserRemoteDataSourceImpl(private val userApi: UserApi) : UserRemoteDataSou
     }
 
     override suspend fun updateUser(user: User) {
-        delay(2000)
-        Log.d("MY_TAG", "UPDATE_USER: $user")
+        val response = userApi.updateUser(user = user.toRemoteUser())
+        if (response.isSuccessful) {
+            Log.d("MY_TAG", "UPDATE_USER (SUCCESS): $user")
+            return
+        }
+        val apiExceptionBody = gson.fromJson(
+            response.errorBody()?.string(), ApiExceptionBody::class.java
+        )
+        Log.d("MY_TAG", "UPDATE_USER (ERROR): $apiExceptionBody")
+        throw apiExceptionLocalizer.localizeApiException(apiExceptionBody = apiExceptionBody)
     }
 }

@@ -3,13 +3,15 @@
     <string name="network_exception">Ошибка сети</string>
     <string name="empty_data_exception">Заполните все поля</string>
     <string name="short_username_exception">Имя должно иметь длину не менее 3 символов</string>
+    <string name="username_in_use_exception">Данное пользовательское имя уже используется</string>
+    <string name="user_not_found_exception">Пользователь не найден</string>
     <string name="email_format_exception">Некорректный адрес электронной почты</string>
     <string name="email_verification_exception">Подтвердите адрес электронной почты вашей учетной записи</string>
+    <string name="email_collision_exception">Адрес электронной почты уже используется</string>
+    <string name="unknown_email_exception">Нет записи пользователя с такой электронной почтой</string>
     <string name="invalid_password_exception">Неверный пароль</string>
     <string name="password_mismatch_exception">Пароли не совпадают</string>
     <string name="weak_password_exception">Пароль не должен быть меньше 6 символов</string>
-    <string name="email_collision_exception">Адрес электронной почты уже используется</string>
-    <string name="invalid_user_exception">Нет записи пользователя с такой электронной почтой</string>
     <string name="too_many_requests_exception">Аккаунт заблокирован. Сбросьте пароль или повторите попытку позже</string>
     <string name="unknown_exception">Неизвестная ошибка</string>
     <string name="account">Аккаунт</string>

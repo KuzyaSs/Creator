@@ -1,7 +1,6 @@
 package ru.ermakov.creator.data.remote.model
 
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDate
 
 data class RemoteUser(
     @SerializedName("id")
@@ -16,6 +15,8 @@ data class RemoteUser(
     val profileAvatarUrl: String,
     @SerializedName("profileBackgroundUrl")
     val profileBackgroundUrl: String,
+    @SerializedName("isModerator")
+    val isModerator: Boolean,
     @SerializedName("registrationDate")
-    val registrationDate: LocalDate
+    val registrationDate: String
 )
