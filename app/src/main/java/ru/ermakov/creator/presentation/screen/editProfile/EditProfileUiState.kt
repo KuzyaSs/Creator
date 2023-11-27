@@ -6,8 +6,8 @@ import ru.ermakov.creator.domain.model.User
 data class EditProfileUiState(
     val currentUser: User? = null,
     val selectedEditProfileImageOption: EditProfileImageOption = EditProfileImageOption.PROFILE_AVATAR,
-    val isLoadingShown: Boolean = false,
     val isRefreshingShown: Boolean = false,
+    val isLoadingShown: Boolean = false,
     val isEditProfileErrorMessageShown: Boolean = false,
     val editProfileErrorMessage: String = "",
     val isEditUsernameErrorMessageShown: Boolean = false,

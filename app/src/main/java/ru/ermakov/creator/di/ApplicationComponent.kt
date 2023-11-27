@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.chooseUserCategory.ChooseUserCategoryFragment
 import ru.ermakov.creator.presentation.screen.following.AccountFragment
 import ru.ermakov.creator.presentation.screen.discover.DiscoverFragment
 import ru.ermakov.creator.presentation.screen.editProfile.EditBioFragment
@@ -51,4 +52,5 @@ interface ApplicationComponent {
     fun inject(fragment: EditProfileFragment)
     fun inject(fragment: EditUsernameFragment)
     fun inject(fragment: EditBioFragment)
+    fun inject(fragment: ChooseUserCategoryFragment)
 }

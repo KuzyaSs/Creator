@@ -3,11 +3,15 @@ package ru.ermakov.creator.di
 import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.repository.AuthRepository
+import ru.ermakov.creator.domain.repository.CategoryRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoriesUseCase
+import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.common.GetUserCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.common.UpdateUserUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
@@ -105,5 +109,20 @@ class UseCaseModule {
     @Provides
     fun provideCancelUploadTaskUseCase(fileRepository: FileRepository): CancelUploadTaskUseCase {
         return CancelUploadTaskUseCase(fileRepository = fileRepository)
+    }
+
+    @Provides
+    fun provideGetUserCategoriesUseCase(categoryRepository: CategoryRepository): GetUserCategoriesUseCase {
+        return GetUserCategoriesUseCase(categoryRepository = categoryRepository)
+    }
+
+    @Provides
+    fun provideUpdateUserCategoriesUseCase(categoryRepository: CategoryRepository): UpdateUserCategoriesUseCase {
+        return UpdateUserCategoriesUseCase(categoryRepository = categoryRepository)
+    }
+
+    @Provides
+    fun provideUpdateUserCategoryInListUseCase(): UpdateUserCategoryInListUseCase {
+        return UpdateUserCategoryInListUseCase()
     }
 }

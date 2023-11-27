@@ -43,7 +43,8 @@ class SettingsFragment : Fragment() {
     }
 
     private fun navigateToChooseCategoryFragment() {
-
+        val action = SettingsFragmentDirections.actionSettingsFragmentToChooseUserCategoryFragment()
+        findNavController().navigate(action)
     }
 
     private fun navigateToChangePasswordFragment() {

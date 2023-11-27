@@ -132,10 +132,21 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_chooseUserCategoryFragment"
+            app:destination="@id/chooseUserCategoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="ru.ermakov.creator.presentation.screen.editProfile.EditProfileFragment"
         android:label="EditProfileFragment" />
+    <fragment
+        android:id="@+id/chooseUserCategoryFragment"
+        android:name="ru.ermakov.creator.presentation.screen.chooseUserCategory.ChooseUserCategoryFragment"
+        android:label="ChooseUserCategoryFragment" />
 </navigation>

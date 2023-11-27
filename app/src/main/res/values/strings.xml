@@ -59,4 +59,5 @@
     <string name="edit_bio_description">Write something about your entertainment, plans or activities.</string>
     <string name="edit_username">Edit username</string>
     <string name="edit_bio">Edit bio</string>
+    <string name="confirm">Confirm</string>
 </resources>

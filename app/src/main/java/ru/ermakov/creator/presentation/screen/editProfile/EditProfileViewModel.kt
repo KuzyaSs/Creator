@@ -149,9 +149,7 @@ class EditProfileViewModel(
     }
 
     fun refreshCurrentUser() {
-        _editProfileUiState.value = _editProfileUiState.value?.copy(
-            isRefreshingShown = true,
-        )
+        _editProfileUiState.value = _editProfileUiState.value?.copy(isRefreshingShown = true)
         setCurrentUser()
     }
 

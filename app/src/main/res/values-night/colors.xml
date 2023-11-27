@@ -10,4 +10,5 @@
     <color name="backgroundColor">#18181A</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/colorSecondary</color>
+    <color name="m3_checkbox_button_tint" tools:override="true">@color/colorAccent</color>
 </resources>
