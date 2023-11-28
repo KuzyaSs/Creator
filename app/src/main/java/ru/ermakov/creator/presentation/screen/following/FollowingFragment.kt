@@ -14,8 +14,8 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentFollowingBinding
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.presentation.model.State
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.util.State
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ class FollowingFragment : Fragment() {
     private lateinit var followingViewModel: FollowingViewModel
 
     @Inject
-    lateinit var exceptionLocalizer: ExceptionLocalizer
+    lateinit var textLocalizer: TextLocalizer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,8 +94,8 @@ class FollowingFragment : Fragment() {
 
                 State.ERROR -> {
                     hideProgressBar()
-                    val errorMessage = exceptionLocalizer.localizeException(
-                        errorMessage = followingUiState.errorMessage
+                    val errorMessage = textLocalizer.localizeText(
+                        text = followingUiState.errorMessage
                     )
                     showToast(errorMessage)
                 }

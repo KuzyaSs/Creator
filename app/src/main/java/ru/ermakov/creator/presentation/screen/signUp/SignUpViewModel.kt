@@ -8,8 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.model.SignUpData
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
-import ru.ermakov.creator.presentation.model.State
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
+import ru.ermakov.creator.presentation.util.State
+import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class SignUpViewModel(
     private val signUpUseCase: SignUpUseCase,

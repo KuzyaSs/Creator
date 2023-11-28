@@ -6,10 +6,10 @@ import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizerImpl
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
-import ru.ermakov.creator.presentation.exception.ExceptionHandlerImpl
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizerImpl
+import ru.ermakov.creator.presentation.util.ExceptionHandler
+import ru.ermakov.creator.presentation.util.ExceptionHandlerImpl
+import ru.ermakov.creator.presentation.util.TextLocalizer
+import ru.ermakov.creator.presentation.util.TextLocalizerImpl
 
 @Module
 class ExceptionModule {
@@ -19,8 +19,8 @@ class ExceptionModule {
     }
 
     @Provides
-    fun provideExceptionLocalizer(context: Context): ExceptionLocalizer {
-        return ExceptionLocalizerImpl(context = context)
+    fun provideExceptionLocalizer(context: Context): TextLocalizer {
+        return TextLocalizerImpl(context = context)
     }
 
     @Provides

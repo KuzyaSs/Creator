@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.exception
+package ru.ermakov.creator.presentation.util
 
 import android.content.Context
 import ru.ermakov.creator.R
@@ -16,9 +16,49 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USERNAME_IN_
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWORD_EXCEPTION
 
-class ExceptionLocalizerImpl(private val context: Context) : ExceptionLocalizer {
-    override fun localizeException(errorMessage: String): String {
-        return when (errorMessage) {
+class TextLocalizerImpl(private val context: Context) : TextLocalizer {
+    override fun localizeText(text: String): String {
+        return when (text) {
+            "Science" -> {
+                context.getString(R.string.science)
+            }
+
+            "Technology" -> {
+                context.getString(R.string.technology)
+            }
+
+            "Economics" -> {
+                context.getString(R.string.economics)
+            }
+
+            "Politics" -> {
+                context.getString(R.string.politics)
+            }
+
+            "Health" -> {
+                context.getString(R.string.health)
+            }
+
+            "Sport" -> {
+                context.getString(R.string.sport)
+            }
+
+            "Culture" -> {
+                context.getString(R.string.culture)
+            }
+
+            "Environment" -> {
+                context.getString(R.string.environment)
+            }
+
+            "Travel" -> {
+                context.getString(R.string.travel)
+            }
+
+            "Entertainment" -> {
+                context.getString(R.string.entertainment)
+            }
+
             NETWORK_EXCEPTION -> {
                 context.getString(R.string.network_exception)
             }

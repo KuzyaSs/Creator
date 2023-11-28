@@ -8,7 +8,7 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
+import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class EditProfileViewModelFactory(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,

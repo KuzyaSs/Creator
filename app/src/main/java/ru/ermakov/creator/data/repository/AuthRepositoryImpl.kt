@@ -38,6 +38,15 @@ class AuthRepositoryImpl(
         authRemoteDataSource.sendPasswordResetEmail(email)
     }
 
+    override suspend fun changePassword(currentPassword: String, newPassword: String) {
+        authRemoteDataSource.changePassword(
+            currentPassword = currentPassword,
+            newPassword = newPassword
+        )
+        val updatedSignInDate = authLocalDataSource.getSignInData().copy(password = newPassword)
+        authLocalDataSource.saveSignInData(signInData = updatedSignInDate)
+    }
+
     override suspend fun getCurrentUserId(): String {
         return authRemoteDataSource.getCurrentUser().uid
     }

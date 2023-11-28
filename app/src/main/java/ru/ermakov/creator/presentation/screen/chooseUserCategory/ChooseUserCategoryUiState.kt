@@ -6,6 +6,6 @@ data class ChooseUserCategoryUiState(
     val userCategories: List<UserCategory>? = null,
     val isRefreshingShown: Boolean = false,
     val isProgressBarConfirmShown: Boolean = false,
-    val isChooseCategoryErrorMessageShown: Boolean = false,
-    val chooseCategoryErrorMessage: String = "",
+    val isChooseUserCategoryErrorMessageShown: Boolean = false,
+    val chooseUserCategoryErrorMessage: String = ""
 )

@@ -12,8 +12,8 @@ import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSignInBinding
 import ru.ermakov.creator.domain.model.SignInData
-import ru.ermakov.creator.presentation.model.State
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.util.State
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ class SignInFragment : Fragment() {
     private lateinit var signInViewModel: SignInViewModel
 
     @Inject
-    lateinit var exceptionLocalizer: ExceptionLocalizer
+    lateinit var textLocalizer: TextLocalizer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,8 +69,8 @@ class SignInFragment : Fragment() {
 
                 State.ERROR -> {
                     hideProgressBar()
-                    val errorMessage = exceptionLocalizer.localizeException(
-                        errorMessage = signInUiState.errorMessage
+                    val errorMessage = textLocalizer.localizeText(
+                        text = signInUiState.errorMessage
                     )
                     showError(errorMessage = errorMessage)
                 }

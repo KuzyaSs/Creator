@@ -8,8 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
-import ru.ermakov.creator.presentation.model.State
+import ru.ermakov.creator.presentation.util.ExceptionHandler
+import ru.ermakov.creator.presentation.util.State
 
 class FollowingViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,

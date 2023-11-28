@@ -1,6 +1,6 @@
 package ru.ermakov.creator.presentation.screen.passwordRecovery
 
-import ru.ermakov.creator.presentation.model.State
+import ru.ermakov.creator.presentation.util.State
 
 data class PasswordRecoveryUiState(
     val email: String = "",

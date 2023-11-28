@@ -13,7 +13,7 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentChooseUserCategoryBinding
 import ru.ermakov.creator.presentation.adapter.ChooseUserCategoryAdapter
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
 class ChooseUserCategoryFragment : Fragment() {
@@ -25,7 +25,7 @@ class ChooseUserCategoryFragment : Fragment() {
     private lateinit var chooseUserCategoryViewModel: ChooseUserCategoryViewModel
 
     @Inject
-    lateinit var exceptionLocalizer: ExceptionLocalizer
+    lateinit var textLocalizer: TextLocalizer
 
     private lateinit var chooseUserCategoryAdapter: ChooseUserCategoryAdapter
 
@@ -69,7 +69,9 @@ class ChooseUserCategoryFragment : Fragment() {
     }
 
     private fun setUpCategoryRecyclerView() {
-        chooseUserCategoryAdapter = ChooseUserCategoryAdapter { changedCategory ->
+        chooseUserCategoryAdapter = ChooseUserCategoryAdapter(
+            textLocalizer = textLocalizer
+        ) { changedCategory ->
             chooseUserCategoryViewModel.updateUserCategoryInList(changedUserCategory = changedCategory)
         }
         binding.recyclerViewCategories.adapter = chooseUserCategoryAdapter
@@ -92,19 +94,17 @@ class ChooseUserCategoryFragment : Fragment() {
                     chooseUserCategoryAdapter.submitList(userCategories)
                     setLoading(isLoadingShown = isProgressBarConfirmShown)
                     setErrorMessage(
-                        errorMessage = chooseCategoryErrorMessage,
-                        isErrorMessageShown = isChooseCategoryErrorMessageShown
+                        errorMessage = chooseUserCategoryErrorMessage,
+                        isErrorMessageShown = isChooseUserCategoryErrorMessageShown
                     )
                 }
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                 binding.viewLoading.isVisible = userCategories == null
                 binding.progressBar.isVisible =
-                    !isChooseCategoryErrorMessageShown && userCategories == null
+                    !isChooseUserCategoryErrorMessageShown && userCategories == null
                 binding.textViewErrorMessage.apply {
-                    text = exceptionLocalizer.localizeException(
-                        errorMessage = chooseCategoryErrorMessage
-                    )
-                    isVisible = isChooseCategoryErrorMessageShown && userCategories == null
+                    text = textLocalizer.localizeText(text = chooseUserCategoryErrorMessage)
+                    isVisible = isChooseUserCategoryErrorMessageShown && userCategories == null
                 }
             }
         }

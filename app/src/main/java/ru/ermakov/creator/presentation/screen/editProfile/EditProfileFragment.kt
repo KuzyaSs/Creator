@@ -21,7 +21,7 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentEditProfileBinding
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
 class EditProfileFragment : Fragment() {
@@ -33,7 +33,7 @@ class EditProfileFragment : Fragment() {
     private lateinit var editProfileViewModel: EditProfileViewModel
 
     @Inject
-    lateinit var exceptionLocalizer: ExceptionLocalizer
+    lateinit var textLocalizer: TextLocalizer
 
     private var mediaPicker: ActivityResultLauncher<PickVisualMediaRequest>? = null
     private var loadingDialog: Dialog? = null
@@ -139,8 +139,8 @@ class EditProfileFragment : Fragment() {
                 binding.progressBar.isVisible =
                     !isEditProfileErrorMessageShown && currentUser == null
                 binding.textViewErrorMessage.apply {
-                    text = exceptionLocalizer.localizeException(
-                        errorMessage = editProfileErrorMessage
+                    text = textLocalizer.localizeText(
+                        text = editProfileErrorMessage
                     )
                     isVisible = isEditProfileErrorMessageShown && currentUser == null
                 }

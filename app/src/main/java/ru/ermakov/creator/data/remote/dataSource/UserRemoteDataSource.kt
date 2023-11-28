@@ -5,6 +5,8 @@ import ru.ermakov.creator.domain.model.User
 
 interface UserRemoteDataSource {
     suspend fun getUserById(userId: String): User
+
     suspend fun insertUser(authUser: AuthUser)
+
     suspend fun updateUser(user: User)
 }

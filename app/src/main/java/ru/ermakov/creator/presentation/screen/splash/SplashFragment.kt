@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSplashBinding
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.NETWORK_EXCEPTION
-import ru.ermakov.creator.presentation.model.State
+import ru.ermakov.creator.presentation.util.State
 import javax.inject.Inject
 
 class SplashFragment : Fragment() {
@@ -25,7 +25,7 @@ class SplashFragment : Fragment() {
     private lateinit var splashViewModel: SplashViewModel
 
     @Inject
-    lateinit var exceptionLocalizer: ExceptionLocalizer
+    lateinit var textLocalizer: TextLocalizer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,8 +56,8 @@ class SplashFragment : Fragment() {
                 State.ERROR -> {
                     hideProgressBar()
                     if (splashUiState.errorMessage == NETWORK_EXCEPTION) {
-                        val errorMessage = exceptionLocalizer.localizeException(
-                            errorMessage = splashUiState.errorMessage
+                        val errorMessage = textLocalizer.localizeText(
+                            text = splashUiState.errorMessage
                         )
                         showToast(message = errorMessage)
                         navigateToFollowingFragment()

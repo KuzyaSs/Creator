@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
+import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class FollowingViewModelFactory(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,

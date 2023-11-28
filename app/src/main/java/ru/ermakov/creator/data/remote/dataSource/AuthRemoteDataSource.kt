@@ -7,9 +7,16 @@ import ru.ermakov.creator.domain.model.SignUpData
 
 interface AuthRemoteDataSource {
     suspend fun signIn(signInData: SignInData)
+
     suspend fun signedIn(signInData: SignInData)
+
     suspend fun signUp(signUpData: SignUpData): AuthUser
+
     fun signOut()
+
     fun getCurrentUser(): FirebaseUser
+
     suspend fun sendPasswordResetEmail(email: String)
+
+    suspend fun changePassword(currentPassword: String, newPassword: String)
 }

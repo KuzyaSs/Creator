@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.model
+package ru.ermakov.creator.presentation.util
 
 enum class State {
     INITIAL,

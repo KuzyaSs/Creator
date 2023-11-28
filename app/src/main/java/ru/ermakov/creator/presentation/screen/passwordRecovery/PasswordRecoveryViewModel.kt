@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
-import ru.ermakov.creator.presentation.model.State
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
+import ru.ermakov.creator.presentation.util.State
+import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class PasswordRecoveryViewModel(
     private val recoverPasswordByEmailUseCase: RecoverPasswordByEmailUseCase,

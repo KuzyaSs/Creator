@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSearchBinding
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class SearchFragment : Fragment() {
     private lateinit var searchViewModel: SearchViewModel
 
     @Inject
-    lateinit var exceptionLocalizer: ExceptionLocalizer
+    lateinit var textLocalizer: TextLocalizer
 
     override fun onCreateView(
         inflater: LayoutInflater,

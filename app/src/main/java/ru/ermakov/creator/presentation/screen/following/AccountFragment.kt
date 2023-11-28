@@ -13,8 +13,8 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentAccountBinding
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.presentation.model.State
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.util.State
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ class AccountFragment : BottomSheetDialogFragment() {
     private lateinit var followingViewModel: FollowingViewModel
 
     @Inject
-    lateinit var exceptionLocalizer: ExceptionLocalizer
+    lateinit var textLocalizer: TextLocalizer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -67,8 +67,8 @@ class AccountFragment : BottomSheetDialogFragment() {
                 }
 
                 State.ERROR -> {
-                    val errorMessage = exceptionLocalizer.localizeException(
-                        errorMessage = followingUiState.errorMessage
+                    val errorMessage = textLocalizer.localizeText(
+                        text = followingUiState.errorMessage
                     )
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                 }
@@ -113,6 +113,7 @@ class AccountFragment : BottomSheetDialogFragment() {
 
     private fun signOut() {
         followingViewModel.signOut()
+        activity?.viewModelStore?.clear()
         val action = FollowingFragmentDirections.actionFollowingFragmentToSignInFragment(null)
         findNavController().navigate(action)
     }

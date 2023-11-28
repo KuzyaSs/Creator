@@ -50,4 +50,14 @@ class AuthRemoteDataSourceImpl(private val firebaseAuth: FirebaseAuth) : AuthRem
     override suspend fun sendPasswordResetEmail(email: String) {
         firebaseAuth.sendPasswordResetEmail(email).await()
     }
+
+    override suspend fun changePassword(currentPassword: String, newPassword: String) {
+        val authUser = getCurrentUser()
+        val credential = EmailAuthProvider.getCredential(
+            authUser.email.toString(),
+            currentPassword
+        )
+        authUser.reauthenticate(credential).await()
+        authUser.updatePassword(newPassword).await()
+    }
 }

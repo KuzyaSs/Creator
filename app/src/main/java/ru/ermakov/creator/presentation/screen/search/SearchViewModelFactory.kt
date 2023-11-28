@@ -3,7 +3,7 @@ package ru.ermakov.creator.presentation.screen.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
+import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class SearchViewModelFactory(
     private val exceptionHandler: ExceptionHandler

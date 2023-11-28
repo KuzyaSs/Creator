@@ -66,7 +66,7 @@ fun RemoteUser.toUser(): User {
 fun FirebaseUser.toAuthUser(): AuthUser {
     return AuthUser(
         id = uid,
-        username = uid,
+        username = email.toString(),
         email = email.toString()
     )
 }

@@ -23,7 +23,7 @@
     <string name="don_t_have_an_account_sign_up">Ещё нет аккаунта? <u><big><font color="#9146FF">Зарегистрироваться</font></big></u></string>
     <string name="sign_up">Зарегистрироваться</string>
     <string name="sign_up_label">Регистрация</string>
-    <string name="confirm_password">Подтвердить пароль</string>
+    <string name="confirm_password">Подтверждение пароля</string>
     <string name="loading">Загрузка</string>
     <string name="please_wait">Пожалуйста, подождите…</string>
     <string name="offline_mode">Автономный режим</string>
@@ -60,4 +60,17 @@
     <string name="edit_username">Изменение имени</string>
     <string name="edit_bio">Изменение о себе</string>
     <string name="confirm">Подтвердить</string>
+    <string name="science">Наука</string>
+    <string name="technology">Технологии</string>
+    <string name="economics">Экономика</string>
+    <string name="politics">Политика</string>
+    <string name="health">Здоровье</string>
+    <string name="sport">Спорт</string>
+    <string name="culture">Культура</string>
+    <string name="environment">Окружающая среда</string>
+    <string name="travel">Путешествие</string>
+    <string name="entertainment">Развлечение</string>
+    <string name="current_password">Текущий пароль</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="confirm_new_password">Подтверждение нового пароля</string>
 </resources>

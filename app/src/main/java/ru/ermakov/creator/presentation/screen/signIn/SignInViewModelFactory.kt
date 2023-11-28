@@ -3,7 +3,7 @@ package ru.ermakov.creator.presentation.screen.signIn
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
+import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class SignInViewModelFactory(
     private val signInUseCase: SignInUseCase,

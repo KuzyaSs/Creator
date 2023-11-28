@@ -11,7 +11,7 @@ import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategories
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.common.GetUserCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
+import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class ChooseUserCategoryViewModel(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
@@ -31,7 +31,7 @@ class ChooseUserCategoryViewModel(
         _chooseUserCategoryUiState.postValue(
             _chooseUserCategoryUiState.value?.copy(
                 isProgressBarConfirmShown = true,
-                isChooseCategoryErrorMessageShown = false
+                isChooseUserCategoryErrorMessageShown = false
             )
         )
         viewModelScope.launch(Dispatchers.IO) {
@@ -50,8 +50,8 @@ class ChooseUserCategoryViewModel(
                 _chooseUserCategoryUiState.postValue(
                     _chooseUserCategoryUiState.value?.copy(
                         isProgressBarConfirmShown = false,
-                        isChooseCategoryErrorMessageShown = true,
-                        chooseCategoryErrorMessage = errorMessage,
+                        isChooseUserCategoryErrorMessageShown = true,
+                        chooseUserCategoryErrorMessage = errorMessage
                     )
                 )
             }
@@ -77,15 +77,15 @@ class ChooseUserCategoryViewModel(
 
     fun clearChooseCategoryErrorMessage() {
         _chooseUserCategoryUiState.value = _chooseUserCategoryUiState.value?.copy(
-            isChooseCategoryErrorMessageShown = false,
-            chooseCategoryErrorMessage = ""
+            isChooseUserCategoryErrorMessageShown = false,
+            chooseUserCategoryErrorMessage = ""
         )
     }
 
     private fun setUserCategories() {
         _chooseUserCategoryUiState.postValue(
             _chooseUserCategoryUiState.value?.copy(
-                isChooseCategoryErrorMessageShown = false
+                isChooseUserCategoryErrorMessageShown = false
             )
         )
         viewModelScope.launch(Dispatchers.IO) {
@@ -95,7 +95,7 @@ class ChooseUserCategoryViewModel(
                     _chooseUserCategoryUiState.value?.copy(
                         userCategories = categories,
                         isRefreshingShown = false,
-                        isChooseCategoryErrorMessageShown = false
+                        isChooseUserCategoryErrorMessageShown = false
                     )
                 )
             } catch (exception: Exception) {
@@ -103,8 +103,8 @@ class ChooseUserCategoryViewModel(
                 _chooseUserCategoryUiState.postValue(
                     _chooseUserCategoryUiState.value?.copy(
                         isRefreshingShown = false,
-                        isChooseCategoryErrorMessageShown = true,
-                        chooseCategoryErrorMessage = errorMessage,
+                        isChooseUserCategoryErrorMessageShown = true,
+                        chooseUserCategoryErrorMessage = errorMessage,
                     )
                 )
             }

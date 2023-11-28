@@ -7,6 +7,8 @@ import java.io.File
 
 interface FileRemoteDataSource {
     suspend fun uploadFile(uri: String, path: String): Flow<UploadedFile>
+
     suspend fun downloadFile(file: File, path: String)
+
     fun cancelUploadTask()
 }

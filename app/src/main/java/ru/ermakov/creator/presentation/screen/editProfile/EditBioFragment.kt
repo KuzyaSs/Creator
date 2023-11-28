@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentEditBioBinding
-import ru.ermakov.creator.presentation.exception.ExceptionLocalizer
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
 class EditBioFragment : BottomSheetDialogFragment() {
@@ -22,7 +22,7 @@ class EditBioFragment : BottomSheetDialogFragment() {
     private lateinit var editProfileViewModel: EditProfileViewModel
 
     @Inject
-    lateinit var exceptionLocalizer: ExceptionLocalizer
+    lateinit var textLocalizer: TextLocalizer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +72,7 @@ class EditBioFragment : BottomSheetDialogFragment() {
 
     private fun setErrorMessage(errorMessage: String, isErrorMessageShown: Boolean) {
         binding.textViewErrorMessage.apply {
-            text = exceptionLocalizer.localizeException(errorMessage = errorMessage)
+            text = textLocalizer.localizeText(text = errorMessage)
             isVisible = isErrorMessageShown
         }
     }

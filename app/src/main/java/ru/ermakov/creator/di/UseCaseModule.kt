@@ -8,6 +8,7 @@ import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
@@ -124,5 +125,10 @@ class UseCaseModule {
     @Provides
     fun provideUpdateUserCategoryInListUseCase(): UpdateUserCategoryInListUseCase {
         return UpdateUserCategoryInListUseCase()
+    }
+
+    @Provides
+    fun provideChangePasswordUseCase(authRepository: AuthRepository): ChangePasswordUseCase {
+        return ChangePasswordUseCase(authRepository = authRepository)
     }
 }

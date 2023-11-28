@@ -60,4 +60,17 @@
     <string name="edit_username">Edit username</string>
     <string name="edit_bio">Edit bio</string>
     <string name="confirm">Confirm</string>
+    <string name="science">Science</string>
+    <string name="technology">Technology</string>
+    <string name="economics">Economics</string>
+    <string name="politics">Politics</string>
+    <string name="health">Health</string>
+    <string name="sport">Sport</string>
+    <string name="culture">Culture</string>
+    <string name="environment">Environment</string>
+    <string name="travel">Travel</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="current_password">Current password</string>
 </resources>

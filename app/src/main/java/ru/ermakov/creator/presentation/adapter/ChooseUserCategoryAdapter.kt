@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.ermakov.creator.databinding.ItemSelectUserCategoryBinding
 import ru.ermakov.creator.domain.model.UserCategory
+import ru.ermakov.creator.presentation.util.TextLocalizer
 
-class ChooseUserCategoryAdapter(private val onItemClickListener: (UserCategory) -> Unit) :
+class ChooseUserCategoryAdapter(
+    private val textLocalizer: TextLocalizer,
+    private val onItemClickListener: (UserCategory) -> Unit
+) :
     ListAdapter<UserCategory, ChooseUserCategoryAdapter.CategoryViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
@@ -26,7 +30,7 @@ class ChooseUserCategoryAdapter(private val onItemClickListener: (UserCategory) 
         RecyclerView.ViewHolder(binding.root) {
         fun bind(userCategory: UserCategory) {
             binding.apply {
-                textViewName.text = userCategory.name
+                textViewName.text = textLocalizer.localizeText(userCategory.name)
                 checkBox.isChecked = userCategory.isSelected
                 root.setOnClickListener {
                     val changedCategory = userCategory.copy(isSelected = !userCategory.isSelected)

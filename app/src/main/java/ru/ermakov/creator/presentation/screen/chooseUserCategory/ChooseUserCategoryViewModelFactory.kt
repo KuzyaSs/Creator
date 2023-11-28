@@ -6,7 +6,7 @@ import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategories
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.common.GetUserCategoriesUseCase
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
+import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 
 class ChooseUserCategoryViewModelFactory(

@@ -2,11 +2,9 @@ package ru.ermakov.creator.di
 
 import dagger.Module
 import dagger.Provides
-import ru.ermakov.creator.presentation.exception.ExceptionHandler
 import ru.ermakov.creator.data.local.dataSource.AuthLocalDataSource
 import ru.ermakov.creator.data.local.dataSource.FileLocalDataSource
 import ru.ermakov.creator.data.repository.AuthRepositoryImpl
-import ru.ermakov.creator.data.local.dataSource.UserLocalDataSource
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
 import ru.ermakov.creator.data.repository.UserRepositoryImpl
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource

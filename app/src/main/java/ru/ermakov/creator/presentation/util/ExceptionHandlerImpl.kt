@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.exception
+package ru.ermakov.creator.presentation.util
 
 import android.util.Log
 import com.google.firebase.FirebaseNetworkException

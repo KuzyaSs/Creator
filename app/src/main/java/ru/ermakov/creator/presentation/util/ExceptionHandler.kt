@@ -1,6 +1,4 @@
-package ru.ermakov.creator.presentation.exception
-
-import java.lang.Exception
+package ru.ermakov.creator.presentation.util
 
 interface ExceptionHandler {
     fun handleException(exception: Throwable): String
