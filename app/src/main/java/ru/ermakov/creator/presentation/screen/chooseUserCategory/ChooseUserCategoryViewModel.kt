@@ -9,12 +9,12 @@ import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.model.UserCategory
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.common.GetUserCategoriesUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class ChooseUserCategoryViewModel(
-    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val getUserCategoriesUseCase: GetUserCategoriesUseCase,
     private val updateUserCategoriesUseCase: UpdateUserCategoriesUseCase,
     private val updateUserCategoryInListUseCase: UpdateUserCategoryInListUseCase,
@@ -31,13 +31,13 @@ class ChooseUserCategoryViewModel(
         _chooseUserCategoryUiState.postValue(
             _chooseUserCategoryUiState.value?.copy(
                 isProgressBarConfirmShown = true,
-                isChooseUserCategoryErrorMessageShown = false
+                isErrorMessageShown = false
             )
         )
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 updateUserCategoriesUseCase(
-                    userId = getCurrentUserUseCase().id,
+                    userId = getCurrentUserIdUseCase(),
                     userCategories = _chooseUserCategoryUiState.value?.userCategories
                 )
                 _chooseUserCategoryUiState.postValue(
@@ -50,8 +50,8 @@ class ChooseUserCategoryViewModel(
                 _chooseUserCategoryUiState.postValue(
                     _chooseUserCategoryUiState.value?.copy(
                         isProgressBarConfirmShown = false,
-                        isChooseUserCategoryErrorMessageShown = true,
-                        chooseUserCategoryErrorMessage = errorMessage
+                        isErrorMessageShown = true,
+                        errorMessage = errorMessage
                     )
                 )
             }
@@ -75,27 +75,27 @@ class ChooseUserCategoryViewModel(
         )
     }
 
-    fun clearChooseCategoryErrorMessage() {
+    fun clearErrorMessage() {
         _chooseUserCategoryUiState.value = _chooseUserCategoryUiState.value?.copy(
-            isChooseUserCategoryErrorMessageShown = false,
-            chooseUserCategoryErrorMessage = ""
+            isErrorMessageShown = false,
+            errorMessage = ""
         )
     }
 
     private fun setUserCategories() {
         _chooseUserCategoryUiState.postValue(
             _chooseUserCategoryUiState.value?.copy(
-                isChooseUserCategoryErrorMessageShown = false
+                isErrorMessageShown = false
             )
         )
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val categories = getUserCategoriesUseCase(userId = getCurrentUserUseCase().id)
+                val categories = getUserCategoriesUseCase(userId = getCurrentUserIdUseCase())
                 _chooseUserCategoryUiState.postValue(
                     _chooseUserCategoryUiState.value?.copy(
                         userCategories = categories,
                         isRefreshingShown = false,
-                        isChooseUserCategoryErrorMessageShown = false
+                        isErrorMessageShown = false
                     )
                 )
             } catch (exception: Exception) {
@@ -103,8 +103,8 @@ class ChooseUserCategoryViewModel(
                 _chooseUserCategoryUiState.postValue(
                     _chooseUserCategoryUiState.value?.copy(
                         isRefreshingShown = false,
-                        isChooseUserCategoryErrorMessageShown = true,
-                        chooseUserCategoryErrorMessage = errorMessage,
+                        isErrorMessageShown = true,
+                        errorMessage = errorMessage,
                     )
                 )
             }

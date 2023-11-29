@@ -32,9 +32,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/base_margin_size"
-                    android:drawablePadding="@dimen/small_margin_size"
-                    android:paddingTop="@dimen/small_margin_size"
-                    android:paddingBottom="@dimen/small_margin_size"
+                    android:drawablePadding="@dimen/medium_margin_size"
+                    android:paddingTop="@dimen/medium_margin_size"
+                    android:paddingBottom="@dimen/medium_margin_size"
                     android:text="@string/edit_profile"
                     app:drawableStartCompat="@drawable/ic_back" />
             </androidx.cardview.widget.CardView>
@@ -54,7 +54,7 @@
                 android:id="@+id/imageViewProfileAvatar"
                 android:layout_width="@dimen/large_image_size"
                 android:layout_height="@dimen/large_image_size"
-                android:layout_marginTop="@dimen/profile_margin_size"
+                android:layout_marginTop="90dp"
                 android:importantForAccessibility="no"
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_profile_avatar"

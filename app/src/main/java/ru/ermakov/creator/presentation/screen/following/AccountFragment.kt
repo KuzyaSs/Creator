@@ -91,7 +91,8 @@ class AccountFragment : BottomSheetDialogFragment() {
     }
 
     private fun navigateToMyBlogFragment() {
-
+        val action = FollowingFragmentDirections.actionFollowingFragmentToBlogFragment()
+        findNavController().navigate(action)
     }
 
     private fun navigateToStatisticsFragment() {

@@ -73,4 +73,20 @@
     <string name="new_password">New password</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="current_password">Current password</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="subscribed">Subscribed</string>
+    <string name="about_author">About</string>
+    <string name="goals">Goals</string>
+    <string name="tip">Tip</string>
+    <string name="posts">Posts</string>
+    <plurals name="plural_follower">
+        <item quantity="one">%d follower</item>
+        <item quantity="many">%d followers</item>
+        <item quantity="other">%d followers</item>
+    </plurals>
+    <plurals name="plural_post">
+        <item quantity="one">%d post</item>
+        <item quantity="many">%d posts</item>
+        <item quantity="other">%d posts</item>
+    </plurals>
 </resources>

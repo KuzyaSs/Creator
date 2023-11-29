@@ -25,9 +25,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/base_margin_size"
-                android:drawablePadding="@dimen/small_margin_size"
-                android:paddingTop="@dimen/small_margin_size"
-                android:paddingBottom="@dimen/small_margin_size"
+                android:drawablePadding="@dimen/medium_margin_size"
+                android:paddingTop="@dimen/medium_margin_size"
+                android:paddingBottom="@dimen/medium_margin_size"
                 android:text="@string/choose_category"
                 app:drawableStartCompat="@drawable/ic_back" />
         </androidx.cardview.widget.CardView>

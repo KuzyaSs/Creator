@@ -8,10 +8,13 @@ import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.blog.IsFollowerUseCase
+import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.common.GetUserCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.common.UpdateUserUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
@@ -54,12 +57,19 @@ class UseCaseModule {
     }
 
     @Provides
+    fun provideGetCurrentUserIdUseCase(authRepository: AuthRepository): GetCurrentUserIdUseCase {
+        return GetCurrentUserIdUseCase(
+            authRepository = authRepository,
+        )
+    }
+
+    @Provides
     fun provideGetCurrentUserUseCase(
-        authRepository: AuthRepository,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
         userRepository: UserRepository
     ): GetCurrentUserUseCase {
         return GetCurrentUserUseCase(
-            authRepository = authRepository,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             userRepository = userRepository
         )
     }
@@ -130,5 +140,15 @@ class UseCaseModule {
     @Provides
     fun provideChangePasswordUseCase(authRepository: AuthRepository): ChangePasswordUseCase {
         return ChangePasswordUseCase(authRepository = authRepository)
+    }
+
+    @Provides
+    fun provideIsFollowerUseCase(): IsFollowerUseCase {
+        return IsFollowerUseCase()
+    }
+
+    @Provides
+    fun provideIsSubscriberUseCase(): IsSubscriberUseCase {
+        return IsSubscriberUseCase()
     }
 }

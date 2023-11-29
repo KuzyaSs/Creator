@@ -4,13 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.common.GetUserCategoriesUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 
 class ChooseUserCategoryViewModelFactory(
-    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val getUserCategoriesUseCase: GetUserCategoriesUseCase,
     private val updateUserCategoriesUseCase: UpdateUserCategoriesUseCase,
     private val updateUserCategoryInListUseCase: UpdateUserCategoryInListUseCase,
@@ -20,7 +21,7 @@ class ChooseUserCategoryViewModelFactory(
         if (modelClass.isAssignableFrom(ChooseUserCategoryViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return ChooseUserCategoryViewModel(
-                getCurrentUserUseCase = getCurrentUserUseCase,
+                getCurrentUserIdUseCase = getCurrentUserIdUseCase,
                 getUserCategoriesUseCase = getUserCategoriesUseCase,
                 updateUserCategoriesUseCase = updateUserCategoriesUseCase,
                 updateUserCategoryInListUseCase = updateUserCategoryInListUseCase,

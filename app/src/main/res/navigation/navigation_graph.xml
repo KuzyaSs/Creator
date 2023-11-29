@@ -109,6 +109,13 @@
             app:destination="@id/signInFragment"
             app:popUpTo="@id/followingFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_followingFragment_to_blogFragment"
+            app:destination="@id/blogFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -160,4 +167,8 @@
         android:id="@+id/changePasswordFragment"
         android:name="ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordFragment"
         android:label="ChangePasswordFragment" />
+    <fragment
+        android:id="@+id/blogFragment"
+        android:name="ru.ermakov.creator.presentation.screen.blog.BlogFragment"
+        android:label="BlogFragment" />
 </navigation>

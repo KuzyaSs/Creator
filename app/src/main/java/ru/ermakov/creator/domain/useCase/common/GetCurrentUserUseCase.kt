@@ -5,11 +5,10 @@ import ru.ermakov.creator.domain.repository.AuthRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 
 class GetCurrentUserUseCase(
-    private val authRepository: AuthRepository,
+    private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val userRepository: UserRepository
 ) {
     suspend operator fun invoke(): User {
-        val currentUserId = authRepository.getCurrentUserId()
-        return userRepository.getUserById(userId = currentUserId)
+        return userRepository.getUserById(userId = getCurrentUserIdUseCase())
     }
 }

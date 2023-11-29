@@ -25,8 +25,8 @@
                 android:layout_width="@dimen/base_icon_size"
                 android:layout_height="@dimen/base_icon_size"
                 android:layout_marginStart="@dimen/base_margin_size"
-                android:layout_marginTop="@dimen/small_margin_size"
-                android:layout_marginBottom="@dimen/small_margin_size"
+                android:layout_marginTop="@dimen/medium_margin_size"
+                android:layout_marginBottom="@dimen/medium_margin_size"
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_profile_avatar" />
 

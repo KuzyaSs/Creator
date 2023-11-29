@@ -3,10 +3,13 @@ package ru.ermakov.creator.di
 import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.blog.IsFollowerUseCase
+import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.common.GetUserCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
@@ -17,6 +20,7 @@ import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmail
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
+import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModel
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
 import ru.ermakov.creator.presentation.util.ExceptionHandler
@@ -89,6 +93,21 @@ class ViewModelFactoryModule {
     }
 
     @Provides
+    fun provideBlogViewModelFactory(
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        isFollowerUseCase: IsFollowerUseCase,
+        isSubscriberUseCase: IsSubscriberUseCase,
+        exceptionHandler: ExceptionHandler,
+    ): BlogViewModelFactory {
+        return BlogViewModelFactory(
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            isFollowerUseCase = isFollowerUseCase,
+            isSubscriberUseCase = isSubscriberUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
     fun provideSearchViewModelFactory(exceptionHandler: ExceptionHandler): SearchViewModelFactory {
         return SearchViewModelFactory(exceptionHandler = exceptionHandler)
     }
@@ -116,14 +135,14 @@ class ViewModelFactoryModule {
 
     @Provides
     fun provideChooseUserCategoryViewModelFactory(
-        getCurrentUserUseCase: GetCurrentUserUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
         getUserCategoriesUseCase: GetUserCategoriesUseCase,
         updateUserCategoriesUseCase: UpdateUserCategoriesUseCase,
         updateUserCategoryInListUseCase: UpdateUserCategoryInListUseCase,
         exceptionHandler: ExceptionHandler
     ): ChooseUserCategoryViewModelFactory {
         return ChooseUserCategoryViewModelFactory(
-            getCurrentUserUseCase = getCurrentUserUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             getUserCategoriesUseCase = getUserCategoriesUseCase,
             updateUserCategoriesUseCase = updateUserCategoriesUseCase,
             updateUserCategoryInListUseCase = updateUserCategoryInListUseCase,

@@ -25,7 +25,7 @@ class ChangePasswordViewModel(
         _changePasswordUiState.postValue(
             _changePasswordUiState.value?.copy(
                 isProgressBarConfirmShown = true,
-                isChangePasswordErrorMessageShown = false,
+                isErrorMessageShown = false,
             )
         )
         viewModelScope.launch(Dispatchers.IO) {
@@ -45,8 +45,8 @@ class ChangePasswordViewModel(
                 _changePasswordUiState.postValue(
                     _changePasswordUiState.value?.copy(
                         isProgressBarConfirmShown = false,
-                        isChangePasswordErrorMessageShown = true,
-                        changePasswordErrorMessage = errorMessage
+                        isErrorMessageShown = true,
+                        errorMessage = errorMessage
                     )
                 )
             }
