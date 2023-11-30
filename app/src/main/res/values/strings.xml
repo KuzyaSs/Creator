@@ -79,14 +79,16 @@
     <string name="goals">Goals</string>
     <string name="tip">Tip</string>
     <string name="posts">Posts</string>
+    <string name="follow">Follow</string>
+    <string name="followed">Followed</string>
     <plurals name="plural_follower">
-        <item quantity="one">%d follower</item>
-        <item quantity="many">%d followers</item>
-        <item quantity="other">%d followers</item>
+        <item quantity="one">follower</item>
+        <item quantity="many">followers</item>
+        <item quantity="other">followers</item>
     </plurals>
     <plurals name="plural_post">
-        <item quantity="one">%d post</item>
-        <item quantity="many">%d posts</item>
-        <item quantity="other">%d posts</item>
+        <item quantity="one">post</item>
+        <item quantity="many">posts</item>
+        <item quantity="other">posts</item>
     </plurals>
 </resources>

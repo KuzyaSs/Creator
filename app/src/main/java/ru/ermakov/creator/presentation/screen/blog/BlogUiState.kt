@@ -1,11 +1,13 @@
 package ru.ermakov.creator.presentation.screen.blog
 
+import ru.ermakov.creator.domain.model.Creator
+
 data class BlogUiState(
     val currentUserId: String = "",
     val isFollower: Boolean = false,
     val isSubscriber: Boolean = false,
     // val userSubscriptions: List<Subscription>? = null,
-    // val creator: Creator? = null,
+    val creator: Creator? = null,
     // val posts: List<Post>? = null,
     // val blogFilter: BlogFilter? = null, // And FeedFilter
     val isRefreshingShown: Boolean = false,

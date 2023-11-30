@@ -6,16 +6,21 @@ import ru.ermakov.creator.domain.repository.AuthRepository
 import ru.ermakov.creator.domain.repository.CategoryRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.UserRepository
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.blog.GetCreatorByIdUseCase
+import ru.ermakov.creator.domain.useCase.blog.GetNumFollowersByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.blog.GetNumPostsByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.blog.GetNumSubscribersByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsFollowerUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
-import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoriesUseCase
-import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
+import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
+import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
-import ru.ermakov.creator.domain.useCase.common.GetUserCategoriesUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.common.GetUserByIdUseCase
 import ru.ermakov.creator.domain.useCase.common.UpdateUserUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
@@ -61,6 +66,11 @@ class UseCaseModule {
         return GetCurrentUserIdUseCase(
             authRepository = authRepository,
         )
+    }
+
+    @Provides
+    fun provideGetUserByIdUseCase(userRepository: UserRepository): GetUserByIdUseCase {
+        return GetUserByIdUseCase(userRepository = userRepository)
     }
 
     @Provides
@@ -123,18 +133,18 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetUserCategoriesUseCase(categoryRepository: CategoryRepository): GetUserCategoriesUseCase {
-        return GetUserCategoriesUseCase(categoryRepository = categoryRepository)
+    fun provideGetCategoriesByUserIdUseCase(categoryRepository: CategoryRepository): GetCategoriesByUserIdUseCase {
+        return GetCategoriesByUserIdUseCase(categoryRepository = categoryRepository)
     }
 
     @Provides
-    fun provideUpdateUserCategoriesUseCase(categoryRepository: CategoryRepository): UpdateUserCategoriesUseCase {
-        return UpdateUserCategoriesUseCase(categoryRepository = categoryRepository)
+    fun provideUpdateCategoriesUseCase(categoryRepository: CategoryRepository): UpdateCategoriesUseCase {
+        return UpdateCategoriesUseCase(categoryRepository = categoryRepository)
     }
 
     @Provides
-    fun provideUpdateUserCategoryInListUseCase(): UpdateUserCategoryInListUseCase {
-        return UpdateUserCategoryInListUseCase()
+    fun provideUpdateCategoryInListUseCase(): UpdateCategoryInListUseCase {
+        return UpdateCategoryInListUseCase()
     }
 
     @Provides
@@ -148,7 +158,39 @@ class UseCaseModule {
     }
 
     @Provides
+    fun provideGetNumFollowersByUserIdUseCase(): GetNumFollowersByUserIdUseCase {
+        return GetNumFollowersByUserIdUseCase()
+    }
+
+    @Provides
     fun provideIsSubscriberUseCase(): IsSubscriberUseCase {
         return IsSubscriberUseCase()
+    }
+
+    @Provides
+    fun provideGetNumSubscribersByUserIdUseCase(): GetNumSubscribersByUserIdUseCase {
+        return GetNumSubscribersByUserIdUseCase()
+    }
+
+    @Provides
+    fun provideGetNumPostsByUserIdUseCase(): GetNumPostsByUserIdUseCase {
+        return GetNumPostsByUserIdUseCase()
+    }
+
+    @Provides
+    fun provideGetCreatorByIdUseCase(
+        getUserByIdUseCase: GetUserByIdUseCase,
+        getCategoriesByUserIdUseCase: GetCategoriesByUserIdUseCase,
+        getNumFollowersByUserIdUseCase: GetNumFollowersByUserIdUseCase,
+        getNumSubscribersByUserIdUseCase: GetNumSubscribersByUserIdUseCase,
+        getNumPostsByUserIdUseCase: GetNumPostsByUserIdUseCase,
+    ): GetCreatorByIdUseCase {
+        return GetCreatorByIdUseCase(
+            getUserByIdUseCase = getUserByIdUseCase,
+            getCategoriesByUserIdUseCase = getCategoriesByUserIdUseCase,
+            getNumFollowersByUserIdUseCase = getNumFollowersByUserIdUseCase,
+            getNumSubscribersByUserIdUseCase = getNumSubscribersByUserIdUseCase,
+            getNumPostsByUserIdUseCase = getNumPostsByUserIdUseCase
+        )
     }
 }

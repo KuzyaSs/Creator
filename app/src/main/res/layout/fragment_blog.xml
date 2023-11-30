@@ -24,11 +24,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/base_margin_size"
                 android:drawablePadding="@dimen/medium_margin_size"
-                android:text="5opka"
                 android:paddingTop="@dimen/medium_margin_size"
                 android:paddingBottom="@dimen/medium_margin_size"
                 app:drawableStartCompat="@drawable/ic_back"
-                tools:text="5opka" />
+                tools:text="Username" />
         </androidx.cardview.widget.CardView>
 
         <ScrollView
@@ -57,41 +56,13 @@
                     android:id="@+id/imageViewProfileAvatar"
                     android:layout_width="@dimen/large_image_size"
                     android:layout_height="@dimen/large_image_size"
-                    android:layout_marginStart="@dimen/base_margin_size"
                     android:layout_marginTop="115dp"
                     android:importantForAccessibility="no"
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_profile_avatar"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/imageViewProfileBackground" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonSubscribe"
-                    style="@style/PrimaryButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/base_margin_size"
-                    android:layout_marginEnd="@dimen/base_margin_size"
-                    android:paddingHorizontal="16dp"
-                    android:text="@string/subscribe"
-                    app:icon="@drawable/ic_star"
-                    app:iconSize="@dimen/base_icon_size"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageViewProfileBackground" />
-
-                <TextView
-                    android:id="@+id/imageViewFollow"
-                    style="@style/TextViewContainerWithDrawable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/base_margin_size"
-                    android:drawablePadding="0dp"
-                    android:paddingEnd="@dimen/small_margin_size"
-                    app:drawableStartCompat="@drawable/ic_favorite"
-                    app:layout_constraintBottom_toBottomOf="@id/buttonSubscribe"
-                    app:layout_constraintEnd_toStartOf="@id/buttonSubscribe"
-                    app:layout_constraintTop_toTopOf="@id/buttonSubscribe"
-                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:id="@+id/textViewCreatorName"
@@ -102,100 +73,144 @@
                     android:layout_marginTop="@dimen/base_margin_size"
                     android:layout_marginEnd="@dimen/base_margin_size"
                     android:ellipsize="end"
-                    android:gravity="start"
-                    android:text="5opka"
                     android:maxLines="1"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/imageViewProfileAvatar"
-                    tools:text="5opka" />
+                    tools:text="Username" />
 
-                <TextView
-                    android:id="@+id/textViewNumberFollowers"
-                    style="@style/ExtraLargeTextView"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/linearLayoutStats"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/base_margin_size"
-                    android:layout_marginTop="@dimen/base_margin_size"
-                    android:text="901"
+                    android:layout_marginTop="@dimen/medium_margin_size"
+                    android:layout_marginEnd="@dimen/base_margin_size"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewCreatorName"
-                    tools:text="901" />
+                    app:layout_constraintTop_toBottomOf="@id/textViewCreatorName">
 
-                <TextView
-                    android:id="@+id/textViewFollowers"
-                    style="@style/LargeTextView"
+                    <TextView
+                        android:id="@+id/textViewNumFollowers"
+                        style="@style/ExtraLargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="901" />
+
+                    <TextView
+                        android:id="@+id/textViewFollowers"
+                        style="@style/LargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin_size"
+                        android:textColor="?android:textColorSecondary"
+                        tools:text="followers" />
+
+                    <TextView
+                        android:id="@+id/textViewNumPosts"
+                        style="@style/ExtraLargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/base_margin_size"
+                        tools:text="12" />
+
+                    <TextView
+                        android:id="@+id/textViewPosts"
+                        style="@style/LargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin_size"
+                        android:textColor="?android:textColorSecondary"
+                        tools:text="posts" />
+                </LinearLayout>
+
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScrollViewTextViewContainers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="followers"
-                    android:layout_marginStart="@dimen/medium_margin_size"
-                    android:textColor="?android:textColorSecondary"
-                    app:layout_constraintBottom_toBottomOf="@id/textViewNumberFollowers"
-                    app:layout_constraintStart_toEndOf="@id/textViewNumberFollowers"
-                    app:layout_constraintTop_toTopOf="@id/textViewNumberFollowers"
-                    tools:text="followers" />
-
-                <TextView
-                    android:id="@+id/textViewNumbersPosts"
-                    style="@style/ExtraLargeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="12"
-                    android:layout_marginStart="@dimen/base_margin_size"
-                    app:layout_constraintBottom_toBottomOf="@id/textViewNumberFollowers"
-                    app:layout_constraintStart_toEndOf="@id/textViewFollowers"
-                    app:layout_constraintTop_toTopOf="@id/textViewNumberFollowers"
-                    tools:text="12" />
-
-                <TextView
-                    android:id="@+id/textViewPosts"
-                    style="@style/LargeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin_size"
-                    android:text="posts"
-                    android:textColor="?android:textColorSecondary"
-                    app:layout_constraintBottom_toBottomOf="@id/textViewNumberFollowers"
-                    app:layout_constraintStart_toEndOf="@id/textViewNumbersPosts"
-                    app:layout_constraintTop_toTopOf="@id/textViewNumberFollowers"
-                    tools:text="posts" />
-
-                <TextView
-                    android:id="@+id/textViewAbout"
-                    style="@style/TextViewContainerWithDrawable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/base_margin_size"
                     android:layout_marginTop="@dimen/base_margin_size"
-                    android:text="@string/about_author"
-                    app:drawableStartCompat="@drawable/ic_person"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewNumberFollowers" />
+                    app:layout_constraintTop_toBottomOf="@id/linearLayoutStats">
 
-                <TextView
-                    android:id="@+id/textViewGoals"
-                    style="@style/TextViewContainerWithDrawable"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/base_margin_size">
+
+                        <TextView
+                            android:id="@+id/textViewAbout"
+                            style="@style/TextViewContainerWithDrawable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/about_author"
+                            app:drawableStartCompat="@drawable/ic_person" />
+
+                        <TextView
+                            android:id="@+id/textViewGoals"
+                            style="@style/TextViewContainerWithDrawable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/base_margin_size"
+                            android:text="@string/goals"
+                            app:drawableStartCompat="@drawable/ic_goal" />
+
+                        <TextView
+                            android:id="@+id/textViewTip"
+                            style="@style/TextViewContainerWithDrawable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/base_margin_size"
+                            android:text="@string/tip"
+                            app:drawableStartCompat="@drawable/ic_tip" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScrollViewButtons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/base_margin_size"
-                    android:text="@string/goals"
-                    app:drawableStartCompat="@drawable/ic_goal"
-                    app:layout_constraintBottom_toBottomOf="@id/textViewAbout"
-                    app:layout_constraintStart_toEndOf="@id/textViewAbout"
-                    app:layout_constraintTop_toTopOf="@id/textViewAbout" />
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/horizontalScrollViewTextViewContainers">
 
-                <TextView
-                    android:id="@+id/textViewTip"
-                    style="@style/TextViewContainerWithDrawable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/base_margin_size"
-                    android:text="@string/tip"
-                    app:drawableStartCompat="@drawable/ic_tip"
-                    app:layout_constraintBottom_toBottomOf="@id/textViewAbout"
-                    app:layout_constraintStart_toEndOf="@id/textViewGoals"
-                    app:layout_constraintTop_toTopOf="@id/textViewAbout" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/base_margin_size">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonFollow"
+                            style="@style/PrimaryButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/follow"
+                            app:icon="@drawable/ic_favorite"
+                            app:iconGravity="textStart"
+                            app:iconSize="@dimen/base_icon_size" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonSubscribe"
+                            style="@style/PrimaryButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/base_margin_size"
+                            android:text="@string/subscribe"
+                            app:icon="@drawable/ic_star"
+                            app:iconGravity="textStart"
+                            app:iconSize="@dimen/base_icon_size" />
+                    </LinearLayout>
+                </HorizontalScrollView>
 
                 <TextView
                     android:id="@+id/textViewPost"
@@ -218,12 +233,13 @@
                     android:importantForAccessibility="no"
                     android:src="@drawable/ic_filter"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewAbout" />
+                    app:layout_constraintTop_toBottomOf="@id/horizontalScrollViewButtons" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewPosts"
                     android:layout_width="0dp"
-                    android:layout_height="2000dp"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

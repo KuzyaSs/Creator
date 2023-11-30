@@ -79,16 +79,18 @@
     <string name="goals">Цели</string>
     <string name="tip">Донат</string>
     <string name="posts">Посты</string>
+    <string name="follow">Отслеживать</string>
+    <string name="followed">Отслеживаю</string>
     <plurals name="plural_follower">
-        <item quantity="one">%d подписчик</item>
-        <item quantity="few">%d подписчика</item>
-        <item quantity="many">%d подписчиков</item>
-        <item quantity="other">%d подписчиков</item>
+        <item quantity="one">подписчик</item>
+        <item quantity="few">подписчика</item>
+        <item quantity="many">подписчиков</item>
+        <item quantity="other">подписчиков</item>
     </plurals>
     <plurals name="plural_post">
-        <item quantity="one">%d пост</item>
-        <item quantity="few">%d поста</item>
-        <item quantity="many">%d постов</item>
-        <item quantity="other">%d постов</item>
+        <item quantity="one">пост</item>
+        <item quantity="few">поста</item>
+        <item quantity="many">постов</item>
+        <item quantity="other">постов</item>
     </plurals>
 </resources>

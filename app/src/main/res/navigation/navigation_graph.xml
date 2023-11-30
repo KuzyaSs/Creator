@@ -140,8 +140,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_settingsFragment_to_chooseUserCategoryFragment"
-            app:destination="@id/chooseUserCategoryFragment"
+            android:id="@+id/action_settingsFragment_to_chooseCategoryFragment"
+            app:destination="@id/chooseCategoryFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -160,9 +160,9 @@
         android:name="ru.ermakov.creator.presentation.screen.editProfile.EditProfileFragment"
         android:label="EditProfileFragment" />
     <fragment
-        android:id="@+id/chooseUserCategoryFragment"
-        android:name="ru.ermakov.creator.presentation.screen.chooseUserCategory.ChooseUserCategoryFragment"
-        android:label="ChooseUserCategoryFragment" />
+        android:id="@+id/chooseCategoryFragment"
+        android:name="ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryFragment"
+        android:label="ChooseCategoryFragment" />
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordFragment"
@@ -170,5 +170,9 @@
     <fragment
         android:id="@+id/blogFragment"
         android:name="ru.ermakov.creator.presentation.screen.blog.BlogFragment"
-        android:label="BlogFragment" />
+        android:label="BlogFragment" >
+        <argument
+            android:name="creatorId"
+            app:argType="string" />
+    </fragment>
 </navigation>

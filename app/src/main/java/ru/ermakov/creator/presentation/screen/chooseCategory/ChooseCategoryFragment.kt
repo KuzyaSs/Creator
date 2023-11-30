@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.screen.chooseUserCategory
+package ru.ermakov.creator.presentation.screen.chooseCategory
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,40 +11,40 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
-import ru.ermakov.creator.databinding.FragmentChooseUserCategoryBinding
-import ru.ermakov.creator.presentation.adapter.ChooseUserCategoryAdapter
+import ru.ermakov.creator.databinding.FragmentChooseCategoryBinding
+import ru.ermakov.creator.presentation.adapter.ChooseCategoryAdapter
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class ChooseUserCategoryFragment : Fragment() {
-    private var _binding: FragmentChooseUserCategoryBinding? = null
+class ChooseCategoryFragment : Fragment() {
+    private var _binding: FragmentChooseCategoryBinding? = null
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var chooseUserCategoryViewModelFactory: ChooseUserCategoryViewModelFactory
-    private lateinit var chooseUserCategoryViewModel: ChooseUserCategoryViewModel
+    lateinit var chooseCategoryViewModelFactory: ChooseCategoryViewModelFactory
+    private lateinit var chooseCategoryViewModel: ChooseCategoryViewModel
 
     @Inject
     lateinit var textLocalizer: TextLocalizer
 
-    private lateinit var chooseUserCategoryAdapter: ChooseUserCategoryAdapter
+    private lateinit var chooseCategoryAdapter: ChooseCategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentChooseUserCategoryBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentChooseCategoryBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
-        chooseUserCategoryViewModel = ViewModelProvider(
+        chooseCategoryViewModel = ViewModelProvider(
             this,
-            chooseUserCategoryViewModelFactory
-        )[ChooseUserCategoryViewModel::class.java]
+            chooseCategoryViewModelFactory
+        )[ChooseCategoryViewModel::class.java]
         setUpSwipeRefreshLayout()
         setUpCategoryRecyclerView()
         setUpListeners()
@@ -69,30 +69,30 @@ class ChooseUserCategoryFragment : Fragment() {
     }
 
     private fun setUpCategoryRecyclerView() {
-        chooseUserCategoryAdapter = ChooseUserCategoryAdapter(
+        chooseCategoryAdapter = ChooseCategoryAdapter(
             textLocalizer = textLocalizer
         ) { changedCategory ->
-            chooseUserCategoryViewModel.updateUserCategoryInList(changedUserCategory = changedCategory)
+            chooseCategoryViewModel.updateCategoryInList(changedCategory = changedCategory)
         }
-        binding.recyclerViewCategories.adapter = chooseUserCategoryAdapter
+        binding.recyclerViewCategories.adapter = chooseCategoryAdapter
     }
 
     private fun setUpListeners() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
-                chooseUserCategoryViewModel.refreshUserCategories()
+                chooseCategoryViewModel.refreshCategories()
             }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
-            buttonConfirm.setOnClickListener { confirmUserCategoryList() }
+            buttonConfirm.setOnClickListener { confirmCategoryList() }
             viewLoading.setOnClickListener { }
         }
     }
 
     private fun setUpObservers() {
-        chooseUserCategoryViewModel.chooseUserCategoryUiState.observe(viewLifecycleOwner) { chooseCategoryUiState ->
+        chooseCategoryViewModel.chooseCategoryUiState.observe(viewLifecycleOwner) { chooseCategoryUiState ->
             chooseCategoryUiState.apply {
-                if (userCategories != null) {
-                    chooseUserCategoryAdapter.submitList(userCategories)
+                if (categories != null) {
+                    chooseCategoryAdapter.submitList(categories)
                     setLoading(isLoadingShown = isProgressBarConfirmShown)
                     setErrorMessage(
                         errorMessage = errorMessage,
@@ -100,18 +100,18 @@ class ChooseUserCategoryFragment : Fragment() {
                     )
                 }
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
-                binding.viewLoading.isVisible = userCategories == null
-                binding.progressBar.isVisible = !isErrorMessageShown && userCategories == null
+                binding.viewLoading.isVisible = categories == null
+                binding.progressBar.isVisible = !isErrorMessageShown && categories == null
                 binding.textViewErrorMessage.apply {
                     text = textLocalizer.localizeText(text = errorMessage)
-                    isVisible = isErrorMessageShown && userCategories == null
+                    isVisible = isErrorMessageShown && categories == null
                 }
             }
         }
     }
 
-    private fun confirmUserCategoryList() {
-        chooseUserCategoryViewModel.updateUserCategories()
+    private fun confirmCategoryList() {
+        chooseCategoryViewModel.updateCategories()
     }
 
     private fun goBack() {
@@ -128,7 +128,7 @@ class ChooseUserCategoryFragment : Fragment() {
     private fun setErrorMessage(errorMessage: String, isErrorMessageShown: Boolean) {
         if (isErrorMessageShown) {
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-            chooseUserCategoryViewModel.clearErrorMessage()
+            chooseCategoryViewModel.clearErrorMessage()
         }
     }
 

@@ -5,15 +5,15 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Path
-import ru.ermakov.creator.domain.model.UserCategory
+import ru.ermakov.creator.domain.model.Category
 
 interface CategoryApi {
     @GET("users/{userId}/categories")
-    suspend fun getUserCategoriesByUserId(@Path("userId") userId: String): Response<List<UserCategory>>
+    suspend fun getCategoriesByUserId(@Path("userId") userId: String): Response<List<Category>>
 
     @PUT("users/{userId}/categories")
-    suspend fun updateUserCategories(
+    suspend fun updateCategories(
         @Path("userId") userId: String,
-        @Body userCategories: List<UserCategory>
+        @Body categories: List<Category>
     ): Response<Void>
 }

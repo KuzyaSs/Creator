@@ -3,15 +3,16 @@ package ru.ermakov.creator.di
 import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.blog.GetCreatorByIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsFollowerUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
-import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoriesUseCase
-import ru.ermakov.creator.domain.useCase.chooseUserCategory.UpdateUserCategoryInListUseCase
+import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
+import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
-import ru.ermakov.creator.domain.useCase.common.GetUserCategoriesUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
@@ -21,10 +22,9 @@ import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
-import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModel
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
 import ru.ermakov.creator.presentation.util.ExceptionHandler
-import ru.ermakov.creator.presentation.screen.chooseUserCategory.ChooseUserCategoryViewModelFactory
+import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFactory
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
@@ -97,12 +97,14 @@ class ViewModelFactoryModule {
         getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
         isFollowerUseCase: IsFollowerUseCase,
         isSubscriberUseCase: IsSubscriberUseCase,
+        getCreatorByIdUseCase: GetCreatorByIdUseCase,
         exceptionHandler: ExceptionHandler,
     ): BlogViewModelFactory {
         return BlogViewModelFactory(
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             isFollowerUseCase = isFollowerUseCase,
             isSubscriberUseCase = isSubscriberUseCase,
+            getCreatorByIdUseCase = getCreatorByIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }
@@ -134,18 +136,18 @@ class ViewModelFactoryModule {
     }
 
     @Provides
-    fun provideChooseUserCategoryViewModelFactory(
+    fun provideChooseCategoryViewModelFactory(
         getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
-        getUserCategoriesUseCase: GetUserCategoriesUseCase,
-        updateUserCategoriesUseCase: UpdateUserCategoriesUseCase,
-        updateUserCategoryInListUseCase: UpdateUserCategoryInListUseCase,
+        getCategoriesByUserIdUseCase: GetCategoriesByUserIdUseCase,
+        updateCategoriesUseCase: UpdateCategoriesUseCase,
+        updateCategoryInListUseCase: UpdateCategoryInListUseCase,
         exceptionHandler: ExceptionHandler
-    ): ChooseUserCategoryViewModelFactory {
-        return ChooseUserCategoryViewModelFactory(
+    ): ChooseCategoryViewModelFactory {
+        return ChooseCategoryViewModelFactory(
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
-            getUserCategoriesUseCase = getUserCategoriesUseCase,
-            updateUserCategoriesUseCase = updateUserCategoriesUseCase,
-            updateUserCategoryInListUseCase = updateUserCategoryInListUseCase,
+            getCategoriesByUserIdUseCase = getCategoriesByUserIdUseCase,
+            updateCategoriesUseCase = updateCategoriesUseCase,
+            updateCategoryInListUseCase = updateCategoryInListUseCase,
             exceptionHandler = exceptionHandler
         )
     }

@@ -75,9 +75,9 @@
     <style name="TextViewContainerWithDrawable" parent="LargeTextView">
         <item name="android:background">@drawable/container_background</item>
         <item name="android:drawablePadding">@dimen/medium_margin_size</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:padding">@dimen/small_margin_size</item>
-        <item name="android:paddingEnd">@dimen/medium_margin_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingVertical">@dimen/small_margin_size</item>
+        <item name="android:paddingHorizontal">@dimen/medium_margin_size</item>
     </style>
 
     <style name="BottomNavigationView" parent="Widget.Material3.BottomNavigationView">

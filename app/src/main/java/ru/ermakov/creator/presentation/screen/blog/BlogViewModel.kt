@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.ermakov.creator.domain.useCase.blog.GetCreatorByIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsFollowerUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
@@ -15,27 +16,13 @@ class BlogViewModel(
     private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val isFollowerUseCase: IsFollowerUseCase,
     private val isSubscriberUseCase: IsSubscriberUseCase,
+    private val getCreatorByIdUseCase: GetCreatorByIdUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
     private val _blogUiState = MutableLiveData(BlogUiState())
     val blogUiState: LiveData<BlogUiState> = _blogUiState
 
-    init {
-        setBlog()
-    }
-
-    fun refreshBlog() {
-
-    }
-
-    fun clearErrorMessage() {
-        _blogUiState.value = _blogUiState.value?.copy(
-            isErrorMessageShown = false,
-            errorMessage = ""
-        )
-    }
-
-    private fun setBlog() {
+    fun setBlog(creatorId: String) {
         _blogUiState.postValue(
             _blogUiState.value?.copy(
                 isErrorMessageShown = false
@@ -48,6 +35,7 @@ class BlogViewModel(
                         currentUserId = getCurrentUserIdUseCase(),
                         isFollower = isFollowerUseCase(),
                         isSubscriber = isSubscriberUseCase(),
+                        creator = getCreatorByIdUseCase(creatorId = creatorId),
                         isRefreshingShown = false,
                         isErrorMessageShown = false
                     )
@@ -63,5 +51,19 @@ class BlogViewModel(
                 )
             }
         }
+    }
+
+    fun refreshBlog(creatorId: String) {
+        _blogUiState.value = _blogUiState.value?.copy(
+            isRefreshingShown = true
+        )
+        setBlog(creatorId = creatorId)
+    }
+
+    fun clearErrorMessage() {
+        _blogUiState.value = _blogUiState.value?.copy(
+            isErrorMessageShown = false,
+            errorMessage = ""
+        )
     }
 }
