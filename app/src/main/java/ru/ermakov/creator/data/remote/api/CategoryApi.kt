@@ -15,5 +15,5 @@ interface CategoryApi {
     suspend fun updateCategories(
         @Path("userId") userId: String,
         @Body categories: List<Category>
-    ): Response<Void>
+    ): Response<Unit>
 }

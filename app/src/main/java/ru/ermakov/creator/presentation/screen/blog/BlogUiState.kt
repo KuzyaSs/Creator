@@ -1,11 +1,12 @@
 package ru.ermakov.creator.presentation.screen.blog
 
 import ru.ermakov.creator.domain.model.Creator
+import ru.ermakov.creator.domain.model.Follow
 
 data class BlogUiState(
     val currentUserId: String = "",
     val isFollower: Boolean = false,
-    val isSubscriber: Boolean = false,
+    val isSubscriber: Boolean = false, // Change it to List<Subscription>.
     // val userSubscriptions: List<Subscription>? = null,
     val creator: Creator? = null,
     // val posts: List<Post>? = null,

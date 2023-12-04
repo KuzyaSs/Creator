@@ -14,6 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.remote.api.CategoryApi
+import ru.ermakov.creator.data.remote.api.FollowApi
 import ru.ermakov.creator.data.remote.api.UserApi
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSourceImpl
@@ -21,6 +22,8 @@ import ru.ermakov.creator.data.remote.dataSource.CategoryRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.CategoryRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSourceImpl
+import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSourceImpl
 import javax.inject.Singleton
@@ -82,6 +85,11 @@ class RemoteModule {
     }
 
     @Provides
+    fun provideFollowApi(retrofit: Retrofit): FollowApi {
+        return retrofit.create(FollowApi::class.java)
+    }
+
+    @Provides
     fun provideUserRemoteDataSource(
         userApi: UserApi,
         apiExceptionLocalizer: ApiExceptionLocalizer
@@ -99,6 +107,17 @@ class RemoteModule {
     ): CategoryRemoteDataSource {
         return CategoryRemoteDataSourceImpl(
             categoryApi = categoryApi,
+            apiExceptionLocalizer = apiExceptionLocalizer
+        )
+    }
+
+    @Provides
+    fun provideFollowRemoteDataSource(
+        followApi: FollowApi,
+        apiExceptionLocalizer: ApiExceptionLocalizer
+    ): FollowRemoteDataSource {
+        return FollowRemoteDataSourceImpl(
+            followApi = followApi,
             apiExceptionLocalizer = apiExceptionLocalizer
         )
     }

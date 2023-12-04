@@ -14,8 +14,8 @@ interface UserApi {
     suspend fun getUserById(@Path("userId") userId: String): Response<RemoteUser>
 
     @POST("users")
-    suspend fun insertUser(@Body authUser: AuthUser): Response<Void>
+    suspend fun insertUser(@Body authUser: AuthUser): Response<Unit>
 
     @PUT("users")
-    suspend fun updateUser(@Body user: RemoteUser): Response<Void>
+    suspend fun updateUser(@Body user: RemoteUser): Response<Unit>
 }

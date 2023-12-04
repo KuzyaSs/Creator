@@ -5,6 +5,7 @@
     <string name="short_username_exception">Имя должно иметь длину не менее 3 символов</string>
     <string name="username_in_use_exception">Данное пользовательское имя уже используется</string>
     <string name="user_not_found_exception">Пользователь не найден</string>
+    <string name="follow_not_found_exception">Подписка не найдена</string>
     <string name="email_format_exception">Некорректный адрес электронной почты</string>
     <string name="email_verification_exception">Подтвердите адрес электронной почты вашей учетной записи</string>
     <string name="email_collision_exception">Адрес электронной почты уже используется</string>
@@ -81,6 +82,7 @@
     <string name="posts">Посты</string>
     <string name="follow">Отслеживать</string>
     <string name="followed">Отслеживаю</string>
+    <string name="publish">Опубликовать</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

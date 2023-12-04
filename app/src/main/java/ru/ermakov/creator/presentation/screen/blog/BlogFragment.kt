@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +18,6 @@ import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentBlogBinding
 import ru.ermakov.creator.domain.model.Creator
 import ru.ermakov.creator.presentation.screen.CreatorActivity
-import ru.ermakov.creator.presentation.screen.verificationEmail.VerificationEmailFragmentArgs
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
@@ -88,6 +86,18 @@ class BlogFragment : Fragment() {
                 binding.scrollView.canScrollVertically(-1)
             }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
+            textViewAbout.setOnClickListener { showAboutFragment() }
+            textViewGoals.setOnClickListener { navigateToGoalFragment() }
+            textViewTip.setOnClickListener { navigateToTipFragment() }
+            buttonFollow.setOnClickListener {
+                if (blogViewModel._blogUiState.value?.isFollower == true) {
+                    blogViewModel.unfollow()
+                } else {
+                    blogViewModel.follow()
+                }
+            }
+            buttonSubscribe.setOnClickListener { navigateToSubscriptionFragment() }
+            buttonPublish.setOnClickListener { navigateToPublishFragment() }
             viewLoading.setOnClickListener { }
         }
     }
@@ -96,8 +106,11 @@ class BlogFragment : Fragment() {
         blogViewModel.blogUiState.observe(viewLifecycleOwner) { blogUiState ->
             blogUiState.apply {
                 if (creator != null) {
-                    setFollowButton(isFollower = isFollower)
-                    setSubscribeButton(isSubscriber = isSubscriber)
+                    val isOwner = currentUserId == creator.user.id
+                    binding.textViewTip.isVisible = !isOwner
+                    setFollowButton(isFollower = isFollower, isOwner = isOwner)
+                    setSubscribeButton(isSubscriber = isSubscriber, isOwner = isOwner)
+                    binding.buttonPublish.visibility = if (isOwner) View.VISIBLE else View.INVISIBLE
                     setCreator(creator = creator)
                     setErrorMessage(
                         errorMessage = errorMessage,
@@ -130,20 +143,21 @@ class BlogFragment : Fragment() {
         }
         binding.textViewTitleWithBackButton.text = creator.user.username
         binding.textViewCreatorName.text = creator.user.username
-        binding.textViewNumFollowers.text = creator.numFollowers.toString()
+        binding.textViewNumFollowers.text = creator.followerCount.toString()
         binding.textViewFollowers.text = resources.getQuantityString(
             R.plurals.plural_follower,
-            creator.numFollowers.toInt(),
+            creator.followerCount.toInt(),
         )
-        binding.textViewNumPosts.text = creator.numPosts.toString()
+        binding.textViewNumPosts.text = creator.postCount.toString()
         binding.textViewPosts.text = resources.getQuantityString(
             R.plurals.plural_post,
-            creator.numPosts.toInt(),
+            creator.postCount.toInt(),
         )
     }
 
-    private fun setFollowButton(isFollower: Boolean) {
+    private fun setFollowButton(isFollower: Boolean, isOwner: Boolean) {
         binding.buttonFollow.apply {
+            isVisible = !isOwner
             if (isFollower) {
                 setSecondaryButton(this)
                 text = resources.getString(R.string.followed)
@@ -156,8 +170,9 @@ class BlogFragment : Fragment() {
         }
     }
 
-    private fun setSubscribeButton(isSubscriber: Boolean) {
+    private fun setSubscribeButton(isSubscriber: Boolean, isOwner: Boolean) {
         binding.buttonSubscribe.apply {
+            isVisible = !isOwner
             if (isSubscriber) {
                 setSecondaryButton(this)
                 text = resources.getString(R.string.subscribed)
@@ -204,6 +219,29 @@ class BlogFragment : Fragment() {
                 )
             )
         }
+    }
+
+    private fun showAboutFragment() {
+
+    }
+
+    private fun navigateToGoalFragment() {
+
+    }
+
+    private fun navigateToTipFragment() {
+
+    }
+
+    private fun navigateToSubscriptionFragment() {
+        // Temporarily.
+        blogViewModel._blogUiState.value = blogViewModel._blogUiState.value?.copy(
+            isSubscriber = !(blogViewModel._blogUiState.value?.isSubscriber ?: false)
+        )
+    }
+
+    private fun navigateToPublishFragment() {
+
     }
 
     private fun goBack() {

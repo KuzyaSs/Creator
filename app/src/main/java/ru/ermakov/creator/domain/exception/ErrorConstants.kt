@@ -7,6 +7,7 @@ class ErrorConstants {
         const val SHORT_USERNAME_EXCEPTION = "Username should be at least 3 characters long"
         const val USERNAME_IN_USE_EXCEPTION = "This username is already in use"
         const val USER_NOT_FOUND_EXCEPTION = "User is not found"
+        const val FOLLOW_NOT_FOUND_EXCEPTION = "Follow is not found"
         const val EMAIL_FORMAT_EXCEPTION = "The email address is badly formatted"
         const val EMAIL_COLLISION_EXCEPTION = "The email address is already in use by another account"
         const val EMAIL_VERIFICATION_EXCEPTION = "Verify your account email"

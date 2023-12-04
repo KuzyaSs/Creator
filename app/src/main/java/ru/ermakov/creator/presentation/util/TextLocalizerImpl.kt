@@ -6,6 +6,7 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_COLLIS
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_FORMAT_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_VERIFICATION_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMPTY_DATA_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.FOLLOW_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_PASSWORD_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.UNKNOWN_EMAIL_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.NETWORK_EXCEPTION
@@ -72,6 +73,10 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
             }
 
             USER_NOT_FOUND_EXCEPTION -> {
+                context.getString(R.string.user_not_found_exception)
+            }
+
+            FOLLOW_NOT_FOUND_EXCEPTION -> {
                 context.getString(R.string.user_not_found_exception)
             }
 

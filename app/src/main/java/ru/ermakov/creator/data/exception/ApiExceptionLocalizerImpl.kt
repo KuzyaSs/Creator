@@ -2,7 +2,9 @@ package ru.ermakov.creator.data.exception
 
 import com.google.gson.Gson
 import retrofit2.Response
-import ru.ermakov.creator.domain.exception.ErrorConstants
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.FOLLOW_NOT_FOUND_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USERNAME_IN_USE_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
 
 class ApiExceptionLocalizerImpl(private val gson: Gson) : ApiExceptionLocalizer {
     override fun localizeApiException(response: Response<*>): Exception {
@@ -11,12 +13,16 @@ class ApiExceptionLocalizerImpl(private val gson: Gson) : ApiExceptionLocalizer 
         )
 
         return when (apiExceptionBody.error) {
-            ErrorConstants.USERNAME_IN_USE_EXCEPTION -> {
+            USERNAME_IN_USE_EXCEPTION -> {
                 UsernameInUseException()
             }
 
-            ErrorConstants.USER_NOT_FOUND_EXCEPTION -> {
+            USER_NOT_FOUND_EXCEPTION -> {
                 UserNotFoundException()
+            }
+
+            FOLLOW_NOT_FOUND_EXCEPTION -> {
+                FollowNotFoundException()
             }
 
             else -> {

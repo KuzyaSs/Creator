@@ -3,7 +3,7 @@ package ru.ermakov.creator.domain.model
 data class Creator(
     val user: User,
     val categories: List<Category>,
-    val numFollowers: Long,
-    val numSubscribers: Long,
-    val numPosts: Long
+    val followerCount: Long,
+    val subscriberCount: Long,
+    val postCount: Long
 )

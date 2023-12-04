@@ -5,6 +5,7 @@
     <string name="short_username_exception">Username should be at least 3 characters long</string>
     <string name="username_in_use_exception">This username is already in use</string>
     <string name="user_not_found_exception">User is not found</string>
+    <string name="follow_not_found_exception">Follow is not found</string>
     <string name="email_format_exception">The email address is badly formatted</string>
     <string name="email_verification_exception">Verify your account email</string>
     <string name="email_collision_exception">The email address is already in use by another account</string>
@@ -81,6 +82,7 @@
     <string name="posts">Posts</string>
     <string name="follow">Follow</string>
     <string name="followed">Followed</string>
+    <string name="publish">Publish</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

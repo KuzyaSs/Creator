@@ -1,6 +1,5 @@
 package ru.ermakov.creator.data.remote.dataSource
 
-import android.util.Log
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.mapper.toRemoteUser
 import ru.ermakov.creator.data.mapper.toUser
@@ -26,10 +25,8 @@ class UserRemoteDataSourceImpl(
     override suspend fun insertUser(authUser: AuthUser) {
         val response = userApi.insertUser(authUser = authUser)
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "INSERT_USER (SUCCESS): $authUser")
             return
         }
-        Log.d("MY_TAG", "INSERT_USER (ERROR): ${response.body()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 

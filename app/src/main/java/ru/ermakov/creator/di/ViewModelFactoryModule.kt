@@ -3,16 +3,18 @@ package ru.ermakov.creator.di
 import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
 import ru.ermakov.creator.domain.useCase.blog.GetCreatorByIdUseCase
-import ru.ermakov.creator.domain.useCase.blog.IsFollowerUseCase
+import ru.ermakov.creator.domain.useCase.blog.IsFollowerByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
+import ru.ermakov.creator.domain.useCase.blog.UnfollowUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.common.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
@@ -23,7 +25,6 @@ import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
-import ru.ermakov.creator.presentation.util.ExceptionHandler
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFactory
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
@@ -32,6 +33,7 @@ import ru.ermakov.creator.presentation.screen.search.SearchViewModelFactory
 import ru.ermakov.creator.presentation.screen.signIn.SignInViewModelFactory
 import ru.ermakov.creator.presentation.screen.signUp.SignUpViewModelFactory
 import ru.ermakov.creator.presentation.screen.splash.SplashViewModelFactory
+import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 @Module
 class ViewModelFactoryModule {
@@ -95,14 +97,18 @@ class ViewModelFactoryModule {
     @Provides
     fun provideBlogViewModelFactory(
         getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
-        isFollowerUseCase: IsFollowerUseCase,
+        isFollowerByUserAndCreatorIdsUseCase: IsFollowerByUserAndCreatorIdsUseCase,
+        followUseCase: FollowUseCase,
+        unfollowUseCase: UnfollowUseCase,
         isSubscriberUseCase: IsSubscriberUseCase,
         getCreatorByIdUseCase: GetCreatorByIdUseCase,
         exceptionHandler: ExceptionHandler,
     ): BlogViewModelFactory {
         return BlogViewModelFactory(
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
-            isFollowerUseCase = isFollowerUseCase,
+            isFollowerByUserAndCreatorIdsUseCase = isFollowerByUserAndCreatorIdsUseCase,
+            followUseCase = followUseCase,
+            unfollowUseCase = unfollowUseCase,
             isSubscriberUseCase = isSubscriberUseCase,
             getCreatorByIdUseCase = getCreatorByIdUseCase,
             exceptionHandler = exceptionHandler

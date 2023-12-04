@@ -212,6 +212,22 @@
                     </LinearLayout>
                 </HorizontalScrollView>
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonPublish"
+                    style="@style/PrimaryButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:layout_marginEnd="@dimen/base_margin_size"
+                    android:text="@string/publish"
+                    app:icon="@drawable/ic_publish"
+                    app:iconGravity="textStart"
+                    app:iconSize="@dimen/base_icon_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/horizontalScrollViewTextViewContainers" />
+
                 <TextView
                     android:id="@+id/textViewPost"
                     style="@style/ExtraLargeTextView"
@@ -233,7 +249,7 @@
                     android:importantForAccessibility="no"
                     android:src="@drawable/ic_filter"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/horizontalScrollViewButtons" />
+                    app:layout_constraintTop_toBottomOf="@id/buttonPublish" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewPosts"

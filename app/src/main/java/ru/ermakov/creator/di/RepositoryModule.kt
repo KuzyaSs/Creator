@@ -10,11 +10,14 @@ import ru.ermakov.creator.data.repository.UserRepositoryImpl
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.CategoryRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
 import ru.ermakov.creator.data.repository.CategoryRepositoryImpl
 import ru.ermakov.creator.data.repository.FileRepositoryImpl
+import ru.ermakov.creator.data.repository.FollowRepositoryImpl
 import ru.ermakov.creator.domain.repository.AuthRepository
 import ru.ermakov.creator.domain.repository.CategoryRepository
 import ru.ermakov.creator.domain.repository.FileRepository
+import ru.ermakov.creator.domain.repository.FollowRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 
 @Module
@@ -56,6 +59,15 @@ class RepositoryModule {
         return FileRepositoryImpl(
             fileLocalDataSource = fileLocalDataSource,
             fileRemoteDataSource = fileRemoteDataSource
+        )
+    }
+
+    @Provides
+    fun provideFollowRepository(
+        followRemoteDataSource: FollowRemoteDataSource,
+    ): FollowRepository {
+        return FollowRepositoryImpl(
+            followRemoteDataSource = followRemoteDataSource,
         )
     }
 }

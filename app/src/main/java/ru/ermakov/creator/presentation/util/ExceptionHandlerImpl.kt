@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import ru.ermakov.creator.data.exception.EmailVerificationException
+import ru.ermakov.creator.data.exception.FollowNotFoundException
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_COLLISION_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.UNKNOWN_EMAIL_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.NETWORK_EXCEPTION
@@ -38,6 +39,10 @@ class ExceptionHandlerImpl : ExceptionHandler {
             }
 
             is UserNotFoundException -> {
+                exception.message
+            }
+
+            is FollowNotFoundException -> {
                 exception.message
             }
 
