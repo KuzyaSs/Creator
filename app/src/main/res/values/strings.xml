@@ -76,17 +76,23 @@
     <string name="current_password">Current password</string>
     <string name="subscribe">Subscribe</string>
     <string name="subscribed">Subscribed</string>
-    <string name="about_author">About</string>
+    <string name="about_creator">About</string>
     <string name="goals">Goals</string>
     <string name="tip">Tip</string>
     <string name="posts">Posts</string>
     <string name="follow">Follow</string>
     <string name="followed">Followed</string>
     <string name="publish">Publish</string>
+    <string name="creators">Creators</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>
         <item quantity="other">followers</item>
+    </plurals>
+    <plurals name="plural_follower_with_number">
+        <item quantity="one">%d follower</item>
+        <item quantity="many">%d followers</item>
+        <item quantity="other">%d followers</item>
     </plurals>
     <plurals name="plural_post">
         <item quantity="one">post</item>

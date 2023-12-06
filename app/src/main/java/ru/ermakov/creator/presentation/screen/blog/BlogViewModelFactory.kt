@@ -3,11 +3,11 @@ package ru.ermakov.creator.presentation.screen.blog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
-import ru.ermakov.creator.domain.useCase.blog.GetCreatorByIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCreatorByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsFollowerByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
 import ru.ermakov.creator.domain.useCase.blog.UnfollowUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class BlogViewModelFactory(
@@ -16,7 +16,7 @@ class BlogViewModelFactory(
     private val followUseCase: FollowUseCase,
     private val unfollowUseCase: UnfollowUseCase,
     private val isSubscriberUseCase: IsSubscriberUseCase,
-    private val getCreatorByIdUseCase: GetCreatorByIdUseCase,
+    private val getCreatorByUserIdUseCase: GetCreatorByUserIdUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -28,7 +28,7 @@ class BlogViewModelFactory(
                 followUseCase = followUseCase,
                 unfollowUseCase = unfollowUseCase,
                 isSubscriberUseCase = isSubscriberUseCase,
-                getCreatorByIdUseCase = getCreatorByIdUseCase,
+                getCreatorByUserIdUseCase = getCreatorByUserIdUseCase,
                 exceptionHandler = exceptionHandler
             ) as T
         }

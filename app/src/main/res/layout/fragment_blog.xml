@@ -94,7 +94,7 @@
                     app:layout_constraintTop_toBottomOf="@id/textViewCreatorName">
 
                     <TextView
-                        android:id="@+id/textViewNumFollowers"
+                        android:id="@+id/textViewFollowerCount"
                         style="@style/ExtraLargeTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                         tools:text="followers" />
 
                     <TextView
-                        android:id="@+id/textViewNumPosts"
+                        android:id="@+id/textViewPostCount"
                         style="@style/ExtraLargeTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                             style="@style/TextViewContainerWithDrawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/about_author"
+                            android:text="@string/about_creator"
                             app:drawableStartCompat="@drawable/ic_person" />
 
                         <TextView
@@ -169,6 +169,15 @@
                             android:layout_marginStart="@dimen/base_margin_size"
                             android:text="@string/tip"
                             app:drawableStartCompat="@drawable/ic_tip" />
+
+                        <TextView
+                            android:id="@+id/textViewSubscriptions"
+                            style="@style/TextViewContainerWithDrawable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/base_margin_size"
+                            android:text="@string/subscriptions"
+                            app:drawableStartCompat="@drawable/ic_star" />
                     </LinearLayout>
                 </HorizontalScrollView>
 

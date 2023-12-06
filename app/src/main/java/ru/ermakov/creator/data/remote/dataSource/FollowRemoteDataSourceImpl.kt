@@ -25,27 +25,24 @@ class FollowRemoteDataSourceImpl(
 
     override suspend fun getFollowByUserAndCreatorIds(userId: String, creatorId: String): Follow {
         val remoteFollowResponse = followApi.getFollowByUserAndCreatorIds(
-            RemoteFollowRequest(userId = userId, creatorId = creatorId)
+            userId = userId,
+            creatorId = creatorId
         )
         if (remoteFollowResponse.isSuccessful) {
-            Log.d("MY_TAG", "getFollowByUserAndCreatorIds SUCCESS ${remoteFollowResponse.body()}")
             remoteFollowResponse.body()?.let { remoteFollow ->
                 return remoteFollow.toFollow()
             }
         }
-        Log.d("MY_TAG", "getFollowByUserAndCreatorIds ERROR ${remoteFollowResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = remoteFollowResponse)
     }
 
     override suspend fun getFollowerCountByUserId(userId: String): Long {
         val followerCountResponse = followApi.getFollowerCountByUserId(userId = userId)
         if (followerCountResponse.isSuccessful) {
-            Log.d("MY_TAG", "getFollowerCountByUserId SUCCESS ${followerCountResponse.body()}")
             followerCountResponse.body()?.let { followerCount ->
                 return followerCount
             }
         }
-        Log.d("MY_TAG", "getFollowerCountByUserId ERROR ${followerCountResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = followerCountResponse)
     }
 
@@ -54,20 +51,16 @@ class FollowRemoteDataSourceImpl(
             RemoteFollowRequest(userId = userId, creatorId = creatorId)
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "insertFollow SUCCESS")
             return
         }
-        Log.d("MY_TAG", "insertFollow ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
     override suspend fun deleteFollowById(followId: Long) {
         val response = followApi.deleteFollowById(followId = followId)
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "deleteFollowById SUCCESS")
             return
         }
-        Log.d("MY_TAG", "deleteFollowById ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 }

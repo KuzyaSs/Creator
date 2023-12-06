@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
-import ru.ermakov.creator.domain.useCase.blog.GetCreatorByIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCreatorByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsFollowerByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
 import ru.ermakov.creator.domain.useCase.blog.UnfollowUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class BlogViewModel(
@@ -20,7 +20,7 @@ class BlogViewModel(
     private val followUseCase: FollowUseCase,
     private val unfollowUseCase: UnfollowUseCase,
     private val isSubscriberUseCase: IsSubscriberUseCase,
-    private val getCreatorByIdUseCase: GetCreatorByIdUseCase,
+    private val getCreatorByUserIdUseCase: GetCreatorByUserIdUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
     val _blogUiState = MutableLiveData(BlogUiState())
@@ -43,7 +43,7 @@ class BlogViewModel(
                             creatorId = creatorId
                         ),
                         isSubscriber = isSubscriberUseCase(),
-                        creator = getCreatorByIdUseCase(creatorId = creatorId),
+                        creator = getCreatorByUserIdUseCase(userId = creatorId),
                         isRefreshingShown = false,
                         isErrorMessageShown = false
                     )

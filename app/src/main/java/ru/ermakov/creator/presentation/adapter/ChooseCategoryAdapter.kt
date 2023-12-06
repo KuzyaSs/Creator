@@ -12,8 +12,7 @@ import ru.ermakov.creator.presentation.util.TextLocalizer
 class ChooseCategoryAdapter(
     private val textLocalizer: TextLocalizer,
     private val onItemClickListener: (Category) -> Unit
-) :
-    ListAdapter<Category, ChooseCategoryAdapter.CategoryViewHolder>(DiffCallback) {
+) : ListAdapter<Category, ChooseCategoryAdapter.CategoryViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
             ItemSelectCategoryBinding.inflate(

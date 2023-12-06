@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCategoriesByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 

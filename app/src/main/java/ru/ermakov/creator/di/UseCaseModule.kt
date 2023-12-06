@@ -4,15 +4,13 @@ import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.repository.AuthRepository
 import ru.ermakov.creator.domain.repository.CategoryRepository
+import ru.ermakov.creator.domain.repository.CreatorRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
-import ru.ermakov.creator.domain.useCase.blog.GetCreatorByIdUseCase
-import ru.ermakov.creator.domain.useCase.blog.GetFollowerCountByUserIdUseCase
-import ru.ermakov.creator.domain.useCase.blog.GetPostCountByUserIdUseCase
-import ru.ermakov.creator.domain.useCase.blog.GetSubscriberCountByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCreatorByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.GetFollowByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsFollowerByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
@@ -20,17 +18,18 @@ import ru.ermakov.creator.domain.useCase.blog.UnfollowUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
-import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCategoriesByUserIdUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserIdUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
-import ru.ermakov.creator.domain.useCase.common.GetUserByIdUseCase
-import ru.ermakov.creator.domain.useCase.common.UpdateUserUseCase
+import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetUserByIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.UpdateUserUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
+import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
@@ -183,39 +182,17 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetFollowerCountByUserIdUseCase(followRepository: FollowRepository): GetFollowerCountByUserIdUseCase {
-        return GetFollowerCountByUserIdUseCase(followRepository = followRepository)
-    }
-
-    @Provides
     fun provideIsSubscriberUseCase(): IsSubscriberUseCase {
         return IsSubscriberUseCase()
     }
 
     @Provides
-    fun provideGetSubscriberCountByUserIdUseCase(): GetSubscriberCountByUserIdUseCase {
-        return GetSubscriberCountByUserIdUseCase()
+    fun provideGetCreatorByUserIdUseCase(creatorRepository: CreatorRepository): GetCreatorByUserIdUseCase {
+        return GetCreatorByUserIdUseCase(creatorRepository = creatorRepository)
     }
 
     @Provides
-    fun provideGetPostCountByUserIdUseCase(): GetPostCountByUserIdUseCase {
-        return GetPostCountByUserIdUseCase()
-    }
-
-    @Provides
-    fun provideGetCreatorByIdUseCase(
-        getUserByIdUseCase: GetUserByIdUseCase,
-        getCategoriesByUserIdUseCase: GetCategoriesByUserIdUseCase,
-        getFollowerCountByUserIdUseCase: GetFollowerCountByUserIdUseCase,
-        getSubscriberCountByUserIdUseCase: GetSubscriberCountByUserIdUseCase,
-        getPostCountByUserIdUseCase: GetPostCountByUserIdUseCase,
-    ): GetCreatorByIdUseCase {
-        return GetCreatorByIdUseCase(
-            getUserByIdUseCase = getUserByIdUseCase,
-            getCategoriesByUserIdUseCase = getCategoriesByUserIdUseCase,
-            getFollowerCountByUserIdUseCase = getFollowerCountByUserIdUseCase,
-            getSubscriberCountByUserIdUseCase = getSubscriberCountByUserIdUseCase,
-            getPostCountByUserIdUseCase = getPostCountByUserIdUseCase
-        )
+    fun provideSearchCreatorsUseCase(creatorRepository: CreatorRepository): SearchCreatorsUseCase {
+        return SearchCreatorsUseCase(creatorRepository = creatorRepository)
     }
 }

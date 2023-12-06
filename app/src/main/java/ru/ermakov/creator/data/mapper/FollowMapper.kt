@@ -7,8 +7,8 @@ import java.time.LocalDate
 fun RemoteFollow.toFollow(): Follow {
     return Follow(
         id = id,
-        user = user.toUser(),
-        creator = creator.toUser(),
+        user = remoteUser.toUser(),
+        creator = remoteCreator.toCreator(),
         startDate = LocalDate.parse(startDate)
     )
 }

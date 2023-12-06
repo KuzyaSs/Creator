@@ -27,7 +27,7 @@ class ChooseCategoryFragment : Fragment() {
     @Inject
     lateinit var textLocalizer: TextLocalizer
 
-    private lateinit var chooseCategoryAdapter: ChooseCategoryAdapter
+    private var chooseCategoryAdapter: ChooseCategoryAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -92,7 +92,7 @@ class ChooseCategoryFragment : Fragment() {
         chooseCategoryViewModel.chooseCategoryUiState.observe(viewLifecycleOwner) { chooseCategoryUiState ->
             chooseCategoryUiState.apply {
                 if (categories != null) {
-                    chooseCategoryAdapter.submitList(categories)
+                    chooseCategoryAdapter?.submitList(categories)
                     setLoading(isLoadingShown = isProgressBarConfirmShown)
                     setErrorMessage(
                         errorMessage = errorMessage,

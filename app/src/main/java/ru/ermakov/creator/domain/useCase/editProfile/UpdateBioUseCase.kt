@@ -1,7 +1,7 @@
 package ru.ermakov.creator.domain.useCase.editProfile
 
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
-import ru.ermakov.creator.domain.useCase.common.UpdateUserUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.shared.UpdateUserUseCase
 
 class UpdateBioUseCase(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,

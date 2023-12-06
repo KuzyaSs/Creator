@@ -14,12 +14,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.remote.api.CategoryApi
+import ru.ermakov.creator.data.remote.api.CreatorApi
 import ru.ermakov.creator.data.remote.api.FollowApi
 import ru.ermakov.creator.data.remote.api.UserApi
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.CategoryRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.CategoryRemoteDataSourceImpl
+import ru.ermakov.creator.data.remote.dataSource.CreatorRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.CreatorRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
@@ -80,6 +83,11 @@ class RemoteModule {
     }
 
     @Provides
+    fun provideCreatorApi(retrofit: Retrofit): CreatorApi {
+        return retrofit.create(CreatorApi::class.java)
+    }
+
+    @Provides
     fun provideCategoryApi(retrofit: Retrofit): CategoryApi {
         return retrofit.create(CategoryApi::class.java)
     }
@@ -96,6 +104,17 @@ class RemoteModule {
     ): UserRemoteDataSource {
         return UserRemoteDataSourceImpl(
             userApi = userApi,
+            apiExceptionLocalizer = apiExceptionLocalizer
+        )
+    }
+
+    @Provides
+    fun provideCreatorRemoteDataSource(
+        creatorApi: CreatorApi,
+        apiExceptionLocalizer: ApiExceptionLocalizer
+    ): CreatorRemoteDataSource {
+        return CreatorRemoteDataSourceImpl(
+            creatorApi = creatorApi,
             apiExceptionLocalizer = apiExceptionLocalizer
         )
     }

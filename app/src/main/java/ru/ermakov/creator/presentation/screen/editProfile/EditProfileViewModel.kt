@@ -9,8 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.model.EditProfileImageOption
-import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase

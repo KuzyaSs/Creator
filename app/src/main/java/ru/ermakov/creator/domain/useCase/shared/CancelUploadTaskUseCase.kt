@@ -1,4 +1,4 @@
-package ru.ermakov.creator.domain.useCase.common
+package ru.ermakov.creator.domain.useCase.shared
 
 import ru.ermakov.creator.domain.repository.FileRepository
 

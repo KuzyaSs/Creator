@@ -89,6 +89,7 @@ class BlogFragment : Fragment() {
             textViewAbout.setOnClickListener { showAboutFragment() }
             textViewGoals.setOnClickListener { navigateToGoalFragment() }
             textViewTip.setOnClickListener { navigateToTipFragment() }
+            textViewSubscriptions.setOnClickListener { navigateToSubscriptionFragment() }
             buttonFollow.setOnClickListener {
                 if (blogViewModel._blogUiState.value?.isFollower == true) {
                     blogViewModel.unfollow()
@@ -108,6 +109,7 @@ class BlogFragment : Fragment() {
                 if (creator != null) {
                     val isOwner = currentUserId == creator.user.id
                     binding.textViewTip.isVisible = !isOwner
+                    binding.textViewSubscriptions.isVisible = isOwner
                     setFollowButton(isFollower = isFollower, isOwner = isOwner)
                     setSubscribeButton(isSubscriber = isSubscriber, isOwner = isOwner)
                     binding.buttonPublish.visibility = if (isOwner) View.VISIBLE else View.INVISIBLE
@@ -143,15 +145,15 @@ class BlogFragment : Fragment() {
         }
         binding.textViewTitleWithBackButton.text = creator.user.username
         binding.textViewCreatorName.text = creator.user.username
-        binding.textViewNumFollowers.text = creator.followerCount.toString()
+        binding.textViewFollowerCount.text = creator.followerCount.toString()
         binding.textViewFollowers.text = resources.getQuantityString(
             R.plurals.plural_follower,
-            creator.followerCount.toInt(),
+            creator.followerCount.toInt()
         )
-        binding.textViewNumPosts.text = creator.postCount.toString()
+        binding.textViewPostCount.text = creator.postCount.toString()
         binding.textViewPosts.text = resources.getQuantityString(
             R.plurals.plural_post,
-            creator.postCount.toInt(),
+            creator.postCount.toInt()
         )
     }
 

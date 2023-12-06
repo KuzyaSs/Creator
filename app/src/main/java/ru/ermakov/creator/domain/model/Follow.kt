@@ -5,6 +5,6 @@ import java.time.LocalDate
 data class Follow(
     val id: Long,
     val user: User,
-    val creator: User,
+    val creator: Creator,
     val startDate: LocalDate
 )

@@ -9,13 +9,16 @@ import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
 import ru.ermakov.creator.data.repository.UserRepositoryImpl
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.CategoryRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.CreatorRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
 import ru.ermakov.creator.data.repository.CategoryRepositoryImpl
+import ru.ermakov.creator.data.repository.CreatorRepositoryImpl
 import ru.ermakov.creator.data.repository.FileRepositoryImpl
 import ru.ermakov.creator.data.repository.FollowRepositoryImpl
 import ru.ermakov.creator.domain.repository.AuthRepository
 import ru.ermakov.creator.domain.repository.CategoryRepository
+import ru.ermakov.creator.domain.repository.CreatorRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
 import ru.ermakov.creator.domain.repository.UserRepository
@@ -34,12 +37,15 @@ class RepositoryModule {
     }
 
     @Provides
-    fun provideUserRepository(
-        userRemoteDataSource: UserRemoteDataSource,
-    ): UserRepository {
+    fun provideUserRepository(userRemoteDataSource: UserRemoteDataSource): UserRepository {
         return UserRepositoryImpl(
             userRemoteDataSource = userRemoteDataSource,
         )
+    }
+
+    @Provides
+    fun provideCreatorRepository(creatorRemoteDataSource: CreatorRemoteDataSource): CreatorRepository {
+        return CreatorRepositoryImpl(creatorRemoteDataSource = creatorRemoteDataSource)
     }
 
     @Provides

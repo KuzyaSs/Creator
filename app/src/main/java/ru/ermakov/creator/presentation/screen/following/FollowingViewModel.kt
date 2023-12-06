@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 import ru.ermakov.creator.presentation.util.State
 

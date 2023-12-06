@@ -2,8 +2,8 @@ package ru.ermakov.creator.presentation.screen.editProfile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ru.ermakov.creator.domain.useCase.common.CancelUploadTaskUseCase
-import ru.ermakov.creator.domain.useCase.common.GetCurrentUserUseCase
+import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase

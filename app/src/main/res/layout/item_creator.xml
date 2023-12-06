@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/medium_margin_size">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewProfileAvatar"
+        android:layout_width="@dimen/base_image_size"
+        android:layout_height="@dimen/base_image_size"
+        android:layout_marginStart="@dimen/base_margin_size"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_profile_avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        style="@style/LargeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_margin_size"
+        app:layout_constraintBottom_toTopOf="@id/textViewFollowerCount"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfileAvatar"
+        app:layout_constraintTop_toTopOf="@id/imageViewProfileAvatar"
+        tools:text="Kuzya" />
+
+    <TextView
+        android:id="@+id/textViewFollowerCount"
+        style="@style/BaseTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_margin_size"
+        android:textColor="?android:textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewProfileAvatar"
+        app:layout_constraintStart_toEndOf="@id/imageViewProfileAvatar"
+        app:layout_constraintTop_toBottomOf="@id/textViewName"
+        tools:text="5 followers" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
