@@ -86,7 +86,8 @@ class BlogFragment : Fragment() {
                 binding.scrollView.canScrollVertically(-1)
             }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
-            textViewAbout.setOnClickListener { showAboutFragment() }
+            val creatorBioFragment = CreatorBioFragment()
+            textViewAbout.setOnClickListener { setBioFragment(creatorBioFragment = creatorBioFragment) }
             textViewGoals.setOnClickListener { navigateToGoalFragment() }
             textViewTip.setOnClickListener { navigateToTipFragment() }
             textViewSubscriptions.setOnClickListener { navigateToSubscriptionFragment() }
@@ -223,8 +224,12 @@ class BlogFragment : Fragment() {
         }
     }
 
-    private fun showAboutFragment() {
-
+    private fun setBioFragment(creatorBioFragment: CreatorBioFragment) {
+        if (!creatorBioFragment.isVisible) {
+            creatorBioFragment.show(childFragmentManager, creatorBioFragment.toString())
+        } else {
+            creatorBioFragment.dismiss()
+        }
     }
 
     private fun navigateToGoalFragment() {

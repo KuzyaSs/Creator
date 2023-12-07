@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import kotlinx.coroutines.CancellationException
 import ru.ermakov.creator.data.exception.EmailVerificationException
 import ru.ermakov.creator.data.exception.FollowNotFoundException
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_COLLISION_EXCEPTION
@@ -24,7 +25,7 @@ import ru.ermakov.creator.domain.exception.ShortUsernameException
 
 class ExceptionHandlerImpl : ExceptionHandler {
     override fun handleException(exception: Throwable): String {
-        Log.d("MY_TAG", "EXCEPTION: ${exception.message}")
+        Log.d("MY_TAG", "ExceptionHandler: ${exception.javaClass} / ${exception.message}")
         return when (exception) {
             is EmptyDataException -> {
                 exception.message
@@ -82,6 +83,10 @@ class ExceptionHandlerImpl : ExceptionHandler {
 
             is FirebaseAuthUserCollisionException -> {
                 EMAIL_COLLISION_EXCEPTION
+            }
+
+            is CancellationException -> {
+                ""
             }
 
             else -> {

@@ -76,7 +76,7 @@
     <string name="confirm_new_password">Подтверждение нового пароля</string>
     <string name="subscribe">Подписаться</string>
     <string name="subscribed">Подписан</string>
-    <string name="about_creator">Об авторе</string>
+    <string name="creator_bio">Об авторе</string>
     <string name="goals">Цели</string>
     <string name="tip">Донат</string>
     <string name="posts">Посты</string>
@@ -84,6 +84,9 @@
     <string name="followed">Отслеживаю</string>
     <string name="publish">Опубликовать</string>
     <string name="creators">Авторы</string>
+    <string name="no_results_found">Поиск не дал результатов</string>
+    <string name="no_results_found_description">Убедитесь, что все слова написаны правильно или попробуйте другие ключевые слова</string>
+    <string name="empty_bio">%s решил(а) не делиться информацией о себе…</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

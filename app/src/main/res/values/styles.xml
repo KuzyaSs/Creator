@@ -80,6 +80,14 @@
         <item name="android:paddingHorizontal">@dimen/medium_margin_size</item>
     </style>
 
+    <style name="TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="android:background">?android:windowBackground</item>
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabSelectedTextColor">?attr/colorAccent</item>
+        <item name="tabTextColor">?android:textColorPrimary</item>
+    </style>
+
     <style name="BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="android:background">?android:windowBackground</item>
         <item name="itemActiveIndicatorStyle">@style/BottomNavigationActiveIndicator</item>

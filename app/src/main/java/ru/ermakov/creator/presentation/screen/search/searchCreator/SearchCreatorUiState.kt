@@ -4,6 +4,7 @@ import ru.ermakov.creator.domain.model.Creator
 
 data class SearchCreatorUiState(
     val creators: List<Creator>? = null,
+    val lastSearchQuery: String = "",
     val currentCreatorPage: Int = 0,
     val isLoadingCreators: Boolean = false,
     val isErrorMessageShown: Boolean = false,

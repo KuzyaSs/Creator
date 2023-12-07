@@ -25,6 +25,10 @@ class SearchCreatorViewModel(
     private var loadNextCreatorPageJob: Job? = null
 
     fun searchCreators(searchQuery: String) {
+        if (searchQuery == _searchCreatorUiState.value?.lastSearchQuery) {
+            return
+        }
+
         searchCreatorsJob?.cancel()
         loadNextCreatorPageJob?.cancel()
         if (searchQuery.isBlank()) {
@@ -32,12 +36,11 @@ class SearchCreatorViewModel(
             return
         }
 
-        _searchCreatorUiState.postValue(
-            _searchCreatorUiState.value?.copy(
-                creators = listOf(),
-                isLoadingCreators = true,
-                isErrorMessageShown = false
-            )
+        _searchCreatorUiState.value = _searchCreatorUiState.value?.copy(
+            creators = listOf(),
+            lastSearchQuery = searchQuery,
+            isLoadingCreators = true,
+            isErrorMessageShown = false
         )
         searchCreatorsJob = viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -60,7 +63,7 @@ class SearchCreatorViewModel(
                     _searchCreatorUiState.value?.copy(
                         creators = listOf(),
                         isLoadingCreators = false,
-                        isErrorMessageShown = true,
+                        isErrorMessageShown = errorMessage.isNotBlank(),
                         errorMessage = errorMessage
                     )
                 )
@@ -73,20 +76,23 @@ class SearchCreatorViewModel(
             return
         }
 
-        _searchCreatorUiState.postValue(
-            _searchCreatorUiState.value?.copy(
-                isLoadingCreators = true,
-                isErrorMessageShown = false
-            )
+        loadNextCreatorPageJob?.cancel()
+        _searchCreatorUiState.value = _searchCreatorUiState.value?.copy(
+            isLoadingCreators = true,
+            isErrorMessageShown = false
         )
         loadNextCreatorPageJob = viewModelScope.launch(Dispatchers.IO) {
             try {
-                val nextCreatorPage = (_searchCreatorUiState.value?.currentCreatorPage ?: 0) + 1
+                delay(SEARCH_CREATORS_DELAY)
+                var nextCreatorPage = (_searchCreatorUiState.value?.currentCreatorPage ?: 0) + 1
                 val currentCreators = _searchCreatorUiState.value?.creators ?: listOf()
                 val followingCreators: List<Creator> = searchCreatorsUseCase(
                     searchQuery = searchQuery,
                     page = nextCreatorPage
                 )
+                if (followingCreators.isEmpty()) {
+                    nextCreatorPage--
+                }
                 _searchCreatorUiState.postValue(
                     _searchCreatorUiState.value?.copy(
                         creators = currentCreators + followingCreators,
@@ -100,7 +106,7 @@ class SearchCreatorViewModel(
                 _searchCreatorUiState.postValue(
                     _searchCreatorUiState.value?.copy(
                         isLoadingCreators = false,
-                        isErrorMessageShown = true,
+                        isErrorMessageShown = errorMessage.isNotBlank(),
                         errorMessage = errorMessage
                     )
                 )
@@ -108,14 +114,20 @@ class SearchCreatorViewModel(
         }
     }
 
+    fun clearErrorMessage() {
+        _searchCreatorUiState.value = _searchCreatorUiState.value?.copy(
+            isErrorMessageShown = false,
+            errorMessage = ""
+        )
+    }
+
     private fun resetSearchCreatorUiState() {
-        _searchCreatorUiState.postValue(
-            _searchCreatorUiState.value?.copy(
-                creators = listOf(),
-                currentCreatorPage = 0,
-                isLoadingCreators = false,
-                isErrorMessageShown = false
-            )
+        _searchCreatorUiState.value = _searchCreatorUiState.value?.copy(
+            creators = listOf(),
+            lastSearchQuery = "",
+            currentCreatorPage = 0,
+            isLoadingCreators = false,
+            isErrorMessageShown = false
         )
     }
 }

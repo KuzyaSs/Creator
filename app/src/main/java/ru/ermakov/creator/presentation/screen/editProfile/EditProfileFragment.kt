@@ -130,7 +130,9 @@ class EditProfileFragment : Fragment() {
                     setProfileAvatarAndBackground(user = currentUser)
                     setLoading(isLoadingShown = isLoadingShown)
                     setErrorMessage(
-                        errorMessage = editProfileErrorMessage,
+                        errorMessage = textLocalizer.localizeText(
+                            text = editProfileErrorMessage
+                        ),
                         isErrorMessageShown = isEditProfileErrorMessageShown
                     )
                 }

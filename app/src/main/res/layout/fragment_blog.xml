@@ -149,7 +149,7 @@
                             style="@style/TextViewContainerWithDrawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/about_creator"
+                            android:text="@string/creator_bio"
                             app:drawableStartCompat="@drawable/ic_person" />
 
                         <TextView

@@ -5,14 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSearchCretorBinding
 import ru.ermakov.creator.presentation.adapter.CreatorAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.search.SearchFragmentDirections
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
@@ -45,7 +49,7 @@ class SearchCreatorFragment : Fragment() {
         (activity as CreatorActivity).showBottomNavigationView()
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
         searchCreatorViewModel = ViewModelProvider(
-            this,
+            requireParentFragment(),
             searchCreatorViewModelFactory
         )[SearchCreatorViewModel::class.java]
         setUpListeners()
@@ -58,15 +62,14 @@ class SearchCreatorFragment : Fragment() {
 
     private fun setUpCreatorRecyclerView() {
         creatorAdapter = CreatorAdapter { creator ->
-            showToast("Clicked on ${creator.user.username}")
-            // Show blog screen with (creator.user.id) ID.
+            navigateToBlogFragment(creatorId = creator.user.id)
         }
         binding.recyclerViewCreators.adapter = creatorAdapter
         binding.recyclerViewCreators.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                if (layoutManager.itemCount - lastVisibleItemPosition <= THRESHOLD) {
+                if (layoutManager.itemCount - lastVisibleItemPosition <= THRESHOLD && recyclerView.scrollState != SCROLL_STATE_IDLE) {
                     (parentFragment as CreatorLoader).loadNextCreatorPage()
                 }
             }
@@ -77,20 +80,42 @@ class SearchCreatorFragment : Fragment() {
         searchCreatorViewModel.searchCreatorUiState.observe(viewLifecycleOwner) { searchCreatorUiState ->
             searchCreatorUiState.apply {
                 creatorAdapter?.submitList(creators)
+                setNoResultsFound(
+                    isNoResultsFoundShown = creators.isNullOrEmpty() && lastSearchQuery.isNotBlank() && !isLoadingCreators
+                )
+                binding.progressBar.isVisible = isLoadingCreators && creators.isNullOrEmpty()
+                setErrorMessage(
+                    errorMessage = textLocalizer.localizeText(
+                        text = errorMessage
+                    ),
+                    isErrorMessageShown = isErrorMessageShown
+                )
             }
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    private fun navigateToBlogFragment(creatorId: String) {
+        val action = SearchFragmentDirections.actionSearchFragmentToBlogFragment(
+            creatorId = creatorId
+        )
+        findNavController().navigate(action)
+    }
+
+    private fun setNoResultsFound(isNoResultsFoundShown: Boolean) {
+        binding.imageViewLogo.isVisible = isNoResultsFoundShown
+        binding.textViewNoResultsFound.isVisible = isNoResultsFoundShown
+        binding.textViewNoResultsFoundDescription.isVisible = isNoResultsFoundShown
+    }
+
+    private fun setErrorMessage(errorMessage: String, isErrorMessageShown: Boolean) {
+        if (isErrorMessageShown) {
+            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            searchCreatorViewModel.clearErrorMessage()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-}
-
-interface CreatorLoader {
-    fun loadNextCreatorPage()
 }

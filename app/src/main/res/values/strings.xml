@@ -76,7 +76,7 @@
     <string name="current_password">Current password</string>
     <string name="subscribe">Subscribe</string>
     <string name="subscribed">Subscribed</string>
-    <string name="about_creator">About</string>
+    <string name="creator_bio">Bio</string>
     <string name="goals">Goals</string>
     <string name="tip">Tip</string>
     <string name="posts">Posts</string>
@@ -84,6 +84,9 @@
     <string name="followed">Followed</string>
     <string name="publish">Publish</string>
     <string name="creators">Creators</string>
+    <string name="no_results_found">No Results Found</string>
+    <string name="no_results_found_description">Make sure all words are spelled correctly or try different keywords</string>
+    <string name="empty_bio">%s decided not to share information about him(her)self…</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>
