@@ -58,12 +58,24 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:backgroundTint">?attr/colorAccent</item>
         <item name="iconTint">@android:color/white</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconSize">@dimen/base_icon_size</item>
     </style>
 
-    <style name="SecondaryButton" parent="LargeTextView">
+    <style name="WarningButton" parent="PrimaryButton">
+        <item name="android:backgroundTint">@color/colorError</item>
+    </style>
+
+    <style name="SecondaryButton" parent="PrimaryButton">
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:backgroundTint">?attr/colorSecondary</item>
         <item name="iconTint">?attr/iconTint</item>
+    </style>
+
+    <style name="SecondaryContainerButton" parent="PrimaryButton">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:backgroundTint">?android:windowBackground</item>
+        <item name="iconTint">?attr/colorAccent</item>
     </style>
 
     <style name="ProgressBar">

@@ -13,7 +13,7 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.NETWORK_EXCE
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.PASSWORD_MISMATCH_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SHORT_USERNAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TOO_MANY_REQUESTS_EXCEPTION
-import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USERNAME_IN_USE_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USERNAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWORD_EXCEPTION
 
@@ -68,7 +68,7 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
                 context.getString(R.string.short_username_exception)
             }
 
-            USERNAME_IN_USE_EXCEPTION -> {
+            DUPLICATE_USERNAME_EXCEPTION -> {
                 context.getString(R.string.username_in_use_exception)
             }
 

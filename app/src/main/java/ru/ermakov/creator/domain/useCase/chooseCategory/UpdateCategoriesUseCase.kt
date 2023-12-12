@@ -11,6 +11,5 @@ class UpdateCategoriesUseCase(private val categoryRepository: CategoryRepository
             throw UnexpectedValueException()
         }
         categoryRepository.updateCategories(userId = userId, categories = categories)
-        Log.d("MY_TAG", "UpdateCategoriesUseCase $userId: $categories")
     }
 }

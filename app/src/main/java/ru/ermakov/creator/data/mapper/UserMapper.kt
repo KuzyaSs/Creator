@@ -5,21 +5,10 @@ import ru.ermakov.creator.data.local.entity.UserEntity
 import ru.ermakov.creator.data.remote.model.RemoteUser
 import ru.ermakov.creator.domain.model.AuthUser
 import ru.ermakov.creator.domain.model.User
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
-
-fun User.toUserEntity(): UserEntity {
-    return UserEntity(
-        id = id,
-        username = username,
-        email = email,
-        bio = bio,
-        profileAvatarUrl = profileAvatarUrl,
-        profileBackgroundUrl = profileBackgroundUrl,
-        registrationDate = registrationDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
-    )
-}
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 fun User.toRemoteUser(): RemoteUser {
     return RemoteUser(
@@ -34,22 +23,6 @@ fun User.toRemoteUser(): RemoteUser {
     )
 }
 
-fun UserEntity.toUser(): User {
-    return User(
-        id = id,
-        username = username,
-        email = email,
-        bio = bio,
-        profileAvatarUrl = profileAvatarUrl,
-        profileBackgroundUrl = profileBackgroundUrl,
-        isModerator = false, // Fix later.
-        registrationDate = Instant
-            .ofEpochMilli(registrationDate)
-            .atZone(ZoneOffset.UTC)
-            .toLocalDate()
-    )
-}
-
 fun RemoteUser.toUser(): User {
     return User(
         id = id,
@@ -59,7 +32,10 @@ fun RemoteUser.toUser(): User {
         profileAvatarUrl = profileAvatarUrl,
         profileBackgroundUrl = profileBackgroundUrl,
         isModerator = isModerator,
-        registrationDate = LocalDate.parse(registrationDate)
+        registrationDate = ZonedDateTime.parse(
+            registrationDate,
+            DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneId.systemDefault())
+        ).toLocalDateTime()
     )
 }
 
@@ -68,5 +44,31 @@ fun FirebaseUser.toAuthUser(): AuthUser {
         id = uid,
         username = email.toString(),
         email = email.toString()
+    )
+}
+
+
+fun User.toUserEntity(): UserEntity {
+    return UserEntity(
+        id = id,
+        username = username,
+        email = email,
+        bio = bio,
+        profileAvatarUrl = profileAvatarUrl,
+        profileBackgroundUrl = profileBackgroundUrl,
+        registrationDate = -1
+    )
+}
+
+fun UserEntity.toUser(): User {
+    return User(
+        id = id,
+        username = username,
+        email = email,
+        bio = bio,
+        profileAvatarUrl = profileAvatarUrl,
+        profileBackgroundUrl = profileBackgroundUrl,
+        isModerator = false, // Fix later.
+        registrationDate = LocalDateTime.now()
     )
 }

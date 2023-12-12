@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/base_margin_size"
+    android:layout_marginVertical="@dimen/medium_margin_size"
+    android:background="@drawable/container_background">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        style="@style/LargeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginTop="@dimen/base_margin_size"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Intern Mobile Developer" />
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        style="@style/BaseTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginTop="@dimen/base_margin_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        tools:text="Твое имя в конце видео с благодарностью
+Внеси свое имя в историю канала :) Имя будет во всех видео, которые сняты в этом месяце" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSubscribe"
+        style="@style/PrimaryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginTop="@dimen/base_margin_size"
+        android:text="@string/subscribe_for"
+        app:icon="@drawable/ic_logo"
+        app:iconGravity="textEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewDescription" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSubscribed"
+        style="@style/SecondaryContainerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginTop="@dimen/base_margin_size"
+        android:text="@string/subscribed_until"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonSubscribe" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonUnsubscribe"
+        style="@style/WarningButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginTop="@dimen/base_margin_size"
+        android:text="@string/unsubscribe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonSubscribed" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/base_margin_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonUnsubscribe" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

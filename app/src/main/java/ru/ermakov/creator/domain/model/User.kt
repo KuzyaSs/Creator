@@ -1,6 +1,6 @@
 package ru.ermakov.creator.domain.model
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class User(
     val id: String,
@@ -10,5 +10,5 @@ data class User(
     val profileAvatarUrl: String,
     val profileBackgroundUrl: String,
     val isModerator: Boolean,
-    val registrationDate: LocalDate
+    val registrationDate: LocalDateTime
 )

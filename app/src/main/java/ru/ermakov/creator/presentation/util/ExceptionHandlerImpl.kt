@@ -8,6 +8,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import kotlinx.coroutines.CancellationException
+import ru.ermakov.creator.data.exception.DuplicateSubscriptionTitleException
+import ru.ermakov.creator.data.exception.DuplicateUserSubscriptionException
 import ru.ermakov.creator.data.exception.EmailVerificationException
 import ru.ermakov.creator.data.exception.FollowNotFoundException
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_COLLISION_EXCEPTION
@@ -18,7 +20,8 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.UNKNOWN_EXCE
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWORD_EXCEPTION
 import ru.ermakov.creator.data.exception.InvalidUserException
 import ru.ermakov.creator.data.exception.UserNotFoundException
-import ru.ermakov.creator.data.exception.UsernameInUseException
+import ru.ermakov.creator.data.exception.DuplicateUsernameException
+import ru.ermakov.creator.data.exception.SubscriptionNotFoundException
 import ru.ermakov.creator.domain.exception.EmptyDataException
 import ru.ermakov.creator.domain.exception.PasswordMismatchException
 import ru.ermakov.creator.domain.exception.ShortUsernameException
@@ -35,7 +38,7 @@ class ExceptionHandlerImpl : ExceptionHandler {
                 exception.message
             }
 
-            is UsernameInUseException -> {
+            is DuplicateUsernameException -> {
                 exception.message
             }
 
@@ -44,6 +47,18 @@ class ExceptionHandlerImpl : ExceptionHandler {
             }
 
             is FollowNotFoundException -> {
+                exception.message
+            }
+
+            is SubscriptionNotFoundException -> {
+                exception.message
+            }
+
+            is DuplicateSubscriptionTitleException -> {
+                exception.message
+            }
+
+            is DuplicateUserSubscriptionException -> {
                 exception.message
             }
 
