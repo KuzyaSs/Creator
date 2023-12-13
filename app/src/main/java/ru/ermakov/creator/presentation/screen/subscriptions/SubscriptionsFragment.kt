@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSubscriptionsBinding
@@ -20,6 +21,7 @@ import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
 class SubscriptionsFragment : Fragment() {
+    private val arguments: SubscriptionsFragmentArgs by navArgs()
     private var _binding: FragmentSubscriptionsBinding? = null
     private val binding get() = _binding!!
 
@@ -49,6 +51,9 @@ class SubscriptionsFragment : Fragment() {
             requireParentFragment(),
             subscriptionsViewModelFactory
         )[SubscriptionsViewModel::class.java]
+        if (subscriptionsViewModel.subscriptionsUiState.value?.subscriptions == null) {
+            subscriptionsViewModel.setSubscriptions(creatorId = arguments.creatorId)
+        }
         setUpSwipeRefreshLayout()
         setUpListeners()
         setUpObservers()
@@ -74,7 +79,7 @@ class SubscriptionsFragment : Fragment() {
     private fun setUpListeners() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
-                subscriptionsViewModel.refreshSubscriptions()
+                subscriptionsViewModel.refreshSubscriptions(creatorId = arguments.creatorId)
             }
             buttonCreate.setOnClickListener { navigateToCreateSubscriptionFragment() }
         }
@@ -83,12 +88,12 @@ class SubscriptionsFragment : Fragment() {
     private fun setUpObservers() {
         subscriptionsViewModel.subscriptionsUiState.observe(viewLifecycleOwner) { subscriptionsUiState ->
             subscriptionsUiState.apply {
-                if (subscriptions != null) {
+                if (subscriptions != null && userSubscriptions != null) {
                     val isOwner = currentUserId == creatorId
                     binding.buttonCreate.isVisible = isOwner
                     setUpCreatorRecyclerView(
                         subscriptions = subscriptions,
-                        userSubscriptions = userSubscriptions ?: listOf(),
+                        userSubscriptions = userSubscriptions,
                         isOwner = isOwner
                     )
                     setEmptyListInfo(isEmptyList = subscriptions.isEmpty())

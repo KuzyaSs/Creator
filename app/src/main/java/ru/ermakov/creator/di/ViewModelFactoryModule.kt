@@ -24,6 +24,8 @@ import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
+import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
+import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
@@ -35,6 +37,7 @@ import ru.ermakov.creator.presentation.screen.search.searchPost.SearchPostViewMo
 import ru.ermakov.creator.presentation.screen.signIn.SignInViewModelFactory
 import ru.ermakov.creator.presentation.screen.signUp.SignUpViewModelFactory
 import ru.ermakov.creator.presentation.screen.splash.SplashViewModelFactory
+import ru.ermakov.creator.presentation.screen.subscriptions.SubscriptionsViewModelFactory
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 @Module
@@ -178,6 +181,21 @@ class ViewModelFactoryModule {
     ): ChangePasswordViewModelFactory {
         return ChangePasswordViewModelFactory(
             changePasswordUseCase = changePasswordUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideSubscriptionsViewModelFactory(
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        getUserSubscriptionsByUserAndCreatorIdsUseCase: GetUserSubscriptionsByUserAndCreatorIdsUseCase,
+        getSubscriptionsByCreatorIdUseCase: GetSubscriptionsByCreatorIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): SubscriptionsViewModelFactory {
+        return SubscriptionsViewModelFactory(
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            getUserSubscriptionsByUserAndCreatorIdsUseCase = getUserSubscriptionsByUserAndCreatorIdsUseCase,
+            getSubscriptionsByCreatorIdUseCase = getSubscriptionsByCreatorIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }

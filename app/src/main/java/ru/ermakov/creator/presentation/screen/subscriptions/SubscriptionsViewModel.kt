@@ -6,9 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
+import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
+import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
-class SubscriptionsViewModel(private val exceptionHandler: ExceptionHandler) : ViewModel() {
+class SubscriptionsViewModel(
+    private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+    private val getUserSubscriptionsByUserAndCreatorIdsUseCase: GetUserSubscriptionsByUserAndCreatorIdsUseCase,
+    private val getSubscriptionsByCreatorIdUseCase: GetSubscriptionsByCreatorIdUseCase,
+    private val exceptionHandler: ExceptionHandler
+) : ViewModel() {
     private val _subscriptionsUiState = MutableLiveData(SubscriptionsUiState())
     val subscriptionsUiState: LiveData<SubscriptionsUiState> = _subscriptionsUiState
 

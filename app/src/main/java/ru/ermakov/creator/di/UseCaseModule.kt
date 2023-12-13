@@ -7,7 +7,9 @@ import ru.ermakov.creator.domain.repository.CategoryRepository
 import ru.ermakov.creator.domain.repository.CreatorRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
+import ru.ermakov.creator.domain.repository.SubscriptionRepository
 import ru.ermakov.creator.domain.repository.UserRepository
+import ru.ermakov.creator.domain.repository.UserSubscriptionRepository
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCreatorByUserIdUseCase
@@ -33,6 +35,8 @@ import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
+import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
+import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 
 @Module
 class UseCaseModule {
@@ -187,12 +191,30 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetCreatorByUserIdUseCase(creatorRepository: CreatorRepository): GetCreatorByUserIdUseCase {
+    fun provideGetCreatorByUserIdUseCase(
+        creatorRepository: CreatorRepository
+    ): GetCreatorByUserIdUseCase {
         return GetCreatorByUserIdUseCase(creatorRepository = creatorRepository)
     }
 
     @Provides
     fun provideSearchCreatorsUseCase(creatorRepository: CreatorRepository): SearchCreatorsUseCase {
         return SearchCreatorsUseCase(creatorRepository = creatorRepository)
+    }
+
+    @Provides
+    fun provideGetSubscriptionsByCreatorIdUseCase(
+        subscriptionRepository: SubscriptionRepository
+    ): GetSubscriptionsByCreatorIdUseCase {
+        return GetSubscriptionsByCreatorIdUseCase(subscriptionRepository = subscriptionRepository)
+    }
+
+    @Provides
+    fun provideGetUserSubscriptionsByUserAndCreatorIdsUseCase(
+        userSubscriptionRepository: UserSubscriptionRepository
+    ): GetUserSubscriptionsByUserAndCreatorIdsUseCase {
+        return GetUserSubscriptionsByUserAndCreatorIdsUseCase(
+            userSubscriptionRepository = userSubscriptionRepository
+        )
     }
 }
