@@ -26,6 +26,7 @@ import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
+import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
@@ -190,12 +191,14 @@ class ViewModelFactoryModule {
         getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
         getUserSubscriptionsByUserAndCreatorIdsUseCase: GetUserSubscriptionsByUserAndCreatorIdsUseCase,
         getSubscriptionsByCreatorIdUseCase: GetSubscriptionsByCreatorIdUseCase,
+        unsubscribeUseCase: UnsubscribeUseCase,
         exceptionHandler: ExceptionHandler
     ): SubscriptionsViewModelFactory {
         return SubscriptionsViewModelFactory(
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             getUserSubscriptionsByUserAndCreatorIdsUseCase = getUserSubscriptionsByUserAndCreatorIdsUseCase,
             getSubscriptionsByCreatorIdUseCase = getSubscriptionsByCreatorIdUseCase,
+            unsubscribeUseCase = unsubscribeUseCase,
             exceptionHandler = exceptionHandler
         )
     }

@@ -11,5 +11,5 @@ interface UserSubscriptionRepository {
 
     suspend fun getSubscriberCountBySubscriptionId(subscriptionId: Long): Long
     suspend fun insertUserSubscription(userSubscriptionRequest: UserSubscriptionRequest)
-    suspend fun deleteUserSubscriptionById(userSubscriptionId: Long)
+    suspend fun deleteUserSubscriptionById(userId: String, userSubscriptionId: Long)
 }

@@ -13,7 +13,7 @@
         style="@style/LargeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginHorizontal="@dimen/large_margin_size"
         android:layout_marginTop="@dimen/base_margin_size"
         android:gravity="center"
         android:textStyle="bold"
@@ -21,6 +21,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Intern Mobile Developer" />
+
+    <ImageView
+        android:id="@+id/imageViewMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_margin_size"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewDescription"
@@ -57,6 +68,7 @@
         android:layout_marginHorizontal="@dimen/base_margin_size"
         android:layout_marginTop="@dimen/base_margin_size"
         android:text="@string/subscribed_until"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonSubscribe" />
@@ -69,6 +81,7 @@
         android:layout_marginHorizontal="@dimen/base_margin_size"
         android:layout_marginTop="@dimen/base_margin_size"
         android:text="@string/unsubscribe"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonSubscribed" />

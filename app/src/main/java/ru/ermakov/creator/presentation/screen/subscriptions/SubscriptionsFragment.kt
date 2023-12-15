@@ -1,9 +1,13 @@
 package ru.ermakov.creator.presentation.screen.subscriptions
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -12,18 +16,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
+import ru.ermakov.creator.databinding.DialogUnsubscribeBinding
 import ru.ermakov.creator.databinding.FragmentSubscriptionsBinding
 import ru.ermakov.creator.domain.model.Subscription
 import ru.ermakov.creator.domain.model.UserSubscription
 import ru.ermakov.creator.presentation.adapter.SubscriptionAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.shared.OptionsFragment
+import ru.ermakov.creator.presentation.screen.shared.OptionsHandler
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class SubscriptionsFragment : Fragment() {
+class SubscriptionsFragment : Fragment(), OptionsHandler {
     private val arguments: SubscriptionsFragmentArgs by navArgs()
     private var _binding: FragmentSubscriptionsBinding? = null
     private val binding get() = _binding!!
+    private var _dialogUnsubscribeBinding: DialogUnsubscribeBinding? = null
 
     @Inject
     lateinit var subscriptionsViewModelFactory: SubscriptionsViewModelFactory
@@ -33,6 +41,8 @@ class SubscriptionsFragment : Fragment() {
     lateinit var textLocalizer: TextLocalizer
 
     private var subscriptionAdapter: SubscriptionAdapter? = null
+    private var unsubscribeDialog: Dialog? = null
+    private var optionsFragment: OptionsFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,13 +58,15 @@ class SubscriptionsFragment : Fragment() {
         (activity as CreatorActivity).hideBottomNavigationView()
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
         subscriptionsViewModel = ViewModelProvider(
-            requireParentFragment(),
+            this,
             subscriptionsViewModelFactory
         )[SubscriptionsViewModel::class.java]
         if (subscriptionsViewModel.subscriptionsUiState.value?.subscriptions == null) {
             subscriptionsViewModel.setSubscriptions(creatorId = arguments.creatorId)
         }
+        optionsFragment = OptionsFragment()
         setUpSwipeRefreshLayout()
+        setUnsubscribeDialog()
         setUpListeners()
         setUpObservers()
     }
@@ -76,12 +88,30 @@ class SubscriptionsFragment : Fragment() {
         }
     }
 
+    private fun setUnsubscribeDialog() {
+        _dialogUnsubscribeBinding = DialogUnsubscribeBinding.inflate(layoutInflater)
+        unsubscribeDialog = Dialog(requireContext())
+        unsubscribeDialog?.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(_dialogUnsubscribeBinding?.root!!)
+            setCancelable(false)
+            _dialogUnsubscribeBinding?.textViewNo?.setOnClickListener { unsubscribeDialog?.dismiss() }
+            _dialogUnsubscribeBinding?.textViewYes?.setOnClickListener {
+                subscriptionsViewModel.unsubscribe()
+                unsubscribeDialog?.dismiss()
+            }
+        }
+    }
+
     private fun setUpListeners() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
                 subscriptionsViewModel.refreshSubscriptions(creatorId = arguments.creatorId)
             }
+            textViewTitleWithBackButton.setOnClickListener { goBack() }
             buttonCreate.setOnClickListener { navigateToCreateSubscriptionFragment() }
+            viewLoading.setOnClickListener { }
         }
     }
 
@@ -97,6 +127,7 @@ class SubscriptionsFragment : Fragment() {
                         isOwner = isOwner
                     )
                     setEmptyListInfo(isEmptyList = subscriptions.isEmpty())
+                    binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                     setErrorMessage(
                         errorMessage = textLocalizer.localizeText(text = errorMessage),
                         isErrorMessageShown = isErrorMessageShown
@@ -105,11 +136,12 @@ class SubscriptionsFragment : Fragment() {
 
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                 binding.viewLoading.isVisible = subscriptions == null
-                binding.progressBar.isVisible = !isErrorMessageShown && subscriptions == null
+                binding.progressBarScreen.isVisible = !isErrorMessageShown && subscriptions == null
                 binding.textViewErrorMessage.apply {
                     text = textLocalizer.localizeText(text = errorMessage)
                     isVisible = isErrorMessageShown && subscriptions == null
                 }
+                binding.imageViewScreenLogo.isVisible = isErrorMessageShown && subscriptions == null
             }
         }
     }
@@ -122,12 +154,17 @@ class SubscriptionsFragment : Fragment() {
         subscriptionAdapter = SubscriptionAdapter(
             userSubscriptions = userSubscriptions,
             isOwner = isOwner,
-            onSubscribeButtonClickListener = { subscription ->
-                navigateToBuySubscriptionFragment(subscriptionId = subscription.id)
-                Toast.makeText(requireContext(), "Subscribe", Toast.LENGTH_SHORT).show()
+            onMoreImageViewClickListener = { subscription ->
+                optionsFragment?.show(childFragmentManager, optionsFragment.toString())
             },
-            onUnsubscribeButtonClickListener = { subscription ->
-                Toast.makeText(requireContext(), "Unsubscribe", Toast.LENGTH_SHORT).show()
+            onSubscribeButtonClickListener = { subscription ->
+                navigateToPurchaseSubscriptionFragment(subscriptionId = subscription.id)
+            },
+            onUnsubscribeButtonClickListener = { userSubscription ->
+                subscriptionsViewModel.setSelectedUserSubscriptionId(
+                    userSubscriptionId = userSubscription.id
+                )
+                unsubscribeDialog?.show()
             })
         binding.recyclerViewSubscriptions.adapter = subscriptionAdapter
         subscriptionAdapter?.submitList(subscriptions)
@@ -140,11 +177,15 @@ class SubscriptionsFragment : Fragment() {
                 findNavController().navigate(action)*/
     }
 
-    private fun navigateToBuySubscriptionFragment(subscriptionId: Long) {
+    private fun navigateToPurchaseSubscriptionFragment(subscriptionId: Long) {
         /*        val action = SearchFragmentDirections.actionSearchFragmentToBlogFragment(
                     subscriptionId = subscriptionId
                 )
                 findNavController().navigate(action)*/
+    }
+
+    private fun goBack() {
+        requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 
     private fun setEmptyListInfo(isEmptyList: Boolean) {
@@ -162,5 +203,13 @@ class SubscriptionsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun edit() {
+        Toast.makeText(requireContext(), "edit", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun delete() {
+        Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT).show()
     }
 }

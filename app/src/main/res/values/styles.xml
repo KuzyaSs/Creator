@@ -32,7 +32,7 @@
     </style>
 
     <style name="TextViewInListWithDrawable" parent="LargeTextView">
-        <item name="android:layout_marginTop">@dimen/base_margin_size</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin_size</item>
         <item name="android:layout_marginEnd">@dimen/base_margin_size</item>
         <item name="android:drawablePadding">@dimen/medium_margin_size</item>
         <item name="android:gravity">center_vertical</item>
@@ -105,8 +105,8 @@
         <item name="itemActiveIndicatorStyle">@style/BottomNavigationActiveIndicator</item>
         <item name="itemIconSize">@dimen/base_icon_size</item>
         <item name="itemIconTint">@drawable/color_selector</item>
-        <item name="itemPaddingBottom">@dimen/medium_margin_size</item>
-        <item name="itemPaddingTop">@dimen/medium_margin_size</item>
+        <item name="itemPaddingBottom">12dp</item>
+        <item name="itemPaddingTop">@dimen/small_margin_size</item>
         <item name="itemTextAppearanceActive">@style/BottomNavigationText</item>
         <item name="itemTextAppearanceInactive">@style/BottomNavigationText</item>
         <item name="itemTextColor">@drawable/color_selector</item>

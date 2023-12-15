@@ -37,6 +37,7 @@ import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
+import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 
 @Module
 class UseCaseModule {
@@ -216,5 +217,12 @@ class UseCaseModule {
         return GetUserSubscriptionsByUserAndCreatorIdsUseCase(
             userSubscriptionRepository = userSubscriptionRepository
         )
+    }
+
+    @Provides
+    fun provideUnsubscribeUseCase(
+        userSubscriptionRepository: UserSubscriptionRepository
+    ): UnsubscribeUseCase {
+        return UnsubscribeUseCase(userSubscriptionRepository = userSubscriptionRepository)
     }
 }

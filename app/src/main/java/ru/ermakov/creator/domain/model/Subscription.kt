@@ -5,5 +5,5 @@ data class Subscription(
     val creator: Creator,
     val title: String,
     val description: String,
-    val price: Int
+    val price: Long
 )

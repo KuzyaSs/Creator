@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
@@ -90,7 +91,9 @@ class BlogFragment : Fragment() {
             textViewAbout.setOnClickListener { setBioFragment(creatorBioFragment = creatorBioFragment) }
             textViewGoals.setOnClickListener { navigateToGoalFragment() }
             textViewTip.setOnClickListener { navigateToTipFragment() }
-            textViewSubscriptions.setOnClickListener { navigateToSubscriptionFragment() }
+            textViewSubscriptions.setOnClickListener {
+                navigateToSubscriptionFragment(creatorId = arguments.creatorId)
+            }
             buttonFollow.setOnClickListener {
                 if (blogViewModel._blogUiState.value?.isFollower == true) {
                     blogViewModel.unfollow()
@@ -98,7 +101,9 @@ class BlogFragment : Fragment() {
                     blogViewModel.follow()
                 }
             }
-            buttonSubscribe.setOnClickListener { navigateToSubscriptionFragment() }
+            buttonSubscribe.setOnClickListener {
+                navigateToSubscriptionFragment(creatorId = arguments.creatorId)
+            }
             buttonPublish.setOnClickListener { navigateToPublishFragment() }
             viewLoading.setOnClickListener { }
         }
@@ -240,11 +245,11 @@ class BlogFragment : Fragment() {
 
     }
 
-    private fun navigateToSubscriptionFragment() {
-        // Temporarily.
-        blogViewModel._blogUiState.value = blogViewModel._blogUiState.value?.copy(
-            isSubscriber = !(blogViewModel._blogUiState.value?.isSubscriber ?: false)
+    private fun navigateToSubscriptionFragment(creatorId: String) {
+        val action = BlogFragmentDirections.actionBlogFragmentToSubscriptionsFragment(
+            creatorId = creatorId
         )
+        findNavController().navigate(action)
     }
 
     private fun navigateToPublishFragment() {

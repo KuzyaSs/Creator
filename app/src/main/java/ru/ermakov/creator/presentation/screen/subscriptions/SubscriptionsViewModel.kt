@@ -6,15 +6,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
+import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
+
+private const val UNSELECTED_USER_SUBSCRIPTION_ID = -1L
 
 class SubscriptionsViewModel(
     private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val getUserSubscriptionsByUserAndCreatorIdsUseCase: GetUserSubscriptionsByUserAndCreatorIdsUseCase,
     private val getSubscriptionsByCreatorIdUseCase: GetSubscriptionsByCreatorIdUseCase,
+    private val unsubscribeUseCase: UnsubscribeUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
     private val _subscriptionsUiState = MutableLiveData(SubscriptionsUiState())
@@ -66,7 +71,34 @@ class SubscriptionsViewModel(
     }
 
     fun unsubscribe() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                unsubscribeUseCase(
+                    userId = getCurrentUserIdUseCase(),
+                    userSubscriptionId = _subscriptionsUiState.value?.selectedUserSubscriptionId
+                        ?: UNSELECTED_USER_SUBSCRIPTION_ID
+                )
+                withContext(Dispatchers.Main) {
+                    refreshSubscriptions(creatorId = _subscriptionsUiState.value?.creatorId ?: "")
+                }
+            } catch (exception: Exception) {
+                val errorMessage = exceptionHandler.handleException(exception = exception)
+                _subscriptionsUiState.postValue(
+                    _subscriptionsUiState.value?.copy(
+                        isRefreshingShown = false,
+                        isLoading = false,
+                        isErrorMessageShown = true,
+                        errorMessage = errorMessage
+                    )
+                )
+            }
+        }
+    }
 
+    fun setSelectedUserSubscriptionId(userSubscriptionId: Long) {
+        _subscriptionsUiState.value = _subscriptionsUiState.value?.copy(
+            selectedUserSubscriptionId = userSubscriptionId
+        )
     }
 
     fun clearErrorMessage() {

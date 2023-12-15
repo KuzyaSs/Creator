@@ -28,9 +28,9 @@ interface UserSubscriptionApi {
         @Body remoteUserSubscriptionRequest: RemoteUserSubscriptionRequest
     ): Response<Unit>
 
-    @DELETE("users/{userId}/subscriptions/{subscriptionId}")
+    @DELETE("users/{userId}/subscriptions/{userSubscriptionId}")
     suspend fun deleteUserSubscriptionById(
         @Path("userId") userId: String,
-        @Path("subscriptionId") userSubscriptionId: Long
+        @Path("userSubscriptionId") userSubscriptionId: Long
     ): Response<Unit>
 }

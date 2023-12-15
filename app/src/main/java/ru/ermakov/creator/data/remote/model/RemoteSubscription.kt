@@ -12,5 +12,5 @@ data class RemoteSubscription(
     @SerializedName("description")
     val description: String,
     @SerializedName("price")
-    val price: Int
+    val price: Long
 )

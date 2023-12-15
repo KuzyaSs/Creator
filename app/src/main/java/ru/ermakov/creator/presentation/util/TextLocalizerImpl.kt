@@ -2,6 +2,7 @@ package ru.ermakov.creator.presentation.util
 
 import android.content.Context
 import ru.ermakov.creator.R
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_COLLISION_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_FORMAT_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_VERIFICATION_EXCEPTION
@@ -14,6 +15,8 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.PASSWORD_MIS
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SHORT_USERNAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TOO_MANY_REQUESTS_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USERNAME_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USER_SUBSCRIPTION_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SUBSCRIPTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWORD_EXCEPTION
 
@@ -74,6 +77,18 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
 
             USER_NOT_FOUND_EXCEPTION -> {
                 context.getString(R.string.user_not_found_exception)
+            }
+
+            SUBSCRIPTION_NOT_FOUND_EXCEPTION -> {
+                context.getString(R.string.subscription_not_found_exception)
+            }
+
+            DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION -> {
+                context.getString(R.string.duplicate_subscription_title_exception)
+            }
+
+            DUPLICATE_USER_SUBSCRIPTION_EXCEPTION -> {
+                context.getString(R.string.duplicate_user_subscription_exception)
             }
 
             FOLLOW_NOT_FOUND_EXCEPTION -> {

@@ -26,7 +26,10 @@ class UserSubscriptionRepositoryImpl(
         userSubscriptionRemoteDataSource.insertUserSubscription(userSubscriptionRequest = userSubscriptionRequest)
     }
 
-    override suspend fun deleteUserSubscriptionById(userSubscriptionId: Long) {
-        userSubscriptionRemoteDataSource.deleteUserSubscriptionById(userSubscriptionId = userSubscriptionId)
+    override suspend fun deleteUserSubscriptionById(userId: String, userSubscriptionId: Long) {
+        userSubscriptionRemoteDataSource.deleteUserSubscriptionById(
+            userId = userId,
+            userSubscriptionId = userSubscriptionId
+        )
     }
 }

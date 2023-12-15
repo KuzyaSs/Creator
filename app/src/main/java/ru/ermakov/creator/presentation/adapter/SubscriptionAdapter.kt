@@ -10,12 +10,14 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.databinding.ItemSubscriptionBinding
 import ru.ermakov.creator.domain.model.Subscription
 import ru.ermakov.creator.domain.model.UserSubscription
+import java.time.format.DateTimeFormatter
 
 class SubscriptionAdapter(
     private val userSubscriptions: List<UserSubscription>,
     private val isOwner: Boolean,
+    private val onMoreImageViewClickListener: (Subscription) -> Unit,
     private val onSubscribeButtonClickListener: (Subscription) -> Unit,
-    private val onUnsubscribeButtonClickListener: (Subscription) -> Unit
+    private val onUnsubscribeButtonClickListener: (UserSubscription) -> Unit
 ) : ListAdapter<Subscription, SubscriptionAdapter.SubscriptionViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscriptionViewHolder {
         return SubscriptionViewHolder(
@@ -37,6 +39,10 @@ class SubscriptionAdapter(
             }
             binding.textViewTitle.text = subscription.title
             binding.textViewDescription.text = subscription.description
+            binding.imageViewMore.apply {
+                isVisible = isOwner
+                setOnClickListener { onMoreImageViewClickListener(subscription) }
+            }
             binding.buttonSubscribe.apply {
                 isVisible = !isOwner && userSubscription == null
                 text = binding.root.resources.getString(R.string.subscribe_for, subscription.price)
@@ -47,12 +53,12 @@ class SubscriptionAdapter(
                     isVisible = !isOwner
                     text = binding.root.resources.getString(
                         R.string.subscribed_until,
-                        userSubscription.endDate
+                        userSubscription.endDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
                     )
                 }
                 binding.buttonUnsubscribe.apply {
                     isVisible = !isOwner
-                    setOnClickListener { onUnsubscribeButtonClickListener(subscription) }
+                    setOnClickListener { onUnsubscribeButtonClickListener(userSubscription) }
                 }
             }
         }
