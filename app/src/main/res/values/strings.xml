@@ -7,6 +7,7 @@
     <string name="user_not_found_exception">User is not found</string>
     <string name="follow_not_found_exception">Follow is not found</string>
     <string name="subscription_not_found_exception">Subscription is not found</string>
+    <string name="invalid_subscription_price_exception">Subscription price must be more than 0 CR-credits</string>
     <string name="duplicate_subscription_title_exception">Subscription with the same title already exists</string>
     <string name="duplicate_user_subscription_exception">You already have this subscription</string>
     <string name="email_format_exception">The email address is badly formatted</string>
@@ -57,7 +58,7 @@
     <string name="following">Following</string>
     <string name="search">Search</string>
     <string name="password_recovery">Password recovery</string>
-    <string name="CR_edits">CR-edits</string>
+    <string name="CR_credits">CR-credits</string>
     <string name="choose_category">Choose category</string>
     <string name="edit_username_description">You can set a username to make it easier for other people to find you. This name should be unique and at least 3 characters long.</string>
     <string name="edit_bio_description">Write something about your entertainment, plans or activities.</string>
@@ -108,6 +109,7 @@
     <string name="save_changes">Save changes</string>
     <string name="options">Options</string>
     <string name="delete">Delete</string>
+    <string name="subscription_created_successfully">Subscription created successfully</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

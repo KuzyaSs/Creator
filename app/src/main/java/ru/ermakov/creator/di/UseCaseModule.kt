@@ -20,6 +20,7 @@ import ru.ermakov.creator.domain.useCase.blog.UnfollowUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
+import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
@@ -208,6 +209,11 @@ class UseCaseModule {
         subscriptionRepository: SubscriptionRepository
     ): GetSubscriptionsByCreatorIdUseCase {
         return GetSubscriptionsByCreatorIdUseCase(subscriptionRepository = subscriptionRepository)
+    }
+
+    @Provides
+    fun provideCreateSubscriptionUseCase(subscriptionRepository: SubscriptionRepository): CreateSubscriptionUseCase {
+        return CreateSubscriptionUseCase(subscriptionRepository = subscriptionRepository)
     }
 
     @Provides

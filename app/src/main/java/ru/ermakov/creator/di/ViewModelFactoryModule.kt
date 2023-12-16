@@ -11,6 +11,7 @@ import ru.ermakov.creator.domain.useCase.blog.UnfollowUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
+import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
@@ -30,6 +31,7 @@ import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
+import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFactory
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
@@ -199,6 +201,19 @@ class ViewModelFactoryModule {
             getUserSubscriptionsByUserAndCreatorIdsUseCase = getUserSubscriptionsByUserAndCreatorIdsUseCase,
             getSubscriptionsByCreatorIdUseCase = getSubscriptionsByCreatorIdUseCase,
             unsubscribeUseCase = unsubscribeUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideCreateSubscriptionViewModelFactory(
+        createSubscriptionUseCase: CreateSubscriptionUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): CreateSubscriptionViewModelFactory {
+        return CreateSubscriptionViewModelFactory(
+            createSubscriptionUseCase = createSubscriptionUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }

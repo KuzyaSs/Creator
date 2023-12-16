@@ -23,6 +23,7 @@ import ru.ermakov.creator.data.exception.UserNotFoundException
 import ru.ermakov.creator.data.exception.DuplicateUsernameException
 import ru.ermakov.creator.data.exception.SubscriptionNotFoundException
 import ru.ermakov.creator.domain.exception.EmptyDataException
+import ru.ermakov.creator.domain.exception.InvalidSubscriptionPriceException
 import ru.ermakov.creator.domain.exception.PasswordMismatchException
 import ru.ermakov.creator.domain.exception.ShortUsernameException
 
@@ -51,6 +52,10 @@ class ExceptionHandlerImpl : ExceptionHandler {
             }
 
             is SubscriptionNotFoundException -> {
+                exception.message
+            }
+
+            is InvalidSubscriptionPriceException -> {
                 exception.message
             }
 

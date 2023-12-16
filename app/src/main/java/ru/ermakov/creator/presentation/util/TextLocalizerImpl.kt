@@ -16,6 +16,7 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SHORT_USERNA
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TOO_MANY_REQUESTS_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USERNAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USER_SUBSCRIPTION_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_SUBSCRIPTION_PRICE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SUBSCRIPTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWORD_EXCEPTION
@@ -81,6 +82,10 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
 
             SUBSCRIPTION_NOT_FOUND_EXCEPTION -> {
                 context.getString(R.string.subscription_not_found_exception)
+            }
+
+            INVALID_SUBSCRIPTION_PRICE_EXCEPTION -> {
+                context.getString(R.string.invalid_subscription_price_exception)
             }
 
             DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION -> {

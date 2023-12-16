@@ -7,6 +7,7 @@
     <string name="user_not_found_exception">Пользователь не найден</string>
     <string name="follow_not_found_exception">Подписка не найдена</string>
     <string name="subscription_not_found_exception">Платная подписка не найдена</string>
+    <string name="invalid_subscription_price_exception">Стоимость подписки должна быть больше 0 CR-кредитов</string>
     <string name="duplicate_subscription_title_exception">Подписка с таким же названием уже существует</string>
     <string name="duplicate_user_subscription_exception">Вы уже имеете данную подписку</string>
     <string name="email_format_exception">Некорректный адрес электронной почты</string>
@@ -57,7 +58,7 @@
     <string name="following">Любимое</string>
     <string name="search">Поиск</string>
     <string name="password_recovery">Восстановление пароля</string>
-    <string name="CR_edits">CR-едиты</string>
+    <string name="CR_credits">CR-кредиты</string>
     <string name="choose_category">Выбор категории</string>
     <string name="edit_username_description">Вы можете установить имя пользователя, чтобы другим людям было легче вас найти. Это имя должно быть уникальным и иметь длину не менее 3 символов.</string>
     <string name="edit_bio_description">Напишите что-нибудь о ваших развлечениях, планах или вашей деятельности.</string>
@@ -108,6 +109,7 @@
     <string name="save_changes">Сохранить изменения</string>
     <string name="options">Опции</string>
     <string name="delete">Удалить</string>
+    <string name="subscription_created_successfully">Подписка успешно создана</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

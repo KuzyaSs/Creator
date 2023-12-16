@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
@@ -171,10 +172,9 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
     }
 
     private fun navigateToCreateSubscriptionFragment() {
-        /*        val action = SearchFragmentDirections.actionSearchFragmentToBlogFragment(
-                    creatorId = creatorId
-                )
-                findNavController().navigate(action)*/
+        val action = SubscriptionsFragmentDirections
+            .actionSubscriptionsFragmentToCreateSubscriptionFragment()
+        findNavController().navigate(action)
     }
 
     private fun navigateToPurchaseSubscriptionFragment(subscriptionId: Long) {

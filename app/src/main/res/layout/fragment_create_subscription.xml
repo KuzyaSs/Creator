@@ -69,6 +69,7 @@
                 style="@style/LargeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:gravity="start"
                 android:inputType="text"
                 android:maxLength="500" />
         </com.google.android.material.textfield.TextInputLayout>

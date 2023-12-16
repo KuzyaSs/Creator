@@ -8,6 +8,7 @@ import ru.ermakov.creator.presentation.screen.blog.CreatorBioFragment
 import ru.ermakov.creator.presentation.screen.blog.BlogFragment
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordFragment
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryFragment
+import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.following.AccountFragment
 import ru.ermakov.creator.presentation.screen.discover.DiscoverFragment
 import ru.ermakov.creator.presentation.screen.editProfile.EditBioFragment
@@ -42,10 +43,10 @@ interface ApplicationComponent {
         fun create(@BindsInstance context: Context): ApplicationComponent
     }
 
-    // Activity
+    // Activity.
     fun inject(activity: CreatorActivity)
 
-    // Fragments
+    // Fragments.
     fun inject(fragment: SplashFragment)
     fun inject(fragment: SignInFragment)
     fun inject(fragment: SignUpFragment)
@@ -58,6 +59,7 @@ interface ApplicationComponent {
     fun inject(fragment: AccountFragment)
     fun inject(fragment: BlogFragment)
     fun inject(fragment: SubscriptionsFragment)
+    fun inject(fragment: CreateSubscriptionFragment)
     fun inject(fragment: CreatorBioFragment)
     fun inject(fragment: SettingsFragment)
     fun inject(fragment: EditProfileFragment)
