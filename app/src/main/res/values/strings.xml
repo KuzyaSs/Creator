@@ -98,8 +98,11 @@
     <string name="unsubscribe">Unsubscribe</string>
     <string name="cancel_subscription_question">Are you sure you want to cancel your subscription?</string>
     <string name="cancel_subscription_description">The subscription will no longer be available</string>
+    <string name="delete_subscription_question">Are you sure you want to delete your subscription?</string>
+    <string name="delete_subscription_description">The subscription will no longer be available to other users, but those who already have it won\'t lose it</string>
     <string name="no">No</string>
     <string name="yes_cancel">Yes, cancel</string>
+    <string name="yes_delete">Yes, delete</string>
     <string name="new_subscription">New subscription</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
@@ -110,6 +113,7 @@
     <string name="options">Options</string>
     <string name="delete">Delete</string>
     <string name="subscription_created_successfully">Subscription created successfully</string>
+    <string name="subscription_edited_successfully">Subscription edited successfully</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

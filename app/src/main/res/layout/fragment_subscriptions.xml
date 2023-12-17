@@ -120,7 +120,6 @@
             style="@style/ExtraLargeTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/base_margin_size"
             android:gravity="center"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"

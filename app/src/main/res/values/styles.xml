@@ -27,6 +27,7 @@
 
     <style name="ErrorTextView" parent="BaseTextView">
         <item name="android:drawablePadding">@dimen/medium_margin_size</item>
+        <item name="android:paddingHorizontal">@dimen/base_margin_size</item>
         <item name="drawableStartCompat">@drawable/ic_error</item>
         <item name="android:gravity">center</item>
     </style>

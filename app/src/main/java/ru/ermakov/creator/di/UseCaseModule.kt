@@ -21,6 +21,7 @@ import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
+import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
@@ -31,6 +32,8 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
+import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
+import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
@@ -217,6 +220,16 @@ class UseCaseModule {
     }
 
     @Provides
+    fun provideGetSubscriptionByIdUseCase(subscriptionRepository: SubscriptionRepository): GetSubscriptionByIdUseCase {
+        return GetSubscriptionByIdUseCase(subscriptionRepository = subscriptionRepository)
+    }
+
+    @Provides
+    fun provideEditSubscriptionUseCase(subscriptionRepository: SubscriptionRepository): EditSubscriptionUseCase {
+        return EditSubscriptionUseCase(subscriptionRepository = subscriptionRepository)
+    }
+
+    @Provides
     fun provideGetUserSubscriptionsByUserAndCreatorIdsUseCase(
         userSubscriptionRepository: UserSubscriptionRepository
     ): GetUserSubscriptionsByUserAndCreatorIdsUseCase {
@@ -230,5 +243,12 @@ class UseCaseModule {
         userSubscriptionRepository: UserSubscriptionRepository
     ): UnsubscribeUseCase {
         return UnsubscribeUseCase(userSubscriptionRepository = userSubscriptionRepository)
+    }
+
+    @Provides
+    fun provideDeleteSubscriptionByIdUseCase(
+        subscriptionRepository: SubscriptionRepository
+    ): DeleteSubscriptionByIdUseCase {
+        return DeleteSubscriptionByIdUseCase(subscriptionRepository = subscriptionRepository)
     }
 }

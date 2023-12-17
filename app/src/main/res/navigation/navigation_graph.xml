@@ -204,9 +204,24 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_subscriptionsFragment_to_editSubscriptionFragment"
+            app:destination="@id/editSubscriptionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/createSubscriptionFragment"
         android:name="ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionFragment"
         android:label="CreateSubscriptionFragment" />
+    <fragment
+        android:id="@+id/editSubscriptionFragment"
+        android:name="ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionFragment"
+        android:label="EditSubscriptionFragment">
+        <argument
+            android:name="subscriptionId"
+            app:argType="long" />
+    </fragment>
 </navigation>

@@ -7,19 +7,19 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
-private const val UNSELECTED_USER_SUBSCRIPTION_ID = -1L
-
 class SubscriptionsViewModel(
     private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val getUserSubscriptionsByUserAndCreatorIdsUseCase: GetUserSubscriptionsByUserAndCreatorIdsUseCase,
     private val getSubscriptionsByCreatorIdUseCase: GetSubscriptionsByCreatorIdUseCase,
     private val unsubscribeUseCase: UnsubscribeUseCase,
+    private val deleteSubscriptionByIdUseCase: DeleteSubscriptionByIdUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
     private val _subscriptionsUiState = MutableLiveData(SubscriptionsUiState())
@@ -70,7 +70,43 @@ class SubscriptionsViewModel(
         setSubscriptions(creatorId = creatorId)
     }
 
-    fun unsubscribe() {
+    fun deleteSelectedSubscription() {
+        _subscriptionsUiState.postValue(
+            _subscriptionsUiState.value?.copy(
+                isRefreshingShown = true,
+                isErrorMessageShown = false
+            )
+        )
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                deleteSubscriptionByIdUseCase(
+                    subscriptionId = _subscriptionsUiState.value?.selectedSubscriptionId
+                        ?: UNSELECTED_SUBSCRIPTION_ID
+                )
+                withContext(Dispatchers.Main) {
+                    refreshSubscriptions(creatorId = _subscriptionsUiState.value?.creatorId ?: "")
+                }
+            } catch (exception: Exception) {
+                val errorMessage = exceptionHandler.handleException(exception = exception)
+                _subscriptionsUiState.postValue(
+                    _subscriptionsUiState.value?.copy(
+                        isRefreshingShown = false,
+                        isLoading = false,
+                        isErrorMessageShown = true,
+                        errorMessage = errorMessage
+                    )
+                )
+            }
+        }
+    }
+
+    fun unsubscribeFromSelectedSubscription() {
+        _subscriptionsUiState.postValue(
+            _subscriptionsUiState.value?.copy(
+                isRefreshingShown = true,
+                isErrorMessageShown = false
+            )
+        )
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 unsubscribeUseCase(
@@ -93,6 +129,12 @@ class SubscriptionsViewModel(
                 )
             }
         }
+    }
+
+    fun setSelectedSubscriptionId(subscriptionId: Long) {
+        _subscriptionsUiState.value = _subscriptionsUiState.value?.copy(
+            selectedSubscriptionId = subscriptionId
+        )
     }
 
     fun setSelectedUserSubscriptionId(userSubscriptionId: Long) {

@@ -16,6 +16,7 @@ import ru.ermakov.creator.presentation.screen.following.FollowingFragment
 import ru.ermakov.creator.presentation.screen.settings.SettingsFragment
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileFragment
 import ru.ermakov.creator.presentation.screen.editProfile.EditUsernameFragment
+import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment
 import ru.ermakov.creator.presentation.screen.search.SearchFragment
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorFragment
@@ -60,6 +61,7 @@ interface ApplicationComponent {
     fun inject(fragment: BlogFragment)
     fun inject(fragment: SubscriptionsFragment)
     fun inject(fragment: CreateSubscriptionFragment)
+    fun inject(fragment: EditSubscriptionFragment)
     fun inject(fragment: CreatorBioFragment)
     fun inject(fragment: SettingsFragment)
     fun inject(fragment: EditProfileFragment)

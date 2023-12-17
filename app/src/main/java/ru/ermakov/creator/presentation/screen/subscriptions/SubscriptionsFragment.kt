@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
+import ru.ermakov.creator.databinding.DialogDeleteSubscriptionBinding
 import ru.ermakov.creator.databinding.DialogUnsubscribeBinding
 import ru.ermakov.creator.databinding.FragmentSubscriptionsBinding
 import ru.ermakov.creator.domain.model.Subscription
@@ -33,6 +34,7 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
     private var _binding: FragmentSubscriptionsBinding? = null
     private val binding get() = _binding!!
     private var _dialogUnsubscribeBinding: DialogUnsubscribeBinding? = null
+    private var _dialogDeleteSubscriptionBinding: DialogDeleteSubscriptionBinding? = null
 
     @Inject
     lateinit var subscriptionsViewModelFactory: SubscriptionsViewModelFactory
@@ -43,6 +45,7 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
 
     private var subscriptionAdapter: SubscriptionAdapter? = null
     private var unsubscribeDialog: Dialog? = null
+    private var deleteSubscriptionDialog: Dialog? = null
     private var optionsFragment: OptionsFragment? = null
 
     override fun onCreateView(
@@ -68,8 +71,16 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
         optionsFragment = OptionsFragment()
         setUpSwipeRefreshLayout()
         setUnsubscribeDialog()
+        setDeleteSubscriptionDialog()
         setUpListeners()
         setUpObservers()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (subscriptionsViewModel.subscriptionsUiState.value?.subscriptions != null) {
+            subscriptionsViewModel.refreshSubscriptions(creatorId = arguments.creatorId)
+        }
     }
 
     private fun setUpSwipeRefreshLayout() {
@@ -99,8 +110,26 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
             setCancelable(false)
             _dialogUnsubscribeBinding?.textViewNo?.setOnClickListener { unsubscribeDialog?.dismiss() }
             _dialogUnsubscribeBinding?.textViewYes?.setOnClickListener {
-                subscriptionsViewModel.unsubscribe()
+                subscriptionsViewModel.unsubscribeFromSelectedSubscription()
                 unsubscribeDialog?.dismiss()
+            }
+        }
+    }
+
+    private fun setDeleteSubscriptionDialog() {
+        _dialogDeleteSubscriptionBinding = DialogDeleteSubscriptionBinding.inflate(layoutInflater)
+        deleteSubscriptionDialog = Dialog(requireContext())
+        deleteSubscriptionDialog?.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(_dialogDeleteSubscriptionBinding?.root!!)
+            setCancelable(false)
+            _dialogDeleteSubscriptionBinding?.textViewNo?.setOnClickListener {
+                deleteSubscriptionDialog?.dismiss()
+            }
+            _dialogDeleteSubscriptionBinding?.textViewYes?.setOnClickListener {
+                subscriptionsViewModel.deleteSelectedSubscription()
+                deleteSubscriptionDialog?.dismiss()
             }
         }
     }
@@ -156,6 +185,7 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
             userSubscriptions = userSubscriptions,
             isOwner = isOwner,
             onMoreImageViewClickListener = { subscription ->
+                subscriptionsViewModel.setSelectedSubscriptionId(subscriptionId = subscription.id)
                 optionsFragment?.show(childFragmentManager, optionsFragment.toString())
             },
             onSubscribeButtonClickListener = { subscription ->
@@ -206,10 +236,15 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
     }
 
     override fun edit() {
-        Toast.makeText(requireContext(), "edit", Toast.LENGTH_SHORT).show()
+        val action =
+            SubscriptionsFragmentDirections.actionSubscriptionsFragmentToEditSubscriptionFragment(
+                subscriptionId = subscriptionsViewModel.subscriptionsUiState.value?.selectedSubscriptionId
+                    ?: UNSELECTED_SUBSCRIPTION_ID
+            )
+        findNavController().navigate(action)
     }
 
     override fun delete() {
-        Toast.makeText(requireContext(), "delete", Toast.LENGTH_SHORT).show()
+        deleteSubscriptionDialog?.show()
     }
 }

@@ -96,10 +96,13 @@
     <string name="subscribe_for">Подписаться за %d</string>
     <string name="subscribed_until">Подписан до %s</string>
     <string name="unsubscribe">Отписаться</string>
-    <string name="cancel_subscription_question">Вы уверены, что хотите отказаться от данной подписки?</string>
+    <string name="cancel_subscription_question">Вы уверены, что хотите отказаться от вашей подписки?</string>
     <string name="cancel_subscription_description">Подписка больше не будет доступна</string>
+    <string name="delete_subscription_question">Вы уверены, что хотите удалить вашу подписку?</string>
+    <string name="delete_subscription_description">Подписка больше не будет доступна другим пользователям, но те, у которых она уже есть, не потеряют её</string>
     <string name="no">Нет</string>
     <string name="yes_cancel">Да, отказаться</string>
+    <string name="yes_delete">Да, удалить</string>
     <string name="new_subscription">Новая подписка</string>
     <string name="title">Название</string>
     <string name="description">Описание</string>
@@ -110,6 +113,8 @@
     <string name="options">Опции</string>
     <string name="delete">Удалить</string>
     <string name="subscription_created_successfully">Подписка успешно создана</string>
+    <string name="subscription_edited_successfully">Подписка успешно изменена</string>
+
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

@@ -12,6 +12,7 @@ import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
+import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
@@ -20,6 +21,8 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateBioUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUserImageUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
+import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
+import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
@@ -33,6 +36,7 @@ import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewM
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
 import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFactory
+import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorViewModelFactory
@@ -194,6 +198,7 @@ class ViewModelFactoryModule {
         getUserSubscriptionsByUserAndCreatorIdsUseCase: GetUserSubscriptionsByUserAndCreatorIdsUseCase,
         getSubscriptionsByCreatorIdUseCase: GetSubscriptionsByCreatorIdUseCase,
         unsubscribeUseCase: UnsubscribeUseCase,
+        deleteSubscriptionByIdUseCase: DeleteSubscriptionByIdUseCase,
         exceptionHandler: ExceptionHandler
     ): SubscriptionsViewModelFactory {
         return SubscriptionsViewModelFactory(
@@ -201,6 +206,7 @@ class ViewModelFactoryModule {
             getUserSubscriptionsByUserAndCreatorIdsUseCase = getUserSubscriptionsByUserAndCreatorIdsUseCase,
             getSubscriptionsByCreatorIdUseCase = getSubscriptionsByCreatorIdUseCase,
             unsubscribeUseCase = unsubscribeUseCase,
+            deleteSubscriptionByIdUseCase = deleteSubscriptionByIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }
@@ -213,6 +219,21 @@ class ViewModelFactoryModule {
     ): CreateSubscriptionViewModelFactory {
         return CreateSubscriptionViewModelFactory(
             createSubscriptionUseCase = createSubscriptionUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideEditSubscriptionViewModelFactory(
+        getSubscriptionByIdUseCase: GetSubscriptionByIdUseCase,
+        editSubscriptionUseCase: EditSubscriptionUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): EditSubscriptionViewModelFactory {
+        return EditSubscriptionViewModelFactory(
+            getSubscriptionByIdUseCase = getSubscriptionByIdUseCase,
+            editSubscriptionUseCase = editSubscriptionUseCase,
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             exceptionHandler = exceptionHandler
         )

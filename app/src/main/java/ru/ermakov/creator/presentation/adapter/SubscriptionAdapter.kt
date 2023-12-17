@@ -39,6 +39,10 @@ class SubscriptionAdapter(
             }
             binding.textViewTitle.text = subscription.title
             binding.textViewDescription.text = subscription.description
+            binding.textViewPrice.apply {
+                text = subscription.price.toString()
+                isVisible = isOwner
+            }
             binding.imageViewMore.apply {
                 isVisible = isOwner
                 setOnClickListener { onMoreImageViewClickListener(subscription) }
