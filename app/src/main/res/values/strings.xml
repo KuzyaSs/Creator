@@ -17,6 +17,9 @@
     <string name="invalid_password_exception">The password is invalid</string>
     <string name="password_mismatch_exception">Passwords don\'t match</string>
     <string name="weak_password_exception">Password should be at least 6 characters</string>
+    <string name="insufficient_funds_in_account_exception">Insufficient funds in the account</string>
+    <string name="insufficient_funds_in_goal_exception">Insufficient funds in the goal</string>
+    <string name="transaction_not_found_exception">Transaction is not found</string>
     <string name="too_many_requests_exception">The account has been blocked. Reset your password or try again later</string>
     <string name="unknown_exception">Unknown error</string>
     <string name="account">Account</string>
@@ -114,6 +117,12 @@
     <string name="delete">Delete</string>
     <string name="subscription_created_successfully">Subscription created successfully</string>
     <string name="subscription_edited_successfully">Subscription edited successfully</string>
+    <string name="subscription_purchased_successfully">Subscription purchased successfully</string>
+    <string name="purchase_subscription">Purchase subscription</string>
+    <string name="purchase">Purchase</string>
+    <string name="subscription_period">Subscription period</string>
+    <string name="total_price_with_number">Total price: %d</string>
+    <string name="balance_with_number">Balance: %d</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>
@@ -128,5 +137,10 @@
         <item quantity="one">post</item>
         <item quantity="many">posts</item>
         <item quantity="other">posts</item>
+    </plurals>
+    <plurals name="plural_month_with_number">
+        <item quantity="one">%d month</item>
+        <item quantity="many">%d months</item>
+        <item quantity="other">%d months</item>
     </plurals>
 </resources>

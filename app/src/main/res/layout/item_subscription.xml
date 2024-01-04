@@ -57,8 +57,7 @@
         android:paddingHorizontal="@dimen/base_margin_size"
         android:paddingBottom="@dimen/base_margin_size"
         android:textStyle="bold"
-        app:drawableEndCompat="@drawable/ic_logo"
-        app:drawableTint="@color/colorAccent"
+        app:drawableEndCompat="@drawable/ic_logo_accent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewDescription" />

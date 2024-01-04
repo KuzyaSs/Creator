@@ -208,10 +208,9 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
     }
 
     private fun navigateToPurchaseSubscriptionFragment(subscriptionId: Long) {
-        /*        val action = SearchFragmentDirections.actionSearchFragmentToBlogFragment(
-                    subscriptionId = subscriptionId
-                )
-                findNavController().navigate(action)*/
+        val action = SubscriptionsFragmentDirections
+            .actionSubscriptionsFragmentToPurchaseSubscriptionFragment(subscriptionId = subscriptionId)
+        findNavController().navigate(action)
     }
 
     private fun goBack() {

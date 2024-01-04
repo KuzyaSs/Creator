@@ -21,7 +21,10 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWOR
 import ru.ermakov.creator.data.exception.InvalidUserException
 import ru.ermakov.creator.data.exception.UserNotFoundException
 import ru.ermakov.creator.data.exception.DuplicateUsernameException
+import ru.ermakov.creator.data.exception.InsufficientFundsInAccountException
+import ru.ermakov.creator.data.exception.InsufficientFundsInGoalException
 import ru.ermakov.creator.data.exception.SubscriptionNotFoundException
+import ru.ermakov.creator.data.exception.TransactionNotFoundException
 import ru.ermakov.creator.domain.exception.EmptyDataException
 import ru.ermakov.creator.domain.exception.InvalidSubscriptionPriceException
 import ru.ermakov.creator.domain.exception.PasswordMismatchException
@@ -76,6 +79,18 @@ class ExceptionHandlerImpl : ExceptionHandler {
             }
 
             is InvalidUserException -> {
+                exception.message
+            }
+
+            is InsufficientFundsInAccountException -> {
+                exception.message
+            }
+
+            is InsufficientFundsInGoalException -> {
+                exception.message
+            }
+
+            is TransactionNotFoundException -> {
                 exception.message
             }
 

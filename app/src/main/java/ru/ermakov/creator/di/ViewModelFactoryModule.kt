@@ -24,7 +24,9 @@ import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
+import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
@@ -39,6 +41,7 @@ import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFa
 import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
+import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorViewModelFactory
 import ru.ermakov.creator.presentation.screen.search.searchPost.SearchPostViewModelFactory
 import ru.ermakov.creator.presentation.screen.signIn.SignInViewModelFactory
@@ -235,6 +238,23 @@ class ViewModelFactoryModule {
             getSubscriptionByIdUseCase = getSubscriptionByIdUseCase,
             editSubscriptionUseCase = editSubscriptionUseCase,
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun providePurchaseSubscriptionViewModelFactory(
+        getSubscriptionByIdUseCase: GetSubscriptionByIdUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
+        purchaseSubscriptionUseCase: PurchaseSubscriptionUseCase,
+        exceptionHandler: ExceptionHandler
+    ): PurchaseSubscriptionViewModelFactory {
+        return PurchaseSubscriptionViewModelFactory(
+            getSubscriptionByIdUseCase = getSubscriptionByIdUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
+            purchaseSubscriptionUseCase = purchaseSubscriptionUseCase,
             exceptionHandler = exceptionHandler
         )
     }

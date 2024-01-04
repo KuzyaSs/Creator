@@ -17,6 +17,9 @@
     <string name="invalid_password_exception">Неверный пароль</string>
     <string name="password_mismatch_exception">Пароли не совпадают</string>
     <string name="weak_password_exception">Пароль не должен быть меньше 6 символов</string>
+    <string name="insufficient_funds_in_account_exception">Недостаточно средств на счёте аккаунта</string>
+    <string name="insufficient_funds_in_goal_exception">Недостаточно средств на счёте цели</string>
+    <string name="transaction_not_found_exception">Транзакция не найдена</string>
     <string name="too_many_requests_exception">Аккаунт заблокирован. Сбросьте пароль или повторите попытку позже</string>
     <string name="unknown_exception">Неизвестная ошибка</string>
     <string name="account">Аккаунт</string>
@@ -114,7 +117,12 @@
     <string name="delete">Удалить</string>
     <string name="subscription_created_successfully">Подписка успешно создана</string>
     <string name="subscription_edited_successfully">Подписка успешно изменена</string>
-
+    <string name="subscription_purchased_successfully">Подписка успешно куплена</string>
+    <string name="purchase_subscription">Покупка подписки</string>
+    <string name="purchase">Купить</string>
+    <string name="subscription_period">Длительность подписки</string>
+    <string name="total_price_with_number">Итоговая стоимость: %d</string>
+    <string name="balance_with_number">Баланс: %d</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>
@@ -132,5 +140,11 @@
         <item quantity="few">поста</item>
         <item quantity="many">постов</item>
         <item quantity="other">постов</item>
+    </plurals>
+    <plurals name="plural_month_with_number">
+        <item quantity="one">%d месяц</item>
+        <item quantity="few">%d месяца</item>
+        <item quantity="many">%d месяцев</item>
+        <item quantity="other">%d месяцев</item>
     </plurals>
 </resources>

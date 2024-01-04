@@ -35,7 +35,9 @@ import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
+import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
@@ -250,5 +252,17 @@ class UseCaseModule {
         subscriptionRepository: SubscriptionRepository
     ): DeleteSubscriptionByIdUseCase {
         return DeleteSubscriptionByIdUseCase(subscriptionRepository = subscriptionRepository)
+    }
+
+    @Provides
+    fun providePurchaseSubscriptionUseCase(
+        userSubscriptionRepository: UserSubscriptionRepository
+    ): PurchaseSubscriptionUseCase {
+        return PurchaseSubscriptionUseCase(userSubscriptionRepository = userSubscriptionRepository)
+    }
+
+    @Provides
+    fun provideGetBalanceByUserIdUseCase(): GetBalanceByUserIdUseCase {
+        return GetBalanceByUserIdUseCase()
     }
 }

@@ -16,8 +16,11 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SHORT_USERNA
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TOO_MANY_REQUESTS_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USERNAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USER_SUBSCRIPTION_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_ACCOUNT_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_GOAL_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_SUBSCRIPTION_PRICE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SUBSCRIPTION_NOT_FOUND_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TRANSACTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.WEAK_PASSWORD_EXCEPTION
 
@@ -131,6 +134,18 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
 
             UNKNOWN_EMAIL_EXCEPTION -> {
                 context.getString(R.string.unknown_email_exception)
+            }
+
+            INSUFFICIENT_FUNDS_IN_ACCOUNT_EXCEPTION -> {
+                context.getString(R.string.insufficient_funds_in_account_exception)
+            }
+
+            INSUFFICIENT_FUNDS_IN_GOAL_EXCEPTION -> {
+                context.getString(R.string.insufficient_funds_in_goal_exception)
+            }
+
+            TRANSACTION_NOT_FOUND_EXCEPTION -> {
+                context.getString(R.string.transaction_not_found_exception)
             }
 
             TOO_MANY_REQUESTS_EXCEPTION -> {

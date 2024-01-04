@@ -53,10 +53,8 @@ class UserSubscriptionRemoteDataSourceImpl(
             remoteUserSubscriptionRequest = userSubscriptionRequest.toRemoteUserSubscriptionRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "insertUserSubscription SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "insertUserSubscription ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 

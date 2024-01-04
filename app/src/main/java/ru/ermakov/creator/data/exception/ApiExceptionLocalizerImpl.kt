@@ -7,7 +7,10 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_SU
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.FOLLOW_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USERNAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USER_SUBSCRIPTION_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_ACCOUNT_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_GOAL_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SUBSCRIPTION_NOT_FOUND_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TRANSACTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
 
 class ApiExceptionLocalizerImpl(private val gson: Gson) : ApiExceptionLocalizer {
@@ -39,6 +42,18 @@ class ApiExceptionLocalizerImpl(private val gson: Gson) : ApiExceptionLocalizer 
 
             DUPLICATE_USER_SUBSCRIPTION_EXCEPTION -> {
                 DuplicateUserSubscriptionException()
+            }
+
+            INSUFFICIENT_FUNDS_IN_ACCOUNT_EXCEPTION -> {
+                InsufficientFundsInAccountException()
+            }
+
+            INSUFFICIENT_FUNDS_IN_GOAL_EXCEPTION -> {
+                InsufficientFundsInGoalException()
+            }
+
+            TRANSACTION_NOT_FOUND_EXCEPTION -> {
+                TransactionNotFoundException()
             }
 
             else -> {
