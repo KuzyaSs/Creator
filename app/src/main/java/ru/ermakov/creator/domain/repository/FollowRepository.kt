@@ -3,7 +3,11 @@ package ru.ermakov.creator.domain.repository
 import ru.ermakov.creator.domain.model.Follow
 
 interface FollowRepository {
-    suspend fun getFollowsByUserId(userId: String): List<Follow>
+    suspend fun getFollowPageByUserId(
+        searchQuery: String,
+        page: Int,
+        userId: String
+    ): List<Follow>
 
     suspend fun getFollowByUserAndCreatorIds(userId: String, creatorId: String): Follow
 

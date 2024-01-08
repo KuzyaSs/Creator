@@ -7,12 +7,23 @@ import ru.ermakov.creator.data.remote.api.FollowApi
 import ru.ermakov.creator.data.remote.model.RemoteFollowRequest
 import ru.ermakov.creator.domain.model.Follow
 
+private const val LIMIT = 20
+
 class FollowRemoteDataSourceImpl(
     private val followApi: FollowApi,
     private val apiExceptionLocalizer: ApiExceptionLocalizer
 ) : FollowRemoteDataSource {
-    override suspend fun getFollowsByUserId(userId: String): List<Follow> {
-        val remoteFollowsResponse = followApi.getFollowsByUserId(userId = userId)
+    override suspend fun getFollowPageByUserId(
+        searchQuery: String,
+        page: Int,
+        userId: String
+    ): List<Follow> {
+        val remoteFollowsResponse = followApi.getFollowPageByUserId(
+            searchQuery = searchQuery,
+            limit = LIMIT,
+            offset = LIMIT * page,
+            userId = userId
+        )
         if (remoteFollowsResponse.isSuccessful) {
             Log.d("MY_TAG", "getFollowsByUserId SUCCESS ${remoteFollowsResponse.body()}")
             remoteFollowsResponse.body()?.let { remoteFollows ->

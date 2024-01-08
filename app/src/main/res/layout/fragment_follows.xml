@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="?android:windowBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageViewBack"
+                        android:layout_width="@dimen/base_icon_size"
+                        android:layout_height="@dimen/base_icon_size"
+                        android:layout_marginStart="@dimen/base_margin_size"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayoutSearch"
+                        style="@style/TextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin_size"
+                        android:layout_marginEnd="@dimen/base_margin_size"
+                        android:hint="@string/search"
+                        android:paddingVertical="@dimen/medium_margin_size"
+                        android:visibility="gone"
+                        app:endIconMode="clear_text"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewBack"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textInputEditTextSearch"
+                            style="@style/LargeTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLength="150" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/textViewTitle"
+                        style="@style/TitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/medium_margin_size"
+                        android:paddingVertical="@dimen/medium_margin_size"
+                        android:text="@string/follows"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewBack"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageViewSearch"
+                        android:layout_width="@dimen/base_icon_size"
+                        android:layout_height="@dimen/base_icon_size"
+                        android:layout_marginEnd="@dimen/base_margin_size"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_search"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFollows"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewTitle" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressBarFollows"
+                style="@style/ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/recyclerViewFollows"
+                app:layout_constraintEnd_toEndOf="@id/recyclerViewFollows"
+                app:layout_constraintStart_toStartOf="@id/recyclerViewFollows"
+                app:layout_constraintTop_toTopOf="@id/recyclerViewFollows" />
+
+            <ImageView
+                android:id="@+id/imageViewFollowsLogo"
+                android:layout_width="@dimen/large_image_size"
+                android:layout_height="@dimen/large_image_size"
+                android:layout_marginBottom="@dimen/base_margin_size"
+                android:importantForAccessibility="no"
+                android:src="@drawable/logo"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/textViewFollowsTitle"
+                app:layout_constraintEnd_toEndOf="@id/recyclerViewFollows"
+                app:layout_constraintStart_toStartOf="@id/recyclerViewFollows" />
+
+            <TextView
+                android:id="@+id/textViewFollowsTitle"
+                style="@style/ExtraLargeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_results_found"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/recyclerViewFollows"
+                app:layout_constraintEnd_toEndOf="@id/recyclerViewFollows"
+                app:layout_constraintStart_toStartOf="@id/recyclerViewFollows"
+                app:layout_constraintTop_toTopOf="@id/recyclerViewFollows" />
+
+            <TextView
+                android:id="@+id/textViewFollowsDescription"
+                style="@style/BaseTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_margin_size"
+                android:layout_marginTop="@dimen/medium_margin_size"
+                android:gravity="center"
+                android:text="@string/no_results_found_description"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/recyclerViewFollows"
+                app:layout_constraintStart_toStartOf="@id/recyclerViewFollows"
+                app:layout_constraintTop_toBottomOf="@id/textViewFollowsTitle" />
+
+            <View
+                android:id="@+id/viewLoading"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?android:windowBackground"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewTitle" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progressBarScreen"
+                style="@style/ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewTitle" />
+
+            <ImageView
+                android:id="@+id/imageViewScreenLogo"
+                android:layout_width="@dimen/large_image_size"
+                android:layout_height="@dimen/large_image_size"
+                android:layout_marginBottom="@dimen/base_margin_size"
+                android:importantForAccessibility="no"
+                android:src="@drawable/logo"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/textViewScreenErrorMessage"
+                app:layout_constraintEnd_toEndOf="@id/textViewScreenErrorMessage"
+                app:layout_constraintStart_toStartOf="@id/textViewScreenErrorMessage" />
+
+            <TextView
+                android:id="@+id/textViewScreenErrorMessage"
+                style="@style/ExtraLargeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

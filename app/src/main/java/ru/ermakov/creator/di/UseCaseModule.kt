@@ -34,6 +34,7 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
@@ -264,5 +265,12 @@ class UseCaseModule {
     @Provides
     fun provideGetBalanceByUserIdUseCase(): GetBalanceByUserIdUseCase {
         return GetBalanceByUserIdUseCase()
+    }
+
+    @Provides
+    fun provideSearchFollowPageByUserIdUseCase(
+        followRepository: FollowRepository
+    ): SearchFollowPageByUserIdUseCase {
+        return SearchFollowPageByUserIdUseCase(followRepository = followRepository)
     }
 }

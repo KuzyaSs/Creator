@@ -23,6 +23,7 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
@@ -40,6 +41,7 @@ import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscript
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFactory
 import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
+import ru.ermakov.creator.presentation.screen.follows.FollowsViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorViewModelFactory
@@ -255,6 +257,19 @@ class ViewModelFactoryModule {
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
             purchaseSubscriptionUseCase = purchaseSubscriptionUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideFollowsViewModelFactory(
+        searchFollowPageByUserIdUseCase: SearchFollowPageByUserIdUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): FollowsViewModelFactory {
+        return FollowsViewModelFactory(
+            searchFollowPageByUserIdUseCase = searchFollowPageByUserIdUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }

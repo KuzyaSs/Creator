@@ -95,7 +95,7 @@ class BlogFragment : Fragment() {
                 navigateToSubscriptionFragment(creatorId = arguments.creatorId)
             }
             buttonFollow.setOnClickListener {
-                if (blogViewModel._blogUiState.value?.isFollower == true) {
+                if (blogViewModel.blogUiState.value?.isFollower == true) {
                     blogViewModel.unfollow()
                 } else {
                     blogViewModel.follow()

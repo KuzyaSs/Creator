@@ -4,7 +4,6 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.HTTP
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -13,7 +12,12 @@ import ru.ermakov.creator.data.remote.model.RemoteFollowRequest
 
 interface FollowApi {
     @GET("users/{userId}/follows")
-    suspend fun getFollowsByUserId(@Path("userId") userId: String): Response<List<RemoteFollow>>
+    suspend fun getFollowPageByUserId(
+        @Query("searchQuery") searchQuery: String,
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int,
+        @Path("userId") userId: String
+    ): Response<List<RemoteFollow>>
 
     @GET("follows")
     suspend fun getFollowByUserAndCreatorIds(

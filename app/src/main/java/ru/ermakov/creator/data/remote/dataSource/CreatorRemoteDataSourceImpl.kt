@@ -1,6 +1,5 @@
 package ru.ermakov.creator.data.remote.dataSource
 
-import android.util.Log
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.mapper.toCreator
 import ru.ermakov.creator.data.remote.api.CreatorApi

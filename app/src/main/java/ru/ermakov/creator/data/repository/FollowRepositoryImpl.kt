@@ -7,8 +7,16 @@ import ru.ermakov.creator.domain.repository.FollowRepository
 class FollowRepositoryImpl(
     private val followRemoteDataSource: FollowRemoteDataSource
 ) : FollowRepository {
-    override suspend fun getFollowsByUserId(userId: String): List<Follow> {
-        return followRemoteDataSource.getFollowsByUserId(userId = userId)
+    override suspend fun getFollowPageByUserId(
+        searchQuery: String,
+        page: Int,
+        userId: String
+    ): List<Follow> {
+        return followRemoteDataSource.getFollowPageByUserId(
+            searchQuery = searchQuery,
+            page = page,
+            userId = userId
+        )
     }
 
     override suspend fun getFollowByUserAndCreatorIds(userId: String, creatorId: String): Follow {

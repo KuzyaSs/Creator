@@ -116,6 +116,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_followingFragment_to_followsFragment"
+            app:destination="@id/followsFragment" />
     </fragment>
 
     <fragment
@@ -238,5 +241,17 @@
         <argument
             android:name="subscriptionId"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/followsFragment"
+        android:name="ru.ermakov.creator.presentation.screen.follows.FollowsFragment"
+        android:label="FollowsFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right">
+        <action
+            android:id="@+id/action_followsFragment_to_blogFragment"
+            app:destination="@id/blogFragment" />
     </fragment>
 </navigation>

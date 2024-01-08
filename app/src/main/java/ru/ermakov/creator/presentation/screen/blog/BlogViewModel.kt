@@ -23,7 +23,7 @@ class BlogViewModel(
     private val getCreatorByUserIdUseCase: GetCreatorByUserIdUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
-    val _blogUiState = MutableLiveData(BlogUiState())
+    private val _blogUiState = MutableLiveData(BlogUiState())
     val blogUiState: LiveData<BlogUiState> = _blogUiState
 
     fun setBlog(creatorId: String) {
