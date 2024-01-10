@@ -82,6 +82,9 @@ class ChooseCategoryFragment : Fragment() {
             swipeRefreshLayout.setOnRefreshListener {
                 chooseCategoryViewModel.refreshCategories()
             }
+            swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
+                scrollView.canScrollVertically(-1) || recyclerViewCategories.canScrollVertically(-1)
+            }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
             buttonConfirm.setOnClickListener { confirmCategoryList() }
             viewLoading.setOnClickListener { }
@@ -102,10 +105,11 @@ class ChooseCategoryFragment : Fragment() {
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                 binding.viewLoading.isVisible = categories == null
                 binding.progressBar.isVisible = !isErrorMessageShown && categories == null
-                binding.textViewErrorMessage.apply {
+                binding.textViewScreenErrorMessage.apply {
                     text = textLocalizer.localizeText(text = errorMessage)
                     isVisible = isErrorMessageShown && categories == null
                 }
+                binding.imageViewScreenLogo.isVisible = isErrorMessageShown && categories == null
             }
         }
     }

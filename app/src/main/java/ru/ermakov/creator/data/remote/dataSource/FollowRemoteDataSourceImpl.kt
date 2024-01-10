@@ -1,6 +1,5 @@
 package ru.ermakov.creator.data.remote.dataSource
 
-import android.util.Log
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.mapper.toFollow
 import ru.ermakov.creator.data.remote.api.FollowApi
@@ -25,12 +24,10 @@ class FollowRemoteDataSourceImpl(
             userId = userId
         )
         if (remoteFollowsResponse.isSuccessful) {
-            Log.d("MY_TAG", "getFollowsByUserId SUCCESS ${remoteFollowsResponse.body()}")
             remoteFollowsResponse.body()?.let { remoteFollows ->
                 return remoteFollows.map { remoteFollow -> remoteFollow.toFollow() }
             }
         }
-        Log.d("MY_TAG", "getFollowsByUserId ERROR ${remoteFollowsResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = remoteFollowsResponse)
     }
 

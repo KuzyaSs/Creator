@@ -75,6 +75,9 @@ class EditSubscriptionFragment : Fragment() {
             swipeRefreshLayout.setOnRefreshListener {
                 editSubscriptionViewModel.refreshSubscription(subscriptionId = arguments.subscriptionId)
             }
+            swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
+                scrollView.canScrollVertically(-1)
+            }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
             buttonSaveChanges.setOnClickListener { editSubscription() }
             viewLoading.setOnClickListener { }

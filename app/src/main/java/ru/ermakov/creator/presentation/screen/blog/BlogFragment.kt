@@ -128,10 +128,11 @@ class BlogFragment : Fragment() {
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                 binding.viewLoading.isVisible = creator == null
                 binding.progressBar.isVisible = !isErrorMessageShown && creator == null
-                binding.textViewErrorMessage.apply {
+                binding.textViewScreenErrorMessage.apply {
                     text = textLocalizer.localizeText(text = errorMessage)
                     isVisible = isErrorMessageShown && creator == null
                 }
+                binding.imageViewScreenLogo.isVisible = isErrorMessageShown && creator == null
             }
         }
     }

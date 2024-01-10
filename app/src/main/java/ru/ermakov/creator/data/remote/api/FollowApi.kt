@@ -13,10 +13,10 @@ import ru.ermakov.creator.data.remote.model.RemoteFollowRequest
 interface FollowApi {
     @GET("users/{userId}/follows")
     suspend fun getFollowPageByUserId(
+        @Path("userId") userId: String,
         @Query("searchQuery") searchQuery: String,
         @Query("limit") limit: Int,
-        @Query("offset") offset: Int,
-        @Path("userId") userId: String
+        @Query("offset") offset: Int
     ): Response<List<RemoteFollow>>
 
     @GET("follows")

@@ -1,9 +1,11 @@
 package ru.ermakov.creator.presentation.screen.follows
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -21,6 +23,7 @@ import ru.ermakov.creator.presentation.adapter.FollowAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
+
 
 private const val THRESHOLD = 5
 
@@ -98,10 +101,14 @@ class FollowsFragment : Fragment() {
             swipeRefreshLayout.setOnRefreshListener {
                 followsViewModel.refreshFollows()
             }
+            swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
+                scrollView.canScrollVertically(-1) || recyclerViewFollows.canScrollVertically(-1)
+            }
             imageViewBack.setOnClickListener {
                 goBack()
             }
             imageViewSearch.setOnClickListener {
+                setKeyboard(isKeyboardShown = true)
                 followsViewModel.setSearchBar(isSearchBarShown = true)
             }
             textInputEditTextSearch.addTextChangedListener { searchQuery ->
@@ -153,11 +160,13 @@ class FollowsFragment : Fragment() {
     ) {
         if (isFollowsEmpty && !isLoadingFollows) {
             if (isSearchQueryEmpty) {
-                binding.textViewFollowsTitle.text = "EMPTY"
-                binding.textViewFollowsDescription.text = "EMPTY DESCRIPTION"
+                binding.textViewFollowsTitle.text = getString(R.string.empty_follow_list)
+                binding.textViewFollowsDescription.text =
+                    getString(R.string.empty_follow_list_description)
             } else {
-                binding.textViewFollowsTitle.text = "NO RESULTS FOUND"
-                binding.textViewFollowsDescription.text = "EMPTY DESCRIPTION"
+                binding.textViewFollowsTitle.text = getString(R.string.no_results_found)
+                binding.textViewFollowsDescription.text =
+                    getString(R.string.no_results_found_description)
             }
         }
         binding.imageViewFollowsLogo.isVisible = isFollowsEmpty && !isLoadingFollows
@@ -168,14 +177,33 @@ class FollowsFragment : Fragment() {
 
     private fun setSearchBar(isSearchBarShown: Boolean) {
         binding.apply {
+            if (!isSearchBarShown) {
+                textInputEditTextSearch.text?.clear()
+            }
             textInputLayoutSearch.isVisible = isSearchBarShown
             textViewTitle.isVisible = !isSearchBarShown
             imageViewSearch.isVisible = !isSearchBarShown
         }
     }
 
+    private fun setKeyboard(isKeyboardShown: Boolean) {
+        val inputMethodManager = requireActivity()
+            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (isKeyboardShown) {
+            binding.textInputEditTextSearch.requestFocus()
+            inputMethodManager.showSoftInput(binding.textInputEditTextSearch, 0)
+        } else {
+            binding.textInputEditTextSearch.clearFocus()
+            inputMethodManager.hideSoftInputFromWindow(
+                binding.textInputEditTextSearch.windowToken,
+                0
+            )
+        }
+    }
+
     private fun goBack() {
         if (followsViewModel.followsUiState.value?.isSearchBarShown == true) {
+            setKeyboard(isKeyboardShown = false)
             followsViewModel.setSearchBar(isSearchBarShown = false)
         } else {
             requireActivity().onBackPressedDispatcher.onBackPressed()

@@ -100,6 +100,9 @@ class PurchaseSubscriptionFragment : Fragment() {
             swipeRefreshLayout.setOnRefreshListener {
                 purchaseSubscriptionViewModel.refreshPurchaseSubscription(subscriptionId = arguments.subscriptionId)
             }
+            swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
+                scrollView.canScrollVertically(-1)
+            }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
             buttonPurchaseSubscription.setOnClickListener { purchaseSubscription() }
             viewLoading.setOnClickListener { }

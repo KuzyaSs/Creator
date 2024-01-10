@@ -139,6 +139,10 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
             swipeRefreshLayout.setOnRefreshListener {
                 subscriptionsViewModel.refreshSubscriptions(creatorId = arguments.creatorId)
             }
+            swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
+                scrollView.canScrollVertically(-1) ||
+                        recyclerViewSubscriptions.canScrollVertically(-1)
+            }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
             buttonCreate.setOnClickListener { navigateToCreateSubscriptionFragment() }
             viewLoading.setOnClickListener { }
@@ -167,7 +171,7 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                 binding.viewLoading.isVisible = subscriptions == null
                 binding.progressBarScreen.isVisible = !isErrorMessageShown && subscriptions == null
-                binding.textViewErrorMessage.apply {
+                binding.textViewScreenErrorMessage.apply {
                     text = textLocalizer.localizeText(text = errorMessage)
                     isVisible = isErrorMessageShown && subscriptions == null
                 }

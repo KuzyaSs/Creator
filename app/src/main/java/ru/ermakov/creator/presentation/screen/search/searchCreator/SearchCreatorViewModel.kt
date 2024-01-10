@@ -59,14 +59,16 @@ class SearchCreatorViewModel(
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _searchCreatorUiState.postValue(
-                    _searchCreatorUiState.value?.copy(
-                        creators = listOf(),
-                        isLoadingCreators = false,
-                        isErrorMessageShown = errorMessage.isNotBlank(),
-                        errorMessage = errorMessage
+                if (errorMessage.isNotBlank()) {
+                    _searchCreatorUiState.postValue(
+                        _searchCreatorUiState.value?.copy(
+                            creators = listOf(),
+                            isLoadingCreators = false,
+                            isErrorMessageShown = true,
+                            errorMessage = errorMessage
+                        )
                     )
-                )
+                }
             }
         }
     }
@@ -103,13 +105,16 @@ class SearchCreatorViewModel(
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _searchCreatorUiState.postValue(
-                    _searchCreatorUiState.value?.copy(
-                        isLoadingCreators = false,
-                        isErrorMessageShown = errorMessage.isNotBlank(),
-                        errorMessage = errorMessage
+                if (errorMessage.isNotBlank()) {
+                    _searchCreatorUiState.postValue(
+                        _searchCreatorUiState.value?.copy(
+                            creators = listOf(),
+                            isLoadingCreators = false,
+                            isErrorMessageShown = true,
+                            errorMessage = errorMessage
+                        )
                     )
-                )
+                }
             }
         }
     }

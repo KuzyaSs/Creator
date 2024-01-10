@@ -13,7 +13,7 @@ import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
-private const val SEARCH_FOLLOWS_DELAY = 6000L
+private const val SEARCH_FOLLOWS_DELAY = 1000L
 
 class FollowsViewModel(
     private val searchFollowPageByUserIdUseCase: SearchFollowPageByUserIdUseCase,
@@ -32,17 +32,21 @@ class FollowsViewModel(
 
     fun searchFollows(searchQuery: String) {
         if (searchQuery == _followsUiState.value?.lastSearchQuery &&
-            _followsUiState.value?.follows != null
+            _followsUiState.value?.isRefreshingShown == false
         ) {
-            _followsUiState.value = _followsUiState.value?.copy(isRefreshingShown = false)
             return
         }
         searchFollowsJob?.cancel()
         loadNextFollowPageJob?.cancel()
 
+        var newSearchedFollows: List<Follow>? = null
+        if (_followsUiState.value?.follows != null) {
+            newSearchedFollows = listOf()
+        }
         _followsUiState.value = _followsUiState.value?.copy(
-            follows = listOf(), // Put old state.
+            follows = newSearchedFollows,
             lastSearchQuery = searchQuery,
+            isRefreshingShown = false,
             isLoadingFollows = true,
             isErrorMessageShown = false
         )
@@ -65,15 +69,17 @@ class FollowsViewModel(
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _followsUiState.postValue(
-                    _followsUiState.value?.copy(
-                        follows = listOf(), // Put old state.
-                        isRefreshingShown = false,
-                        isLoadingFollows = false,
-                        isErrorMessageShown = errorMessage.isNotBlank(),
-                        errorMessage = errorMessage
+                if (errorMessage.isNotBlank()) {
+                    _followsUiState.postValue(
+                        _followsUiState.value?.copy(
+                            follows = _followsUiState.value?.follows,
+                            isRefreshingShown = false,
+                            isLoadingFollows = false,
+                            isErrorMessageShown = true,
+                            errorMessage = errorMessage
+                        )
                     )
-                )
+                }
             }
         }
     }
@@ -116,13 +122,17 @@ class FollowsViewModel(
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _followsUiState.postValue(
-                    _followsUiState.value?.copy(
-                        isLoadingFollows = false,
-                        isErrorMessageShown = errorMessage.isNotBlank(),
-                        errorMessage = errorMessage
+                if (errorMessage.isNotBlank()) {
+                    _followsUiState.postValue(
+                        _followsUiState.value?.copy(
+                            follows = _followsUiState.value?.follows,
+                            isRefreshingShown = false,
+                            isLoadingFollows = false,
+                            isErrorMessageShown = true,
+                            errorMessage = errorMessage
+                        )
                     )
-                )
+                }
             }
         }
     }

@@ -108,6 +108,9 @@ class EditProfileFragment : Fragment() {
             swipeRefreshLayout.setOnRefreshListener {
                 editProfileViewModel.refreshCurrentUser()
             }
+            swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
+                scrollView.canScrollVertically(-1)
+            }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
             textViewProfileAvatar.setOnClickListener { editProfileAvatar() }
             textViewProfileBackground.setOnClickListener { editProfileBackground() }
@@ -138,14 +141,14 @@ class EditProfileFragment : Fragment() {
                 }
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                 binding.viewLoading.isVisible = currentUser == null
-                binding.progressBar.isVisible =
-                    !isEditProfileErrorMessageShown && currentUser == null
-                binding.textViewErrorMessage.apply {
-                    text = textLocalizer.localizeText(
-                        text = editProfileErrorMessage
-                    )
+                binding.progressBar.isVisible = !isEditProfileErrorMessageShown
+                        && currentUser == null
+                binding.textViewScreenErrorMessage.apply {
+                    text = textLocalizer.localizeText(text = editProfileErrorMessage)
                     isVisible = isEditProfileErrorMessageShown && currentUser == null
                 }
+                binding.imageViewScreenLogo.isVisible = isEditProfileErrorMessageShown
+                        && currentUser == null
             }
         }
     }

@@ -41,6 +41,7 @@
     <string name="reset_password">Восстановить пароль</string>
     <string name="password_recovery_email">Письмо по восстановлению пароля выслано на вашу электронную почту</string>
     <string name="tell_some_information">Уточните некоторую информацию о вашей учетной записи</string>
+    <string name="blog">Блог</string>
     <string name="my_blog">Мой блог</string>
     <string name="subscriptions">Подписки</string>
     <string name="settings">Настройки</string>
@@ -96,6 +97,8 @@
     <string name="no_results_found_description">Убедитесь, что все слова написаны правильно или попробуйте другие ключевые слова</string>
     <string name="empty_bio">%s решил(а) не делиться информацией о себе…</string>
     <string name="empty_subscription_list">Список подписок пока пуст, но в скором времени он пополнится</string>
+    <string name="empty_follow_list">Список авторов пока пуст</string>
+    <string name="empty_follow_list_description">Здесь отображаются авторы, которых вы отслеживаете</string>
     <string name="add">Добавить</string>
     <string name="subscribe_for">Подписаться за %d</string>
     <string name="subscribed_until">Подписан до %s</string>

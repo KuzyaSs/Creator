@@ -15,7 +15,8 @@
             android:id="@+id/cardViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="?android:windowBackground">
+            android:backgroundTint="?android:windowBackground"
+            app:cardElevation="@dimen/base_margin_size">
 
             <TextView
                 android:id="@+id/textViewTitleWithBackButton"
@@ -26,8 +27,8 @@
                 android:drawablePadding="@dimen/medium_margin_size"
                 android:paddingTop="@dimen/medium_margin_size"
                 android:paddingBottom="@dimen/medium_margin_size"
-                app:drawableStartCompat="@drawable/ic_back"
-                tools:text="Username" />
+                android:text="@string/blog"
+                app:drawableStartCompat="@drawable/ic_back" />
         </androidx.cardview.widget.CardView>
 
         <ScrollView
@@ -290,17 +291,35 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textViewErrorMessage"
-                    style="@style/ErrorTextView"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
 
+                    <ImageView
+                        android:id="@+id/imageViewScreenLogo"
+                        android:layout_width="@dimen/large_image_size"
+                        android:layout_height="@dimen/large_image_size"
+                        android:layout_marginBottom="@dimen/base_margin_size"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/logo"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textViewScreenErrorMessage"
+                        style="@style/ExtraLargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone" />
+                </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </LinearLayout>
