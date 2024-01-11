@@ -26,7 +26,7 @@ import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUse
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
-import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
+import ru.ermakov.creator.domain.useCase.search.SearchCreatorPageBySearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
@@ -134,11 +134,11 @@ class ViewModelFactoryModule {
 
     @Provides
     fun provideSearchCreatorViewModelFactory(
-        searchCreatorsUseCase: SearchCreatorsUseCase,
+        searchCreatorPageBySearchQueryUseCase: SearchCreatorPageBySearchQueryUseCase,
         exceptionHandler: ExceptionHandler
     ): SearchCreatorViewModelFactory {
         return SearchCreatorViewModelFactory(
-            searchCreatorsUseCase = searchCreatorsUseCase,
+            searchCreatorPageBySearchQueryUseCase = searchCreatorPageBySearchQueryUseCase,
             exceptionHandler = exceptionHandler
         )
     }

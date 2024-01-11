@@ -11,8 +11,8 @@ class CreatorRemoteDataSourceImpl(
     private val creatorApi: CreatorApi,
     private val apiExceptionLocalizer: ApiExceptionLocalizer
 ) : CreatorRemoteDataSource {
-    override suspend fun getCreatorsByPage(searchQuery: String, page: Int): List<Creator> {
-        val remoteCreatorsResponse = creatorApi.getCreatorsByPage(
+    override suspend fun getCreatorPageBySearchQuery(searchQuery: String, page: Int): List<Creator> {
+        val remoteCreatorsResponse = creatorApi.getCreatorPageBySearchQuery(
             searchQuery = searchQuery,
             limit = LIMIT,
             offset = LIMIT * page

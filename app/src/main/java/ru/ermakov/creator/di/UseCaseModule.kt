@@ -8,6 +8,7 @@ import ru.ermakov.creator.domain.repository.CreatorRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
 import ru.ermakov.creator.domain.repository.SubscriptionRepository
+import ru.ermakov.creator.domain.repository.TransactionRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.repository.UserSubscriptionRepository
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
@@ -37,7 +38,7 @@ import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUse
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
-import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
+import ru.ermakov.creator.domain.useCase.search.SearchCreatorPageBySearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
@@ -148,12 +149,16 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetCategoriesByUserIdUseCase(categoryRepository: CategoryRepository): GetCategoriesByUserIdUseCase {
+    fun provideGetCategoriesByUserIdUseCase(
+        categoryRepository: CategoryRepository
+    ): GetCategoriesByUserIdUseCase {
         return GetCategoriesByUserIdUseCase(categoryRepository = categoryRepository)
     }
 
     @Provides
-    fun provideUpdateCategoriesUseCase(categoryRepository: CategoryRepository): UpdateCategoriesUseCase {
+    fun provideUpdateCategoriesUseCase(
+        categoryRepository: CategoryRepository
+    ): UpdateCategoriesUseCase {
         return UpdateCategoriesUseCase(categoryRepository = categoryRepository)
     }
 
@@ -184,12 +189,16 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideIsFollowerByUserAndCreatorIdsUseCase(followRepository: FollowRepository): IsFollowerByUserAndCreatorIdsUseCase {
+    fun provideIsFollowerByUserAndCreatorIdsUseCase(
+        followRepository: FollowRepository
+    ): IsFollowerByUserAndCreatorIdsUseCase {
         return IsFollowerByUserAndCreatorIdsUseCase(followRepository = followRepository)
     }
 
     @Provides
-    fun provideGetFollowByUserAndCreatorIdsUseCase(followRepository: FollowRepository): GetFollowByUserAndCreatorIdsUseCase {
+    fun provideGetFollowByUserAndCreatorIdsUseCase(
+        followRepository: FollowRepository
+    ): GetFollowByUserAndCreatorIdsUseCase {
         return GetFollowByUserAndCreatorIdsUseCase(followRepository = followRepository)
     }
 
@@ -206,8 +215,10 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideSearchCreatorsUseCase(creatorRepository: CreatorRepository): SearchCreatorsUseCase {
-        return SearchCreatorsUseCase(creatorRepository = creatorRepository)
+    fun provideSearchCreatorPageBySearchQueryUseCase(
+        creatorRepository: CreatorRepository
+    ): SearchCreatorPageBySearchQueryUseCase {
+        return SearchCreatorPageBySearchQueryUseCase(creatorRepository = creatorRepository)
     }
 
     @Provides
@@ -218,17 +229,23 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideCreateSubscriptionUseCase(subscriptionRepository: SubscriptionRepository): CreateSubscriptionUseCase {
+    fun provideCreateSubscriptionUseCase(
+        subscriptionRepository: SubscriptionRepository
+    ): CreateSubscriptionUseCase {
         return CreateSubscriptionUseCase(subscriptionRepository = subscriptionRepository)
     }
 
     @Provides
-    fun provideGetSubscriptionByIdUseCase(subscriptionRepository: SubscriptionRepository): GetSubscriptionByIdUseCase {
+    fun provideGetSubscriptionByIdUseCase(
+        subscriptionRepository: SubscriptionRepository
+    ): GetSubscriptionByIdUseCase {
         return GetSubscriptionByIdUseCase(subscriptionRepository = subscriptionRepository)
     }
 
     @Provides
-    fun provideEditSubscriptionUseCase(subscriptionRepository: SubscriptionRepository): EditSubscriptionUseCase {
+    fun provideEditSubscriptionUseCase(
+        subscriptionRepository: SubscriptionRepository
+    ): EditSubscriptionUseCase {
         return EditSubscriptionUseCase(subscriptionRepository = subscriptionRepository)
     }
 
@@ -263,8 +280,10 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetBalanceByUserIdUseCase(): GetBalanceByUserIdUseCase {
-        return GetBalanceByUserIdUseCase()
+    fun provideGetBalanceByUserIdUseCase(
+        transactionRepository: TransactionRepository
+    ): GetBalanceByUserIdUseCase {
+        return GetBalanceByUserIdUseCase(transactionRepository = transactionRepository)
     }
 
     @Provides

@@ -9,13 +9,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.model.Creator
-import ru.ermakov.creator.domain.useCase.search.SearchCreatorsUseCase
+import ru.ermakov.creator.domain.useCase.search.SearchCreatorPageBySearchQueryUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 private const val SEARCH_CREATORS_DELAY = 1000L
 
 class SearchCreatorViewModel(
-    private val searchCreatorsUseCase: SearchCreatorsUseCase,
+    private val searchCreatorPageBySearchQueryUseCase: SearchCreatorPageBySearchQueryUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
     private val _searchCreatorUiState = MutableLiveData(SearchCreatorUiState())
@@ -45,7 +45,7 @@ class SearchCreatorViewModel(
         searchCreatorsJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 delay(SEARCH_CREATORS_DELAY)
-                val creators: List<Creator> = searchCreatorsUseCase(
+                val creators: List<Creator> = searchCreatorPageBySearchQueryUseCase(
                     searchQuery = searchQuery,
                     page = 0
                 )
@@ -88,7 +88,7 @@ class SearchCreatorViewModel(
                 delay(SEARCH_CREATORS_DELAY)
                 var nextCreatorPage = (_searchCreatorUiState.value?.currentCreatorPage ?: 0) + 1
                 val currentCreators = _searchCreatorUiState.value?.creators ?: listOf()
-                val followingCreators: List<Creator> = searchCreatorsUseCase(
+                val followingCreators: List<Creator> = searchCreatorPageBySearchQueryUseCase(
                     searchQuery = searchQuery,
                     page = nextCreatorPage
                 )

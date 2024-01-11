@@ -13,12 +13,14 @@ import ru.ermakov.creator.data.remote.dataSource.CreatorRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.TransactionRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.UserSubscriptionRemoteDataSource
 import ru.ermakov.creator.data.repository.CategoryRepositoryImpl
 import ru.ermakov.creator.data.repository.CreatorRepositoryImpl
 import ru.ermakov.creator.data.repository.FileRepositoryImpl
 import ru.ermakov.creator.data.repository.FollowRepositoryImpl
 import ru.ermakov.creator.data.repository.SubscriptionRepositoryImpl
+import ru.ermakov.creator.data.repository.TransactionRepositoryImpl
 import ru.ermakov.creator.data.repository.UserSubscriptionRepositoryImpl
 import ru.ermakov.creator.domain.repository.AuthRepository
 import ru.ermakov.creator.domain.repository.CategoryRepository
@@ -26,6 +28,7 @@ import ru.ermakov.creator.domain.repository.CreatorRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
 import ru.ermakov.creator.domain.repository.SubscriptionRepository
+import ru.ermakov.creator.domain.repository.TransactionRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.repository.UserSubscriptionRepository
 
@@ -97,5 +100,12 @@ class RepositoryModule {
         return UserSubscriptionRepositoryImpl(
             userSubscriptionRemoteDataSource = userSubscriptionRemoteDataSource
         )
+    }
+
+    @Provides
+    fun provideTransactionRepository(
+        transactionRemoteDataSource: TransactionRemoteDataSource
+    ): TransactionRepository {
+        return TransactionRepositoryImpl(transactionRemoteDataSource = transactionRemoteDataSource)
     }
 }

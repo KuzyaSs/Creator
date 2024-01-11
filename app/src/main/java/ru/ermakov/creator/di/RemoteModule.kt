@@ -17,6 +17,7 @@ import ru.ermakov.creator.data.remote.api.CategoryApi
 import ru.ermakov.creator.data.remote.api.CreatorApi
 import ru.ermakov.creator.data.remote.api.FollowApi
 import ru.ermakov.creator.data.remote.api.SubscriptionApi
+import ru.ermakov.creator.data.remote.api.TransactionApi
 import ru.ermakov.creator.data.remote.api.UserApi
 import ru.ermakov.creator.data.remote.api.UserSubscriptionApi
 import ru.ermakov.creator.data.remote.dataSource.AuthRemoteDataSource
@@ -31,6 +32,8 @@ import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSourceImpl
+import ru.ermakov.creator.data.remote.dataSource.TransactionRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.TransactionRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.UserSubscriptionRemoteDataSource
@@ -104,6 +107,11 @@ class RemoteModule {
     }
 
     @Provides
+    fun provideTransactionApi(retrofit: Retrofit): TransactionApi {
+        return retrofit.create(TransactionApi::class.java)
+    }
+
+    @Provides
     fun provideSubscriptionApi(retrofit: Retrofit): SubscriptionApi {
         return retrofit.create(SubscriptionApi::class.java)
     }
@@ -153,6 +161,17 @@ class RemoteModule {
     ): FollowRemoteDataSource {
         return FollowRemoteDataSourceImpl(
             followApi = followApi,
+            apiExceptionLocalizer = apiExceptionLocalizer
+        )
+    }
+
+    @Provides
+    fun provideTransactionRemoteDataSource(
+        transactionApi: TransactionApi,
+        apiExceptionLocalizer: ApiExceptionLocalizer
+    ): TransactionRemoteDataSource {
+        return TransactionRemoteDataSourceImpl(
+            transactionApi = transactionApi,
             apiExceptionLocalizer = apiExceptionLocalizer
         )
     }

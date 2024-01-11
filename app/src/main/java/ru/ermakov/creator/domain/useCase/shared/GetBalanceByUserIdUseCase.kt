@@ -1,10 +1,9 @@
 package ru.ermakov.creator.domain.useCase.shared
 
-import kotlinx.coroutines.delay
+import ru.ermakov.creator.domain.repository.TransactionRepository
 
-class GetBalanceByUserIdUseCase {
+class GetBalanceByUserIdUseCase(private val transactionRepository: TransactionRepository) {
     suspend operator fun invoke(userId: String): Long {
-        delay(1000L)
-        return 150
-    }
+        return transactionRepository.getBalanceByUserId(userId = userId)
+    }taut
 }
