@@ -118,7 +118,11 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_followingFragment_to_followsFragment"
-            app:destination="@id/followsFragment" />
+            app:destination="@id/followsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -192,6 +196,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_blogFragment_to_tipFragment"
+            app:destination="@id/tipFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/subscriptionsFragment"
@@ -245,13 +256,21 @@
     <fragment
         android:id="@+id/followsFragment"
         android:name="ru.ermakov.creator.presentation.screen.follows.FollowsFragment"
-        android:label="FollowsFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right">
+        android:label="FollowsFragment">
         <action
             android:id="@+id/action_followsFragment_to_blogFragment"
-            app:destination="@id/blogFragment" />
+            app:destination="@id/blogFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/tipFragment"
+        android:name="ru.ermakov.creator.presentation.screen.tip.TipFragment"
+        android:label="TipFragment">
+        <argument
+            android:name="creatorId"
+            app:argType="string" />
     </fragment>
 </navigation>

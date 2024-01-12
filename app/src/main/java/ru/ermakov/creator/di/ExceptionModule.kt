@@ -19,7 +19,7 @@ class ExceptionModule {
     }
 
     @Provides
-    fun provideExceptionLocalizer(context: Context): TextLocalizer {
+    fun provideTextLocalizer(context: Context): TextLocalizer {
         return TextLocalizerImpl(context = context)
     }
 

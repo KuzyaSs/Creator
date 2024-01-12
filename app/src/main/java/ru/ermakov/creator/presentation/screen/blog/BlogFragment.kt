@@ -243,7 +243,10 @@ class BlogFragment : Fragment() {
     }
 
     private fun navigateToTipFragment() {
-
+        val action = BlogFragmentDirections.actionBlogFragmentToTipFragment(
+            creatorId = arguments.creatorId
+        )
+        findNavController().navigate(action)
     }
 
     private fun navigateToSubscriptionFragment(creatorId: String) {

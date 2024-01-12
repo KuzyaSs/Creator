@@ -10,6 +10,7 @@ class ErrorConstants {
         const val FOLLOW_NOT_FOUND_EXCEPTION = "Follow is not found"
         const val SUBSCRIPTION_NOT_FOUND_EXCEPTION = "Subscription is not found"
         const val INVALID_SUBSCRIPTION_PRICE_EXCEPTION = "Subscription price must be more than 0 CR-credits"
+        const val INVALID_TIP_AMOUNT_EXCEPTION = "Tip amount must be more than 0 CR-credits"
         const val DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION = "Subscription with the same title already exists"
         const val DUPLICATE_USER_SUBSCRIPTION_EXCEPTION = "User already has this subscription"
         const val EMAIL_FORMAT_EXCEPTION = "The email address is badly formatted"

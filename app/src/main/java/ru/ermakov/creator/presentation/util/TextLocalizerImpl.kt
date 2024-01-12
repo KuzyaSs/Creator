@@ -19,6 +19,7 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_US
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_ACCOUNT_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_GOAL_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_SUBSCRIPTION_PRICE_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_TIP_AMOUNT_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SUBSCRIPTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TRANSACTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
@@ -89,6 +90,10 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
 
             INVALID_SUBSCRIPTION_PRICE_EXCEPTION -> {
                 context.getString(R.string.invalid_subscription_price_exception)
+            }
+
+            INVALID_TIP_AMOUNT_EXCEPTION -> {
+                context.getString(R.string.invalid_tip_amount_exception)
             }
 
             DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION -> {

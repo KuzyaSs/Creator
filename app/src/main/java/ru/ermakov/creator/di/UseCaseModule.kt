@@ -46,6 +46,7 @@ import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
+import ru.ermakov.creator.domain.useCase.tip.SendTipUseCase
 
 @Module
 class UseCaseModule {
@@ -291,5 +292,10 @@ class UseCaseModule {
         followRepository: FollowRepository
     ): SearchFollowPageByUserIdUseCase {
         return SearchFollowPageByUserIdUseCase(followRepository = followRepository)
+    }
+
+    @Provides
+    fun provideSendTipUseCase(transactionRepository: TransactionRepository): SendTipUseCase {
+        return SendTipUseCase(transactionRepository = transactionRepository)
     }
 }

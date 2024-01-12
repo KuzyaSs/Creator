@@ -27,6 +27,7 @@ import ru.ermakov.creator.data.exception.SubscriptionNotFoundException
 import ru.ermakov.creator.data.exception.TransactionNotFoundException
 import ru.ermakov.creator.domain.exception.EmptyDataException
 import ru.ermakov.creator.domain.exception.InvalidSubscriptionPriceException
+import ru.ermakov.creator.domain.exception.InvalidTipAmountException
 import ru.ermakov.creator.domain.exception.PasswordMismatchException
 import ru.ermakov.creator.domain.exception.ShortUsernameException
 
@@ -59,6 +60,10 @@ class ExceptionHandlerImpl : ExceptionHandler {
             }
 
             is InvalidSubscriptionPriceException -> {
+                exception.message
+            }
+
+            is InvalidTipAmountException -> {
                 exception.message
             }
 

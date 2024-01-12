@@ -8,6 +8,7 @@
     <string name="follow_not_found_exception">Follow is not found</string>
     <string name="subscription_not_found_exception">Subscription is not found</string>
     <string name="invalid_subscription_price_exception">Subscription price must be more than 0 CR-credits</string>
+    <string name="invalid_tip_amount_exception">Tip amount must be more than 0 CR-credits</string>
     <string name="duplicate_subscription_title_exception">Subscription with the same title already exists</string>
     <string name="duplicate_user_subscription_exception">You already have this subscription</string>
     <string name="email_format_exception">The email address is badly formatted</string>
@@ -87,6 +88,7 @@
     <string name="creator_bio">Bio</string>
     <string name="goals">Goals</string>
     <string name="tip">Tip</string>
+    <string name="send_tip">Send a tip</string>
     <string name="posts">Posts</string>
     <string name="follow">Follow</string>
     <string name="follows">Follows</string>
@@ -115,6 +117,8 @@
     <string name="description">Description</string>
     <string name="create">Create</string>
     <string name="monthly_price">Monthly price</string>
+    <string name="tip_amount">Tip amount</string>
+    <string name="message">Message</string>
     <string name="edit_subscription">Edit subscription</string>
     <string name="save_changes">Save changes</string>
     <string name="options">Options</string>
@@ -122,6 +126,7 @@
     <string name="subscription_created_successfully">Subscription created successfully</string>
     <string name="subscription_edited_successfully">Subscription edited successfully</string>
     <string name="subscription_purchased_successfully">Subscription purchased successfully</string>
+    <string name="tip_sent_successfully">Tip sent successfully</string>
     <string name="purchase_subscription">Purchase subscription</string>
     <string name="purchase">Purchase</string>
     <string name="subscription_period">Subscription period</string>

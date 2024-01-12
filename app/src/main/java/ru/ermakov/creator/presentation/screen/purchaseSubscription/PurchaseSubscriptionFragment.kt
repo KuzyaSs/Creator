@@ -118,7 +118,7 @@ class PurchaseSubscriptionFragment : Fragment() {
                         price = subscription.price,
                         durationInMonths = selectedSubscriptionPeriod
                     )
-                    setBalance(balance)
+                    setBalance(balance = balance)
                     setLoading(isLoadingShown = isProgressBarPurchaseSubscriptionShown)
                     setErrorMessage(
                         errorMessage = errorMessage,

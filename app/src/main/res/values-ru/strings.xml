@@ -8,6 +8,7 @@
     <string name="follow_not_found_exception">Подписка не найдена</string>
     <string name="subscription_not_found_exception">Платная подписка не найдена</string>
     <string name="invalid_subscription_price_exception">Стоимость подписки должна быть больше 0 CR-кредитов</string>
+    <string name="invalid_tip_amount_exception">Размер доната должен быть больше 0 CR-кредитов</string>
     <string name="duplicate_subscription_title_exception">Подписка с таким же названием уже существует</string>
     <string name="duplicate_user_subscription_exception">Вы уже имеете данную подписку</string>
     <string name="email_format_exception">Некорректный адрес электронной почты</string>
@@ -87,6 +88,7 @@
     <string name="creator_bio">Об авторе</string>
     <string name="goals">Цели</string>
     <string name="tip">Донат</string>
+    <string name="send_tip">Отправить донат</string>
     <string name="posts">Посты</string>
     <string name="follow">Отслеживать</string>
     <string name="follows">Отслеживаемое</string>
@@ -115,6 +117,8 @@
     <string name="description">Описание</string>
     <string name="create">Создать</string>
     <string name="monthly_price">Месячная стоимость</string>
+    <string name="tip_amount">Сумма доната</string>
+    <string name="message">Сообщение</string>
     <string name="edit_subscription">Редактирование подписки</string>
     <string name="save_changes">Сохранить изменения</string>
     <string name="options">Опции</string>
@@ -122,6 +126,7 @@
     <string name="subscription_created_successfully">Подписка успешно создана</string>
     <string name="subscription_edited_successfully">Подписка успешно изменена</string>
     <string name="subscription_purchased_successfully">Подписка успешно куплена</string>
+    <string name="tip_sent_successfully">Донат успешно отправлен</string>
     <string name="purchase_subscription">Покупка подписки</string>
     <string name="purchase">Купить</string>
     <string name="subscription_period">Длительность подписки</string>

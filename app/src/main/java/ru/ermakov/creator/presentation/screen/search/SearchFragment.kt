@@ -74,7 +74,7 @@ class SearchFragment : Fragment(), CreatorLoader {
 
     private fun setUpListeners() {
         binding.textInputEditTextSearch.addTextChangedListener { searchQuery ->
-            searchCreatorViewModel.searchCreators(searchQuery = searchQuery.toString())
+            searchCreatorViewModel.searchCreators(searchQuery = searchQuery?.trim().toString())
         }
     }
 

@@ -34,6 +34,7 @@ import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
+import ru.ermakov.creator.domain.useCase.tip.SendTipUseCase
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
@@ -50,6 +51,7 @@ import ru.ermakov.creator.presentation.screen.signIn.SignInViewModelFactory
 import ru.ermakov.creator.presentation.screen.signUp.SignUpViewModelFactory
 import ru.ermakov.creator.presentation.screen.splash.SplashViewModelFactory
 import ru.ermakov.creator.presentation.screen.subscriptions.SubscriptionsViewModelFactory
+import ru.ermakov.creator.presentation.screen.tip.TipViewModelFactory
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 @Module
@@ -270,6 +272,21 @@ class ViewModelFactoryModule {
         return FollowsViewModelFactory(
             searchFollowPageByUserIdUseCase = searchFollowPageByUserIdUseCase,
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideTipViewModelFactory(
+        sendTipUseCase: SendTipUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): TipViewModelFactory {
+        return TipViewModelFactory(
+            sendTipUseCase = sendTipUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }

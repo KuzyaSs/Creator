@@ -27,6 +27,7 @@ import ru.ermakov.creator.presentation.screen.splash.SplashFragment
 import ru.ermakov.creator.presentation.screen.signIn.SignInFragment
 import ru.ermakov.creator.presentation.screen.signUp.SignUpFragment
 import ru.ermakov.creator.presentation.screen.subscriptions.SubscriptionsFragment
+import ru.ermakov.creator.presentation.screen.tip.TipFragment
 import javax.inject.Singleton
 
 @Component(
@@ -62,6 +63,7 @@ interface ApplicationComponent {
     fun inject(fragment: SearchPostFragment)
     fun inject(fragment: AccountFragment)
     fun inject(fragment: BlogFragment)
+    fun inject(fragment: TipFragment)
     fun inject(fragment: SubscriptionsFragment)
     fun inject(fragment: CreateSubscriptionFragment)
     fun inject(fragment: EditSubscriptionFragment)
