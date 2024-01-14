@@ -3,6 +3,7 @@ package ru.ermakov.creator.di
 import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.balance.SearchUserTransactionPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCreatorByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsFollowerByUserAndCreatorIdsUseCase
@@ -35,6 +36,7 @@ import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreator
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.domain.useCase.tip.SendTipUseCase
+import ru.ermakov.creator.presentation.screen.balance.BalanceViewModelFactory
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
@@ -288,6 +290,21 @@ class ViewModelFactoryModule {
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
             exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideBalanceViewModelFactory(
+        searchUserTransactionPageByUserIdUseCase: SearchUserTransactionPageByUserIdUseCase,
+        getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): BalanceViewModelFactory {
+        return BalanceViewModelFactory(
+            searchUserTransactionPageByUserIdUseCase = searchUserTransactionPageByUserIdUseCase,
+            getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            exceptionHandler = exceptionHandler,
         )
     }
 }

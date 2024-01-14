@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.balance.BalanceFragment
 import ru.ermakov.creator.presentation.screen.blog.CreatorBioFragment
 import ru.ermakov.creator.presentation.screen.blog.BlogFragment
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordFragment
@@ -62,6 +63,7 @@ interface ApplicationComponent {
     fun inject(fragment: SearchCreatorFragment)
     fun inject(fragment: SearchPostFragment)
     fun inject(fragment: AccountFragment)
+    fun inject(fragment: BalanceFragment)
     fun inject(fragment: BlogFragment)
     fun inject(fragment: TipFragment)
     fun inject(fragment: SubscriptionsFragment)

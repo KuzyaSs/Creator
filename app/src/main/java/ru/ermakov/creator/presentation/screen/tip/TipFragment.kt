@@ -113,7 +113,7 @@ class TipFragment : Fragment() {
     private fun sendTip() {
         val creatorId = arguments.creatorId
         val amount = binding.textInputEditTextTipAmount.text.toString().toLongOrDefault(0)
-        val message = binding.textInputEditTextMessage.text.toString()
+        val message = binding.textInputEditTextMessage.text?.trim().toString()
         tipViewModel.sendTip(creatorId = creatorId, amount = amount, message = message)
     }
 

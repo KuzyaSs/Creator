@@ -12,6 +12,8 @@ import ru.ermakov.creator.domain.repository.TransactionRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.repository.UserSubscriptionRepository
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.balance.GetUserTransactionAmountUseCase
+import ru.ermakov.creator.domain.useCase.balance.SearchUserTransactionPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCreatorByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.GetFollowByUserAndCreatorIdsUseCase
@@ -297,5 +299,21 @@ class UseCaseModule {
     @Provides
     fun provideSendTipUseCase(transactionRepository: TransactionRepository): SendTipUseCase {
         return SendTipUseCase(transactionRepository = transactionRepository)
+    }
+
+    @Provides
+    fun provideGetUserTransactionAmountUseCase(): GetUserTransactionAmountUseCase {
+        return GetUserTransactionAmountUseCase()
+    }
+
+    @Provides
+    fun provideSearchUserTransactionPageByUserIdUseCase(
+        transactionRepository: TransactionRepository,
+        getUserTransactionAmountUseCase: GetUserTransactionAmountUseCase
+    ): SearchUserTransactionPageByUserIdUseCase {
+        return SearchUserTransactionPageByUserIdUseCase(
+            transactionRepository = transactionRepository,
+            getUserTransactionAmountUseCase = getUserTransactionAmountUseCase
+        )
     }
 }

@@ -125,8 +125,8 @@ class EditSubscriptionFragment : Fragment() {
     }
 
     private fun editSubscription() {
-        val title = binding.textInputEditTextTitle.text.toString()
-        val description = binding.textInputEditTextDescription.text.toString()
+        val title = binding.textInputEditTextTitle.text?.trim().toString()
+        val description = binding.textInputEditTextDescription.text?.trim().toString()
         val price = binding.textInputEditTextPrice.text.toString().toLongOrNull() ?: 0
         editSubscriptionViewModel.editSubscription(
             subscriptionId = arguments.subscriptionId,

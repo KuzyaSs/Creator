@@ -114,6 +114,7 @@ class FollowsFragment : Fragment() {
             textInputEditTextSearch.addTextChangedListener { searchQuery ->
                 followsViewModel.searchFollows(searchQuery = searchQuery.toString().trim())
             }
+            viewLoading.setOnClickListener { }
         }
     }
 

@@ -123,6 +123,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_followingFragment_to_balanceFragment"
+            app:destination="@id/balanceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -272,5 +279,17 @@
         <argument
             android:name="creatorId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/balanceFragment"
+        android:name="ru.ermakov.creator.presentation.screen.balance.BalanceFragment"
+        android:label="BalanceFragment">
+        <action
+            android:id="@+id/action_balanceFragment_to_blogFragment"
+            app:destination="@id/blogFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 </navigation>

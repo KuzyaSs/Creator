@@ -68,6 +68,30 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
                 context.getString(R.string.entertainment)
             }
 
+            "Top-up" -> {
+                context.getString(R.string.top_up)
+            }
+
+            "Withdrawal" -> {
+                context.getString(R.string.withdrawal)
+            }
+
+            "Credit goal closure" -> {
+                context.getString(R.string.credit_goal_closure)
+            }
+
+            "Subscription purchase" -> {
+                context.getString(R.string.subscription_purchase)
+            }
+
+            "Transfer to a user" -> {
+                context.getString(R.string.transfer_to_user)
+            }
+
+            "Transfer to a credit goal" -> {
+                context.getString(R.string.transfer_to_credit_goal)
+            }
+
             NETWORK_EXCEPTION -> {
                 context.getString(R.string.network_exception)
             }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -27,7 +27,7 @@
                 android:drawablePadding="@dimen/medium_margin_size"
                 android:paddingTop="@dimen/medium_margin_size"
                 android:paddingBottom="@dimen/medium_margin_size"
-                android:text="@string/subscriptions"
+                android:text="@string/balance"
                 app:drawableStartCompat="@drawable/ic_back" />
         </androidx.cardview.widget.CardView>
 
@@ -38,63 +38,111 @@
             android:fillViewport="true"
             android:scrollbars="none">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/motionLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:motionDebug="SHOW_ALL"
+                app:layoutDescription="@xml/fragment_balance_scene">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textViewBalanceLabel"
+                        style="@style/LargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/base_margin_size"
+                        android:text="@string/balance"
+                        android:textColor="?android:textColorSecondary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textViewBalance"
+                        style="@style/TitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/medium_margin_size"
+                        android:drawablePadding="@dimen/medium_margin_size"
+                        app:drawableEndCompat="@drawable/ic_logo_accent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewBalanceLabel"
+                        tools:text="275" />
+
+                    <TextView
+                        android:id="@+id/textViewDeposit"
+                        style="@style/LargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/base_margin_size"
+                        android:layout_marginEnd="@dimen/base_icon_size"
+                        android:drawablePadding="@dimen/small_margin_size"
+                        android:text="@string/deposit"
+                        app:drawableTopCompat="@drawable/ic_add"
+                        app:layout_constraintEnd_toStartOf="@id/textViewWithdraw"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewBalance" />
+
+                    <TextView
+                        android:id="@+id/textViewWithdraw"
+                        style="@style/LargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/base_icon_size"
+                        android:layout_marginTop="@dimen/base_margin_size"
+                        android:drawablePadding="@dimen/small_margin_size"
+                        android:text="@string/withdraw"
+                        app:drawableTopCompat="@drawable/ic_withdraw"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/textViewDeposit"
+                        app:layout_constraintTop_toBottomOf="@id/textViewBalance" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewSubscriptions"
+                    android:id="@+id/recyclerViewTransactions"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginBottom="@dimen/base_margin_size"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toTopOf="@id/buttonCreate"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/constraintLayoutBalance" />
 
                 <LinearLayout
+                    android:id="@+id/linearLayoutRecyclerView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/base_margin_size"
                     android:gravity="center"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@id/recyclerViewSubscriptions"
-                    app:layout_constraintEnd_toEndOf="@id/recyclerViewSubscriptions"
-                    app:layout_constraintStart_toStartOf="@id/recyclerViewSubscriptions"
-                    app:layout_constraintTop_toTopOf="@id/recyclerViewSubscriptions">
+                    app:layout_constraintBottom_toBottomOf="@id/recyclerViewTransactions"
+                    app:layout_constraintEnd_toEndOf="@id/recyclerViewTransactions"
+                    app:layout_constraintStart_toStartOf="@id/recyclerViewTransactions"
+                    app:layout_constraintTop_toTopOf="@id/recyclerViewTransactions">
 
                     <ImageView
-                        android:id="@+id/imageViewLogo"
+                        android:id="@+id/imageViewHistory"
                         android:layout_width="@dimen/large_image_size"
                         android:layout_height="@dimen/large_image_size"
                         android:layout_marginBottom="@dimen/base_margin_size"
                         android:importantForAccessibility="no"
-                        android:src="@drawable/logo" />
+                        android:src="@drawable/ic_history" />
 
                     <TextView
-                        android:id="@+id/textViewEmptyList"
+                        android:id="@+id/textViewEmptyListMessage"
                         style="@style/ExtraLargeTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/base_margin_size"
                         android:gravity="center"
-                        android:text="@string/empty_subscription_list" />
+                        android:text="@string/empty_transaction_list" />
                 </LinearLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonCreate"
-                    style="@style/PrimaryButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/base_margin_size"
-                    android:layout_marginBottom="@dimen/base_margin_size"
-                    android:text="@string/add"
-                    app:icon="@drawable/ic_add"
-                    app:iconPadding="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
                 <View
                     android:id="@+id/viewLoading"
@@ -119,6 +167,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
+                    android:id="@+id/linearLayoutScreen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/base_margin_size"
@@ -146,7 +195,7 @@
                         android:gravity="center"
                         android:visibility="gone" />
                 </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.motion.widget.MotionLayout>
         </ScrollView>
     </LinearLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
