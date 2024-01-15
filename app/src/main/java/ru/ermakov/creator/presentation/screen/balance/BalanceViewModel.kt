@@ -15,6 +15,7 @@ import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 private const val SEARCH_USER_TRANSACTIONS_DELAY = 1000L
+private const val DEFAULT_USER_TRANSACTION_ID = Long.MAX_VALUE
 
 class BalanceViewModel(
     private val searchUserTransactionPageByUserIdUseCase: SearchUserTransactionPageByUserIdUseCase,
@@ -50,22 +51,18 @@ class BalanceViewModel(
         loadNextFollowPageJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 delay(SEARCH_USER_TRANSACTIONS_DELAY)
-                var nextUserTransactionPage =
-                    (_balanceUiState.value?.currentUserTransactionPage ?: 0) + 1
                 val currentUserTransactionItems =
                     _balanceUiState.value?.userTransactionItems ?: listOf()
                 val followingUserTransactionItems: List<UserTransactionItem> =
                     searchUserTransactionPageByUserIdUseCase(
                         userId = getCurrentUserIdUseCase(),
-                        page = nextUserTransactionPage
+                        userTransactionId = _balanceUiState.value
+                            ?.userTransactionItems?.last()
+                            ?.id ?: DEFAULT_USER_TRANSACTION_ID
                     )
-                if (followingUserTransactionItems.isEmpty()) {
-                    nextUserTransactionPage--
-                }
                 _balanceUiState.postValue(
                     _balanceUiState.value?.copy(
                         userTransactionItems = currentUserTransactionItems + followingUserTransactionItems,
-                        currentUserTransactionPage = nextUserTransactionPage,
                         isLoadingShown = false,
                         isErrorMessageShown = false
                     )
@@ -94,6 +91,12 @@ class BalanceViewModel(
         )
     }
 
+    fun swapHeaderVisibility() {
+        _balanceUiState.value = _balanceUiState.value?.copy(
+            isHeaderShown = !(_balanceUiState.value?.isHeaderShown ?: true)
+        )
+    }
+
     private fun searchUserTransactions() {
         searchFollowsJob?.cancel()
         loadNextFollowPageJob?.cancel()
@@ -108,13 +111,12 @@ class BalanceViewModel(
                 val userTransactionItems: List<UserTransactionItem> =
                     searchUserTransactionPageByUserIdUseCase(
                         userId = getCurrentUserIdUseCase(),
-                        page = 0
+                        userTransactionId = DEFAULT_USER_TRANSACTION_ID
                     )
                 _balanceUiState.postValue(
                     _balanceUiState.value?.copy(
                         balance = getBalanceByUserIdUseCase(userId = getCurrentUserIdUseCase()),
                         userTransactionItems = userTransactionItems,
-                        currentUserTransactionPage = 0,
                         isRefreshingShown = false,
                         isLoadingShown = false,
                         isErrorMessageShown = false

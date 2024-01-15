@@ -106,6 +106,10 @@ class BalanceFragment : Fragment() {
                 goBack()
             }
             viewLoading.setOnClickListener { }
+            cardViewTitle.setOnLongClickListener {
+                balanceViewModel.swapHeaderVisibility()
+                true
+            }
         }
     }
 
@@ -115,6 +119,7 @@ class BalanceFragment : Fragment() {
                 if (userTransactionItems != null) {
                     binding.textViewBalance.text = balance.toString()
                     userTransactionAdapter?.submitList(userTransactionItems)
+                    binding.constraintLayoutHeader.isVisible = isHeaderShown
                     setEmptyUserTransactionsInfo(isUserTransactionsEmpty = userTransactionItems.isEmpty())
                     setErrorMessage(
                         errorMessage = textLocalizer.localizeText(text = errorMessage),

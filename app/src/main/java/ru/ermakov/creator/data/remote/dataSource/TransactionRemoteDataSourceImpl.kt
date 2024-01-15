@@ -21,15 +21,14 @@ class TransactionRemoteDataSourceImpl(
 ) : TransactionRemoteDataSource {
     override suspend fun getUserTransactionPageByUserId(
         userId: String,
-        page: Int
+        userTransactionId: Long
     ): List<UserTransaction> {
         val remoteUserTransactionsResponse = transactionApi.getUserTransactionPageByUserId(
             userId = userId,
+            userTransactionId = userTransactionId,
             limit = LIMIT,
-            offset = LIMIT * page
         )
         if (remoteUserTransactionsResponse.isSuccessful) {
-            Log.d("MY_TAG", "getUserTransactionPageByUserId SUCCESS ${remoteUserTransactionsResponse.body()}")
             remoteUserTransactionsResponse.body()?.let { remoteUserTransactions ->
 
                 return remoteUserTransactions.map { remoteUserTransaction ->
@@ -37,7 +36,6 @@ class TransactionRemoteDataSourceImpl(
                 }
             }
         }
-        Log.d("MY_TAG", "getUserTransactionPageByUserId ERROR ${remoteUserTransactionsResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = remoteUserTransactionsResponse)
     }
 

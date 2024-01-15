@@ -6,7 +6,10 @@ import ru.ermakov.creator.domain.model.UserTransaction
 import ru.ermakov.creator.domain.model.UserTransactionRequest
 
 interface TransactionRemoteDataSource {
-    suspend fun getUserTransactionPageByUserId(userId: String, page: Int): List<UserTransaction>
+    suspend fun getUserTransactionPageByUserId(
+        userId: String,
+        userTransactionId: Long
+    ): List<UserTransaction>
 
     suspend fun getCreditGoalTransactionPageByCreditGoalId(
         creditGoalId: Long,

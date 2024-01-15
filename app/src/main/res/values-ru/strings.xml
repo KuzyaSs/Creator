@@ -142,7 +142,7 @@
     <string name="subscription_purchase">Покупка подписки</string>
     <string name="transfer_to_user">Перевод пользователю</string>
     <string name="transfer_to_credit_goal">Перевод на цель</string>
-    <string name="transation_type_with_date">%s (%s)</string>
+    <string name="transation_type_with_date">%s / %s</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

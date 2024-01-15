@@ -12,11 +12,11 @@ class TransactionRepositoryImpl(
 ) : TransactionRepository {
     override suspend fun getUserTransactionPageByUserId(
         userId: String,
-        page: Int
+        userTransactionId: Long
     ): List<UserTransaction> {
         return transactionRemoteDataSource.getUserTransactionPageByUserId(
             userId = userId,
-            page = page
+            userTransactionId = userTransactionId
         )
     }
 

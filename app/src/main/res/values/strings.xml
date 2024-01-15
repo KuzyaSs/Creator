@@ -142,7 +142,7 @@
     <string name="subscription_purchase">Subscription purchase</string>
     <string name="transfer_to_user">Transfer to a user</string>
     <string name="transfer_to_credit_goal">Transfer to a credit goal</string>
-    <string name="transation_type_with_date">%s (%s)</string>
+    <string name="transation_type_with_date">%s / %s</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

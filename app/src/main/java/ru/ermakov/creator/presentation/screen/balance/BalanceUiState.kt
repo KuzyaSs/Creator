@@ -5,7 +5,7 @@ import ru.ermakov.creator.domain.model.UserTransactionItem
 data class BalanceUiState(
     val balance: Long = 0,
     val userTransactionItems: List<UserTransactionItem>? = null,
-    val currentUserTransactionPage: Int = 0,
+    val isHeaderShown: Boolean = true,
     val isRefreshingShown: Boolean = false,
     val isLoadingShown: Boolean = false,
     val isErrorMessageShown: Boolean = false,

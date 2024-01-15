@@ -2,16 +2,21 @@ package ru.ermakov.creator.domain.useCase.balance
 
 import ru.ermakov.creator.domain.model.UserTransactionItem
 import ru.ermakov.creator.domain.repository.TransactionRepository
+import ru.ermakov.creator.domain.useCase.shared.GetDateTimeUseCase
 import java.time.format.DateTimeFormatter
 
 class SearchUserTransactionPageByUserIdUseCase(
     private val transactionRepository: TransactionRepository,
-    private val getUserTransactionAmountUseCase: GetUserTransactionAmountUseCase
+    private val getUserTransactionAmountUseCase: GetUserTransactionAmountUseCase,
+    private val getDateTimeUseCase: GetDateTimeUseCase
 ) {
-    suspend operator fun invoke(userId: String, page: Int): List<UserTransactionItem> {
+    suspend operator fun invoke(
+        userId: String,
+        userTransactionId: Long
+    ): List<UserTransactionItem> {
         return transactionRepository.getUserTransactionPageByUserId(
             userId = userId,
-            page = page
+            userTransactionId = userTransactionId
         ).map { userTransaction ->
             val user = if (userTransaction.senderUser.id != userId) {
                 userTransaction.senderUser
@@ -29,9 +34,7 @@ class SearchUserTransactionPageByUserIdUseCase(
                     userId = userId
                 ),
                 message = userTransaction.message,
-                date = userTransaction.transactionDate.format(
-                    DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                )
+                date = getDateTimeUseCase(userTransaction.transactionDate)
             )
         }
     }

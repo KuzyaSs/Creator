@@ -15,8 +15,8 @@ interface TransactionApi {
     @GET("users/{userId}/transactions")
     suspend fun getUserTransactionPageByUserId(
         @Path("userId") userId: String,
-        @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("userTransactionId") userTransactionId: Long,
+        @Query("limit") limit: Int
     ): Response<List<RemoteUserTransaction>>
 
     @GET("credit-goals/{creditGoalId}/transactions")

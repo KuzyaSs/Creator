@@ -42,6 +42,7 @@ import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmail
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorPageBySearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.shared.GetDateTimeUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignedInUseCase
 import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
@@ -307,13 +308,20 @@ class UseCaseModule {
     }
 
     @Provides
+    fun provideGetDateTimeUseCase(): GetDateTimeUseCase {
+        return GetDateTimeUseCase()
+    }
+
+    @Provides
     fun provideSearchUserTransactionPageByUserIdUseCase(
         transactionRepository: TransactionRepository,
-        getUserTransactionAmountUseCase: GetUserTransactionAmountUseCase
+        getUserTransactionAmountUseCase: GetUserTransactionAmountUseCase,
+        getDateTimeUseCase: GetDateTimeUseCase
     ): SearchUserTransactionPageByUserIdUseCase {
         return SearchUserTransactionPageByUserIdUseCase(
             transactionRepository = transactionRepository,
-            getUserTransactionAmountUseCase = getUserTransactionAmountUseCase
+            getUserTransactionAmountUseCase = getUserTransactionAmountUseCase,
+            getDateTimeUseCase = getDateTimeUseCase
         )
     }
 }

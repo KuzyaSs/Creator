@@ -38,17 +38,17 @@
             android:fillViewport="true"
             android:scrollbars="none">
 
-            <androidx.constraintlayout.motion.widget.MotionLayout
-                android:id="@+id/motionLayout"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:motionDebug="SHOW_ALL"
-                app:layoutDescription="@xml/fragment_balance_scene">
+                android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayoutBalance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:id="@+id/constraintLayoutHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/textViewBalanceLabel"
@@ -81,7 +81,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="@dimen/base_margin_size"
-                        android:layout_marginEnd="@dimen/base_icon_size"
                         android:drawablePadding="@dimen/small_margin_size"
                         android:text="@string/deposit"
                         app:drawableTopCompat="@drawable/ic_add"
@@ -94,7 +93,6 @@
                         style="@style/LargeTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_marginStart="@dimen/base_icon_size"
                         android:layout_marginTop="@dimen/base_margin_size"
                         android:drawablePadding="@dimen/small_margin_size"
                         android:text="@string/withdraw"
@@ -102,6 +100,16 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/textViewDeposit"
                         app:layout_constraintTop_toBottomOf="@id/textViewBalance" />
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/base_margin_size"
+                        app:dividerColor="?attr/colorSecondary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewWithdraw" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -112,7 +120,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/constraintLayoutBalance" />
+                    app:layout_constraintTop_toBottomOf="@id/constraintLayoutHeader" />
 
                 <LinearLayout
                     android:id="@+id/linearLayoutRecyclerView"
@@ -195,7 +203,7 @@
                         android:gravity="center"
                         android:visibility="gone" />
                 </LinearLayout>
-            </androidx.constraintlayout.motion.widget.MotionLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </LinearLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
