@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?android:windowBackground"
+            app:cardElevation="@dimen/base_margin_size">
+
+            <TextView
+                android:id="@+id/textViewTitleWithBackButton"
+                style="@style/TitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_margin_size"
+                android:drawablePadding="@dimen/medium_margin_size"
+                android:paddingTop="@dimen/medium_margin_size"
+                android:paddingBottom="@dimen/medium_margin_size"
+                android:text="@string/top_up"
+                app:drawableStartCompat="@drawable/ic_back" />
+        </androidx.cardview.widget.CardView>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutTopUpAmount"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:hint="@string/top_up_amount"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextTopUpAmount"
+                        style="@style/LargeTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="13" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutCardNumber"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:hint="@string/card_number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutTopUpAmount">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextCardNumber"
+                        style="@style/LargeTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="19" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutValidity"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:hint="@string/validity_mm_yy"
+                    app:layout_constraintEnd_toStartOf="@id/textInputLayoutCvv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutCardNumber">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextValidity"
+                        style="@style/LargeTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="4" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutCvv"
+                    style="@style/TextInputLayout"
+                    android:layout_width="115dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:layout_marginEnd="@dimen/base_margin_size"
+                    android:hint="@string/cvv_cvc"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textInputLayoutValidity"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutCardNumber">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextCvv"
+                        style="@style/LargeTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberPassword"
+                        android:maxLength="3" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textViewBalance"
+                    style="@style/LargeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:drawablePadding="@dimen/medium_margin_size"
+                    android:gravity="center"
+                    app:drawableEndCompat="@drawable/ic_logo_accent"
+                    app:drawableStartCompat="@drawable/ic_balance"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutValidity"
+                    tools:text="Balance: 275" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonTopUp"
+                    style="@style/PrimaryButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:text="@string/deposit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewBalance" />
+
+                <TextView
+                    android:id="@+id/textViewErrorMessage"
+                    style="@style/ErrorTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buttonTopUp" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressBarTopUp"
+                    style="@style/ProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/buttonTopUp"
+                    app:layout_constraintEnd_toEndOf="@id/buttonTopUp"
+                    app:layout_constraintStart_toStartOf="@id/buttonTopUp"
+                    app:layout_constraintTop_toTopOf="@id/buttonTopUp" />
+
+                <View
+                    android:id="@+id/viewLoading"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="?android:windowBackground"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressBarScreen"
+                    style="@style/ProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageViewScreenLogo"
+                        android:layout_width="@dimen/large_image_size"
+                        android:layout_height="@dimen/large_image_size"
+                        android:layout_marginBottom="@dimen/base_margin_size"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/logo"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textViewScreenErrorMessage"
+                        style="@style/ExtraLargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

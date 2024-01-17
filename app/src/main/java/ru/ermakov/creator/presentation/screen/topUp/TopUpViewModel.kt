@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.screen.tip
+package ru.ermakov.creator.presentation.screen.topUp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,55 +12,56 @@ import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
-private const val TRANSFER_TO_USER_TRANSACTION_TYPE_ID = 5L
+private const val TOP_UP_TRANSACTION_TYPE_ID = 1L
 
-class TipViewModel(
+class TopUpViewModel(
     private val insertUserTransactionUseCase: InsertUserTransactionUseCase,
     private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModel() {
-    private val _tipUiState = MutableLiveData(TipUiState())
-    val tipUiState: LiveData<TipUiState> = _tipUiState
+    private val _topUpUiState = MutableLiveData(TopUpUiState())
+    val topUpUiState: LiveData<TopUpUiState> = _topUpUiState
 
     init {
-        setTipFragment()
+        setTopUpFragment()
     }
 
-    fun refreshTipFragment() {
-        _tipUiState.value = _tipUiState.value?.copy(isRefreshingShown = true)
-        setTipFragment()
+    fun refreshTopUpFragment() {
+        _topUpUiState.value = _topUpUiState.value?.copy(isRefreshingShown = true)
+        setTopUpFragment()
     }
 
-    fun sendTip(creatorId: String, amount: Long, message: String) {
-        _tipUiState.postValue(
-            _tipUiState.value?.copy(
-                isProgressBarSendTipShown = true,
+    fun topUp(amount: Long) {
+        _topUpUiState.postValue(
+            _topUpUiState.value?.copy(
+                isProgressBarTopUpShown = true,
                 isErrorMessageShown = false,
             )
         )
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                val currentUserId = getCurrentUserIdUseCase()
                 val userTransactionRequest = UserTransactionRequest(
-                    senderUserId = getCurrentUserIdUseCase(),
-                    receiverUserId = creatorId,
-                    transactionTypeId = TRANSFER_TO_USER_TRANSACTION_TYPE_ID,
+                    senderUserId = currentUserId,
+                    receiverUserId = currentUserId,
+                    transactionTypeId = TOP_UP_TRANSACTION_TYPE_ID,
                     amount = amount,
-                    message = message
+                    message = ""
                 )
                 insertUserTransactionUseCase(userTransactionRequest = userTransactionRequest)
-                _tipUiState.postValue(
-                    _tipUiState.value?.copy(
-                        isTipSent = true,
-                        isProgressBarSendTipShown = false,
+                _topUpUiState.postValue(
+                    _topUpUiState.value?.copy(
+                        isToppedUp = true,
+                        isProgressBarTopUpShown = false,
                         isErrorMessageShown = false
                     )
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _tipUiState.postValue(
-                    _tipUiState.value?.copy(
-                        isProgressBarSendTipShown = false,
+                _topUpUiState.postValue(
+                    _topUpUiState.value?.copy(
+                        isProgressBarTopUpShown = false,
                         isErrorMessageShown = true,
                         errorMessage = errorMessage
                     )
@@ -69,27 +70,27 @@ class TipViewModel(
         }
     }
 
-    private fun setTipFragment() {
-        _tipUiState.value = _tipUiState.value?.copy(
-            isLoading = true,
+    private fun setTopUpFragment() {
+        _topUpUiState.value = _topUpUiState.value?.copy(
+            isLoadingShown = true,
             isErrorMessageShown = false
         )
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _tipUiState.postValue(
-                    _tipUiState.value?.copy(
+                _topUpUiState.postValue(
+                    _topUpUiState.value?.copy(
                         balance = getBalanceByUserIdUseCase(userId = getCurrentUserIdUseCase()),
                         isRefreshingShown = false,
-                        isLoading = false,
+                        isLoadingShown = false,
                         isErrorMessageShown = false
                     )
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _tipUiState.postValue(
-                    _tipUiState.value?.copy(
+                _topUpUiState.postValue(
+                    _topUpUiState.value?.copy(
                         isRefreshingShown = false,
-                        isLoading = false,
+                        isLoadingShown = false,
                         isErrorMessageShown = true,
                         errorMessage = errorMessage
                     )

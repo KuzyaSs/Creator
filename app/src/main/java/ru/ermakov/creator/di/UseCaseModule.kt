@@ -49,7 +49,7 @@ import ru.ermakov.creator.domain.useCase.signUp.SignUpUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
-import ru.ermakov.creator.domain.useCase.tip.SendTipUseCase
+import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
 
 @Module
 class UseCaseModule {
@@ -298,8 +298,10 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideSendTipUseCase(transactionRepository: TransactionRepository): SendTipUseCase {
-        return SendTipUseCase(transactionRepository = transactionRepository)
+    fun provideInsertUserTransactionUseCase(
+        transactionRepository: TransactionRepository
+    ): InsertUserTransactionUseCase {
+        return InsertUserTransactionUseCase(transactionRepository = transactionRepository)
     }
 
     @Provides
