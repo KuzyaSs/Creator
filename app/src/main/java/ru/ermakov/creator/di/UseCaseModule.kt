@@ -50,6 +50,7 @@ import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreator
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
+import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardDetailsUseCase
 
 @Module
 class UseCaseModule {
@@ -325,5 +326,10 @@ class UseCaseModule {
             getUserTransactionAmountUseCase = getUserTransactionAmountUseCase,
             getDateTimeUseCase = getDateTimeUseCase
         )
+    }
+
+    @Provides
+    fun provideValidateCreditCardDetailsUseCase(): ValidateCreditCardDetailsUseCase {
+        return ValidateCreditCardDetailsUseCase()
     }
 }

@@ -8,6 +8,9 @@
     <string name="follow_not_found_exception">Follow is not found</string>
     <string name="subscription_not_found_exception">Subscription is not found</string>
     <string name="invalid_subscription_price_exception">Subscription price must be more than 0 CR-credits</string>
+    <string name="invalid_card_number_length_exception">Card number must be 16 characters long</string>
+    <string name="invalid_validity_length_exception">Validity must be 4 characters long</string>
+    <string name="invalid_cvv_length_exception">CVV must be 3 characters long</string>
     <string name="invalid_tip_amount_exception">Tip amount must be more than 0 CR-credits</string>
     <string name="duplicate_subscription_title_exception">Subscription with the same title already exists</string>
     <string name="duplicate_user_subscription_exception">You already have this subscription</string>

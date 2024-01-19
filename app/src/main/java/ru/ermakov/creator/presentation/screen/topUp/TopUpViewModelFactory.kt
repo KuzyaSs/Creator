@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
+import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardDetailsUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class TopUpViewModelFactory(
     private val insertUserTransactionUseCase: InsertUserTransactionUseCase,
+    private val validateCreditCardDetailsUseCase: ValidateCreditCardDetailsUseCase,
     private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
     private val exceptionHandler: ExceptionHandler
@@ -18,6 +20,7 @@ class TopUpViewModelFactory(
             @Suppress("UNCHECKED_CAST")
             return TopUpViewModel(
                 insertUserTransactionUseCase = insertUserTransactionUseCase,
+                validateCreditCardDetailsUseCase = validateCreditCardDetailsUseCase,
                 getCurrentUserIdUseCase = getCurrentUserIdUseCase,
                 getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
                 exceptionHandler = exceptionHandler

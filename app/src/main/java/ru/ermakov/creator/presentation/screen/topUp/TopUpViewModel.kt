@@ -10,12 +10,14 @@ import ru.ermakov.creator.domain.model.UserTransactionRequest
 import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
+import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardDetailsUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 private const val TOP_UP_TRANSACTION_TYPE_ID = 1L
 
 class TopUpViewModel(
     private val insertUserTransactionUseCase: InsertUserTransactionUseCase,
+    private val validateCreditCardDetailsUseCase: ValidateCreditCardDetailsUseCase,
     private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
     private val exceptionHandler: ExceptionHandler
@@ -32,7 +34,7 @@ class TopUpViewModel(
         setTopUpFragment()
     }
 
-    fun topUp(amount: Long) {
+    fun topUp(amount: Long, cardNumber: String, validity: String, cvv: String) {
         _topUpUiState.postValue(
             _topUpUiState.value?.copy(
                 isProgressBarTopUpShown = true,
@@ -41,6 +43,7 @@ class TopUpViewModel(
         )
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                validateCreditCardDetailsUseCase(cardNumber, validity, cvv)
                 val currentUserId = getCurrentUserIdUseCase()
                 val userTransactionRequest = UserTransactionRequest(
                     senderUserId = currentUserId,

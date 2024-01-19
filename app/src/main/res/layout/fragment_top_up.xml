@@ -81,7 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:maxLength="19" />
+                        android:maxLength="16" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -108,7 +108,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayoutCvv"
                     style="@style/TextInputLayout"
-                    android:layout_width="115dp"
+                    android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/base_margin_size"
                     android:layout_marginEnd="@dimen/base_margin_size"

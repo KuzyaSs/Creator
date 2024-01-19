@@ -105,6 +105,8 @@ class BalanceFragment : Fragment() {
             textViewTitleWithBackButton.setOnClickListener {
                 goBack()
             }
+            textViewDeposit.setOnClickListener { navigateToTopUpFragment() }
+            textViewWithdraw.setOnClickListener { navigateToWithdrawalFragment() }
             viewLoading.setOnClickListener { }
             cardViewTitle.setOnLongClickListener {
                 balanceViewModel.swapHeaderVisibility()
@@ -138,6 +140,16 @@ class BalanceFragment : Fragment() {
                     isErrorMessageShown && userTransactionItems == null
             }
         }
+    }
+
+    private fun navigateToTopUpFragment() {
+        val action = BalanceFragmentDirections.actionBalanceFragmentToTopUpFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToWithdrawalFragment() {
+        /*        val action = BalanceFragmentDirections.actionBalanceFragmentToTopUpFragment()
+                findNavController().navigate(action)*/
     }
 
     private fun navigateToBlogFragment(creatorId: String) {

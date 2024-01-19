@@ -36,6 +36,7 @@ import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreator
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
+import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardDetailsUseCase
 import ru.ermakov.creator.presentation.screen.balance.BalanceViewModelFactory
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
@@ -312,12 +313,14 @@ class ViewModelFactoryModule {
     @Provides
     fun provideTopUpViewModelFactory(
         insertUserTransactionUseCase: InsertUserTransactionUseCase,
+        validateCreditCardDetailsUseCase: ValidateCreditCardDetailsUseCase,
         getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
         getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
         exceptionHandler: ExceptionHandler
     ): TopUpViewModelFactory {
         return TopUpViewModelFactory(
             insertUserTransactionUseCase = insertUserTransactionUseCase,
+            validateCreditCardDetailsUseCase = validateCreditCardDetailsUseCase,
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
             exceptionHandler = exceptionHandler

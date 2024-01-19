@@ -110,7 +110,15 @@ class TopUpFragment : Fragment() {
 
     private fun topUp() {
         val amount = binding.textInputEditTextTopUpAmount.text.toString().toLongOrDefault(0)
-        topUpViewModel.topUp(amount = amount)
+        val cardNumber = binding.textInputEditTextCardNumber.text.toString()
+        val validity = binding.textInputEditTextValidity.text.toString()
+        val cvv = binding.textInputEditTextCvv.text.toString()
+        topUpViewModel.topUp(
+            amount = amount,
+            cardNumber = cardNumber,
+            validity = validity,
+            cvv = cvv
+        )
     }
 
     private fun goBack() {

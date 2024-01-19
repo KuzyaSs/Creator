@@ -18,8 +18,11 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_US
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USER_SUBSCRIPTION_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_ACCOUNT_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_GOAL_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_CARD_NUMBER_LENGTH_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_CVV_LENGTH_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_SUBSCRIPTION_PRICE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_TIP_AMOUNT_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_VALIDITY_LENGTH_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SUBSCRIPTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TRANSACTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
@@ -114,6 +117,18 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
 
             INVALID_SUBSCRIPTION_PRICE_EXCEPTION -> {
                 context.getString(R.string.invalid_subscription_price_exception)
+            }
+
+            INVALID_CARD_NUMBER_LENGTH_EXCEPTION -> {
+                context.getString(R.string.invalid_card_number_length_exception)
+            }
+
+            INVALID_VALIDITY_LENGTH_EXCEPTION -> {
+                context.getString(R.string.invalid_validity_length_exception)
+            }
+
+            INVALID_CVV_LENGTH_EXCEPTION -> {
+                context.getString(R.string.invalid_cvv_length_exception)
             }
 
             INVALID_TIP_AMOUNT_EXCEPTION -> {
