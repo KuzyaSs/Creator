@@ -30,6 +30,7 @@ import ru.ermakov.creator.presentation.screen.signUp.SignUpFragment
 import ru.ermakov.creator.presentation.screen.subscriptions.SubscriptionsFragment
 import ru.ermakov.creator.presentation.screen.tip.TipFragment
 import ru.ermakov.creator.presentation.screen.topUp.TopUpFragment
+import ru.ermakov.creator.presentation.screen.withdrawal.WithdrawalFragment
 import javax.inject.Singleton
 
 @Component(
@@ -66,6 +67,7 @@ interface ApplicationComponent {
     fun inject(fragment: AccountFragment)
     fun inject(fragment: BalanceFragment)
     fun inject(fragment: TopUpFragment)
+    fun inject(fragment: WithdrawalFragment)
     fun inject(fragment: BlogFragment)
     fun inject(fragment: TipFragment)
     fun inject(fragment: SubscriptionsFragment)

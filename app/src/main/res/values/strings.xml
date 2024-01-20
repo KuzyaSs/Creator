@@ -11,7 +11,7 @@
     <string name="invalid_card_number_length_exception">Card number must be 16 characters long</string>
     <string name="invalid_validity_length_exception">Validity must be 4 characters long</string>
     <string name="invalid_cvv_length_exception">CVV must be 3 characters long</string>
-    <string name="invalid_tip_amount_exception">Tip amount must be more than 0 CR-credits</string>
+    <string name="invalid_transaction_amount_exception">Enter the amount of CR-credit for the transaction</string>
     <string name="duplicate_subscription_title_exception">Subscription with the same title already exists</string>
     <string name="duplicate_user_subscription_exception">You already have this subscription</string>
     <string name="email_format_exception">The email address is badly formatted</string>
@@ -151,7 +151,8 @@
     <string name="validity_mm_yy">Validity (mm/yy)</string>
     <string name="cvv_cvc">CVV/CVC</string>
     <string name="withdrawal_amount">Withdrawal amount</string>
-    <string name="balance_topped_up_successfully">Balance topped up successfully</string>
+    <string name="balance_topped_up_successfully">Balance topped-up successfully</string>
+    <string name="balance_withdrawn_successfully">Balance withdrawn successfully</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

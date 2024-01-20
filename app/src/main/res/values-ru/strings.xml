@@ -11,7 +11,7 @@
     <string name="invalid_card_number_length_exception">Длина номера карты должна составлять 16 символов</string>
     <string name="invalid_validity_length_exception">Длина срока действия карты должна составлять 4 символа</string>
     <string name="invalid_cvv_length_exception">Длина CVV должна составлять 3 символа</string>
-    <string name="invalid_tip_amount_exception">Размер доната должен быть больше 0 CR-кредитов</string>
+    <string name="invalid_transaction_amount_exception">Введите число CR-кредитов для транзакции</string>
     <string name="duplicate_subscription_title_exception">Подписка с таким же названием уже существует</string>
     <string name="duplicate_user_subscription_exception">Вы уже имеете данную подписку</string>
     <string name="email_format_exception">Некорректный адрес электронной почты</string>
@@ -152,6 +152,7 @@
     <string name="cvv_cvc">CVV/CVC</string>
     <string name="withdrawal_amount">Сумма снятия</string>
     <string name="balance_topped_up_successfully">Баланс успешно пополнен</string>
+    <string name="balance_withdrawn_successfully">Кредиты успешно сняты</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

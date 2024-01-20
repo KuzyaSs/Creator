@@ -148,8 +148,8 @@ class BalanceFragment : Fragment() {
     }
 
     private fun navigateToWithdrawalFragment() {
-        /*        val action = BalanceFragmentDirections.actionBalanceFragmentToTopUpFragment()
-                findNavController().navigate(action)*/
+        val action = BalanceFragmentDirections.actionBalanceFragmentToWithdrawalFragment()
+        findNavController().navigate(action)
     }
 
     private fun navigateToBlogFragment(creatorId: String) {

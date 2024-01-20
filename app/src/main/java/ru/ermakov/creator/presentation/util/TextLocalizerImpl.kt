@@ -21,7 +21,7 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_CARD_NUMBER_LENGTH_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_CVV_LENGTH_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_SUBSCRIPTION_PRICE_EXCEPTION
-import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_TIP_AMOUNT_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_TRANSACTION_AMOUNT_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_VALIDITY_LENGTH_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SUBSCRIPTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TRANSACTION_NOT_FOUND_EXCEPTION
@@ -131,8 +131,8 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
                 context.getString(R.string.invalid_cvv_length_exception)
             }
 
-            INVALID_TIP_AMOUNT_EXCEPTION -> {
-                context.getString(R.string.invalid_tip_amount_exception)
+            INVALID_TRANSACTION_AMOUNT_EXCEPTION -> {
+                context.getString(R.string.invalid_transaction_amount_exception)
             }
 
             DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION -> {

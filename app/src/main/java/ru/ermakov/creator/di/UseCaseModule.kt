@@ -51,6 +51,9 @@ import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUse
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
 import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardDetailsUseCase
+import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardNumberUseCase
+import ru.ermakov.creator.domain.useCase.topUp.ValidateCvvUseCase
+import ru.ermakov.creator.domain.useCase.topUp.ValidateValidityUseCase
 
 @Module
 class UseCaseModule {
@@ -329,7 +332,30 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideValidateCreditCardDetailsUseCase(): ValidateCreditCardDetailsUseCase {
-        return ValidateCreditCardDetailsUseCase()
+    fun provideValidateCreditCardDetailsUseCase(
+        validateCreditCardNumberUseCase: ValidateCreditCardNumberUseCase,
+        validateValidityUseCase: ValidateValidityUseCase,
+        validateCvvUseCase: ValidateCvvUseCase
+    ): ValidateCreditCardDetailsUseCase {
+        return ValidateCreditCardDetailsUseCase(
+            validateCreditCardNumberUseCase = validateCreditCardNumberUseCase,
+            validateValidityUseCase = validateValidityUseCase,
+            validateCvvUseCase = validateCvvUseCase
+        )
+    }
+
+    @Provides
+    fun provideValidateCreditCardNumberUseCase(): ValidateCreditCardNumberUseCase {
+        return ValidateCreditCardNumberUseCase()
+    }
+
+    @Provides
+    fun provideValidateValidityUseCase(): ValidateValidityUseCase {
+        return ValidateValidityUseCase()
+    }
+
+    @Provides
+    fun provideValidateCvvUseCase(): ValidateCvvUseCase {
+        return ValidateCvvUseCase()
     }
 }

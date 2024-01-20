@@ -10,7 +10,7 @@ class ErrorConstants {
         const val FOLLOW_NOT_FOUND_EXCEPTION = "Follow is not found"
         const val SUBSCRIPTION_NOT_FOUND_EXCEPTION = "Subscription is not found"
         const val INVALID_SUBSCRIPTION_PRICE_EXCEPTION = "Subscription price must be more than 0 CR-credits"
-        const val INVALID_TIP_AMOUNT_EXCEPTION = "Tip amount must be more than 0 CR-credits"
+        const val INVALID_TRANSACTION_AMOUNT_EXCEPTION = "Enter the amount of CR-credit for the transaction"
         const val INVALID_CARD_NUMBER_LENGTH_EXCEPTION = "Card number must be 16 characters long"
         const val INVALID_VALIDITY_LENGTH_EXCEPTION = "Validity must be 4 characters long"
         const val INVALID_CVV_LENGTH_EXCEPTION = "CVV must be 3 characters long"

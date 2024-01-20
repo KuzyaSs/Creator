@@ -29,7 +29,7 @@ import ru.ermakov.creator.domain.exception.EmptyDataException
 import ru.ermakov.creator.domain.exception.InvalidCardNumberLengthException
 import ru.ermakov.creator.domain.exception.InvalidCvvLengthException
 import ru.ermakov.creator.domain.exception.InvalidSubscriptionPriceException
-import ru.ermakov.creator.domain.exception.InvalidTipAmountException
+import ru.ermakov.creator.domain.exception.InvalidTransactionAmountException
 import ru.ermakov.creator.domain.exception.InvalidValidityLengthException
 import ru.ermakov.creator.domain.exception.PasswordMismatchException
 import ru.ermakov.creator.domain.exception.ShortUsernameException
@@ -66,7 +66,7 @@ class ExceptionHandlerImpl : ExceptionHandler {
                 exception.message
             }
 
-            is InvalidTipAmountException -> {
+            is InvalidTransactionAmountException -> {
                 exception.message
             }
 
