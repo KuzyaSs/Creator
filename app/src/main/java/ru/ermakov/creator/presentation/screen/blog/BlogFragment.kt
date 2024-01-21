@@ -239,7 +239,10 @@ class BlogFragment : Fragment() {
     }
 
     private fun navigateToGoalFragment() {
-
+        val action = BlogFragmentDirections.actionBlogFragmentToCreditGoalsFragment(
+            creatorId = arguments.creatorId
+        )
+        findNavController().navigate(action)
     }
 
     private fun navigateToTipFragment() {

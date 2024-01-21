@@ -68,7 +68,7 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
         if (subscriptionsViewModel.subscriptionsUiState.value?.subscriptions == null) {
             subscriptionsViewModel.setSubscriptions(creatorId = arguments.creatorId)
         }
-        optionsFragment = OptionsFragment()
+        optionsFragment = OptionsFragment(isEditShown = true, isDeleteShown = true)
         setUpSwipeRefreshLayout()
         setUnsubscribeDialog()
         setDeleteSubscriptionDialog()
@@ -155,13 +155,12 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
                 if (subscriptions != null && userSubscriptions != null) {
                     val isOwner = currentUserId == creatorId
                     binding.buttonCreate.isVisible = isOwner
-                    setUpCreatorRecyclerView(
+                    setUpSubscriptionRecyclerView(
                         subscriptions = subscriptions,
                         userSubscriptions = userSubscriptions,
                         isOwner = isOwner
                     )
                     setEmptyListInfo(isEmptyList = subscriptions.isEmpty())
-                    binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                     setErrorMessage(
                         errorMessage = textLocalizer.localizeText(text = errorMessage),
                         isErrorMessageShown = isErrorMessageShown
@@ -180,7 +179,7 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
         }
     }
 
-    private fun setUpCreatorRecyclerView(
+    private fun setUpSubscriptionRecyclerView(
         subscriptions: List<Subscription>,
         userSubscriptions: List<UserSubscription>,
         isOwner: Boolean
@@ -188,14 +187,14 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
         subscriptionAdapter = SubscriptionAdapter(
             userSubscriptions = userSubscriptions,
             isOwner = isOwner,
-            onMoreImageViewClickListener = { subscription ->
+            onImageViewMoreClickListener = { subscription ->
                 subscriptionsViewModel.setSelectedSubscriptionId(subscriptionId = subscription.id)
                 optionsFragment?.show(childFragmentManager, optionsFragment.toString())
             },
-            onSubscribeButtonClickListener = { subscription ->
+            onButtonSubscribeClickListener = { subscription ->
                 navigateToPurchaseSubscriptionFragment(subscriptionId = subscription.id)
             },
-            onUnsubscribeButtonClickListener = { userSubscription ->
+            onButtonUnsubscribeClickListener = { userSubscription ->
                 subscriptionsViewModel.setSelectedUserSubscriptionId(
                     userSubscriptionId = userSubscription.id
                 )
@@ -250,4 +249,6 @@ class SubscriptionsFragment : Fragment(), OptionsHandler {
     override fun delete() {
         deleteSubscriptionDialog?.show()
     }
+
+    override fun close() {}
 }

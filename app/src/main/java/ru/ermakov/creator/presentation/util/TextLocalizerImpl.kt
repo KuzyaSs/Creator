@@ -2,6 +2,7 @@ package ru.ermakov.creator.presentation.util
 
 import android.content.Context
 import ru.ermakov.creator.R
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.CREDIT_GOAL_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_COLLISION_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_FORMAT_EXCEPTION
@@ -19,6 +20,7 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_US
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_ACCOUNT_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INSUFFICIENT_FUNDS_IN_GOAL_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_CARD_NUMBER_LENGTH_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_CREDIT_GOAL_TARGET_BALANCE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_CVV_LENGTH_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_SUBSCRIPTION_PRICE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_TRANSACTION_AMOUNT_EXCEPTION
@@ -115,8 +117,16 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
                 context.getString(R.string.subscription_not_found_exception)
             }
 
+            CREDIT_GOAL_NOT_FOUND_EXCEPTION -> {
+                context.getString(R.string.credit_goal_not_found_exception)
+            }
+
             INVALID_SUBSCRIPTION_PRICE_EXCEPTION -> {
                 context.getString(R.string.invalid_subscription_price_exception)
+            }
+
+            INVALID_CREDIT_GOAL_TARGET_BALANCE_EXCEPTION -> {
+                context.getString(R.string.invalid_credit_goal_target_balance_price_exception)
             }
 
             INVALID_CARD_NUMBER_LENGTH_EXCEPTION -> {

@@ -15,9 +15,9 @@ import java.time.format.DateTimeFormatter
 class SubscriptionAdapter(
     private val userSubscriptions: List<UserSubscription>,
     private val isOwner: Boolean,
-    private val onMoreImageViewClickListener: (Subscription) -> Unit,
-    private val onSubscribeButtonClickListener: (Subscription) -> Unit,
-    private val onUnsubscribeButtonClickListener: (UserSubscription) -> Unit
+    private val onImageViewMoreClickListener: (Subscription) -> Unit,
+    private val onButtonSubscribeClickListener: (Subscription) -> Unit,
+    private val onButtonUnsubscribeClickListener: (UserSubscription) -> Unit
 ) : ListAdapter<Subscription, SubscriptionAdapter.SubscriptionViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubscriptionViewHolder {
         return SubscriptionViewHolder(
@@ -45,12 +45,12 @@ class SubscriptionAdapter(
             }
             binding.imageViewMore.apply {
                 isVisible = isOwner
-                setOnClickListener { onMoreImageViewClickListener(subscription) }
+                setOnClickListener { onImageViewMoreClickListener(subscription) }
             }
             binding.buttonSubscribe.apply {
                 isVisible = !isOwner && userSubscription == null
                 text = binding.root.resources.getString(R.string.subscribe_for, subscription.price)
-                setOnClickListener { onSubscribeButtonClickListener(subscription) }
+                setOnClickListener { onButtonSubscribeClickListener(subscription) }
             }
             if (userSubscription != null) {
                 binding.buttonSubscribed.apply {
@@ -62,7 +62,7 @@ class SubscriptionAdapter(
                 }
                 binding.buttonUnsubscribe.apply {
                     isVisible = !isOwner
-                    setOnClickListener { onUnsubscribeButtonClickListener(userSubscription) }
+                    setOnClickListener { onButtonUnsubscribeClickListener(userSubscription) }
                 }
             }
         }

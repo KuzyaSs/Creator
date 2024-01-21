@@ -7,7 +7,9 @@
     <string name="user_not_found_exception">User is not found</string>
     <string name="follow_not_found_exception">Follow is not found</string>
     <string name="subscription_not_found_exception">Subscription is not found</string>
+    <string name="credit_goal_not_found_exception">Goal is not found</string>
     <string name="invalid_subscription_price_exception">Subscription price must be more than 0 CR-credits</string>
+    <string name="invalid_credit_goal_target_balance_price_exception">Target balance must be more than 0 CR-credits</string>
     <string name="invalid_card_number_length_exception">Card number must be 16 characters long</string>
     <string name="invalid_validity_length_exception">Validity must be 4 characters long</string>
     <string name="invalid_cvv_length_exception">CVV must be 3 characters long</string>
@@ -91,7 +93,8 @@
     <string name="creator_bio">Bio</string>
     <string name="goals">Goals</string>
     <string name="tip">Tip</string>
-    <string name="send_tip">Send a tip</string>
+    <string name="donate">Donate</string>
+    <string name="close_credit_goal">Close goal</string>
     <string name="posts">Posts</string>
     <string name="follow">Follow</string>
     <string name="follows">Follows</string>
@@ -103,6 +106,7 @@
     <string name="empty_bio">%s decided not to share information about him(her)self…</string>
     <string name="empty_subscription_list">The subscription list is still empty, but it will be added soon</string>
     <string name="empty_follow_list">The follow list is still empty</string>
+    <string name="empty_credit_goal_list">The goal list is still empty, but it will be added soon</string>
     <string name="empty_follow_list_description">Here you can see the creators you are following</string>
     <string name="empty_transaction_list">Here will be your transaction history</string>
     <string name="add">Add</string>
@@ -113,9 +117,12 @@
     <string name="cancel_subscription_description">The subscription will no longer be available</string>
     <string name="delete_subscription_question">Are you sure you want to delete your subscription?</string>
     <string name="delete_subscription_description">The subscription will no longer be available to other users, but those who already have it won\'t lose it</string>
+    <string name="close_credit_goal_question">Are you sure you want to close your goal?</string>
+    <string name="close_credit_goal_description">After the goal is closed, credits will be transferred to your account balance</string>
     <string name="no">No</string>
     <string name="yes_cancel">Yes, cancel</string>
     <string name="yes_delete">Yes, delete</string>
+    <string name="yes_close">Yes, close</string>
     <string name="new_subscription">New subscription</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
@@ -124,11 +131,14 @@
     <string name="tip_amount">Tip amount</string>
     <string name="message">Message</string>
     <string name="edit_subscription">Edit subscription</string>
+    <string name="edit_credit_goal">Edit goal</string>
     <string name="save_changes">Save changes</string>
     <string name="options">Options</string>
     <string name="delete">Delete</string>
     <string name="subscription_created_successfully">Subscription created successfully</string>
     <string name="subscription_edited_successfully">Subscription edited successfully</string>
+    <string name="credit_goal_created_successfully">Goal created successfully</string>
+    <string name="credit_goal_edited_successfully">Goal edited successfully</string>
     <string name="subscription_purchased_successfully">Subscription purchased successfully</string>
     <string name="tip_sent_successfully">Tip sent successfully</string>
     <string name="purchase_subscription">Purchase subscription</string>
@@ -145,7 +155,8 @@
     <string name="subscription_purchase">Subscription purchase</string>
     <string name="transfer_to_user">Transfer to a user</string>
     <string name="transfer_to_credit_goal">Transfer to a credit goal</string>
-    <string name="transation_type_with_date">%s / %s</string>
+    <string name="transaction_type_with_date">%s / %s</string>
+    <string name="target_balance_of_balance">%d of %d</string>
     <string name="top_up_amount">Top-up amount</string>
     <string name="card_number">Card number</string>
     <string name="validity_mm_yy">Validity (mm/yy)</string>
@@ -153,6 +164,10 @@
     <string name="withdrawal_amount">Withdrawal amount</string>
     <string name="balance_topped_up_successfully">Balance topped-up successfully</string>
     <string name="balance_withdrawn_successfully">Balance withdrawn successfully</string>
+    <string name="raised">raised</string>
+    <string name="close">Close</string>
+    <string name="new_credit_goal">New goal</string>
+    <string name="target_balance">Target balance</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

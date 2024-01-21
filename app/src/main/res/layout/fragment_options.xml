@@ -43,13 +43,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewEdit" />
 
+        <TextView
+            android:id="@+id/textViewClose"
+            style="@style/TextViewInListWithDrawable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/close"
+            app:drawableStartCompat="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewDelete" />
+
         <View
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/base_margin_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewDelete" />
+            app:layout_constraintTop_toBottomOf="@id/textViewClose" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

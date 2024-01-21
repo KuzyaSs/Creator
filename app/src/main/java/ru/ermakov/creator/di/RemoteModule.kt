@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.remote.api.CategoryApi
 import ru.ermakov.creator.data.remote.api.CreatorApi
+import ru.ermakov.creator.data.remote.api.CreditGoalApi
 import ru.ermakov.creator.data.remote.api.FollowApi
 import ru.ermakov.creator.data.remote.api.SubscriptionApi
 import ru.ermakov.creator.data.remote.api.TransactionApi
@@ -26,6 +27,8 @@ import ru.ermakov.creator.data.remote.dataSource.CategoryRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.CategoryRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.CreatorRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.CreatorRemoteDataSourceImpl
+import ru.ermakov.creator.data.remote.dataSource.CreditGoalRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.CreditGoalRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
@@ -122,6 +125,11 @@ class RemoteModule {
     }
 
     @Provides
+    fun provideCreditGoalApi(retrofit: Retrofit): CreditGoalApi {
+        return retrofit.create(CreditGoalApi::class.java)
+    }
+
+    @Provides
     fun provideUserRemoteDataSource(
         userApi: UserApi,
         apiExceptionLocalizer: ApiExceptionLocalizer
@@ -194,6 +202,17 @@ class RemoteModule {
     ): UserSubscriptionRemoteDataSource {
         return UserSubscriptionRemoteDataSourceImpl(
             userSubscriptionApi = userSubscriptionApi,
+            apiExceptionLocalizer = apiExceptionLocalizer
+        )
+    }
+
+    @Provides
+    fun provideCreditGoalRemoteDataSource(
+        creditGoalApi: CreditGoalApi,
+        apiExceptionLocalizer: ApiExceptionLocalizer
+    ): CreditGoalRemoteDataSource {
+        return CreditGoalRemoteDataSourceImpl(
+            creditGoalApi = creditGoalApi,
             apiExceptionLocalizer = apiExceptionLocalizer
         )
     }

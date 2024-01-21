@@ -51,7 +51,6 @@ class TransactionRemoteDataSourceImpl(
             )
         if (remoteCreditGoalTransactionsResponse.isSuccessful) {
             Log.d("MY_TAG", "getCreditGoalTransactionPageByCreditGoalId SUCCESS ${remoteCreditGoalTransactionsResponse.body()}")
-
             remoteCreditGoalTransactionsResponse.body()?.let { remoteCreditGoalTransactions ->
                 return remoteCreditGoalTransactions.map { remoteCreditGoalTransaction ->
                     remoteCreditGoalTransaction.toCreditGoalTransaction()
@@ -75,12 +74,10 @@ class TransactionRemoteDataSourceImpl(
     override suspend fun getBalanceByCreditGoalId(creditGoalId: Long): Long {
         val balanceResponse = transactionApi.getBalanceByCreditGoalId(creditGoalId = creditGoalId)
         if (balanceResponse.isSuccessful) {
-            Log.d("MY_TAG", "getBalanceByCreditGoalId SUCCESS ${balanceResponse.body()}")
             balanceResponse.body()?.let { balance ->
                 return balance
             }
         }
-        Log.d("MY_TAG", "getBalanceByCreditGoalId ERROR ${balanceResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = balanceResponse)
     }
 
@@ -89,10 +86,8 @@ class TransactionRemoteDataSourceImpl(
             remoteUserTransactionRequest = userTransactionRequest.toRemoteUserTransactionRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "insertUserTransaction SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "insertUserTransaction ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 

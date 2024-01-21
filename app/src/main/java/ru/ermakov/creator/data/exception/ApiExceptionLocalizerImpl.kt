@@ -3,6 +3,7 @@ package ru.ermakov.creator.data.exception
 import android.util.Log
 import com.google.gson.Gson
 import retrofit2.Response
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.CREDIT_GOAL_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.FOLLOW_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USERNAME_EXCEPTION
@@ -34,6 +35,10 @@ class ApiExceptionLocalizerImpl(private val gson: Gson) : ApiExceptionLocalizer 
 
             SUBSCRIPTION_NOT_FOUND_EXCEPTION -> {
                 SubscriptionNotFoundException()
+            }
+
+            CREDIT_GOAL_NOT_FOUND_EXCEPTION -> {
+                CreditGoalNotFoundException()
             }
 
             DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION -> {

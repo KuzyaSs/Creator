@@ -5,6 +5,7 @@ import dagger.Provides
 import ru.ermakov.creator.domain.repository.AuthRepository
 import ru.ermakov.creator.domain.repository.CategoryRepository
 import ru.ermakov.creator.domain.repository.CreatorRepository
+import ru.ermakov.creator.domain.repository.CreditGoalRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
 import ru.ermakov.creator.domain.repository.SubscriptionRepository
@@ -23,8 +24,13 @@ import ru.ermakov.creator.domain.useCase.blog.UnfollowUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
+import ru.ermakov.creator.domain.useCase.createCreditGoal.CreateCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
+import ru.ermakov.creator.domain.useCase.creditGoals.GetCreditGoalsByCreatorIdUseCase
+import ru.ermakov.creator.domain.useCase.editCreditGoal.EditCreditGoalUseCase
+import ru.ermakov.creator.domain.useCase.editCreditGoal.GetCreditGoalByIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
@@ -234,6 +240,41 @@ class UseCaseModule {
         subscriptionRepository: SubscriptionRepository
     ): GetSubscriptionsByCreatorIdUseCase {
         return GetSubscriptionsByCreatorIdUseCase(subscriptionRepository = subscriptionRepository)
+    }
+
+    @Provides
+    fun provideGetCreditGoalsByCreatorIdUseCase(
+        creditGoalRepository: CreditGoalRepository
+    ): GetCreditGoalsByCreatorIdUseCase {
+        return GetCreditGoalsByCreatorIdUseCase(creditGoalRepository = creditGoalRepository)
+    }
+
+    @Provides
+    fun provideCreateCreditGoalUseCase(
+        creditGoalRepository: CreditGoalRepository
+    ): CreateCreditGoalUseCase {
+        return CreateCreditGoalUseCase(creditGoalRepository = creditGoalRepository)
+    }
+
+    @Provides
+    fun provideEditCreditGoalUseCase(
+        creditGoalRepository: CreditGoalRepository
+    ): EditCreditGoalUseCase {
+        return EditCreditGoalUseCase(creditGoalRepository = creditGoalRepository)
+    }
+
+    @Provides
+    fun provideGetCreditGoalByIdUseCase(
+        creditGoalRepository: CreditGoalRepository
+    ): GetCreditGoalByIdUseCase {
+        return GetCreditGoalByIdUseCase(creditGoalRepository = creditGoalRepository)
+    }
+
+    @Provides
+    fun provideCloseCreditGoalUseCase(
+        transactionRepository: TransactionRepository
+    ): CloseCreditGoalUseCase {
+        return CloseCreditGoalUseCase(transactionRepository = transactionRepository)
     }
 
     @Provides

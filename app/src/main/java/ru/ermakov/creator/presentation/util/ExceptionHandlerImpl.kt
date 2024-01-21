@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import kotlinx.coroutines.CancellationException
+import ru.ermakov.creator.data.exception.CreditGoalNotFoundException
 import ru.ermakov.creator.data.exception.DuplicateSubscriptionTitleException
 import ru.ermakov.creator.data.exception.DuplicateUserSubscriptionException
 import ru.ermakov.creator.data.exception.EmailVerificationException
@@ -27,6 +28,7 @@ import ru.ermakov.creator.data.exception.SubscriptionNotFoundException
 import ru.ermakov.creator.data.exception.TransactionNotFoundException
 import ru.ermakov.creator.domain.exception.EmptyDataException
 import ru.ermakov.creator.domain.exception.InvalidCardNumberLengthException
+import ru.ermakov.creator.domain.exception.InvalidCreditGoalTargetBalanceException
 import ru.ermakov.creator.domain.exception.InvalidCvvLengthException
 import ru.ermakov.creator.domain.exception.InvalidSubscriptionPriceException
 import ru.ermakov.creator.domain.exception.InvalidTransactionAmountException
@@ -62,7 +64,15 @@ class ExceptionHandlerImpl : ExceptionHandler {
                 exception.message
             }
 
+            is CreditGoalNotFoundException -> {
+                exception.message
+            }
+
             is InvalidSubscriptionPriceException -> {
+                exception.message
+            }
+
+            is InvalidCreditGoalTargetBalanceException -> {
                 exception.message
             }
 

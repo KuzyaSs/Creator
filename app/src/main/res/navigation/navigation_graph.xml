@@ -210,6 +210,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_blogFragment_to_creditGoalsFragment"
+            app:destination="@id/creditGoalsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/subscriptionsFragment"
@@ -314,4 +321,38 @@
         android:id="@+id/withdrawalFragment"
         android:name="ru.ermakov.creator.presentation.screen.withdrawal.WithdrawalFragment"
         android:label="WithdrawalFragment" />
+    <fragment
+        android:id="@+id/creditGoalsFragment"
+        android:name="ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsFragment"
+        android:label="CreditGoalsFragment">
+        <argument
+            android:name="creator_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_creditGoalsFragment_to_createCreditGoalFragment"
+            app:destination="@id/createCreditGoalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_creditGoalsFragment_to_editCreditGoalFragment"
+            app:destination="@id/editCreditGoalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/createCreditGoalFragment"
+        android:name="ru.ermakov.creator.presentation.screen.createCreditGoal.CreateCreditGoalFragment"
+        android:label="CreateCreditGoalFragment" />
+    <fragment
+        android:id="@+id/editCreditGoalFragment"
+        android:name="ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalFragment"
+        android:label="EditCreditGoalFragment">
+        <argument
+            android:name="creditGoalId"
+            app:argType="long" />
+    </fragment>
 </navigation>

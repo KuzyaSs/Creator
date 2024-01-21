@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -27,7 +26,7 @@
                 android:drawablePadding="@dimen/medium_margin_size"
                 android:paddingTop="@dimen/medium_margin_size"
                 android:paddingBottom="@dimen/medium_margin_size"
-                android:text="@string/tip"
+                android:text="@string/edit_credit_goal"
                 app:drawableStartCompat="@drawable/ic_back" />
         </androidx.cardview.widget.CardView>
 
@@ -43,40 +42,40 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayoutTipAmount"
+                    android:id="@+id/textInputLayoutTargetBalance"
                     style="@style/TextInputLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/base_margin_size"
                     android:layout_marginTop="@dimen/base_margin_size"
-                    android:hint="@string/tip_amount"
+                    android:hint="@string/target_balance"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputEditTextTipAmount"
+                        android:id="@+id/textInputEditTextTargetBalance"
                         style="@style/LargeTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:maxLength="13" />
+                        android:maxLength="11" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayoutMessage"
+                    android:id="@+id/textInputLayoutDescription"
                     style="@style/TextInputLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/base_margin_size"
                     android:layout_marginTop="@dimen/base_margin_size"
-                    android:hint="@string/message"
+                    android:hint="@string/description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutTipAmount">
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutTargetBalance">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputEditTextMessage"
+                        android:id="@+id/textInputEditTextDescription"
                         style="@style/LargeTextView"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
@@ -85,32 +84,17 @@
                         android:maxLength="500" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/textViewBalance"
-                    style="@style/LargeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/base_margin_size"
-                    android:layout_marginTop="@dimen/base_margin_size"
-                    android:drawablePadding="@dimen/medium_margin_size"
-                    android:gravity="center"
-                    app:drawableEndCompat="@drawable/ic_logo_accent"
-                    app:drawableStartCompat="@drawable/ic_balance"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutMessage"
-                    tools:text="Balance: 275" />
-
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonSendTip"
+                    android:id="@+id/buttonSaveChanges"
                     style="@style/PrimaryButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/base_margin_size"
                     android:layout_marginTop="@dimen/base_margin_size"
-                    android:text="@string/donate"
+                    android:text="@string/save_changes"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewBalance" />
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutDescription" />
 
                 <TextView
                     android:id="@+id/textViewErrorMessage"
@@ -121,18 +105,18 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/buttonSendTip" />
+                    app:layout_constraintTop_toBottomOf="@id/buttonSaveChanges" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/progressBarSendTip"
+                    android:id="@+id/progressBarSaveChanges"
                     style="@style/ProgressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@id/buttonSendTip"
-                    app:layout_constraintEnd_toEndOf="@id/buttonSendTip"
-                    app:layout_constraintStart_toStartOf="@id/buttonSendTip"
-                    app:layout_constraintTop_toTopOf="@id/buttonSendTip" />
+                    app:layout_constraintBottom_toBottomOf="@id/buttonSaveChanges"
+                    app:layout_constraintEnd_toEndOf="@id/buttonSaveChanges"
+                    app:layout_constraintStart_toStartOf="@id/buttonSaveChanges"
+                    app:layout_constraintTop_toTopOf="@id/buttonSaveChanges" />
 
                 <View
                     android:id="@+id/viewLoading"

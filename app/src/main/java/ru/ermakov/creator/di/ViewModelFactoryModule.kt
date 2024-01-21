@@ -12,8 +12,13 @@ import ru.ermakov.creator.domain.useCase.blog.UnfollowUseCase
 import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
+import ru.ermakov.creator.domain.useCase.createCreditGoal.CreateCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
+import ru.ermakov.creator.domain.useCase.creditGoals.GetCreditGoalsByCreatorIdUseCase
+import ru.ermakov.creator.domain.useCase.editCreditGoal.EditCreditGoalUseCase
+import ru.ermakov.creator.domain.useCase.editCreditGoal.GetCreditGoalByIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
@@ -42,11 +47,14 @@ import ru.ermakov.creator.presentation.screen.balance.BalanceViewModelFactory
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
+import ru.ermakov.creator.presentation.screen.createCreditGoal.CreateCreditGoalViewModelFactory
 import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFactory
 import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import ru.ermakov.creator.presentation.screen.follows.FollowsViewModelFactory
+import ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsViewModelFactory
+import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorViewModelFactory
@@ -220,6 +228,49 @@ class ViewModelFactoryModule {
             getSubscriptionsByCreatorIdUseCase = getSubscriptionsByCreatorIdUseCase,
             unsubscribeUseCase = unsubscribeUseCase,
             deleteSubscriptionByIdUseCase = deleteSubscriptionByIdUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideCreditGoalsViewModelFactory(
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        getCreditGoalsByCreatorIdUseCase: GetCreditGoalsByCreatorIdUseCase,
+        closeCreditGoalUseCase: CloseCreditGoalUseCase,
+        exceptionHandler: ExceptionHandler
+    ): CreditGoalsViewModelFactory {
+        return CreditGoalsViewModelFactory(
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            getCreditGoalsByCreatorIdUseCase = getCreditGoalsByCreatorIdUseCase,
+            closeCreditGoalUseCase = closeCreditGoalUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideCreateCreditGoalViewModelFactory(
+        createCreditGoalUseCase: CreateCreditGoalUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): CreateCreditGoalViewModelFactory {
+        return CreateCreditGoalViewModelFactory(
+            createCreditGoalUseCase = createCreditGoalUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideEditCreditGoalViewModelFactory(
+        getCreditGoalByIdUseCase: GetCreditGoalByIdUseCase,
+        editCreditGoalUseCase: EditCreditGoalUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): EditCreditGoalViewModelFactory {
+        return EditCreditGoalViewModelFactory(
+            getCreditGoalByIdUseCase = getCreditGoalByIdUseCase,
+            editCreditGoalUseCase = editCreditGoalUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }

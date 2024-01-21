@@ -41,7 +41,7 @@ class UserTransactionAdapter(
                     .into(imageViewAvatar)
                 textViewTitle.text = userTransactionItem.title
                 textViewTransactionTypeWithDate.text = root.resources.getString(
-                    R.string.transation_type_with_date,
+                    R.string.transaction_type_with_date,
                     textLocalizer.localizeText(text = userTransactionItem.transactionType),
                     userTransactionItem.date
                 )

@@ -9,6 +9,7 @@ import ru.ermakov.creator.presentation.screen.blog.CreatorBioFragment
 import ru.ermakov.creator.presentation.screen.blog.BlogFragment
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordFragment
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryFragment
+import ru.ermakov.creator.presentation.screen.createCreditGoal.CreateCreditGoalFragment
 import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.following.AccountFragment
 import ru.ermakov.creator.presentation.screen.discover.DiscoverFragment
@@ -19,6 +20,8 @@ import ru.ermakov.creator.presentation.screen.editProfile.EditProfileFragment
 import ru.ermakov.creator.presentation.screen.editProfile.EditUsernameFragment
 import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.follows.FollowsFragment
+import ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsFragment
+import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalFragment
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.search.SearchFragment
@@ -71,6 +74,9 @@ interface ApplicationComponent {
     fun inject(fragment: BlogFragment)
     fun inject(fragment: TipFragment)
     fun inject(fragment: SubscriptionsFragment)
+    fun inject(fragment: CreditGoalsFragment)
+    fun inject(fragment: CreateCreditGoalFragment)
+    fun inject(fragment: EditCreditGoalFragment)
     fun inject(fragment: CreateSubscriptionFragment)
     fun inject(fragment: EditSubscriptionFragment)
     fun inject(fragment: PurchaseSubscriptionFragment)

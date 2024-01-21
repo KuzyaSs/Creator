@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.screen.editSubscription
+package ru.ermakov.creator.presentation.screen.editCreditGoal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,19 +12,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
-import ru.ermakov.creator.databinding.FragmentEditSubscriptionBinding
-import ru.ermakov.creator.domain.model.Subscription
+import ru.ermakov.creator.databinding.FragmentEditCreditGoalBinding
+import ru.ermakov.creator.domain.model.CreditGoal
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class EditSubscriptionFragment : Fragment() {
-    private val arguments: EditSubscriptionFragmentArgs by navArgs()
-    private var _binding: FragmentEditSubscriptionBinding? = null
+class EditCreditGoalFragment : Fragment() {
+    private val arguments: EditCreditGoalFragmentArgs by navArgs()
+    private var _binding: FragmentEditCreditGoalBinding? = null
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var editSubscriptionViewModelFactory: EditSubscriptionViewModelFactory
-    private lateinit var editSubscriptionViewModel: EditSubscriptionViewModel
+    lateinit var editCreditGoalViewModelFactory: EditCreditGoalViewModelFactory
+    private lateinit var editCreditGoalViewModel: EditCreditGoalViewModel
 
     @Inject
     lateinit var textLocalizer: TextLocalizer
@@ -34,19 +34,19 @@ class EditSubscriptionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEditSubscriptionBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentEditCreditGoalBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
-        editSubscriptionViewModel = ViewModelProvider(
+        editCreditGoalViewModel = ViewModelProvider(
             this,
-            editSubscriptionViewModelFactory
-        )[EditSubscriptionViewModel::class.java]
-        if (editSubscriptionViewModel.editSubscriptionUiState.value?.subscription == null) {
-            editSubscriptionViewModel.setSubscription(subscriptionId = arguments.subscriptionId)
+            editCreditGoalViewModelFactory
+        )[EditCreditGoalViewModel::class.java]
+        if (editCreditGoalViewModel.editCreditGoalUiState.value?.creditGoal == null) {
+            editCreditGoalViewModel.setCreditGoal(creditGoalId = arguments.creditGoalId)
         }
         setUpSwipeRefreshLayout()
         setUpListeners()
@@ -73,66 +73,62 @@ class EditSubscriptionFragment : Fragment() {
     private fun setUpListeners() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
-                editSubscriptionViewModel.refreshSubscription(subscriptionId = arguments.subscriptionId)
+                editCreditGoalViewModel.refreshCreditGoal(creditGoalId = arguments.creditGoalId)
             }
             swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
                 scrollView.canScrollVertically(-1)
             }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
-            buttonSaveChanges.setOnClickListener { editSubscription() }
+            buttonSaveChanges.setOnClickListener { editCreditGoal() }
             viewLoading.setOnClickListener { }
         }
     }
 
     private fun setUpObservers() {
-        editSubscriptionViewModel.editSubscriptionUiState.observe(viewLifecycleOwner) { editSubscriptionUiState ->
-            editSubscriptionUiState.apply {
-                if (subscription != null) {
-                    setSubscription(subscription = subscription)
+        editCreditGoalViewModel.editCreditGoalUiState.observe(viewLifecycleOwner) { editCreditGoalUiState ->
+            editCreditGoalUiState.apply {
+                if (creditGoal != null) {
+                    setCreditGoal(creditGoal = creditGoal)
                     setLoading(isLoadingShown = isProgressBarSaveChangesShown)
                     setErrorMessage(
                         errorMessage = errorMessage,
                         isErrorMessageShown = isErrorMessageShown
                     )
-                    if (isSubscriptionEdited) {
-                        showToast(message = resources.getString(R.string.subscription_edited_successfully))
+                    if (isCreditGoalEdited) {
+                        showToast(message = resources.getString(R.string.credit_goal_edited_successfully))
                         goBack()
                     }
                 }
 
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
-                binding.viewLoading.isVisible = subscription == null
-                binding.progressBarScreen.isVisible = isLoading && subscription == null
+                binding.viewLoading.isVisible = creditGoal == null
+                binding.progressBarScreen.isVisible = isLoadingShown && creditGoal == null
                 binding.textViewScreenErrorMessage.apply {
                     text = textLocalizer.localizeText(text = errorMessage)
-                    isVisible = isErrorMessageShown && subscription == null
+                    isVisible = isErrorMessageShown && creditGoal == null
                 }
-                binding.imageViewScreenLogo.isVisible = isErrorMessageShown && subscription == null
+                binding.imageViewScreenLogo.isVisible = isErrorMessageShown && creditGoal == null
             }
         }
     }
 
-    private fun setSubscription(subscription: Subscription) {
-        if (binding.textInputEditTextTitle.text.isNullOrBlank()) {
-            binding.textInputEditTextTitle.setText(subscription.title)
+    private fun setCreditGoal(creditGoal: CreditGoal) {
+        if (binding.textInputEditTextTargetBalance.text.isNullOrBlank()) {
+            binding.textInputEditTextTargetBalance.setText(creditGoal.targetBalance.toString())
         }
         if (binding.textInputEditTextDescription.text.isNullOrBlank()) {
-            binding.textInputEditTextDescription.setText(subscription.description)
-        }
-        if (binding.textInputEditTextPrice.text.isNullOrBlank()) {
-            binding.textInputEditTextPrice.setText(subscription.price.toString())
+            binding.textInputEditTextDescription.setText(creditGoal.description)
         }
     }
 
-    private fun editSubscription() {
-        val title = binding.textInputEditTextTitle.text?.trim().toString()
+    private fun editCreditGoal() {
+        val targetBalance = binding.textInputEditTextTargetBalance.text.toString()
+            .toLongOrNull() ?: 0
         val description = binding.textInputEditTextDescription.text?.trim().toString()
-        val price = binding.textInputEditTextPrice.text.toString().toLongOrNull() ?: 0
-        editSubscriptionViewModel.editSubscription(
-            subscriptionId = arguments.subscriptionId,
-            title = title,
-            description = description,
-            price = price
+        editCreditGoalViewModel.editSubscription(
+            creditGoalId = arguments.creditGoalId,
+            targetBalance = targetBalance,
+            description = description
         )
     }
 
