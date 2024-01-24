@@ -17,12 +17,12 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_check_circle"
         app:drawableEndCompat="@drawable/ic_logo_accent"
-        app:layout_constraintBottom_toBottomOf="@id/textViewAmount"
+        app:layout_constraintBottom_toBottomOf="@id/textViewBalance"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textViewAmount" />
+        app:layout_constraintTop_toTopOf="@id/textViewBalance" />
 
     <TextView
-        android:id="@+id/textViewAmount"
+        android:id="@+id/textViewBalance"
         style="@style/LargeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -94,6 +94,7 @@
     <string name="goals">Цели</string>
     <string name="tip">Донат</string>
     <string name="donate">Поддержать</string>
+    <string name="donate_to_credit_goal">Донат на цель</string>
     <string name="close_credit_goal">Закрыть цель</string>
     <string name="posts">Посты</string>
     <string name="follow">Отслеживать</string>
@@ -129,6 +130,7 @@
     <string name="create">Создать</string>
     <string name="monthly_price">Месячная стоимость</string>
     <string name="tip_amount">Сумма доната</string>
+    <string name="donate_amount">Сумма доната</string>
     <string name="message">Сообщение</string>
     <string name="edit_subscription">Редактирование подписки</string>
     <string name="edit_credit_goal">Редактирование цели</string>

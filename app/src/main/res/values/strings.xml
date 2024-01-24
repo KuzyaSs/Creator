@@ -94,6 +94,7 @@
     <string name="goals">Goals</string>
     <string name="tip">Tip</string>
     <string name="donate">Donate</string>
+    <string name="donate_to_credit_goal">Donate to goal</string>
     <string name="close_credit_goal">Close goal</string>
     <string name="posts">Posts</string>
     <string name="follow">Follow</string>
@@ -129,6 +130,7 @@
     <string name="create">Create</string>
     <string name="monthly_price">Monthly price</string>
     <string name="tip_amount">Tip amount</string>
+    <string name="donate_amount">Donate amount</string>
     <string name="message">Message</string>
     <string name="edit_subscription">Edit subscription</string>
     <string name="edit_credit_goal">Edit goal</string>

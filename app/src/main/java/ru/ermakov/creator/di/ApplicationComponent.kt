@@ -21,6 +21,7 @@ import ru.ermakov.creator.presentation.screen.editProfile.EditUsernameFragment
 import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.follows.FollowsFragment
 import ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsFragment
+import ru.ermakov.creator.presentation.screen.donateToCreditGoal.DonateToCreditGoalFragment
 import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalFragment
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionFragment
@@ -77,6 +78,7 @@ interface ApplicationComponent {
     fun inject(fragment: CreditGoalsFragment)
     fun inject(fragment: CreateCreditGoalFragment)
     fun inject(fragment: EditCreditGoalFragment)
+    fun inject(fragment: DonateToCreditGoalFragment)
     fun inject(fragment: CreateSubscriptionFragment)
     fun inject(fragment: EditSubscriptionFragment)
     fun inject(fragment: PurchaseSubscriptionFragment)

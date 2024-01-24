@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?android:windowBackground"
+            app:cardElevation="@dimen/base_margin_size">
+
+            <TextView
+                android:id="@+id/textViewTitleWithBackButton"
+                style="@style/TitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_margin_size"
+                android:drawablePadding="@dimen/medium_margin_size"
+                android:paddingTop="@dimen/medium_margin_size"
+                android:paddingBottom="@dimen/medium_margin_size"
+                android:text="@string/donate_to_credit_goal"
+                app:drawableStartCompat="@drawable/ic_back" />
+        </androidx.cardview.widget.CardView>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutCreditGoal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:background="@drawable/container_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageViewCreditGoalCheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/base_margin_size"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_check_circle"
+                        app:drawableEndCompat="@drawable/ic_logo_accent"
+                        app:layout_constraintBottom_toBottomOf="@id/textViewCreditGoalBalance"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/textViewCreditGoalBalance" />
+
+                    <TextView
+                        android:id="@+id/textViewCreditGoalBalance"
+                        style="@style/LargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/base_margin_size"
+                        android:layout_marginTop="@dimen/base_margin_size"
+                        android:drawablePadding="@dimen/medium_margin_size"
+                        android:gravity="start|center"
+                        android:textStyle="bold"
+                        app:drawableEndCompat="@drawable/ic_logo_accent"
+                        app:layout_constraintStart_toEndOf="@id/imageViewCreditGoalCheck"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="53465 of 120000" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBarCreditGoalDonate"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/base_margin_size"
+                        android:layout_marginTop="@dimen/medium_margin_size"
+                        android:progressTint="@color/colorAccent"
+                        android:scaleY="2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewCreditGoalBalance" />
+
+                    <TextView
+                        android:id="@+id/textViewCreditGoalDescription"
+                        style="@style/BaseTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/base_margin_size"
+                        android:layout_marginTop="@dimen/medium_margin_size"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/progressBarCreditGoalDonate"
+                        tools:text="Смогу стабильно финансировать всю команду,
+        аренду студий и платить за сервисы, а также порадую себя сладеньким" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/base_margin_size"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewCreditGoalDescription" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutDonateAmount"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:hint="@string/donate_amount"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/constraintLayoutCreditGoal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextDonateAmount"
+                        style="@style/LargeTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="13" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutMessage"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:hint="@string/message"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutDonateAmount">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextMessage"
+                        style="@style/LargeTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:gravity="start"
+                        android:inputType="textMultiLine"
+                        android:maxLength="500" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textViewBalance"
+                    style="@style/LargeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:drawablePadding="@dimen/medium_margin_size"
+                    android:gravity="center"
+                    app:drawableEndCompat="@drawable/ic_logo_accent"
+                    app:drawableStartCompat="@drawable/ic_balance"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutMessage"
+                    tools:text="Balance: 275" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonDonate"
+                    style="@style/PrimaryButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:text="@string/donate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewBalance" />
+
+                <TextView
+                    android:id="@+id/textViewErrorMessage"
+                    style="@style/ErrorTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buttonDonate" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressBarButtonDonate"
+                    style="@style/ProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/buttonDonate"
+                    app:layout_constraintEnd_toEndOf="@id/buttonDonate"
+                    app:layout_constraintStart_toStartOf="@id/buttonDonate"
+                    app:layout_constraintTop_toTopOf="@id/buttonDonate" />
+
+                <View
+                    android:id="@+id/viewLoading"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="?android:windowBackground"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressBarScreen"
+                    style="@style/ProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageViewScreenLogo"
+                        android:layout_width="@dimen/large_image_size"
+                        android:layout_height="@dimen/large_image_size"
+                        android:layout_marginBottom="@dimen/base_margin_size"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/logo"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textViewScreenErrorMessage"
+                        style="@style/ExtraLargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
