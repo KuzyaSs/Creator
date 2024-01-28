@@ -6,16 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.ermakov.creator.domain.model.UserTransactionRequest
+import ru.ermakov.creator.domain.model.CreditGoalTransactionRequest
+import ru.ermakov.creator.domain.useCase.donateToCreditGoal.InsertCreditGoalTransactionUseCase
+import ru.ermakov.creator.domain.useCase.editCreditGoal.GetCreditGoalByIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
-import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
-private const val TRANSFER_TO_USER_TRANSACTION_TYPE_ID = 5L
+private const val TRANSFER_TO_CREDIT_GOAL_TRANSACTION_TYPE_ID = 6L
 
 class DonateToCreditGoalViewModel(
-    private val insertUserTransactionUseCase: InsertUserTransactionUseCase,
+    private val insertCreditGoalTransactionUseCase: InsertCreditGoalTransactionUseCase,
+    private val getCreditGoalByIdUseCase: GetCreditGoalByIdUseCase,
     private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
     private val exceptionHandler: ExceptionHandler
@@ -23,16 +25,13 @@ class DonateToCreditGoalViewModel(
     private val _donateToCreditGoalUiState = MutableLiveData(DonateToCreditGoalUiState())
     val donateToCreditGoalUiState: LiveData<DonateToCreditGoalUiState> = _donateToCreditGoalUiState
 
-    init {
-        setTipFragment()
+    fun refreshDonateToCreditGoalFragment(creditGoalId: Long) {
+        _donateToCreditGoalUiState.value =
+            _donateToCreditGoalUiState.value?.copy(isRefreshingShown = true)
+        setDonateToCreditGoalFragment(creditGoalId = creditGoalId)
     }
 
-    fun refreshTipFragment() {
-        _donateToCreditGoalUiState.value = _donateToCreditGoalUiState.value?.copy(isRefreshingShown = true)
-        setTipFragment()
-    }
-
-    fun sendTip(creatorId: String, amount: Long, message: String) {
+    fun donate(creatorId: String, creditGoalId: Long, amount: Long, message: String) {
         _donateToCreditGoalUiState.postValue(
             _donateToCreditGoalUiState.value?.copy(
                 isProgressBarDonateShown = true,
@@ -41,14 +40,15 @@ class DonateToCreditGoalViewModel(
         )
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val userTransactionRequest = UserTransactionRequest(
+                val creditGoalTransactionRequest = CreditGoalTransactionRequest(
+                    creditGoalId = creditGoalId,
                     senderUserId = getCurrentUserIdUseCase(),
                     receiverUserId = creatorId,
-                    transactionTypeId = TRANSFER_TO_USER_TRANSACTION_TYPE_ID,
+                    transactionTypeId = TRANSFER_TO_CREDIT_GOAL_TRANSACTION_TYPE_ID,
                     amount = amount,
                     message = message
                 )
-                insertUserTransactionUseCase(userTransactionRequest = userTransactionRequest)
+                insertCreditGoalTransactionUseCase(creditGoalTransactionRequest = creditGoalTransactionRequest)
                 _donateToCreditGoalUiState.postValue(
                     _donateToCreditGoalUiState.value?.copy(
                         isDonated = true,
@@ -69,7 +69,7 @@ class DonateToCreditGoalViewModel(
         }
     }
 
-    private fun setTipFragment() {
+    fun setDonateToCreditGoalFragment(creditGoalId: Long) {
         _donateToCreditGoalUiState.value = _donateToCreditGoalUiState.value?.copy(
             isLoadingShown = true,
             isErrorMessageShown = false
@@ -78,6 +78,7 @@ class DonateToCreditGoalViewModel(
             try {
                 _donateToCreditGoalUiState.postValue(
                     _donateToCreditGoalUiState.value?.copy(
+                        creditGoal = getCreditGoalByIdUseCase(creditGoalId = creditGoalId),
                         balance = getBalanceByUserIdUseCase(userId = getCurrentUserIdUseCase()),
                         isRefreshingShown = false,
                         isLoadingShown = false,

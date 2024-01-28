@@ -343,8 +343,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_creditGoalsFragment_to_donateToGoalFragment"
-            app:destination="@id/donateToGoalFragment"
+            android:id="@+id/action_creditGoalsFragment_to_donateToCreditGoalFragment"
+            app:destination="@id/donateToCreditGoalFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -363,9 +363,9 @@
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/donateToGoalFragment"
+        android:id="@+id/donateToCreditGoalFragment"
         android:name="ru.ermakov.creator.presentation.screen.donateToCreditGoal.DonateToCreditGoalFragment"
-        android:label="DonateToGoalFragment" >
+        android:label="donateToCreditGoalFragment" >
         <argument
             android:name="creatorId"
             app:argType="string" />

@@ -143,6 +143,7 @@
     <string name="credit_goal_edited_successfully">Цель успешно изменена</string>
     <string name="subscription_purchased_successfully">Подписка успешно куплена</string>
     <string name="tip_sent_successfully">Донат успешно отправлен</string>
+    <string name="donate_sent_successfully">Донат успешно отправлен</string>
     <string name="purchase_subscription">Покупка подписки</string>
     <string name="purchase">Купить</string>
     <string name="subscription_period">Длительность подписки</string>
@@ -158,7 +159,7 @@
     <string name="transfer_to_user">Перевод пользователю</string>
     <string name="transfer_to_credit_goal">Перевод на цель</string>
     <string name="transaction_type_with_date">%s / %s</string>
-    <string name="target_balance_of_balance">%d из %d</string>
+    <string name="balance_of_target_balance">%d из %d</string>
     <string name="top_up_amount">Сумма пополнения</string>
     <string name="card_number">Номер карты</string>
     <string name="validity_mm_yy">Срок действия (мм/гг)</string>

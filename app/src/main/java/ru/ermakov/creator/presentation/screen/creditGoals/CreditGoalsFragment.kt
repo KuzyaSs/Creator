@@ -172,11 +172,12 @@ class CreditGoalsFragment : Fragment(), OptionsHandler {
     }
 
     private fun navigateToDonateToCreditGoalFragment(creditGoalId: Long) {
-        Toast.makeText(
-            requireContext(),
-            "navigateToDonateToCreditGoalFragment: $creditGoalId",
-            Toast.LENGTH_SHORT
-        ).show()
+        val action =
+            CreditGoalsFragmentDirections.actionCreditGoalsFragmentToDonateToCreditGoalFragment(
+                creatorId = arguments.creatorId,
+                creditGoalId = creditGoalId
+            )
+        findNavController().navigate(action)
     }
 
     private fun goBack() {

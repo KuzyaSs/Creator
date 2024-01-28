@@ -29,6 +29,7 @@ import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUs
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.GetCreditGoalsByCreatorIdUseCase
+import ru.ermakov.creator.domain.useCase.donateToCreditGoal.InsertCreditGoalTransactionUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.EditCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.GetCreditGoalByIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
@@ -398,5 +399,12 @@ class UseCaseModule {
     @Provides
     fun provideValidateCvvUseCase(): ValidateCvvUseCase {
         return ValidateCvvUseCase()
+    }
+
+    @Provides
+    fun provideInsertCreditGoalTransactionUseCase(
+        transactionRepository: TransactionRepository
+    ): InsertCreditGoalTransactionUseCase {
+        return InsertCreditGoalTransactionUseCase(transactionRepository = transactionRepository)
     }
 }

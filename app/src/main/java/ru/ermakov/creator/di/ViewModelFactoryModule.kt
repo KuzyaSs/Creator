@@ -17,6 +17,7 @@ import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUs
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.GetCreditGoalsByCreatorIdUseCase
+import ru.ermakov.creator.domain.useCase.donateToCreditGoal.InsertCreditGoalTransactionUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.EditCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.GetCreditGoalByIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
@@ -54,6 +55,7 @@ import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionV
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import ru.ermakov.creator.presentation.screen.follows.FollowsViewModelFactory
 import ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsViewModelFactory
+import ru.ermakov.creator.presentation.screen.donateToCreditGoal.DonateToCreditGoalViewModelFactory
 import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionViewModelFactory
@@ -391,6 +393,23 @@ class ViewModelFactoryModule {
         return WithdrawalViewModelFactory(
             insertUserTransactionUseCase = insertUserTransactionUseCase,
             validateCreditCardNumberUseCase = validateCreditCardNumberUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideDonateToCreditGoalViewModelFactory(
+        insertCreditGoalTransactionUseCase: InsertCreditGoalTransactionUseCase,
+        getCreditGoalByIdUseCase: GetCreditGoalByIdUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): DonateToCreditGoalViewModelFactory {
+        return DonateToCreditGoalViewModelFactory(
+            insertCreditGoalTransactionUseCase = insertCreditGoalTransactionUseCase,
+            getCreditGoalByIdUseCase = getCreditGoalByIdUseCase,
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
             exceptionHandler = exceptionHandler

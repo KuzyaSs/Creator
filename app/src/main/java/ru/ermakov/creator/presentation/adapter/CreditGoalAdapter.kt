@@ -35,8 +35,8 @@ class CreditGoalAdapter(
         fun bind(creditGoal: CreditGoal) {
             binding.apply {
                 imageViewCheck.isVisible = creditGoal.balance >= creditGoal.targetBalance
-                textViewAmount.text = root.resources.getString(
-                    R.string.target_balance_of_balance,
+                textViewBalance.text = root.resources.getString(
+                    R.string.balance_of_target_balance,
                     creditGoal.balance,
                     creditGoal.targetBalance
                 )
@@ -52,7 +52,7 @@ class CreditGoalAdapter(
                 textViewDescription.text = creditGoal.description
                 buttonDonate.apply {
                     isVisible = !isOwner
-                    setOnClickListener { onButtonDonateClickListener }
+                    setOnClickListener { onButtonDonateClickListener(creditGoal) }
                 }
             }
         }

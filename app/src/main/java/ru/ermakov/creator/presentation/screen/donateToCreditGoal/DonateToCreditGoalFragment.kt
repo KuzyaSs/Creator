@@ -14,8 +14,11 @@ import okhttp3.internal.toLongOrDefault
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentDonateToCreditGoalBinding
+import ru.ermakov.creator.domain.model.CreditGoal
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
+
+private const val MAX_PROGRESS_BAR_VALUE = 100
 
 class DonateToCreditGoalFragment : Fragment() {
     private val arguments: DonateToCreditGoalFragmentArgs by navArgs()
@@ -45,6 +48,11 @@ class DonateToCreditGoalFragment : Fragment() {
             this,
             donateToCreditGoalViewModelFactory
         )[DonateToCreditGoalViewModel::class.java]
+        if (donateToCreditGoalViewModel.donateToCreditGoalUiState.value?.creditGoal == null) {
+            donateToCreditGoalViewModel.setDonateToCreditGoalFragment(
+                creditGoalId = arguments.creditGoalId
+            )
+        }
         setUpSwipeRefreshLayout()
         setUpListeners()
         setUpObservers()
@@ -70,7 +78,9 @@ class DonateToCreditGoalFragment : Fragment() {
     private fun setUpListeners() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
-                donateToCreditGoalViewModel.refreshTipFragment()
+                donateToCreditGoalViewModel.refreshDonateToCreditGoalFragment(
+                    creditGoalId = arguments.creditGoalId
+                )
             }
             swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
                 scrollView.canScrollVertically(-1)
@@ -85,7 +95,7 @@ class DonateToCreditGoalFragment : Fragment() {
         donateToCreditGoalViewModel.donateToCreditGoalUiState.observe(viewLifecycleOwner) { donateToCreditGoalUiState ->
             donateToCreditGoalUiState.apply {
                 if (creditGoal != null) {
-                    setCreditGoal()
+                    setCreditGoal(creditGoal = creditGoal)
                     setBalance(balance = balance)
                     setLoading(isLoadingShown = isProgressBarDonateShown)
                     setErrorMessage(
@@ -93,7 +103,7 @@ class DonateToCreditGoalFragment : Fragment() {
                         isErrorMessageShown = isErrorMessageShown
                     )
                     if (isDonated) {
-                        showToast(message = resources.getString(R.string.tip_sent_successfully))
+                        showToast(message = resources.getString(R.string.donate_sent_successfully))
                         goBack()
                     }
                 }
@@ -110,8 +120,21 @@ class DonateToCreditGoalFragment : Fragment() {
         }
     }
 
-    private fun setCreditGoal() {
-        TODO("Not yet implemented")
+    private fun setCreditGoal(creditGoal: CreditGoal) {
+        binding.apply {
+            imageViewCreditGoalCheck.isVisible = creditGoal.balance >= creditGoal.targetBalance
+            textViewCreditGoalBalance.text = root.resources.getString(
+                R.string.balance_of_target_balance,
+                creditGoal.balance,
+                creditGoal.targetBalance
+            )
+            progressBarCreditGoalDonate.apply {
+                max = MAX_PROGRESS_BAR_VALUE
+                progress =
+                    (creditGoal.balance.toDouble() / creditGoal.targetBalance * MAX_PROGRESS_BAR_VALUE).toInt()
+            }
+            textViewCreditGoalDescription.text = creditGoal.description
+        }
     }
 
     private fun setBalance(balance: Long) {
@@ -123,8 +146,9 @@ class DonateToCreditGoalFragment : Fragment() {
         val creditGoalId = arguments.creditGoalId
         val amount = binding.textInputEditTextDonateAmount.text.toString().toLongOrDefault(0)
         val message = binding.textInputEditTextMessage.text?.trim().toString()
-        donateToCreditGoalViewModel.sendTip(
+        donateToCreditGoalViewModel.donate(
             creatorId = creatorId,
+            creditGoalId = creditGoalId,
             amount = amount,
             message = message
         )
