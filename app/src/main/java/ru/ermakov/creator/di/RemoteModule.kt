@@ -17,6 +17,7 @@ import ru.ermakov.creator.data.remote.api.CategoryApi
 import ru.ermakov.creator.data.remote.api.CreatorApi
 import ru.ermakov.creator.data.remote.api.CreditGoalApi
 import ru.ermakov.creator.data.remote.api.FollowApi
+import ru.ermakov.creator.data.remote.api.PostApi
 import ru.ermakov.creator.data.remote.api.SubscriptionApi
 import ru.ermakov.creator.data.remote.api.TransactionApi
 import ru.ermakov.creator.data.remote.api.UserApi
@@ -33,6 +34,8 @@ import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSourceImpl
+import ru.ermakov.creator.data.remote.dataSource.PostRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.PostRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.TransactionRemoteDataSource
@@ -130,6 +133,11 @@ class RemoteModule {
     }
 
     @Provides
+    fun providePostApi(retrofit: Retrofit): PostApi {
+        return retrofit.create(PostApi::class.java)
+    }
+
+    @Provides
     fun provideUserRemoteDataSource(
         userApi: UserApi,
         apiExceptionLocalizer: ApiExceptionLocalizer
@@ -213,6 +221,17 @@ class RemoteModule {
     ): CreditGoalRemoteDataSource {
         return CreditGoalRemoteDataSourceImpl(
             creditGoalApi = creditGoalApi,
+            apiExceptionLocalizer = apiExceptionLocalizer
+        )
+    }
+
+    @Provides
+    fun providePostRemoteDataSource(
+        postApi: PostApi,
+        apiExceptionLocalizer: ApiExceptionLocalizer
+    ): PostRemoteDataSource {
+        return PostRemoteDataSourceImpl(
+            postApi = postApi,
             apiExceptionLocalizer = apiExceptionLocalizer
         )
     }

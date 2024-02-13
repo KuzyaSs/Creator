@@ -110,6 +110,9 @@
     <string name="empty_credit_goal_list">Список целей пока пуст, но в скором времени он пополнится</string>
     <string name="empty_follow_list_description">Здесь отображаются авторы, которых вы отслеживаете</string>
     <string name="empty_transaction_list">Здесь будет история ваших транзакций</string>
+    <string name="empty_tag_list">Список тегов пока пуст, но в скором времени он пополнится</string>
+    <string name="empty_tag_list_description">Здесь отображаются теги текущнго автора</string>
+    <string name="empty_category_list">Список категорий пока пуст, но в скором времени он пополнится</string>
     <string name="add">Добавить</string>
     <string name="subscribe_for">Подписаться за %d</string>
     <string name="subscribed_until">Подписан до %s</string>

@@ -76,17 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/no_results_found"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/textViewCategoriesDescription"
-                    style="@style/BaseTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_margin_size"
-                    android:gravity="center"
-                    android:text="@string/no_results_found_description"
+                    android:text="@string/empty_category_list"
                     android:visibility="gone" />
             </LinearLayout>
 
