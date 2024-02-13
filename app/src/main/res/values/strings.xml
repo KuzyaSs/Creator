@@ -171,6 +171,15 @@
     <string name="close">Close</string>
     <string name="new_credit_goal">New goal</string>
     <string name="target_balance">Target balance</string>
+    <string name="filter">Filter</string>
+    <string name="post_type">Post type</string>
+    <string name="category">Category</string>
+    <string name="tags">Tags</string>
+    <string name="all_posts">All posts</string>
+    <string name="available_to_me">Available to me</string>
+    <string name="any_tags">Any tags</string>
+    <string name="any_categories">Any categories</string>
+    <string name="categories">Categories</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

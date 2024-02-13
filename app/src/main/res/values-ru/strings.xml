@@ -171,6 +171,15 @@
     <string name="close">Закрыть</string>
     <string name="new_credit_goal">Новая цель</string>
     <string name="target_balance">Необходимый баланс</string>
+    <string name="filter">Фильтр</string>
+    <string name="post_type">Тип поста</string>
+    <string name="category">Категория</string>
+    <string name="tags">Теги</string>
+    <string name="all_posts">Все посты</string>
+    <string name="available_to_me">Доступные мне</string>
+    <string name="any_tags">Любые теги</string>
+    <string name="any_categories">Любые категории</string>
+    <string name="categories">Категории</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

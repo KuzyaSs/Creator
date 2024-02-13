@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/medium_margin_size">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewCreatorProfileAvatar"
+        android:layout_width="@dimen/base_image_size"
+        android:layout_height="@dimen/base_image_size"
+        android:layout_marginStart="@dimen/base_margin_size"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_profile_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewCreatorName"
+        style="@style/LargeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/textViewPublicationDate"
+        app:layout_constraintEnd_toStartOf="@id/imageViewMore"
+        app:layout_constraintStart_toEndOf="@id/imageViewCreatorProfileAvatar"
+        app:layout_constraintTop_toTopOf="@id/imageViewCreatorProfileAvatar"
+        tools:text="Kuzya" />
+
+    <TextView
+        android:id="@+id/textViewPublicationDate"
+        style="@style/BaseTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="?android:textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewCreatorProfileAvatar"
+        app:layout_constraintEnd_toStartOf="@id/imageViewMore"
+        app:layout_constraintStart_toEndOf="@id/imageViewCreatorProfileAvatar"
+        app:layout_constraintTop_toBottomOf="@id/textViewCreatorName"
+        tools:text="10 February" />
+
+    <ImageView
+        android:id="@+id/imageViewMore"
+        android:layout_width="@dimen/base_icon_size"
+        android:layout_height="@dimen/base_icon_size"
+        android:layout_marginEnd="@dimen/medium_margin_size"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        style="@style/LargeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginTop="@dimen/medium_margin_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewCreatorProfileAvatar"
+        tools:text="Title of the post" />
+
+    <TextView
+        android:id="@+id/textViewContent"
+        style="@style/BaseTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginTop="@dimen/medium_margin_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+        tools:text="Some content of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. " />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerImages"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewContent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin_size"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/base_margin_size"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewPagerImages" />
+
+    <ImageView
+        android:id="@+id/imageViewLike"
+        android:layout_width="@dimen/base_icon_size"
+        android:layout_height="@dimen/base_icon_size"
+        android:layout_marginStart="@dimen/base_margin_size"
+        android:layout_marginTop="@dimen/base_margin_size"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_favorite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewTags" />
+
+    <TextView
+        android:id="@+id/textViewLikeCount"
+        style="@style/LargeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin_size"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewLike"
+        app:layout_constraintStart_toEndOf="@id/imageViewLike"
+        app:layout_constraintTop_toTopOf="@id/imageViewLike"
+        tools:text="62" />
+
+    <ImageView
+        android:id="@+id/imageViewComment"
+        android:layout_width="@dimen/base_icon_size"
+        android:layout_height="@dimen/base_icon_size"
+        android:layout_marginStart="@dimen/base_margin_size"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_comment"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewLike"
+        app:layout_constraintStart_toEndOf="@id/textViewLikeCount"
+        app:layout_constraintTop_toTopOf="@id/imageViewLike" />
+
+    <TextView
+        android:id="@+id/textViewCommentCount"
+        style="@style/LargeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin_size"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewComment"
+        app:layout_constraintStart_toEndOf="@id/imageViewComment"
+        app:layout_constraintTop_toTopOf="@id/imageViewComment"
+        tools:text="15" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:windowBackground"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            style="@style/TitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_margin_size"
+            android:text="@string/filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPostTypeLabel"
+            style="@style/LargeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_margin_size"
+            android:layout_marginTop="@dimen/base_margin_size"
+            android:text="@string/post_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+        <TextView
+            android:id="@+id/textViewPostType"
+            style="@style/LargeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_margin_size"
+            android:layout_marginTop="@dimen/medium_margin_size"
+            android:background="@drawable/container_background"
+            android:paddingHorizontal="@dimen/base_margin_size"
+            android:paddingVertical="@dimen/base_margin_size"
+            android:text="@string/all_posts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewPostTypeLabel" />
+
+        <ImageView
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:layout_marginEnd="@dimen/base_margin_size"
+            android:importantForAccessibility="no"
+            android:scaleX="-1"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/textViewPostType"
+            app:layout_constraintEnd_toEndOf="@id/textViewPostType"
+            app:layout_constraintTop_toTopOf="@id/textViewPostType" />
+
+        <TextView
+            android:id="@+id/textViewCategoryLabel"
+            style="@style/LargeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_margin_size"
+            android:layout_marginTop="@dimen/base_margin_size"
+            android:text="@string/categories"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewPostType" />
+
+        <TextView
+            android:id="@+id/textViewCategory"
+            style="@style/LargeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_margin_size"
+            android:layout_marginTop="@dimen/medium_margin_size"
+            android:background="@drawable/container_background"
+            android:paddingHorizontal="@dimen/base_margin_size"
+            android:paddingVertical="@dimen/base_margin_size"
+            android:text="@string/any_categories"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewCategoryLabel" />
+
+        <ImageView
+            android:layout_width="@dimen/small_icon_size"
+            android:layout_height="@dimen/small_icon_size"
+            android:layout_marginEnd="@dimen/base_margin_size"
+            android:importantForAccessibility="no"
+            android:scaleX="-1"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/textViewCategory"
+            app:layout_constraintEnd_toEndOf="@id/textViewCategory"
+            app:layout_constraintTop_toTopOf="@id/textViewCategory" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_margin_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewCategory" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
