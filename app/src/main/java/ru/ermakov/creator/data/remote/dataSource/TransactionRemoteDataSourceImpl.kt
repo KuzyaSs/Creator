@@ -1,13 +1,11 @@
 package ru.ermakov.creator.data.remote.dataSource
 
-import android.util.Log
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.mapper.toCreditGoalTransaction
 import ru.ermakov.creator.data.mapper.toRemoteCreditGoalTransactionRequest
 import ru.ermakov.creator.data.mapper.toRemoteUserTransactionRequest
 import ru.ermakov.creator.data.mapper.toUserTransaction
 import ru.ermakov.creator.data.remote.api.TransactionApi
-import ru.ermakov.creator.data.remote.model.RemoteUserTransactionRequest
 import ru.ermakov.creator.domain.model.CreditGoalTransaction
 import ru.ermakov.creator.domain.model.CreditGoalTransactionRequest
 import ru.ermakov.creator.domain.model.UserTransaction
@@ -50,14 +48,12 @@ class TransactionRemoteDataSourceImpl(
                 offset = LIMIT * page
             )
         if (remoteCreditGoalTransactionsResponse.isSuccessful) {
-            Log.d("MY_TAG", "getCreditGoalTransactionPageByCreditGoalId SUCCESS ${remoteCreditGoalTransactionsResponse.body()}")
             remoteCreditGoalTransactionsResponse.body()?.let { remoteCreditGoalTransactions ->
                 return remoteCreditGoalTransactions.map { remoteCreditGoalTransaction ->
                     remoteCreditGoalTransaction.toCreditGoalTransaction()
                 }
             }
         }
-        Log.d("MY_TAG", "getCreditGoalTransactionPageByCreditGoalId ERROR ${remoteCreditGoalTransactionsResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = remoteCreditGoalTransactionsResponse)
     }
 
@@ -99,10 +95,8 @@ class TransactionRemoteDataSourceImpl(
                 .toRemoteCreditGoalTransactionRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "insertCreditGoalTransaction SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "insertCreditGoalTransaction ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 }

@@ -1,6 +1,8 @@
 package ru.ermakov.creator.data.repository
 
 import ru.ermakov.creator.data.remote.dataSource.PostRemoteDataSource
+import ru.ermakov.creator.domain.model.BlogFilter
+import ru.ermakov.creator.domain.model.FeedFilter
 import ru.ermakov.creator.domain.model.LikeRequest
 import ru.ermakov.creator.domain.model.Post
 import ru.ermakov.creator.domain.model.PostRequest
@@ -9,28 +11,24 @@ import ru.ermakov.creator.domain.repository.PostRepository
 class PostRepositoryImpl(private val postRemoteDataSource: PostRemoteDataSource) : PostRepository {
     override suspend fun getFilteredPostPageByUserId(
         userId: String,
-        postType: String,
-        categoryIds: List<Long>,
+        feedFilter: FeedFilter,
         postId: Long,
     ): List<Post> {
         return postRemoteDataSource.getFilteredPostPageByUserId(
             userId = userId,
-            postType = postType,
-            categoryIds = categoryIds,
+            feedFilter = feedFilter,
             postId = postId
         )
     }
 
     override suspend fun getFilteredFollowingPostPageByUserId(
         userId: String,
-        postType: String,
-        categoryIds: List<Long>,
+        feedFilter: FeedFilter,
         postId: Long,
     ): List<Post> {
         return postRemoteDataSource.getFilteredFollowingPostPageByUserId(
             userId = userId,
-            postType = postType,
-            categoryIds = categoryIds,
+            feedFilter = feedFilter,
             postId = postId
         )
     }
@@ -38,15 +36,13 @@ class PostRepositoryImpl(private val postRemoteDataSource: PostRemoteDataSource)
     override suspend fun getFilteredPostPageByUserAndCreatorIds(
         userId: String,
         creatorId: String,
-        postType: String,
-        tagIds: List<Long>,
+        blogFilter: BlogFilter,
         postId: Long,
     ): List<Post> {
         return postRemoteDataSource.getFilteredPostPageByUserAndCreatorIds(
             userId = userId,
             creatorId = creatorId,
-            postType = postType,
-            tagIds = tagIds,
+            blogFilter = blogFilter,
             postId = postId
         )
     }

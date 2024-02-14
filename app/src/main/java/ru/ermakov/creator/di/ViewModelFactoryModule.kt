@@ -30,6 +30,7 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.following.GetFilteredFollowingPostPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
@@ -119,11 +120,13 @@ class ViewModelFactoryModule {
     @Provides
     fun provideFollowingViewModelFactory(
         getCurrentUserUseCase: GetCurrentUserUseCase,
+        getFilteredFollowingPostPageByUserIdUseCase: GetFilteredFollowingPostPageByUserIdUseCase,
         signOutUseCase: SignOutUseCase,
         exceptionHandler: ExceptionHandler
     ): FollowingViewModelFactory {
         return FollowingViewModelFactory(
             getCurrentUserUseCase = getCurrentUserUseCase,
+            getFilteredFollowingPostPageByUserIdUseCase = getFilteredFollowingPostPageByUserIdUseCase,
             signOutUseCase = signOutUseCase,
             exceptionHandler = exceptionHandler
         )

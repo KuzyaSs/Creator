@@ -1,12 +1,19 @@
 package ru.ermakov.creator.data.remote.dataSource
 
+import android.util.Log
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
+import ru.ermakov.creator.data.mapper.toPost
+import ru.ermakov.creator.data.mapper.toRemoteLikeRequest
+import ru.ermakov.creator.data.mapper.toRemotePostRequest
+import ru.ermakov.creator.data.mapper.toRemoteUserTransactionRequest
 import ru.ermakov.creator.data.remote.api.PostApi
+import ru.ermakov.creator.domain.model.BlogFilter
+import ru.ermakov.creator.domain.model.FeedFilter
 import ru.ermakov.creator.domain.model.LikeRequest
 import ru.ermakov.creator.domain.model.Post
 import ru.ermakov.creator.domain.model.PostRequest
 
-private const val LIMIT = 20;
+private const val LIMIT = 20L
 
 class PostRemoteDataSourceImpl(
     private val postApi: PostApi,
@@ -14,30 +21,88 @@ class PostRemoteDataSourceImpl(
 ) : PostRemoteDataSource {
     override suspend fun getFilteredPostPageByUserId(
         userId: String,
-        postType: String,
-        categoryIds: List<Long>,
+        feedFilter: FeedFilter,
         postId: Long,
     ): List<Post> {
-        TODO("Not yet implemented")
+        val remotePostsResponse = postApi.getFilteredPostPageByUserId(
+            userId = userId,
+            postType = feedFilter.postType,
+            categoryIds = feedFilter.categoryIds,
+            postId = postId,
+            limit = LIMIT
+        )
+        if (remotePostsResponse.isSuccessful) {
+            Log.d("MY_TAG", "getFilteredPostPageByUserId SUCCESS ${remotePostsResponse.body()}")
+            remotePostsResponse.body()?.let { remotePosts ->
+                return remotePosts.map { remotePost ->
+                    remotePost.toPost()
+                }
+            }
+        }
+        Log.d("MY_TAG", "getFilteredPostPageByUserId ERROR ${remotePostsResponse.errorBody()}")
+        throw apiExceptionLocalizer.localizeApiException(response = remotePostsResponse)
     }
 
     override suspend fun getFilteredFollowingPostPageByUserId(
         userId: String,
-        postType: String,
-        categoryIds: List<Long>,
+        feedFilter: FeedFilter,
         postId: Long,
     ): List<Post> {
-        TODO("Not yet implemented")
+        val remotePostsResponse = postApi.getFilteredFollowingPostPageByUserId(
+            userId = userId,
+            postType = feedFilter.postType,
+            categoryIds = feedFilter.categoryIds,
+            postId = postId,
+            limit = LIMIT
+        )
+        if (remotePostsResponse.isSuccessful) {
+            Log.d(
+                "MY_TAG",
+                "getFilteredFollowingPostPageByUserId SUCCESS ${remotePostsResponse.body()}"
+            )
+            remotePostsResponse.body()?.let { remotePosts ->
+                return remotePosts.map { remotePost ->
+                    remotePost.toPost()
+                }
+            }
+        }
+        Log.d(
+            "MY_TAG",
+            "getFilteredFollowingPostPageByUserId ERROR ${remotePostsResponse.errorBody()}"
+        )
+        throw apiExceptionLocalizer.localizeApiException(response = remotePostsResponse)
     }
 
     override suspend fun getFilteredPostPageByUserAndCreatorIds(
         userId: String,
         creatorId: String,
-        postType: String,
-        tagIds: List<Long>,
+        blogFilter: BlogFilter,
         postId: Long,
     ): List<Post> {
-        TODO("Not yet implemented")
+        val remotePostsResponse = postApi.getFilteredPostPageByUserAndCreatorIds(
+            userId = userId,
+            creatorId = creatorId,
+            postType = blogFilter.postType,
+            tagIds = blogFilter.tagIds,
+            postId = postId,
+            limit = LIMIT
+        )
+        if (remotePostsResponse.isSuccessful) {
+            Log.d(
+                "MY_TAG",
+                "getFilteredPostPageByUserAndCreatorIds SUCCESS ${remotePostsResponse.body()}"
+            )
+            remotePostsResponse.body()?.let { remotePosts ->
+                return remotePosts.map { remotePost ->
+                    remotePost.toPost()
+                }
+            }
+        }
+        Log.d(
+            "MY_TAG",
+            "getFilteredPostPageByUserAndCreatorIds ERROR ${remotePostsResponse.errorBody()}"
+        )
+        throw apiExceptionLocalizer.localizeApiException(response = remotePostsResponse)
     }
 
     override suspend fun getPostPageByUserIdAndSearchQuery(
@@ -45,30 +110,96 @@ class PostRemoteDataSourceImpl(
         searchQuery: String,
         postId: Long,
     ): List<Post> {
-        TODO("Not yet implemented")
+        val remotePostsResponse = postApi.getPostPageByUserIdAndSearchQuery(
+            userId = userId,
+            searchQuery = searchQuery,
+            postId = postId,
+            limit = LIMIT
+        )
+        if (remotePostsResponse.isSuccessful) {
+            Log.d(
+                "MY_TAG",
+                "getPostPageByUserIdAndSearchQuery SUCCESS ${remotePostsResponse.body()}"
+            )
+            remotePostsResponse.body()?.let { remotePosts ->
+                return remotePosts.map { remotePost ->
+                    remotePost.toPost()
+                }
+            }
+        }
+        Log.d(
+            "MY_TAG",
+            "getPostPageByUserIdAndSearchQuery ERROR ${remotePostsResponse.errorBody()}"
+        )
+        throw apiExceptionLocalizer.localizeApiException(response = remotePostsResponse)
     }
 
     override suspend fun getPostByUserAndPostIds(userId: String, postId: Long): Post {
-        TODO("Not yet implemented")
+        val remotePostResponse = postApi.getPostByUserAndPostIds(userId = userId, postId = postId)
+        if (remotePostResponse.isSuccessful) {
+            Log.d("MY_TAG", "getPostByUserAndPostIds SUCCESS ${remotePostResponse.body()}")
+            remotePostResponse.body()?.let { remotePost ->
+                return remotePost.toPost()
+            }
+        }
+        Log.d("MY_TAG", "getPostByUserAndPostIds ERROR ${remotePostResponse.errorBody()}")
+        throw apiExceptionLocalizer.localizeApiException(response = remotePostResponse)
     }
 
     override suspend fun insertPost(postRequest: PostRequest) {
-        TODO("Not yet implemented")
+        val response = postApi.insertPost(remotePostRequest = postRequest.toRemotePostRequest())
+        if (response.isSuccessful) {
+            Log.d("MY_TAG", "insertPost SUCCESS ${response.body()}")
+            return
+        }
+        Log.d("MY_TAG", "insertPost ERROR ${response.errorBody()}")
+        throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
     override suspend fun updatePost(postId: Long, postRequest: PostRequest) {
-        TODO("Not yet implemented")
+        val response = postApi.updatePost(
+            postId = postId,
+            remotePostRequest = postRequest.toRemotePostRequest()
+        )
+        if (response.isSuccessful) {
+            Log.d("MY_TAG", "updatePost SUCCESS ${response.body()}")
+            return
+        }
+        Log.d("MY_TAG", "updatePost ERROR ${response.errorBody()}")
+        throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
     override suspend fun deletePostById(postId: Long) {
-        TODO("Not yet implemented")
+        val response = postApi.deletePostById(postId = postId)
+        if (response.isSuccessful) {
+            Log.d("MY_TAG", "deletePostById SUCCESS ${response.body()}")
+            return
+        }
+        Log.d("MY_TAG", "deletePostById ERROR ${response.errorBody()}")
+        throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
     override suspend fun insertLikeToPost(likeRequest: LikeRequest) {
-        TODO("Not yet implemented")
+        val response = postApi.insertLikeToPost(
+            remoteLikeRequest = likeRequest.toRemoteLikeRequest()
+        )
+        if (response.isSuccessful) {
+            Log.d("MY_TAG", "insertLikeToPost SUCCESS ${response.body()}")
+            return
+        }
+        Log.d("MY_TAG", "insertLikeToPost ERROR ${response.errorBody()}")
+        throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
     override suspend fun deleteLikeFromPost(likeRequest: LikeRequest) {
-        TODO("Not yet implemented")
+        val response = postApi.deleteLikeFromPost(
+            remoteLikeRequest = likeRequest.toRemoteLikeRequest()
+        )
+        if (response.isSuccessful) {
+            Log.d("MY_TAG", "deleteLikeFromPost SUCCESS ${response.body()}")
+            return
+        }
+        Log.d("MY_TAG", "deleteLikeFromPost ERROR ${response.errorBody()}")
+        throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 }

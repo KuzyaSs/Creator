@@ -1,5 +1,7 @@
 package ru.ermakov.creator.domain.repository
 
+import ru.ermakov.creator.domain.model.BlogFilter
+import ru.ermakov.creator.domain.model.FeedFilter
 import ru.ermakov.creator.domain.model.LikeRequest
 import ru.ermakov.creator.domain.model.Post
 import ru.ermakov.creator.domain.model.PostRequest
@@ -8,16 +10,14 @@ interface PostRepository {
     // In the discover screen.
     suspend fun getFilteredPostPageByUserId(
         userId: String,
-        postType: String,
-        categoryIds: List<Long>,
+        feedFilter: FeedFilter,
         postId: Long,
     ): List<Post>
 
     // In the following screen.
     suspend fun getFilteredFollowingPostPageByUserId(
         userId: String,
-        postType: String,
-        categoryIds: List<Long>,
+        feedFilter: FeedFilter,
         postId: Long,
     ): List<Post>
 
@@ -25,8 +25,7 @@ interface PostRepository {
     suspend fun getFilteredPostPageByUserAndCreatorIds(
         userId: String,
         creatorId: String,
-        postType: String,
-        tagIds: List<Long>,
+        blogFilter: BlogFilter,
         postId: Long,
     ): List<Post>
 

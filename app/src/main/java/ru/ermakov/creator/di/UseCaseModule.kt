@@ -8,6 +8,7 @@ import ru.ermakov.creator.domain.repository.CreatorRepository
 import ru.ermakov.creator.domain.repository.CreditGoalRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
+import ru.ermakov.creator.domain.repository.PostRepository
 import ru.ermakov.creator.domain.repository.SubscriptionRepository
 import ru.ermakov.creator.domain.repository.TransactionRepository
 import ru.ermakov.creator.domain.repository.UserRepository
@@ -44,6 +45,7 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.following.GetFilteredFollowingPostPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
@@ -406,5 +408,16 @@ class UseCaseModule {
         transactionRepository: TransactionRepository
     ): InsertCreditGoalTransactionUseCase {
         return InsertCreditGoalTransactionUseCase(transactionRepository = transactionRepository)
+    }
+
+    @Provides
+    fun provideGetFilteredFollowingPostPageByUserIdUseCase(
+        postRepository: PostRepository,
+        getDateTimeUseCase: GetDateTimeUseCase
+    ): GetFilteredFollowingPostPageByUserIdUseCase {
+        return GetFilteredFollowingPostPageByUserIdUseCase(
+            postRepository = postRepository,
+            getDateTimeUseCase = getDateTimeUseCase
+        )
     }
 }

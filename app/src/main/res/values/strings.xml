@@ -113,6 +113,7 @@
     <string name="empty_tag_list">The tag list is still empty, but it will be added soon</string>
     <string name="empty_tag_list_description">Here you can see the author\'s tags</string>
     <string name="empty_category_list">The category list is still empty, but it will be added soon</string>
+    <string name="empty_post_list">The post list is still empty, but it will be added soon</string>
     <string name="add">Add</string>
     <string name="subscribe_for">Subscribe for %d</string>
     <string name="subscribed_until">Subscribed until %s</string>

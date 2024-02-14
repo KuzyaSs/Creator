@@ -7,7 +7,7 @@ class GetDateTimeUseCase {
     operator fun invoke(date: LocalDateTime): String {
         val currentDate = LocalDateTime.now()
 
-        return if (currentDate.dayOfYear == date.dayOfYear) {
+        return if (currentDate.year == date.year && currentDate.dayOfYear == date.dayOfYear) {
             date.format(DateTimeFormatter.ofPattern("HH:mm"))
         } else if (currentDate.year == date.year) {
             date.format(DateTimeFormatter.ofPattern("d MMM HH:mm"))

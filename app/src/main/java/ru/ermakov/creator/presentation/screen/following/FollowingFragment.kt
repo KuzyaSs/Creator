@@ -10,15 +10,19 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentFollowingBinding
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.presentation.util.State
-import ru.ermakov.creator.presentation.util.TextLocalizer
+import ru.ermakov.creator.presentation.adapter.PostAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
+
+private const val THRESHOLD = 5
 
 class FollowingFragment : Fragment() {
     private var _binding: FragmentFollowingBinding? = null
@@ -30,6 +34,8 @@ class FollowingFragment : Fragment() {
 
     @Inject
     lateinit var textLocalizer: TextLocalizer
+
+    private var postAdapter: PostAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,8 +80,10 @@ class FollowingFragment : Fragment() {
     private fun setUpListeners() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
-                followingViewModel.setCurrentUser()
-                swipeRefreshLayout.isRefreshing = false
+                followingViewModel.refreshFollowingScreen()
+            }
+            swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
+                scrollView.canScrollVertically(-1) || recyclerViewPosts.canScrollVertically(-1)
             }
             val accountFragment = AccountFragment()
             imageViewProfileAvatar.setOnClickListener {
@@ -89,26 +97,53 @@ class FollowingFragment : Fragment() {
 
     private fun setUpObservers() {
         followingViewModel.followingUiState.observe(viewLifecycleOwner) { followingUiState ->
-            when (followingUiState.state) {
-                State.INITIAL -> {}
-                State.SUCCESS -> {
-                    hideProgressBar()
-                    setProfileAvatar(followingUiState.currentUser!!)
+            followingUiState.apply {
+                if (currentUser != null && posts != null) {
+                    setProfileAvatar(user = currentUser)
+                    if (postAdapter == null) {
+                    }
+                    setUpPostRecyclerView(userId = currentUser.id)
+                    postAdapter?.submitList(posts)
                 }
-
-                State.ERROR -> {
-                    hideProgressBar()
-                    val errorMessage = textLocalizer.localizeText(
-                        text = followingUiState.errorMessage
-                    )
-                    showToast(errorMessage)
-                }
-
-                State.LOADING -> {
-                    showProgressBar()
-                }
+                binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
+                setUpPostRecyclerViewState(
+                    isPostRecyclerViewEmpty = posts.isNullOrEmpty(),
+                    isLoading = isLoadingShown
+                )
+                setErrorMessage(
+                    errorMessage = textLocalizer.localizeText(text = errorMessage),
+                    isErrorMessageShown = isErrorMessageShown
+                )
             }
         }
+    }
+
+    private fun setUpPostRecyclerView(userId: String) {
+        postAdapter = PostAdapter(
+            userId = userId,
+            onItemClickListener = { postItem ->
+                navigateToPostFragment(postId = postItem.id)
+            }, onProfileAvatarClickListener = { creator ->
+                navigateToBlogFragment(creatorId = creator.user.id)
+            }, onMoreClickListener = { postItem ->
+                showToast("More")
+            }, onLikeClickListener = { postItem ->
+                showToast("Like")
+            }, onCommentClickListener = { postItem ->
+                showToast("Comment")
+            }
+        )
+        binding.recyclerViewPosts.adapter = postAdapter
+        binding.recyclerViewPosts.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                if (layoutManager.itemCount - lastVisibleItemPosition <= THRESHOLD && recyclerView.scrollState != RecyclerView.SCROLL_STATE_IDLE) {
+                    followingViewModel.loadNextPostPage()
+                }
+            }
+        })
     }
 
     private fun setProfileAvatar(user: User) {
@@ -133,16 +168,29 @@ class FollowingFragment : Fragment() {
         findNavController().navigate(action)
     }
 
+    private fun navigateToBlogFragment(creatorId: String) {
+        showToast("navigateToBlogFragment (creator id: $creatorId")
+    }
+
+    private fun navigateToPostFragment(postId: Long) {
+        showToast("navigateToPostFragment (post id: $postId")
+    }
+
+    private fun setUpPostRecyclerViewState(isPostRecyclerViewEmpty: Boolean, isLoading: Boolean) {
+        binding.imageViewLogo.isVisible = isPostRecyclerViewEmpty && !isLoading
+        binding.textViewEmptyListMessage.isVisible = isPostRecyclerViewEmpty && !isLoading
+        binding.progressBarRecyclerViewPosts.isVisible = isLoading
+    }
+
+    private fun setErrorMessage(errorMessage: String, isErrorMessageShown: Boolean) {
+        if (isErrorMessageShown) {
+            showToast(message = errorMessage)
+            followingViewModel.clearErrorMessage()
+        }
+    }
+
     private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showProgressBar() {
-        binding.progressBar.isVisible = true
-    }
-
-    private fun hideProgressBar() {
-        binding.progressBar.isVisible = false
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

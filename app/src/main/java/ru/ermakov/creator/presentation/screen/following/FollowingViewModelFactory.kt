@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
+import ru.ermakov.creator.domain.useCase.following.GetFilteredFollowingPostPageByUserIdUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class FollowingViewModelFactory(
     private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val getFilteredFollowingPostPageByUserIdUseCase: GetFilteredFollowingPostPageByUserIdUseCase,
     private val signOutUseCase: SignOutUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModelProvider.Factory {
@@ -16,6 +18,7 @@ class FollowingViewModelFactory(
             @Suppress("UNCHECKED_CAST")
             return FollowingViewModel(
                 getCurrentUserUseCase = getCurrentUserUseCase,
+                getFilteredFollowingPostPageByUserIdUseCase = getFilteredFollowingPostPageByUserIdUseCase,
                 signOutUseCase = signOutUseCase,
                 exceptionHandler = exceptionHandler
             ) as T

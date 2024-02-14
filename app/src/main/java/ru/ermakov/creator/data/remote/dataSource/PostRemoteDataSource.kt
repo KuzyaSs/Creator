@@ -1,5 +1,7 @@
 package ru.ermakov.creator.data.remote.dataSource
 
+import ru.ermakov.creator.domain.model.BlogFilter
+import ru.ermakov.creator.domain.model.FeedFilter
 import ru.ermakov.creator.domain.model.LikeRequest
 import ru.ermakov.creator.domain.model.Post
 import ru.ermakov.creator.domain.model.PostRequest
@@ -7,23 +9,20 @@ import ru.ermakov.creator.domain.model.PostRequest
 interface PostRemoteDataSource {
     suspend fun getFilteredPostPageByUserId(
         userId: String,
-        postType: String,
-        categoryIds: List<Long>,
+        feedFilter: FeedFilter,
         postId: Long,
     ): List<Post>
 
     suspend fun getFilteredFollowingPostPageByUserId(
         userId: String,
-        postType: String,
-        categoryIds: List<Long>,
+        feedFilter: FeedFilter,
         postId: Long,
     ): List<Post>
 
     suspend fun getFilteredPostPageByUserAndCreatorIds(
         userId: String,
         creatorId: String,
-        postType: String,
-        tagIds: List<Long>,
+        blogFilter: BlogFilter,
         postId: Long,
     ): List<Post>
 

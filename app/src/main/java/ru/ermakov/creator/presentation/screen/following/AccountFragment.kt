@@ -60,21 +60,9 @@ class AccountFragment : BottomSheetDialogFragment() {
 
     private fun setUpObservers() {
         followingViewModel.followingUiState.observe(viewLifecycleOwner) { followingUiState ->
-            when (followingUiState.state) {
-                State.INITIAL -> {}
-                State.SUCCESS -> {
-                    setUserProfile(followingUiState.currentUser!!)
-                }
-
-                State.ERROR -> {
-                    val errorMessage = textLocalizer.localizeText(
-                        text = followingUiState.errorMessage
-                    )
-                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-                }
-
-                State.LOADING -> {
-
+            followingUiState.apply {
+                if (currentUser != null) {
+                    setUserProfile(user = currentUser)
                 }
             }
         }
@@ -120,10 +108,6 @@ class AccountFragment : BottomSheetDialogFragment() {
         activity?.viewModelStore?.clear()
         val action = FollowingFragmentDirections.actionFollowingFragmentToSignInFragment(null)
         findNavController().navigate(action)
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

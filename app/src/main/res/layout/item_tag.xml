@@ -8,7 +8,7 @@
     android:layout_marginVertical="@dimen/medium_margin_size">
 
     <TextView
-        android:id="@+id/textViewTag"
+        android:id="@+id/textViewName"
         style="@style/LargeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
