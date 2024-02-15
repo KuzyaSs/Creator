@@ -5,23 +5,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.ermakov.creator.databinding.ItemTagBinding
+import ru.ermakov.creator.databinding.ItemPostTagBinding
 import ru.ermakov.creator.domain.model.Tag
 
-class TagAdapter : ListAdapter<Tag, TagAdapter.TagViewHolder>(DiffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
-        return TagViewHolder(
-            ItemTagBinding.inflate(
+class PostTagAdapter : ListAdapter<Tag, PostTagAdapter.PostTagViewHolder>(DiffCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostTagViewHolder {
+        return PostTagViewHolder(
+            ItemPostTagBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PostTagViewHolder, position: Int) {
         holder.bind(tag = getItem(position))
     }
 
-    inner class TagViewHolder(private val binding: ItemTagBinding) :
+    inner class PostTagViewHolder(private val binding: ItemPostTagBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tag: Tag) {
             binding.textViewName.text = tag.name

@@ -21,7 +21,7 @@
         style="@style/LargeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginHorizontal="@dimen/medium_margin_size"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@id/textViewPublicationDate"
@@ -35,7 +35,7 @@
         style="@style/BaseTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginHorizontal="@dimen/medium_margin_size"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="?android:textColorSecondary"
@@ -62,6 +62,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/base_margin_size"
         android:layout_marginTop="@dimen/medium_margin_size"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:paddingBottom="@dimen/medium_margin_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,11 +77,58 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/base_margin_size"
-        android:layout_marginTop="@dimen/medium_margin_size"
+        android:ellipsize="end"
+        android:maxLines="12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewTitle"
-        tools:text="Some content of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. " />
+        tools:text="Some content of the post. Some conte. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some contnt of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. " />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutIsNotAvailable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:background="@drawable/container_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewContent">
+
+        <ImageView
+            android:id="@+id/imageViewLock"
+            android:layout_width="@dimen/large_image_size"
+            android:layout_height="@dimen/large_image_size"
+            android:layout_marginTop="@dimen/base_margin_size"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_lock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewSubscriptionRequired"
+            style="@style/LargeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_margin_size"
+            android:text="@string/subscription_required"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewLock" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewRequiredSubscriptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/medium_margin_size"
+            android:paddingBottom="@dimen/medium_margin_size"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionRequired" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerImages"
@@ -87,19 +137,19 @@
         android:layout_marginTop="@dimen/medium_margin_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewContent" />
+        app:layout_constraintTop_toBottomOf="@id/constraintLayoutIsNotAvailable" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTags"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin_size"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/base_margin_size"
+        android:paddingHorizontal="@dimen/medium_margin_size"
+        android:paddingTop="@dimen/base_margin_size"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewPagerImages" />
+        app:layout_constraintTop_toBottomOf="@id/constraintLayoutIsNotAvailable" />
 
     <ImageView
         android:id="@+id/imageViewLike"
@@ -144,4 +194,28 @@
         app:layout_constraintStart_toEndOf="@id/imageViewComment"
         app:layout_constraintTop_toTopOf="@id/imageViewComment"
         tools:text="15" />
+
+    <TextView
+        android:id="@+id/textViewIsEdited"
+        style="@style/BaseTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/medium_margin_size"
+        android:layout_marginEnd="@dimen/base_margin_size"
+        android:text="@string/edited"
+        android:textColor="?android:textColorSecondary"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewComment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageViewComment" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginTop="@dimen/medium_margin_size"
+        app:dividerColor="?attr/colorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewLike" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,8 @@ class PostAdapter(
     inner class PostViewHolder(
         private val binding: ItemPostBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        private var tagAdapter: TagAdapter? = null
+        private var postTagAdapter: PostTagAdapter? = null
+        private var postSubscriptionAdapter: PostSubscriptionAdapter? = null
 
         fun bind(postItem: PostItem) {
             binding.apply {
@@ -50,12 +51,20 @@ class PostAdapter(
 
                 // viewPagerImages - later...
 
-                tagAdapter = TagAdapter()
-                recyclerViewTags.adapter = tagAdapter
-                tagAdapter?.submitList(postItem.tags)
+                postTagAdapter = PostTagAdapter()
+                recyclerViewTags.adapter = postTagAdapter
+                postTagAdapter?.submitList(postItem.tags)
 
                 textViewLikeCount.text = postItem.likeCount.toString()
                 textViewCommentCount.text = postItem.commentCount.toString()
+                textViewIsEdited.isVisible = postItem.isEdited
+
+                textViewContent.isVisible = postItem.isAvailable
+                constraintLayoutIsNotAvailable.isVisible = !postItem.isAvailable
+
+                postSubscriptionAdapter = PostSubscriptionAdapter()
+                recyclerViewRequiredSubscriptions.adapter = postSubscriptionAdapter
+                postSubscriptionAdapter?.submitList(postItem.requiredSubscriptions)
 
                 root.setOnClickListener {
                     onItemClickListener(postItem)

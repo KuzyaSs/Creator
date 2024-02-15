@@ -3,6 +3,7 @@ package ru.ermakov.creator.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import layout.PostTypeFilterFragment
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import ru.ermakov.creator.presentation.screen.balance.BalanceFragment
 import ru.ermakov.creator.presentation.screen.blog.CreatorBioFragment
@@ -23,6 +24,7 @@ import ru.ermakov.creator.presentation.screen.follows.FollowsFragment
 import ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsFragment
 import ru.ermakov.creator.presentation.screen.donateToCreditGoal.DonateToCreditGoalFragment
 import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalFragment
+import ru.ermakov.creator.presentation.screen.following.FeedFilterFragment
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.search.SearchFragment
@@ -69,6 +71,8 @@ interface ApplicationComponent {
     fun inject(fragment: SearchCreatorFragment)
     fun inject(fragment: SearchPostFragment)
     fun inject(fragment: AccountFragment)
+    fun inject(fragment: FeedFilterFragment)
+    fun inject(fragment: PostTypeFilterFragment)
     fun inject(fragment: BalanceFragment)
     fun inject(fragment: TopUpFragment)
     fun inject(fragment: WithdrawalFragment)

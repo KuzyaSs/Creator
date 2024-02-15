@@ -9,12 +9,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.ermakov.creator.domain.model.FeedFilter
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.domain.useCase.following.GetFilteredFollowingPostPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserUseCase
+import ru.ermakov.creator.presentation.screen.following.DefaultFeedFilter.defaultFeedFilter
 import ru.ermakov.creator.presentation.util.ExceptionHandler
-import ru.ermakov.creator.presentation.util.State
 
 private const val LOAD_NEXT_POST_PAGE_DELAY = 1000L
 private const val DEFAULT_POST_ID = Long.MAX_VALUE
@@ -52,15 +51,15 @@ class FollowingViewModel(
         loadNextPostPageJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 delay(LOAD_NEXT_POST_PAGE_DELAY)
-                val currentPosts = _followingUiState.value?.posts ?: listOf()
+                val currentPosts = _followingUiState.value?.postItems ?: listOf()
                 val nextPosts = getFilteredFollowingPostPageByUserIdUseCase(
                     userId = _followingUiState.value?.currentUser?.id,
                     feedFilter = _followingUiState.value?.feedFilter,
-                    postId = _followingUiState.value?.posts?.last()?.id ?: DEFAULT_POST_ID
+                    postId = _followingUiState.value?.postItems?.last()?.id ?: DEFAULT_POST_ID
                 )
                 _followingUiState.postValue(
                     _followingUiState.value?.copy(
-                        posts = currentPosts + nextPosts,
+                        postItems = currentPosts + nextPosts,
                         isRefreshingShown = false,
                         isLoadingShown = false,
                         isErrorMessageShown = false
@@ -80,9 +79,16 @@ class FollowingViewModel(
         }
     }
 
-    fun changeFeedFilter(newFeedFilter: FeedFilter) {
-        _followingUiState.value = _followingUiState.value?.copy(feedFilter = newFeedFilter)
-        setFollowingScreen()
+    fun changePostTypeFilter(postType: String) {
+        _followingUiState.value = _followingUiState.value?.copy(
+            feedFilter = _followingUiState.value?.feedFilter?.copy(
+                postType = postType
+            ) ?: defaultFeedFilter
+        )
+    }
+
+    fun resetFeedFilter() {
+        _followingUiState.value = _followingUiState.value?.copy(feedFilter = defaultFeedFilter)
     }
 
     fun signOut() {
@@ -113,7 +119,7 @@ class FollowingViewModel(
                 _followingUiState.postValue(
                     _followingUiState.value?.copy(
                         currentUser = currentUser,
-                        posts = posts,
+                        postItems = posts,
                         isRefreshingShown = false,
                         isLoadingShown = false,
                         isErrorMessageShown = false

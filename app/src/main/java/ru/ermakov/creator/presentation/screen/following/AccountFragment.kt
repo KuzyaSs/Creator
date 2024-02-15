@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -13,9 +12,8 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentAccountBinding
 import ru.ermakov.creator.domain.model.User
-import ru.ermakov.creator.presentation.util.State
-import ru.ermakov.creator.presentation.util.TextLocalizer
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
 class AccountFragment : BottomSheetDialogFragment() {

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.bumptech.glide.Glide
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
@@ -85,6 +86,13 @@ class FollowingFragment : Fragment() {
             swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
                 scrollView.canScrollVertically(-1) || recyclerViewPosts.canScrollVertically(-1)
             }
+
+            val feedFilterFragment = FeedFilterFragment()
+            imageViewFilter.setOnClickListener {
+                showFeedFilterFragment(feedFilterFragment = feedFilterFragment)
+
+            }
+
             val accountFragment = AccountFragment()
             imageViewProfileAvatar.setOnClickListener {
                 showAccountFragment(accountFragment = accountFragment)
@@ -98,16 +106,16 @@ class FollowingFragment : Fragment() {
     private fun setUpObservers() {
         followingViewModel.followingUiState.observe(viewLifecycleOwner) { followingUiState ->
             followingUiState.apply {
-                if (currentUser != null && posts != null) {
+                if (currentUser != null && postItems != null) {
                     setProfileAvatar(user = currentUser)
                     if (postAdapter == null) {
+                        setUpPostRecyclerView(userId = currentUser.id)
                     }
-                    setUpPostRecyclerView(userId = currentUser.id)
-                    postAdapter?.submitList(posts)
+                    postAdapter?.submitList(postItems)
                 }
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                 setUpPostRecyclerViewState(
-                    isPostRecyclerViewEmpty = posts.isNullOrEmpty(),
+                    isPostRecyclerViewEmpty = postItems.isNullOrEmpty(),
                     isLoading = isLoadingShown
                 )
                 setErrorMessage(
@@ -139,7 +147,7 @@ class FollowingFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                if (layoutManager.itemCount - lastVisibleItemPosition <= THRESHOLD && recyclerView.scrollState != RecyclerView.SCROLL_STATE_IDLE) {
+                if (layoutManager.itemCount - lastVisibleItemPosition <= THRESHOLD && recyclerView.scrollState != SCROLL_STATE_IDLE) {
                     followingViewModel.loadNextPostPage()
                 }
             }
@@ -152,6 +160,14 @@ class FollowingFragment : Fragment() {
                 .load(user.profileAvatarUrl)
                 .placeholder(R.drawable.default_profile_avatar)
                 .into(binding.imageViewProfileAvatar)
+        }
+    }
+
+    private fun showFeedFilterFragment(feedFilterFragment: FeedFilterFragment) {
+        if (!feedFilterFragment.isVisible) {
+            feedFilterFragment.show(childFragmentManager, feedFilterFragment.toString())
+        } else {
+            feedFilterFragment.dismiss()
         }
     }
 
@@ -169,17 +185,17 @@ class FollowingFragment : Fragment() {
     }
 
     private fun navigateToBlogFragment(creatorId: String) {
-        showToast("navigateToBlogFragment (creator id: $creatorId")
+        showToast("navigateToBlogFragment (creator id: $creatorId)")
     }
 
     private fun navigateToPostFragment(postId: Long) {
-        showToast("navigateToPostFragment (post id: $postId")
+        showToast("navigateToPostFragment (post id: $postId)")
     }
 
     private fun setUpPostRecyclerViewState(isPostRecyclerViewEmpty: Boolean, isLoading: Boolean) {
         binding.imageViewLogo.isVisible = isPostRecyclerViewEmpty && !isLoading
         binding.textViewEmptyListMessage.isVisible = isPostRecyclerViewEmpty && !isLoading
-        binding.progressBarRecyclerViewPosts.isVisible = isLoading
+        binding.progressBarRecyclerViewPosts.isVisible = isPostRecyclerViewEmpty && isLoading
     }
 
     private fun setErrorMessage(errorMessage: String, isErrorMessageShown: Boolean) {
@@ -196,5 +212,6 @@ class FollowingFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        postAdapter = null
     }
 }

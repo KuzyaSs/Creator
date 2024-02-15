@@ -25,7 +25,7 @@
         android:id="@+id/constraintLayoutTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/base_margin_size"
+        android:layout_marginHorizontal="@dimen/medium_margin_size"
         android:minHeight="@dimen/base_image_size"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@id/textViewAmount"
