@@ -87,6 +87,10 @@ class FollowingFragment : Fragment() {
                 scrollView.canScrollVertically(-1) || recyclerViewPosts.canScrollVertically(-1)
             }
 
+            cardViewTitle.setOnLongClickListener {
+                recyclerViewPosts.smoothScrollToPosition(0)
+                true
+            }
             val feedFilterFragment = FeedFilterFragment()
             imageViewFilter.setOnClickListener {
                 showFeedFilterFragment(feedFilterFragment = feedFilterFragment)
@@ -135,6 +139,8 @@ class FollowingFragment : Fragment() {
                 navigateToBlogFragment(creatorId = creator.user.id)
             }, onMoreClickListener = { postItem ->
                 showToast("More")
+            }, onSubscribeClickListener = { creator ->
+                navigateToSubscriptionsFragment(creatorId = creator.user.id)
             }, onLikeClickListener = { postItem ->
                 showToast("Like")
             }, onCommentClickListener = { postItem ->
@@ -184,12 +190,22 @@ class FollowingFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun navigateToBlogFragment(creatorId: String) {
-        showToast("navigateToBlogFragment (creator id: $creatorId)")
-    }
-
     private fun navigateToPostFragment(postId: Long) {
         showToast("navigateToPostFragment (post id: $postId)")
+    }
+
+    private fun navigateToBlogFragment(creatorId: String) {
+        val action = FollowingFragmentDirections.actionFollowingFragmentToBlogFragment(
+            creatorId = creatorId
+        )
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToSubscriptionsFragment(creatorId: String) {
+        val action = FollowingFragmentDirections.actionFollowingFragmentToSubscriptionsFragment(
+            creatorId = creatorId
+        )
+        findNavController().navigate(action)
     }
 
     private fun setUpPostRecyclerViewState(isPostRecyclerViewEmpty: Boolean, isLoading: Boolean) {

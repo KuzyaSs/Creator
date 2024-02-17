@@ -8,6 +8,9 @@ import retrofit2.http.Path
 import ru.ermakov.creator.domain.model.Category
 
 interface CategoryApi {
+    @GET("categories")
+    suspend fun getAllCategories(): Response<List<Category>>
+
     @GET("users/{userId}/categories")
     suspend fun getCategoriesByUserId(@Path("userId") userId: String): Response<List<Category>>
 

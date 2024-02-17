@@ -30,6 +30,7 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.following.GetAllCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.following.GetFilteredFollowingPostPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
@@ -120,13 +121,17 @@ class ViewModelFactoryModule {
     @Provides
     fun provideFollowingViewModelFactory(
         getCurrentUserUseCase: GetCurrentUserUseCase,
+        getAllCategoriesUseCase: GetAllCategoriesUseCase,
         getFilteredFollowingPostPageByUserIdUseCase: GetFilteredFollowingPostPageByUserIdUseCase,
+        updateCategoryInListUseCase: UpdateCategoryInListUseCase,
         signOutUseCase: SignOutUseCase,
         exceptionHandler: ExceptionHandler
     ): FollowingViewModelFactory {
         return FollowingViewModelFactory(
             getCurrentUserUseCase = getCurrentUserUseCase,
+            getAllCategoriesUseCase = getAllCategoriesUseCase,
             getFilteredFollowingPostPageByUserIdUseCase = getFilteredFollowingPostPageByUserIdUseCase,
+            updateCategoryInListUseCase = updateCategoryInListUseCase,
             signOutUseCase = signOutUseCase,
             exceptionHandler = exceptionHandler
         )

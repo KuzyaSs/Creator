@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import layout.PostTypeFilterFragment
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentFeedFilterBinding
@@ -51,8 +50,9 @@ class FeedFilterFragment : BottomSheetDialogFragment() {
                 showPostTypeFilterFragment(postTypeFilterFragment = postTypeFilterFragment)
             }
 
+            val categoryFilterFragment = CategoryFilterFragment()
             textViewCategory.setOnClickListener {
-
+                showCategoryFilterFragment(categoryFilterFragment = categoryFilterFragment)
             }
 
             buttonReset.setOnClickListener {
@@ -75,6 +75,15 @@ class FeedFilterFragment : BottomSheetDialogFragment() {
                     binding.textViewPostType.text =
                         resources.getString(R.string.available_to_me)
                 }
+
+                if (feedFilter.categoryIds.isEmpty()) {
+                    binding.textViewCategory.text = resources.getString(R.string.any_categories)
+                } else {
+                    binding.textViewCategory.text = resources.getString(
+                        R.string.selected_number,
+                        feedFilter.categoryIds.size
+                    )
+                }
             }
         }
     }
@@ -84,6 +93,14 @@ class FeedFilterFragment : BottomSheetDialogFragment() {
             postTypeFilterFragment.show(childFragmentManager, postTypeFilterFragment.toString())
         } else {
             postTypeFilterFragment.dismiss()
+        }
+    }
+
+    private fun showCategoryFilterFragment(categoryFilterFragment: CategoryFilterFragment) {
+        if (!categoryFilterFragment.isVisible) {
+            categoryFilterFragment.show(childFragmentManager, categoryFilterFragment.toString())
+        } else {
+            categoryFilterFragment.dismiss()
         }
     }
 

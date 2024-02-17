@@ -1,5 +1,6 @@
 package ru.ermakov.creator.presentation.screen.following
 
+import ru.ermakov.creator.domain.model.Category
 import ru.ermakov.creator.domain.model.FeedFilter
 import ru.ermakov.creator.domain.model.PostItem
 import ru.ermakov.creator.domain.model.User
@@ -8,6 +9,7 @@ import ru.ermakov.creator.presentation.screen.following.DefaultFeedFilter.defaul
 data class FollowingUiState(
     val currentUser: User? = null,
     val feedFilter: FeedFilter = defaultFeedFilter,
+    val categories: List<Category>? = null,
     val postItems: List<PostItem>? = null,
     val isRefreshingShown: Boolean = false,
     val isLoadingShown: Boolean = false,
@@ -18,5 +20,5 @@ data class FollowingUiState(
 object DefaultFeedFilter {
     const val ALL_POST_TYPE = "ALL"
     const val AVAILABLE_POST_TYPE = "AVAILABLE"
-    val defaultFeedFilter = FeedFilter("ALL", listOf())
+    val defaultFeedFilter = FeedFilter(ALL_POST_TYPE, listOf())
 }

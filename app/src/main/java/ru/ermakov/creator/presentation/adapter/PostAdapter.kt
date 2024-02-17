@@ -17,6 +17,7 @@ class PostAdapter(
     private val onItemClickListener: (PostItem) -> Unit,
     private val onProfileAvatarClickListener: (Creator) -> Unit,
     private val onMoreClickListener: (PostItem) -> Unit,
+    private val onSubscribeClickListener: (Creator) -> Unit,
     private val onLikeClickListener: (PostItem) -> Unit,
     private val onCommentClickListener: (PostItem) -> Unit,
 ) : ListAdapter<PostItem, PostAdapter.PostViewHolder>(DiffCallback) {
@@ -67,18 +68,28 @@ class PostAdapter(
                 postSubscriptionAdapter?.submitList(postItem.requiredSubscriptions)
 
                 root.setOnClickListener {
-                    onItemClickListener(postItem)
+                    if (userId == postItem.creator.user.id) {
+                        onItemClickListener(postItem)
+                    }
                 }
+
                 imageViewCreatorProfileAvatar.setOnClickListener {
                     onProfileAvatarClickListener(postItem.creator)
                 }
+
                 imageViewMore.isVisible = userId == postItem.creator.user.id
                 imageViewMore.setOnClickListener {
                     onMoreClickListener(postItem)
                 }
+
+                buttonSubscribe.setOnClickListener {
+                    onSubscribeClickListener(postItem.creator)
+                }
+
                 imageViewLike.setOnClickListener {
                     onLikeClickListener(postItem)
                 }
+
                 imageViewComment.setOnClickListener {
                     onCommentClickListener(postItem)
                 }

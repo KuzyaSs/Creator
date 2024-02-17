@@ -8,6 +8,17 @@ class CategoryRemoteDataSourceImpl(
     private val categoryApi: CategoryApi,
     private val apiExceptionLocalizer: ApiExceptionLocalizer
 ) : CategoryRemoteDataSource {
+    override suspend fun getAllCategories(): List<Category> {
+        val categoriesResponse = categoryApi.getAllCategories()
+        if (categoriesResponse.isSuccessful) {
+            categoriesResponse.body()?.let { categories ->
+                return categories
+            }
+        }
+        throw apiExceptionLocalizer.localizeApiException(response = categoriesResponse)
+    }
+
+
     override suspend fun getCategoriesByUserId(userId: String): List<Category> {
         val categoriesResponse = categoryApi.getCategoriesByUserId(userId = userId)
         if (categoriesResponse.isSuccessful) {

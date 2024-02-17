@@ -35,24 +35,24 @@
                 android:text="@string/following" />
 
             <ImageView
-                android:id="@+id/imageViewFilter"
+                android:id="@+id/imageViewFollows"
                 android:layout_width="@dimen/base_icon_size"
                 android:layout_height="@dimen/base_icon_size"
                 android:layout_gravity="end"
                 android:layout_marginVertical="@dimen/medium_margin_size"
                 android:layout_marginEnd="64dp"
                 android:importantForAccessibility="no"
-                android:src="@drawable/ic_filter" />
+                android:src="@drawable/ic_follows" />
 
             <ImageView
-                android:id="@+id/imageViewFollows"
+                android:id="@+id/imageViewFilter"
                 android:layout_width="@dimen/base_icon_size"
                 android:layout_height="@dimen/base_icon_size"
                 android:layout_gravity="end"
                 android:layout_marginVertical="@dimen/medium_margin_size"
                 android:layout_marginEnd="@dimen/base_margin_size"
                 android:importantForAccessibility="no"
-                android:src="@drawable/ic_follows" />
+                android:src="@drawable/ic_filter" />
         </androidx.cardview.widget.CardView>
 
         <ScrollView

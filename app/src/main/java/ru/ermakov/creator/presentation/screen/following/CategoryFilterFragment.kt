@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.ermakov.creator.app.CreatorApplication
-import ru.ermakov.creator.databinding.FragmentPostTypeFilterBinding
+import ru.ermakov.creator.databinding.FragmentCategoryFilterBinding
+import ru.ermakov.creator.presentation.adapter.ChooseCategoryAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
-import ru.ermakov.creator.presentation.screen.following.DefaultFeedFilter.ALL_POST_TYPE
-import ru.ermakov.creator.presentation.screen.following.DefaultFeedFilter.AVAILABLE_POST_TYPE
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class PostTypeFilterFragment : BottomSheetDialogFragment() {
-    private var _binding: FragmentPostTypeFilterBinding? = null
+class CategoryFilterFragment : BottomSheetDialogFragment() {
+    private var _binding: FragmentCategoryFilterBinding? = null
     private val binding get() = _binding!!
 
     @Inject
@@ -25,10 +25,12 @@ class PostTypeFilterFragment : BottomSheetDialogFragment() {
     @Inject
     lateinit var textLocalizer: TextLocalizer
 
+    private var chooseCategoryAdapter: ChooseCategoryAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPostTypeFilterBinding.inflate(inflater, container, false)
+        _binding = FragmentCategoryFilterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,6 +42,7 @@ class PostTypeFilterFragment : BottomSheetDialogFragment() {
         )[FollowingViewModel::class.java]
         (activity as CreatorActivity).showBottomNavigationView()
         setUpListeners()
+        setUpObservers()
     }
 
     private fun setUpListeners() {
@@ -47,24 +50,40 @@ class PostTypeFilterFragment : BottomSheetDialogFragment() {
             textViewTitleWithBackButton.setOnClickListener {
                 dismiss()
             }
+        }
+    }
 
-            textViewAllPosts.setOnClickListener {
-                followingViewModel.changePostTypeFilter(
-                    ALL_POST_TYPE
+    private fun setUpObservers() {
+        followingViewModel.followingUiState.observe(viewLifecycleOwner) { followingUiState ->
+            followingUiState.apply {
+                if (chooseCategoryAdapter == null) {
+                    setUpCategoryRecyclerView()
+                }
+                chooseCategoryAdapter?.submitList(followingUiState.categories)
+                setUpPostRecyclerViewState(
+                    isPostRecyclerViewEmpty = followingUiState.categories.isNullOrEmpty()
                 )
-                dismiss()
-            }
-            textViewAvailableToMe.setOnClickListener {
-                followingViewModel.changePostTypeFilter(
-                    AVAILABLE_POST_TYPE
-                )
-                dismiss()
             }
         }
+    }
+
+    private fun setUpCategoryRecyclerView() {
+        chooseCategoryAdapter = ChooseCategoryAdapter(
+            textLocalizer = textLocalizer,
+            onItemClickListener = { category ->
+                followingViewModel.changeCategoryFilter(changedCategory = category)
+            }
+        )
+        binding.recyclerViewCategories.adapter = chooseCategoryAdapter
+    }
+
+    private fun setUpPostRecyclerViewState(isPostRecyclerViewEmpty: Boolean) {
+        binding.linearLayoutRecyclerViewCategoriesState.isVisible = isPostRecyclerViewEmpty
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        chooseCategoryAdapter = null
     }
 }

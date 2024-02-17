@@ -187,6 +187,7 @@
     <string name="apply">Apply</string>
     <string name="reset">Reset</string>
     <string name="edited">Edited</string>
+    <string name="selected_number">Selected %d</string>
     <string name="subscription_required">Subscription required</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>

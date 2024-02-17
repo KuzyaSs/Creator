@@ -7,6 +7,10 @@ import ru.ermakov.creator.domain.repository.CategoryRepository
 class CategoryRepositoryImpl(
     private val categoryRemoteDataSource: CategoryRemoteDataSource
 ) : CategoryRepository {
+    override suspend fun getAllCategories(): List<Category> {
+        return categoryRemoteDataSource.getAllCategories()
+    }
+
     override suspend fun getCategoriesByUserId(userId: String): List<Category> {
         return categoryRemoteDataSource.getCategoriesByUserId(userId = userId)
     }

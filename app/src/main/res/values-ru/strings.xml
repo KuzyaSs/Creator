@@ -184,7 +184,10 @@
     <string name="any_tags">Любые теги</string>
     <string name="any_categories">Любые категории</string>
     <string name="categories">Категории</string>
+    <string name="apply">Применить</string>
+    <string name="reset">Сбросить</string>
     <string name="edited">Изменено</string>
+    <string name="selected_number">Выбрано %d</string>
     <string name="subscription_required">Необходимые подписки</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
