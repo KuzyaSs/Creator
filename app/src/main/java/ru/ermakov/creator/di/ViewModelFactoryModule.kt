@@ -30,8 +30,12 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.following.DeleteLikeFromPostUseCase
+import ru.ermakov.creator.domain.useCase.following.DeletePostByIdUseCase
 import ru.ermakov.creator.domain.useCase.following.GetAllCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.following.GetFilteredFollowingPostPageByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.following.GetPostByUserAndPostIdsUseCase
+import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
@@ -124,6 +128,10 @@ class ViewModelFactoryModule {
         getAllCategoriesUseCase: GetAllCategoriesUseCase,
         getFilteredFollowingPostPageByUserIdUseCase: GetFilteredFollowingPostPageByUserIdUseCase,
         updateCategoryInListUseCase: UpdateCategoryInListUseCase,
+        deletePostByIdUseCase: DeletePostByIdUseCase,
+        getPostByUserAndPostIdsUseCase: GetPostByUserAndPostIdsUseCase,
+        insertLikeToPostUseCase: InsertLikeToPostUseCase,
+        deleteLikeFromPostUseCase: DeleteLikeFromPostUseCase,
         signOutUseCase: SignOutUseCase,
         exceptionHandler: ExceptionHandler
     ): FollowingViewModelFactory {
@@ -132,6 +140,10 @@ class ViewModelFactoryModule {
             getAllCategoriesUseCase = getAllCategoriesUseCase,
             getFilteredFollowingPostPageByUserIdUseCase = getFilteredFollowingPostPageByUserIdUseCase,
             updateCategoryInListUseCase = updateCategoryInListUseCase,
+            deletePostByIdUseCase = deletePostByIdUseCase,
+            getPostByUserAndPostIdsUseCase = getPostByUserAndPostIdsUseCase,
+            insertLikeToPostUseCase = insertLikeToPostUseCase,
+            deleteLikeFromPostUseCase = deleteLikeFromPostUseCase,
             signOutUseCase = signOutUseCase,
             exceptionHandler = exceptionHandler
         )

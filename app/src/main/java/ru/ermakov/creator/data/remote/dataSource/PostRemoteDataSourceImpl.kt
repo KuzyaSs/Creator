@@ -56,20 +56,12 @@ class PostRemoteDataSourceImpl(
             limit = LIMIT
         )
         if (remotePostsResponse.isSuccessful) {
-            Log.d(
-                "MY_TAG",
-                "getFilteredFollowingPostPageByUserId SUCCESS ${remotePostsResponse.body()}"
-            )
             remotePostsResponse.body()?.let { remotePosts ->
                 return remotePosts.map { remotePost ->
                     remotePost.toPost()
                 }
             }
         }
-        Log.d(
-            "MY_TAG",
-            "getFilteredFollowingPostPageByUserId ERROR ${remotePostsResponse.errorBody()}"
-        )
         throw apiExceptionLocalizer.localizeApiException(response = remotePostsResponse)
     }
 
@@ -137,12 +129,10 @@ class PostRemoteDataSourceImpl(
     override suspend fun getPostByUserAndPostIds(userId: String, postId: Long): Post {
         val remotePostResponse = postApi.getPostByUserAndPostIds(userId = userId, postId = postId)
         if (remotePostResponse.isSuccessful) {
-            Log.d("MY_TAG", "getPostByUserAndPostIds SUCCESS ${remotePostResponse.body()}")
             remotePostResponse.body()?.let { remotePost ->
                 return remotePost.toPost()
             }
         }
-        Log.d("MY_TAG", "getPostByUserAndPostIds ERROR ${remotePostResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = remotePostResponse)
     }
 
@@ -193,7 +183,8 @@ class PostRemoteDataSourceImpl(
 
     override suspend fun deleteLikeFromPost(likeRequest: LikeRequest) {
         val response = postApi.deleteLikeFromPost(
-            remoteLikeRequest = likeRequest.toRemoteLikeRequest()
+            postId = likeRequest.postId,
+            userId = likeRequest.userId
         )
         if (response.isSuccessful) {
             Log.d("MY_TAG", "deleteLikeFromPost SUCCESS ${response.body()}")

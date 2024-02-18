@@ -1,9 +1,13 @@
 package ru.ermakov.creator.presentation.screen.following
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -16,18 +20,22 @@ import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.bumptech.glide.Glide
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
+import ru.ermakov.creator.databinding.DialogDeletePostBinding
 import ru.ermakov.creator.databinding.FragmentFollowingBinding
 import ru.ermakov.creator.domain.model.User
 import ru.ermakov.creator.presentation.adapter.PostAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.shared.OptionsFragment
+import ru.ermakov.creator.presentation.screen.shared.OptionsHandler
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
 private const val THRESHOLD = 5
 
-class FollowingFragment : Fragment() {
+class FollowingFragment : Fragment(), OptionsHandler {
     private var _binding: FragmentFollowingBinding? = null
     private val binding get() = _binding!!
+    private var _dialogDeletePostBinding: DialogDeletePostBinding? = null
 
     @Inject
     lateinit var followingViewModelFactory: FollowingViewModelFactory
@@ -37,6 +45,8 @@ class FollowingFragment : Fragment() {
     lateinit var textLocalizer: TextLocalizer
 
     private var postAdapter: PostAdapter? = null
+    private var deletePostDialog: Dialog? = null
+    private var optionsFragment: OptionsFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,9 +66,34 @@ class FollowingFragment : Fragment() {
                 requireActivity(),
                 followingViewModelFactory
             )[FollowingViewModel::class.java]
+        optionsFragment = OptionsFragment(isEditShown = true, isDeleteShown = true)
         setUpSwipeRefreshLayout()
+        setUpDeletePostDialog()
         setUpListeners()
         setUpObservers()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        followingViewModel.updateSelectedPostId()
+    }
+
+    private fun setUpDeletePostDialog() {
+        _dialogDeletePostBinding = DialogDeletePostBinding.inflate(layoutInflater)
+        deletePostDialog = Dialog(requireContext())
+        deletePostDialog?.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(_dialogDeletePostBinding?.root!!)
+            setCancelable(false)
+            _dialogDeletePostBinding?.textViewNo?.setOnClickListener {
+                deletePostDialog?.dismiss()
+            }
+            _dialogDeletePostBinding?.textViewYes?.setOnClickListener {
+                followingViewModel.deleteSelectedPost()
+                deletePostDialog?.dismiss()
+            }
+        }
     }
 
     private fun setUpSwipeRefreshLayout() {
@@ -94,7 +129,6 @@ class FollowingFragment : Fragment() {
             val feedFilterFragment = FeedFilterFragment()
             imageViewFilter.setOnClickListener {
                 showFeedFilterFragment(feedFilterFragment = feedFilterFragment)
-
             }
 
             val accountFragment = AccountFragment()
@@ -134,16 +168,23 @@ class FollowingFragment : Fragment() {
         postAdapter = PostAdapter(
             userId = userId,
             onItemClickListener = { postItem ->
+                followingViewModel.setSelectedPostId(postId = postItem.id)
                 navigateToPostFragment(postId = postItem.id)
-            }, onProfileAvatarClickListener = { creator ->
-                navigateToBlogFragment(creatorId = creator.user.id)
+            }, onProfileAvatarClickListener = { postItem ->
+                followingViewModel.setSelectedPostId(postId = postItem.id)
+                navigateToBlogFragment(creatorId = postItem.creator.user.id)
             }, onMoreClickListener = { postItem ->
-                showToast("More")
-            }, onSubscribeClickListener = { creator ->
-                navigateToSubscriptionsFragment(creatorId = creator.user.id)
+                followingViewModel.setSelectedPostId(postId = postItem.id)
+                optionsFragment?.show(childFragmentManager, optionsFragment.toString())
+            }, onSubscribeClickListener = { postItem ->
+                followingViewModel.setSelectedPostId(postId = postItem.id)
+                navigateToSubscriptionsFragment(creatorId = postItem.creator.user.id)
             }, onLikeClickListener = { postItem ->
-                showToast("Like")
+                followingViewModel.insertLikeToPost(postId = postItem.id)
+            }, onDislikeClickListener = { postItem ->
+                followingViewModel.deleteLikeFromPost(postId = postItem.id)
             }, onCommentClickListener = { postItem ->
+                followingViewModel.setSelectedPostId(postId = postItem.id)
                 showToast("Comment")
             }
         )
@@ -230,4 +271,16 @@ class FollowingFragment : Fragment() {
         _binding = null
         postAdapter = null
     }
+
+    override fun edit() {
+        // Navigate to edit post screen.
+        showToast("*Edit post*")
+        // navigateToPostFragment(postId = *)
+    }
+
+    override fun delete() {
+        deletePostDialog?.show()
+    }
+
+    override fun close() {}
 }

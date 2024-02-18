@@ -33,8 +33,8 @@ interface PostApi {
 
     @GET("posts/creators/{creatorId}")
     suspend fun getFilteredPostPageByUserAndCreatorIds(
-        @Query("userId") userId: String,
         @Path("creatorId") creatorId: String,
+        @Query("userId") userId: String,
         @Query("postType") postType: String,
         @Query("tagIds") tagIds: List<Long>,
         @Query("postId") postId: Long,
@@ -51,8 +51,8 @@ interface PostApi {
 
     @GET("posts/{postId}")
     suspend fun getPostByUserAndPostIds(
-        @Query("userId") userId: String,
-        @Path("postId") postId: Long
+        @Path("postId") postId: Long,
+        @Query("userId") userId: String
     ): Response<RemotePost>
 
     @POST("posts")
@@ -70,6 +70,9 @@ interface PostApi {
     @POST("posts/likes")
     suspend fun insertLikeToPost(@Body remoteLikeRequest: RemoteLikeRequest): Response<Unit>
 
-    @DELETE("posts/likes")
-    suspend fun deleteLikeFromPost(@Body remoteLikeRequest: RemoteLikeRequest): Response<Unit>
+    @DELETE("posts/{postId}/likes")
+    suspend fun deleteLikeFromPost(
+        @Path("postId") postId: Long,
+        @Query("userId") userId: String
+    ): Response<Unit>
 }

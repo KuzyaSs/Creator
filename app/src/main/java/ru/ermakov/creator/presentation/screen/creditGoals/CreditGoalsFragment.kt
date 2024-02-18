@@ -25,6 +25,8 @@ import ru.ermakov.creator.presentation.screen.shared.OptionsHandler
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
+const val UNSELECTED_CREDIT_GOAL_ID = -1L
+
 class CreditGoalsFragment : Fragment(), OptionsHandler {
     private val arguments: CreditGoalsFragmentArgs by navArgs()
     private var _binding: FragmentCreditGoalsBinding? = null
@@ -116,8 +118,7 @@ class CreditGoalsFragment : Fragment(), OptionsHandler {
                 creditGoalsViewModel.refreshCreditGoals(creatorId = arguments.creatorId)
             }
             swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
-                scrollView.canScrollVertically(-1) ||
-                        recyclerViewCreditGoals.canScrollVertically(-1)
+                scrollView.canScrollVertically(-1) || recyclerViewCreditGoals.canScrollVertically(-1)
             }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
             buttonCreate.setOnClickListener { navigateToCreateCreditGoalFragment() }
@@ -202,11 +203,13 @@ class CreditGoalsFragment : Fragment(), OptionsHandler {
     }
 
     override fun edit() {
-        Toast.makeText(
-            requireContext(),
-            "edit",
-            Toast.LENGTH_SHORT
-        ).show()
+        val action =
+            CreditGoalsFragmentDirections.actionCreditGoalsFragmentToEditCreditGoalFragment(
+                creditGoalId = creditGoalsViewModel.creditGoalsUiState.value?.selectedCreditGoal?.id
+                    ?: UNSELECTED_CREDIT_GOAL_ID
+
+            )
+        findNavController().navigate(action)
     }
 
     override fun delete() {}

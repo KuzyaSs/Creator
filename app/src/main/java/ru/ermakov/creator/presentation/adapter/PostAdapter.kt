@@ -9,16 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.ermakov.creator.R
 import ru.ermakov.creator.databinding.ItemPostBinding
-import ru.ermakov.creator.domain.model.Creator
 import ru.ermakov.creator.domain.model.PostItem
 
 class PostAdapter(
     private val userId: String,
     private val onItemClickListener: (PostItem) -> Unit,
-    private val onProfileAvatarClickListener: (Creator) -> Unit,
+    private val onProfileAvatarClickListener: (PostItem) -> Unit,
     private val onMoreClickListener: (PostItem) -> Unit,
-    private val onSubscribeClickListener: (Creator) -> Unit,
+    private val onSubscribeClickListener: (PostItem) -> Unit,
     private val onLikeClickListener: (PostItem) -> Unit,
+    private val onDislikeClickListener: (PostItem) -> Unit,
     private val onCommentClickListener: (PostItem) -> Unit,
 ) : ListAdapter<PostItem, PostAdapter.PostViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -49,6 +49,7 @@ class PostAdapter(
                 textViewPublicationDate.text = postItem.publicationDate
                 textViewTitle.text = postItem.title
                 textViewContent.text = postItem.content
+                textViewContent.isVisible = postItem.isAvailable
 
                 // viewPagerImages - later...
 
@@ -56,11 +57,7 @@ class PostAdapter(
                 recyclerViewTags.adapter = postTagAdapter
                 postTagAdapter?.submitList(postItem.tags)
 
-                textViewLikeCount.text = postItem.likeCount.toString()
-                textViewCommentCount.text = postItem.commentCount.toString()
                 textViewIsEdited.isVisible = postItem.isEdited
-
-                textViewContent.isVisible = postItem.isAvailable
                 constraintLayoutIsNotAvailable.isVisible = !postItem.isAvailable
 
                 postSubscriptionAdapter = PostSubscriptionAdapter()
@@ -68,13 +65,13 @@ class PostAdapter(
                 postSubscriptionAdapter?.submitList(postItem.requiredSubscriptions)
 
                 root.setOnClickListener {
-                    if (userId == postItem.creator.user.id) {
+                    if (postItem.isAvailable) {
                         onItemClickListener(postItem)
                     }
                 }
 
                 imageViewCreatorProfileAvatar.setOnClickListener {
-                    onProfileAvatarClickListener(postItem.creator)
+                    onProfileAvatarClickListener(postItem)
                 }
 
                 imageViewMore.isVisible = userId == postItem.creator.user.id
@@ -83,13 +80,29 @@ class PostAdapter(
                 }
 
                 buttonSubscribe.setOnClickListener {
-                    onSubscribeClickListener(postItem.creator)
+                    onSubscribeClickListener(postItem)
                 }
 
+                textViewLikeCount.text = postItem.likeCount.toString()
+                textViewLikeCount.isVisible = postItem.isAvailable
+                if (postItem.isLiked) {
+                    imageViewLike.setImageResource(R.drawable.ic_favorite_filled_accent)
+                } else {
+                    imageViewLike.setImageResource(R.drawable.ic_favorite)
+                }
+                imageViewLike.isVisible = postItem.isAvailable
                 imageViewLike.setOnClickListener {
-                    onLikeClickListener(postItem)
+                    val changedPostItem = postItem.copy(isLiked = !postItem.isLiked)
+                    if (changedPostItem.isLiked) {
+                        onLikeClickListener(changedPostItem)
+                    } else {
+                        onDislikeClickListener(changedPostItem)
+                    }
                 }
 
+                textViewCommentCount.text = postItem.commentCount.toString()
+                textViewCommentCount.isVisible = postItem.isAvailable
+                imageViewComment.isVisible = postItem.isAvailable
                 imageViewComment.setOnClickListener {
                     onCommentClickListener(postItem)
                 }

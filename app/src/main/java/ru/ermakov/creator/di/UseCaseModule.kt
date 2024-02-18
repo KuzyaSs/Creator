@@ -45,8 +45,12 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.following.DeleteLikeFromPostUseCase
+import ru.ermakov.creator.domain.useCase.following.DeletePostByIdUseCase
 import ru.ermakov.creator.domain.useCase.following.GetAllCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.following.GetFilteredFollowingPostPageByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.following.GetPostByUserAndPostIdsUseCase
+import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
@@ -221,8 +225,12 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideIsSubscriberUseCase(): IsSubscriberUseCase {
-        return IsSubscriberUseCase()
+    fun provideIsSubscriberUseCase(
+        getUserSubscriptionsByUserAndCreatorIdsUseCase: GetUserSubscriptionsByUserAndCreatorIdsUseCase
+    ): IsSubscriberUseCase {
+        return IsSubscriberUseCase(
+            getUserSubscriptionsByUserAndCreatorIdsUseCase = getUserSubscriptionsByUserAndCreatorIdsUseCase
+        )
     }
 
     @Provides
@@ -427,5 +435,31 @@ class UseCaseModule {
         categoryRepository: CategoryRepository
     ): GetAllCategoriesUseCase {
         return GetAllCategoriesUseCase(categoryRepository = categoryRepository)
+    }
+
+    @Provides
+    fun provideDeletePostByIdUseCase(postRepository: PostRepository): DeletePostByIdUseCase {
+        return DeletePostByIdUseCase(postRepository = postRepository)
+    }
+
+    @Provides
+    fun provideGetPostByUserAndPostIdsUseCase(
+        postRepository: PostRepository,
+        getDateTimeUseCase: GetDateTimeUseCase
+    ): GetPostByUserAndPostIdsUseCase {
+        return GetPostByUserAndPostIdsUseCase(
+            postRepository = postRepository,
+            getDateTimeUseCase = getDateTimeUseCase
+        )
+    }
+
+    @Provides
+    fun provideDeleteLikeFromPostUseCase(postRepository: PostRepository): DeleteLikeFromPostUseCase {
+        return DeleteLikeFromPostUseCase(postRepository = postRepository)
+    }
+
+    @Provides
+    fun provideInsertLikeToPostUseCase(postRepository: PostRepository): InsertLikeToPostUseCase {
+        return InsertLikeToPostUseCase(postRepository = postRepository)
     }
 }

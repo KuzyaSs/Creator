@@ -42,7 +42,10 @@ class BlogViewModel(
                             userId = currentUserId,
                             creatorId = creatorId
                         ),
-                        isSubscriber = isSubscriberUseCase(),
+                        isSubscriber = isSubscriberUseCase(
+                            userId = currentUserId,
+                            creatorId = creatorId
+                        ),
                         creator = getCreatorByUserIdUseCase(userId = creatorId),
                         isRefreshingShown = false,
                         isErrorMessageShown = false

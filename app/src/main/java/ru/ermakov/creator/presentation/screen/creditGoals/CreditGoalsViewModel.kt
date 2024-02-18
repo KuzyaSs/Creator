@@ -71,9 +71,9 @@ class CreditGoalsViewModel(
         )
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val selectedCreditGoal = _creditGoalsUiState.value?.selectedCreditGoal
+                val selectedCreditGoalId = _creditGoalsUiState.value?.selectedCreditGoal
                 closeCreditGoalUseCase(
-                    creditGoal = selectedCreditGoal,
+                    creditGoal = selectedCreditGoalId,
                     senderUserId = getCurrentUserIdUseCase(),
                     creatorId = creatorId
                 )

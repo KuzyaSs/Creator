@@ -124,6 +124,8 @@
     <string name="delete_subscription_description">The subscription will no longer be available to other users, but those who already have it won\'t lose it</string>
     <string name="close_credit_goal_question">Are you sure you want to close your goal?</string>
     <string name="close_credit_goal_description">After the goal is closed, credits will be transferred to your account balance</string>
+    <string name="delete_post_question">Are you sure you want to delete your post?</string>
+    <string name="delete_post_description">The post will no longer be available to other users</string>
     <string name="no">No</string>
     <string name="yes_cancel">Yes, cancel</string>
     <string name="yes_delete">Yes, delete</string>

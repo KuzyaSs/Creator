@@ -5,8 +5,12 @@ import androidx.lifecycle.ViewModelProvider
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserUseCase
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
+import ru.ermakov.creator.domain.useCase.following.DeleteLikeFromPostUseCase
+import ru.ermakov.creator.domain.useCase.following.DeletePostByIdUseCase
 import ru.ermakov.creator.domain.useCase.following.GetAllCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.following.GetFilteredFollowingPostPageByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.following.GetPostByUserAndPostIdsUseCase
+import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 class FollowingViewModelFactory(
@@ -14,6 +18,10 @@ class FollowingViewModelFactory(
     private val getAllCategoriesUseCase: GetAllCategoriesUseCase,
     private val getFilteredFollowingPostPageByUserIdUseCase: GetFilteredFollowingPostPageByUserIdUseCase,
     private val updateCategoryInListUseCase: UpdateCategoryInListUseCase,
+    private val deletePostByIdUseCase: DeletePostByIdUseCase,
+    private val getPostByUserAndPostIdsUseCase: GetPostByUserAndPostIdsUseCase,
+    private val insertLikeToPostUseCase: InsertLikeToPostUseCase,
+    private val deleteLikeFromPostUseCase: DeleteLikeFromPostUseCase,
     private val signOutUseCase: SignOutUseCase,
     private val exceptionHandler: ExceptionHandler
 ) : ViewModelProvider.Factory {
@@ -25,6 +33,10 @@ class FollowingViewModelFactory(
                 getAllCategoriesUseCase = getAllCategoriesUseCase,
                 getFilteredFollowingPostPageByUserIdUseCase = getFilteredFollowingPostPageByUserIdUseCase,
                 updateCategoryInListUseCase = updateCategoryInListUseCase,
+                deletePostByIdUseCase = deletePostByIdUseCase,
+                getPostByUserAndPostIdsUseCase = getPostByUserAndPostIdsUseCase,
+                insertLikeToPostUseCase = insertLikeToPostUseCase,
+                deleteLikeFromPostUseCase = deleteLikeFromPostUseCase,
                 signOutUseCase = signOutUseCase,
                 exceptionHandler = exceptionHandler
             ) as T

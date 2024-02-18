@@ -1,10 +1,14 @@
 package ru.ermakov.creator.domain.useCase.blog
 
-import kotlinx.coroutines.delay
+import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 
-class IsSubscriberUseCase {
-    suspend operator fun invoke(): Boolean {
-        delay(1000L)
-        return false
+class IsSubscriberUseCase(
+    private val getUserSubscriptionsByUserAndCreatorIdsUseCase: GetUserSubscriptionsByUserAndCreatorIdsUseCase
+) {
+    suspend operator fun invoke(userId: String, creatorId: String): Boolean {
+        return getUserSubscriptionsByUserAndCreatorIdsUseCase(
+            userId = userId,
+            creatorId = creatorId
+        ).isNotEmpty()
     }
 }
