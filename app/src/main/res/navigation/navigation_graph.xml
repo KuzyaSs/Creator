@@ -142,7 +142,22 @@
     <fragment
         android:id="@+id/discoverFragment"
         android:name="ru.ermakov.creator.presentation.screen.discover.DiscoverFragment"
-        android:label="DiscoverFragment" />
+        android:label="DiscoverFragment">
+        <action
+            android:id="@+id/action_discoverFragment_to_blogFragment"
+            app:destination="@id/blogFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_discoverFragment_to_subscriptionsFragment"
+            app:destination="@id/subscriptionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"

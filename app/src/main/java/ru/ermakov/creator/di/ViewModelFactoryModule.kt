@@ -17,6 +17,7 @@ import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUs
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.GetCreditGoalsByCreatorIdUseCase
+import ru.ermakov.creator.domain.useCase.discover.GetFilteredPostPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.donateToCreditGoal.InsertCreditGoalTransactionUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.EditCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.GetCreditGoalByIdUseCase
@@ -61,6 +62,7 @@ import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionV
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import ru.ermakov.creator.presentation.screen.follows.FollowsViewModelFactory
 import ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsViewModelFactory
+import ru.ermakov.creator.presentation.screen.discover.DiscoverViewModelFactory
 import ru.ermakov.creator.presentation.screen.donateToCreditGoal.DonateToCreditGoalViewModelFactory
 import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
@@ -432,6 +434,31 @@ class ViewModelFactoryModule {
             getCreditGoalByIdUseCase = getCreditGoalByIdUseCase,
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideDiscoverViewModelFactory(
+        getCurrentUserUseCase: GetCurrentUserUseCase,
+        getAllCategoriesUseCase: GetAllCategoriesUseCase,
+        getFilteredPostPageByUserIdUseCase: GetFilteredPostPageByUserIdUseCase,
+        updateCategoryInListUseCase: UpdateCategoryInListUseCase,
+        deletePostByIdUseCase: DeletePostByIdUseCase,
+        getPostByUserAndPostIdsUseCase: GetPostByUserAndPostIdsUseCase,
+        insertLikeToPostUseCase: InsertLikeToPostUseCase,
+        deleteLikeFromPostUseCase: DeleteLikeFromPostUseCase,
+        exceptionHandler: ExceptionHandler
+    ): DiscoverViewModelFactory {
+        return DiscoverViewModelFactory(
+            getCurrentUserUseCase = getCurrentUserUseCase,
+            getAllCategoriesUseCase = getAllCategoriesUseCase,
+            getFilteredPostPageByUserIdUseCase = getFilteredPostPageByUserIdUseCase,
+            updateCategoryInListUseCase = updateCategoryInListUseCase,
+            deletePostByIdUseCase = deletePostByIdUseCase,
+            getPostByUserAndPostIdsUseCase = getPostByUserAndPostIdsUseCase,
+            insertLikeToPostUseCase = insertLikeToPostUseCase,
+            deleteLikeFromPostUseCase = deleteLikeFromPostUseCase,
             exceptionHandler = exceptionHandler
         )
     }

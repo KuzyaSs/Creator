@@ -30,6 +30,7 @@ import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUs
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.GetCreditGoalsByCreatorIdUseCase
+import ru.ermakov.creator.domain.useCase.discover.GetFilteredPostPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.donateToCreditGoal.InsertCreditGoalTransactionUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.EditCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.GetCreditGoalByIdUseCase
@@ -425,6 +426,17 @@ class UseCaseModule {
         getDateTimeUseCase: GetDateTimeUseCase
     ): GetFilteredFollowingPostPageByUserIdUseCase {
         return GetFilteredFollowingPostPageByUserIdUseCase(
+            postRepository = postRepository,
+            getDateTimeUseCase = getDateTimeUseCase
+        )
+    }
+
+    @Provides
+    fun provideGetFilteredPostPageByUserIdUseCase(
+        postRepository: PostRepository,
+        getDateTimeUseCase: GetDateTimeUseCase
+    ): GetFilteredPostPageByUserIdUseCase {
+        return GetFilteredPostPageByUserIdUseCase(
             postRepository = postRepository,
             getDateTimeUseCase = getDateTimeUseCase
         )

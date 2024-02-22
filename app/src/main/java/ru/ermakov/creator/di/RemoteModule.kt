@@ -46,7 +46,7 @@ import ru.ermakov.creator.data.remote.dataSource.UserSubscriptionRemoteDataSourc
 import ru.ermakov.creator.data.remote.dataSource.UserSubscriptionRemoteDataSourceImpl
 import javax.inject.Singleton
 
-private const val BASE_URL = "http://77.50.123.136:8089/api/"
+private const val BASE_URL = "http://81.200.147.70:8089/api/"
 
 @Module
 class RemoteModule {

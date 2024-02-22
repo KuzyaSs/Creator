@@ -65,7 +65,7 @@
     <string name="profile_background">Фон профиля</string>
     <string name="profile_avatar">Аватар профиля</string>
     <string name="discover">Обзор</string>
-    <string name="following">Любимое</string>
+    <string name="following">Отслеживаемое</string>
     <string name="search">Поиск</string>
     <string name="password_recovery">Восстановление пароля</string>
     <string name="CR_credits">CR-кредиты</string>
@@ -98,7 +98,7 @@
     <string name="close_credit_goal">Закрыть цель</string>
     <string name="posts">Посты</string>
     <string name="follow">Отслеживать</string>
-    <string name="follows">Отслеживаемое</string>
+    <string name="follows">Подписки</string>
     <string name="followed">Отслеживаю</string>
     <string name="publish">Опубликовать</string>
     <string name="creators">Авторы</string>
