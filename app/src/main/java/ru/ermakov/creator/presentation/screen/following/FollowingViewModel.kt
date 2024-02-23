@@ -1,6 +1,5 @@
 package ru.ermakov.creator.presentation.screen.following
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -229,7 +228,7 @@ class FollowingViewModel(
                 val nextPosts = getFilteredFollowingPostPageByUserIdUseCase(
                     userId = _followingUiState.value?.currentUser?.id,
                     feedFilter = _followingUiState.value?.feedFilter,
-                    postId = _followingUiState.value?.postItems?.last()?.id ?: DEFAULT_POST_ID
+                    postId = _followingUiState.value?.postItems?.lastOrNull()?.id ?: DEFAULT_POST_ID
                 )
                 _followingUiState.postValue(
                     _followingUiState.value?.copy(

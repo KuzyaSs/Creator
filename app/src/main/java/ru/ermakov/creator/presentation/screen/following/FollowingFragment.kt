@@ -25,6 +25,7 @@ import ru.ermakov.creator.databinding.FragmentFollowingBinding
 import ru.ermakov.creator.domain.model.User
 import ru.ermakov.creator.presentation.adapter.PostAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.FollowingFeedFilterFragment
 import ru.ermakov.creator.presentation.screen.shared.OptionsFragment
 import ru.ermakov.creator.presentation.screen.shared.OptionsHandler
 import ru.ermakov.creator.presentation.util.TextLocalizer
@@ -126,9 +127,9 @@ class FollowingFragment : Fragment(), OptionsHandler {
                 recyclerViewPosts.smoothScrollToPosition(0)
                 true
             }
-            val feedFilterFragment = FeedFilterFragment()
+            val followingFeedFilterFragment = FollowingFeedFilterFragment()
             imageViewFilter.setOnClickListener {
-                showFeedFilterFragment(feedFilterFragment = feedFilterFragment)
+                showFollowingFeedFilterFragment(followingFeedFilterFragment = followingFeedFilterFragment)
             }
 
             val accountFragment = AccountFragment()
@@ -210,11 +211,14 @@ class FollowingFragment : Fragment(), OptionsHandler {
         }
     }
 
-    private fun showFeedFilterFragment(feedFilterFragment: FeedFilterFragment) {
-        if (!feedFilterFragment.isVisible) {
-            feedFilterFragment.show(childFragmentManager, feedFilterFragment.toString())
+    private fun showFollowingFeedFilterFragment(followingFeedFilterFragment: FollowingFeedFilterFragment) {
+        if (!followingFeedFilterFragment.isVisible) {
+            followingFeedFilterFragment.show(
+                childFragmentManager,
+                followingFeedFilterFragment.toString()
+            )
         } else {
-            feedFilterFragment.dismiss()
+            followingFeedFilterFragment.dismiss()
         }
     }
 

@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.screen.following
+package ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,16 +11,18 @@ import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentCategoryFilterBinding
 import ru.ermakov.creator.presentation.adapter.ChooseCategoryAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.discover.DiscoverViewModel
+import ru.ermakov.creator.presentation.screen.discover.DiscoverViewModelFactory
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class CategoryFilterFragment : BottomSheetDialogFragment() {
+class CategoryDiscoverFilterFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentCategoryFilterBinding? = null
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var followingViewModelFactory: FollowingViewModelFactory
-    private lateinit var followingViewModel: FollowingViewModel
+    lateinit var discoverViewModelFactory: DiscoverViewModelFactory
+    private lateinit var discoverViewModel: DiscoverViewModel
 
     @Inject
     lateinit var textLocalizer: TextLocalizer
@@ -37,9 +39,9 @@ class CategoryFilterFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
-        followingViewModel = ViewModelProvider(
-            requireActivity(), followingViewModelFactory
-        )[FollowingViewModel::class.java]
+        discoverViewModel = ViewModelProvider(
+            requireActivity(), discoverViewModelFactory
+        )[DiscoverViewModel::class.java]
         (activity as CreatorActivity).showBottomNavigationView()
         setUpListeners()
         setUpObservers()
@@ -54,14 +56,14 @@ class CategoryFilterFragment : BottomSheetDialogFragment() {
     }
 
     private fun setUpObservers() {
-        followingViewModel.followingUiState.observe(viewLifecycleOwner) { followingUiState ->
-            followingUiState.apply {
+        discoverViewModel.discoverUiState.observe(viewLifecycleOwner) { discoverUiState ->
+            discoverUiState.apply {
                 if (chooseCategoryAdapter == null) {
                     setUpCategoryRecyclerView()
                 }
-                chooseCategoryAdapter?.submitList(followingUiState.categories)
+                chooseCategoryAdapter?.submitList(discoverUiState.categories)
                 setUpPostRecyclerViewState(
-                    isPostRecyclerViewEmpty = followingUiState.categories.isNullOrEmpty()
+                    isPostRecyclerViewEmpty = discoverUiState.categories.isNullOrEmpty()
                 )
             }
         }
@@ -71,7 +73,7 @@ class CategoryFilterFragment : BottomSheetDialogFragment() {
         chooseCategoryAdapter = ChooseCategoryAdapter(
             textLocalizer = textLocalizer,
             onItemClickListener = { category ->
-                followingViewModel.changeCategoryFilter(changedCategory = category)
+                discoverViewModel.changeCategoryFilter(changedCategory = category)
             }
         )
         binding.recyclerViewCategories.adapter = chooseCategoryAdapter

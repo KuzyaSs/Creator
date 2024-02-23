@@ -39,7 +39,7 @@ class SearchCreatorViewModel(
         _searchCreatorUiState.value = _searchCreatorUiState.value?.copy(
             creators = listOf(),
             lastSearchQuery = searchQuery,
-            isLoadingCreators = true,
+            isLoadingShown = true,
             isErrorMessageShown = false
         )
         searchCreatorsJob = viewModelScope.launch(Dispatchers.IO) {
@@ -53,7 +53,7 @@ class SearchCreatorViewModel(
                     _searchCreatorUiState.value?.copy(
                         creators = creators,
                         currentCreatorPage = 0,
-                        isLoadingCreators = false,
+                        isLoadingShown = false,
                         isErrorMessageShown = false
                     )
                 )
@@ -63,7 +63,7 @@ class SearchCreatorViewModel(
                     _searchCreatorUiState.postValue(
                         _searchCreatorUiState.value?.copy(
                             creators = listOf(),
-                            isLoadingCreators = false,
+                            isLoadingShown = false,
                             isErrorMessageShown = true,
                             errorMessage = errorMessage
                         )
@@ -74,13 +74,13 @@ class SearchCreatorViewModel(
     }
 
     fun loadNextCreatorPage(searchQuery: String) {
-        if (_searchCreatorUiState.value?.isLoadingCreators == true) {
+        if (_searchCreatorUiState.value?.isLoadingShown == true) {
             return
         }
 
         loadNextCreatorPageJob?.cancel()
         _searchCreatorUiState.value = _searchCreatorUiState.value?.copy(
-            isLoadingCreators = true,
+            isLoadingShown = true,
             isErrorMessageShown = false
         )
         loadNextCreatorPageJob = viewModelScope.launch(Dispatchers.IO) {
@@ -99,7 +99,7 @@ class SearchCreatorViewModel(
                     _searchCreatorUiState.value?.copy(
                         creators = currentCreators + followingCreators,
                         currentCreatorPage = nextCreatorPage,
-                        isLoadingCreators = false,
+                        isLoadingShown = false,
                         isErrorMessageShown = false
                     )
                 )
@@ -108,8 +108,7 @@ class SearchCreatorViewModel(
                 if (errorMessage.isNotBlank()) {
                     _searchCreatorUiState.postValue(
                         _searchCreatorUiState.value?.copy(
-                            creators = listOf(),
-                            isLoadingCreators = false,
+                            isLoadingShown = false,
                             isErrorMessageShown = true,
                             errorMessage = errorMessage
                         )
@@ -131,7 +130,7 @@ class SearchCreatorViewModel(
             creators = listOf(),
             lastSearchQuery = "",
             currentCreatorPage = 0,
-            isLoadingCreators = false,
+            isLoadingShown = false,
             isErrorMessageShown = false
         )
     }

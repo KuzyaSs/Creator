@@ -27,7 +27,7 @@
     <string name="insufficient_funds_in_goal_exception">Insufficient funds in the goal</string>
     <string name="transaction_not_found_exception">Transaction is not found</string>
     <string name="too_many_requests_exception">The account has been blocked. Reset your password or try again later</string>
-    <string name="unknown_exception">Unknown error</string>
+    <string name="unknown_exception">Connection error</string>
     <string name="account">Account</string>
     <string name="email">Email</string>
     <string name="password">Password</string>

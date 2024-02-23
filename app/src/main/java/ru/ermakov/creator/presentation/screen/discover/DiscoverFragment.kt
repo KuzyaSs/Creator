@@ -23,7 +23,7 @@ import ru.ermakov.creator.databinding.DialogDeletePostBinding
 import ru.ermakov.creator.databinding.FragmentDiscoverBinding
 import ru.ermakov.creator.presentation.adapter.PostAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
-import ru.ermakov.creator.presentation.screen.following.FeedFilterFragment
+import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.DiscoverFeedFilterFragment
 import ru.ermakov.creator.presentation.screen.shared.OptionsFragment
 import ru.ermakov.creator.presentation.screen.shared.OptionsHandler
 import ru.ermakov.creator.presentation.util.TextLocalizer
@@ -125,9 +125,9 @@ class DiscoverFragment : Fragment(), OptionsHandler {
                 recyclerViewPosts.smoothScrollToPosition(0)
                 true
             }
-            val feedFilterFragment = FeedFilterFragment()
+            val discoverFeedFilterFragment = DiscoverFeedFilterFragment()
             imageViewFilter.setOnClickListener {
-                showFeedFilterFragment(feedFilterFragment = feedFilterFragment)
+                showDiscoverFeedFilterFragment(discoverFeedFilterFragment = discoverFeedFilterFragment)
             }
         }
     }
@@ -191,11 +191,11 @@ class DiscoverFragment : Fragment(), OptionsHandler {
         })
     }
 
-    private fun showFeedFilterFragment(feedFilterFragment: FeedFilterFragment) {
-        if (!feedFilterFragment.isVisible) {
-            feedFilterFragment.show(childFragmentManager, feedFilterFragment.toString())
+    private fun showDiscoverFeedFilterFragment(discoverFeedFilterFragment: DiscoverFeedFilterFragment) {
+        if (!discoverFeedFilterFragment.isVisible) {
+            discoverFeedFilterFragment.show(childFragmentManager, discoverFeedFilterFragment.toString())
         } else {
-            feedFilterFragment.dismiss()
+            discoverFeedFilterFragment.dismiss()
         }
     }
 

@@ -27,7 +27,7 @@
     <string name="insufficient_funds_in_goal_exception">Недостаточно средств на счёте цели</string>
     <string name="transaction_not_found_exception">Транзакция не найдена</string>
     <string name="too_many_requests_exception">Аккаунт заблокирован. Сбросьте пароль или повторите попытку позже</string>
-    <string name="unknown_exception">Неизвестная ошибка</string>
+    <string name="unknown_exception">Ошибка соединения</string>
     <string name="account">Аккаунт</string>
     <string name="email">Электронная почта</string>
     <string name="password">Пароль</string>

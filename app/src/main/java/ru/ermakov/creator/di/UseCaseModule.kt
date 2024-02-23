@@ -55,6 +55,7 @@ import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
+import ru.ermakov.creator.domain.useCase.search.GetPostPageByUserIdAndSearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorPageBySearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetDateTimeUseCase
@@ -473,5 +474,16 @@ class UseCaseModule {
     @Provides
     fun provideInsertLikeToPostUseCase(postRepository: PostRepository): InsertLikeToPostUseCase {
         return InsertLikeToPostUseCase(postRepository = postRepository)
+    }
+
+    @Provides
+    fun provideGetPostPageByUserIdAndSearchQueryUseCase(
+        postRepository: PostRepository,
+        getDateTimeUseCase: GetDateTimeUseCase
+    ): GetPostPageByUserIdAndSearchQueryUseCase {
+        return GetPostPageByUserIdAndSearchQueryUseCase(
+            postRepository = postRepository,
+            getDateTimeUseCase = getDateTimeUseCase
+        )
     }
 }

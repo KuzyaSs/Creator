@@ -32,14 +32,12 @@ class PostRemoteDataSourceImpl(
             limit = LIMIT
         )
         if (remotePostsResponse.isSuccessful) {
-            Log.d("MY_TAG", "getFilteredPostPageByUserId SUCCESS ${remotePostsResponse.body()}")
             remotePostsResponse.body()?.let { remotePosts ->
                 return remotePosts.map { remotePost ->
                     remotePost.toPost()
                 }
             }
         }
-        Log.d("MY_TAG", "getFilteredPostPageByUserId ERROR ${remotePostsResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = remotePostsResponse)
     }
 
@@ -82,7 +80,7 @@ class PostRemoteDataSourceImpl(
         if (remotePostsResponse.isSuccessful) {
             Log.d(
                 "MY_TAG",
-                "getFilteredPostPageByUserAndCreatorIds SUCCESS ${remotePostsResponse.body()}"
+                "getFilteredPostPageByUserAndCreatorIds SUCCESS ${remotePostsResponse.body()?.map { it.id }}"
             )
             remotePostsResponse.body()?.let { remotePosts ->
                 return remotePosts.map { remotePost ->
@@ -111,7 +109,7 @@ class PostRemoteDataSourceImpl(
         if (remotePostsResponse.isSuccessful) {
             Log.d(
                 "MY_TAG",
-                "getPostPageByUserIdAndSearchQuery SUCCESS ${remotePostsResponse.body()}"
+                "getPostPageByUserIdAndSearchQuery SUCCESS ${remotePostsResponse.body()?.map { it.id }}"
             )
             remotePostsResponse.body()?.let { remotePosts ->
                 return remotePosts.map { remotePost ->

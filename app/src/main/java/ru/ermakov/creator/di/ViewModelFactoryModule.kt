@@ -40,6 +40,7 @@ import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
+import ru.ermakov.creator.domain.useCase.search.GetPostPageByUserIdAndSearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorPageBySearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.signIn.SignInUseCase
@@ -184,8 +185,24 @@ class ViewModelFactoryModule {
     }
 
     @Provides
-    fun provideSearchPostViewModelFactory(exceptionHandler: ExceptionHandler): SearchPostViewModelFactory {
-        return SearchPostViewModelFactory(exceptionHandler = exceptionHandler)
+    fun provideSearchPostViewModelFactory(
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        getPostPageByUserIdAndSearchQueryUseCase: GetPostPageByUserIdAndSearchQueryUseCase,
+        deletePostByIdUseCase: DeletePostByIdUseCase,
+        getPostByUserAndPostIdsUseCase: GetPostByUserAndPostIdsUseCase,
+        insertLikeToPostUseCase: InsertLikeToPostUseCase,
+        deleteLikeFromPostUseCase: DeleteLikeFromPostUseCase,
+        exceptionHandler: ExceptionHandler
+    ): SearchPostViewModelFactory {
+        return SearchPostViewModelFactory(
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            getPostPageByUserIdAndSearchQueryUseCase = getPostPageByUserIdAndSearchQueryUseCase,
+            deletePostByIdUseCase = deletePostByIdUseCase,
+            getPostByUserAndPostIdsUseCase = getPostByUserAndPostIdsUseCase,
+            insertLikeToPostUseCase = insertLikeToPostUseCase,
+            deleteLikeFromPostUseCase = deleteLikeFromPostUseCase,
+            exceptionHandler = exceptionHandler
+        )
     }
 
     @Provides

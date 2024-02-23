@@ -23,9 +23,12 @@ import ru.ermakov.creator.presentation.screen.follows.FollowsFragment
 import ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsFragment
 import ru.ermakov.creator.presentation.screen.donateToCreditGoal.DonateToCreditGoalFragment
 import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalFragment
-import ru.ermakov.creator.presentation.screen.following.CategoryFilterFragment
-import ru.ermakov.creator.presentation.screen.following.FeedFilterFragment
-import ru.ermakov.creator.presentation.screen.following.PostTypeFilterFragment
+import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.CategoryDiscoverFilterFragment
+import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.DiscoverFeedFilterFragment
+import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.PostTypeDiscoverFilterFragment
+import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.CategoryFollowingFilterFragment
+import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.FollowingFeedFilterFragment
+import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.PostTypeFollowingFilterFragment
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.search.SearchFragment
@@ -72,9 +75,12 @@ interface ApplicationComponent {
     fun inject(fragment: SearchCreatorFragment)
     fun inject(fragment: SearchPostFragment)
     fun inject(fragment: AccountFragment)
-    fun inject(fragment: FeedFilterFragment)
-    fun inject(fragment: PostTypeFilterFragment)
-    fun inject(fragment: CategoryFilterFragment)
+    fun inject(fragment: DiscoverFeedFilterFragment)
+    fun inject(fragment: FollowingFeedFilterFragment)
+    fun inject(fragment: PostTypeDiscoverFilterFragment)
+    fun inject(fragment: PostTypeFollowingFilterFragment)
+    fun inject(fragment: CategoryDiscoverFilterFragment)
+    fun inject(fragment: CategoryFollowingFilterFragment)
     fun inject(fragment: BalanceFragment)
     fun inject(fragment: TopUpFragment)
     fun inject(fragment: WithdrawalFragment)

@@ -223,7 +223,7 @@ class DiscoverViewModel(
                 val nextPosts = getFilteredPostPageByUserIdUseCase(
                     userId = _discoverUiState.value?.currentUser?.id,
                     feedFilter = _discoverUiState.value?.feedFilter,
-                    postId = _discoverUiState.value?.postItems?.last()?.id ?: DEFAULT_POST_ID
+                    postId = _discoverUiState.value?.postItems?.lastOrNull()?.id ?: DEFAULT_POST_ID
                 )
                 _discoverUiState.postValue(
                     _discoverUiState.value?.copy(

@@ -1,5 +1,5 @@
 package ru.ermakov.creator.presentation.screen.search.searchCreator
 
-interface CreatorLoader {
+interface CreatorPageHandler {
     fun loadNextCreatorPage()
 }

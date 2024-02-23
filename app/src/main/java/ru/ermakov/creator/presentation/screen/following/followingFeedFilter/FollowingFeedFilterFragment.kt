@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.screen.following
+package ru.ermakov.creator.presentation.screen.following.followingFeedFilter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +11,12 @@ import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentFeedFilterBinding
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import ru.ermakov.creator.presentation.screen.following.DefaultFeedFilter.ALL_POST_TYPE
+import ru.ermakov.creator.presentation.screen.following.FollowingViewModel
+import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class FeedFilterFragment : BottomSheetDialogFragment() {
+class FollowingFeedFilterFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentFeedFilterBinding? = null
     private val binding get() = _binding!!
 
@@ -45,14 +47,18 @@ class FeedFilterFragment : BottomSheetDialogFragment() {
 
     private fun setUpListeners() {
         binding.apply {
-            val postTypeFilterFragment = PostTypeFilterFragment()
+            val postTypeFollowingFilterFragment = PostTypeFollowingFilterFragment()
             textViewPostType.setOnClickListener {
-                showPostTypeFilterFragment(postTypeFilterFragment = postTypeFilterFragment)
+                showPostTypeFollowingFilterFragment(
+                    postTypeFollowingFilterFragment = postTypeFollowingFilterFragment
+                )
             }
 
-            val categoryFilterFragment = CategoryFilterFragment()
+            val categoryFollowingFilterFragment = CategoryFollowingFilterFragment()
             textViewCategory.setOnClickListener {
-                showCategoryFilterFragment(categoryFilterFragment = categoryFilterFragment)
+                showCategoryFollowingFilterFragment(
+                    categoryFollowingFilterFragment = categoryFollowingFilterFragment
+                )
             }
 
             buttonReset.setOnClickListener {
@@ -88,19 +94,29 @@ class FeedFilterFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun showPostTypeFilterFragment(postTypeFilterFragment: PostTypeFilterFragment) {
-        if (!postTypeFilterFragment.isVisible) {
-            postTypeFilterFragment.show(childFragmentManager, postTypeFilterFragment.toString())
+    private fun showPostTypeFollowingFilterFragment(
+        postTypeFollowingFilterFragment: PostTypeFollowingFilterFragment
+    ) {
+        if (!postTypeFollowingFilterFragment.isVisible) {
+            postTypeFollowingFilterFragment.show(
+                childFragmentManager,
+                postTypeFollowingFilterFragment.toString()
+            )
         } else {
-            postTypeFilterFragment.dismiss()
+            postTypeFollowingFilterFragment.dismiss()
         }
     }
 
-    private fun showCategoryFilterFragment(categoryFilterFragment: CategoryFilterFragment) {
-        if (!categoryFilterFragment.isVisible) {
-            categoryFilterFragment.show(childFragmentManager, categoryFilterFragment.toString())
+    private fun showCategoryFollowingFilterFragment(
+        categoryFollowingFilterFragment: CategoryFollowingFilterFragment
+    ) {
+        if (!categoryFollowingFilterFragment.isVisible) {
+            categoryFollowingFilterFragment.show(
+                childFragmentManager,
+                categoryFollowingFilterFragment.toString()
+            )
         } else {
-            categoryFilterFragment.dismiss()
+            categoryFollowingFilterFragment.dismiss()
         }
     }
 

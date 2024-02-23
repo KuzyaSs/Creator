@@ -49,15 +49,11 @@ class SearchCreatorFragment : Fragment() {
         (activity as CreatorActivity).showBottomNavigationView()
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
         searchCreatorViewModel = ViewModelProvider(
-            requireParentFragment(),
+            requireActivity(),
             searchCreatorViewModelFactory
         )[SearchCreatorViewModel::class.java]
-        setUpListeners()
-        setUpObservers()
-    }
-
-    private fun setUpListeners() {
         setUpCreatorRecyclerView()
+        setUpObservers()
     }
 
     private fun setUpCreatorRecyclerView() {
@@ -70,7 +66,7 @@ class SearchCreatorFragment : Fragment() {
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
                 if (layoutManager.itemCount - lastVisibleItemPosition <= THRESHOLD && recyclerView.scrollState != SCROLL_STATE_IDLE) {
-                    (parentFragment as CreatorLoader).loadNextCreatorPage()
+                    (parentFragment as CreatorPageHandler).loadNextCreatorPage()
                 }
             }
         })
@@ -81,13 +77,11 @@ class SearchCreatorFragment : Fragment() {
             searchCreatorUiState.apply {
                 creatorAdapter?.submitList(creators)
                 setNoResultsFound(
-                    isNoResultsFoundShown = creators.isNullOrEmpty() && lastSearchQuery.isNotBlank() && !isLoadingCreators
+                    isNoResultsFoundShown = creators.isNullOrEmpty() && lastSearchQuery.isNotBlank() && !isLoadingShown
                 )
-                binding.progressBar.isVisible = isLoadingCreators && creators.isNullOrEmpty()
+                binding.progressBar.isVisible = isLoadingShown && creators.isNullOrEmpty()
                 setErrorMessage(
-                    errorMessage = textLocalizer.localizeText(
-                        text = errorMessage
-                    ),
+                    errorMessage = textLocalizer.localizeText(text = errorMessage),
                     isErrorMessageShown = isErrorMessageShown
                 )
             }
@@ -109,9 +103,13 @@ class SearchCreatorFragment : Fragment() {
 
     private fun setErrorMessage(errorMessage: String, isErrorMessageShown: Boolean) {
         if (isErrorMessageShown) {
-            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            showToast(message = errorMessage)
             searchCreatorViewModel.clearErrorMessage()
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

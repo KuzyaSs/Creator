@@ -6,7 +6,7 @@ data class SearchCreatorUiState(
     val creators: List<Creator>? = null,
     val lastSearchQuery: String = "",
     val currentCreatorPage: Int = 0,
-    val isLoadingCreators: Boolean = false,
+    val isLoadingShown: Boolean = false,
     val isErrorMessageShown: Boolean = false,
     val errorMessage: String = ""
 )

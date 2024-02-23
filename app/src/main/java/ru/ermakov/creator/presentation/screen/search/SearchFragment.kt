@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,21 +13,28 @@ import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSearchBinding
 import ru.ermakov.creator.presentation.adapter.ViewPagerAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
-import ru.ermakov.creator.presentation.screen.search.searchCreator.CreatorLoader
+import ru.ermakov.creator.presentation.screen.search.searchCreator.CreatorPageHandler
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorFragment
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorViewModel
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorViewModelFactory
-import ru.ermakov.creator.presentation.screen.signUp.SignUpFragment
+import ru.ermakov.creator.presentation.screen.search.searchPost.PostPageHandler
+import ru.ermakov.creator.presentation.screen.search.searchPost.SearchPostFragment
+import ru.ermakov.creator.presentation.screen.search.searchPost.SearchPostViewModel
+import ru.ermakov.creator.presentation.screen.search.searchPost.SearchPostViewModelFactory
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class SearchFragment : Fragment(), CreatorLoader {
+class SearchFragment : Fragment(), CreatorPageHandler, PostPageHandler {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
     @Inject
     lateinit var searchCreatorViewModelFactory: SearchCreatorViewModelFactory
     private lateinit var searchCreatorViewModel: SearchCreatorViewModel
+
+    @Inject
+    lateinit var searchPostViewModelFactory: SearchPostViewModelFactory
+    private lateinit var searchPostViewModel: SearchPostViewModel
 
     @Inject
     lateinit var textLocalizer: TextLocalizer
@@ -47,16 +53,23 @@ class SearchFragment : Fragment(), CreatorLoader {
         (activity as CreatorActivity).showBottomNavigationView()
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
         searchCreatorViewModel = ViewModelProvider(
-            this,
+            requireActivity(),
             searchCreatorViewModelFactory
         )[SearchCreatorViewModel::class.java]
+        searchPostViewModel = ViewModelProvider(
+            requireActivity(),
+            searchPostViewModelFactory
+        )[SearchPostViewModel::class.java]
         setUpTabLayoutWithViewPager()
         setUpListeners()
         setUpObservers()
+        binding.textInputEditTextSearch.setText(
+            searchCreatorViewModel.searchCreatorUiState.value?.lastSearchQuery.toString()
+        )
     }
 
     private fun setUpTabLayoutWithViewPager() {
-        val fragmentList = listOf(SearchCreatorFragment(), SignUpFragment())
+        val fragmentList = listOf(SearchCreatorFragment(), SearchPostFragment())
         val fragmentTitleList = listOf(
             resources.getString(R.string.creators),
             resources.getString(R.string.posts)
@@ -75,15 +88,12 @@ class SearchFragment : Fragment(), CreatorLoader {
     private fun setUpListeners() {
         binding.textInputEditTextSearch.addTextChangedListener { searchQuery ->
             searchCreatorViewModel.searchCreators(searchQuery = searchQuery?.trim().toString())
+            searchPostViewModel.searchPosts(searchQuery = searchQuery?.trim().toString())
         }
     }
 
     private fun setUpObservers() {
 
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
@@ -93,5 +103,9 @@ class SearchFragment : Fragment(), CreatorLoader {
 
     override fun loadNextCreatorPage() {
         searchCreatorViewModel.loadNextCreatorPage(binding.textInputEditTextSearch.text.toString())
+    }
+
+    override fun loadNextPostPage() {
+        searchPostViewModel.loadNextPostPage(binding.textInputEditTextSearch.text.toString())
     }
 }
