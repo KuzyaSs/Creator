@@ -5,7 +5,6 @@ import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.mapper.toPost
 import ru.ermakov.creator.data.mapper.toRemoteLikeRequest
 import ru.ermakov.creator.data.mapper.toRemotePostRequest
-import ru.ermakov.creator.data.mapper.toRemoteUserTransactionRequest
 import ru.ermakov.creator.data.remote.api.PostApi
 import ru.ermakov.creator.domain.model.BlogFilter
 import ru.ermakov.creator.domain.model.FeedFilter

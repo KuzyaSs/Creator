@@ -62,9 +62,8 @@ class CategoryDiscoverFilterFragment : BottomSheetDialogFragment() {
                     setUpCategoryRecyclerView()
                 }
                 chooseCategoryAdapter?.submitList(discoverUiState.categories)
-                setUpPostRecyclerViewState(
-                    isPostRecyclerViewEmpty = discoverUiState.categories.isNullOrEmpty()
-                )
+                binding.linearLayoutRecyclerViewCategoriesState.isVisible =
+                    discoverUiState.categories.isNullOrEmpty()
             }
         }
     }
@@ -77,10 +76,6 @@ class CategoryDiscoverFilterFragment : BottomSheetDialogFragment() {
             }
         )
         binding.recyclerViewCategories.adapter = chooseCategoryAdapter
-    }
-
-    private fun setUpPostRecyclerViewState(isPostRecyclerViewEmpty: Boolean) {
-        binding.linearLayoutRecyclerViewCategoriesState.isVisible = isPostRecyclerViewEmpty
     }
 
     override fun onDestroyView() {

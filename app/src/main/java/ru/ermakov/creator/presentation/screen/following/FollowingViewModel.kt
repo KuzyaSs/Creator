@@ -240,14 +240,16 @@ class FollowingViewModel(
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _followingUiState.postValue(
-                    _followingUiState.value?.copy(
-                        isRefreshingShown = false,
-                        isLoadingShown = false,
-                        isErrorMessageShown = true,
-                        errorMessage = errorMessage
+                if (errorMessage.isNotBlank()) {
+                    _followingUiState.postValue(
+                        _followingUiState.value?.copy(
+                            isRefreshingShown = false,
+                            isLoadingShown = false,
+                            isErrorMessageShown = true,
+                            errorMessage = errorMessage
+                        )
                     )
-                )
+                }
             }
         }
     }
@@ -279,14 +281,16 @@ class FollowingViewModel(
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _followingUiState.postValue(
-                    _followingUiState.value?.copy(
-                        isRefreshingShown = false,
-                        isLoadingShown = false,
-                        isErrorMessageShown = true,
-                        errorMessage = errorMessage
+                if (errorMessage.isNotBlank()) {
+                    _followingUiState.postValue(
+                        _followingUiState.value?.copy(
+                            isRefreshingShown = false,
+                            isLoadingShown = false,
+                            isErrorMessageShown = true,
+                            errorMessage = errorMessage
+                        )
                     )
-                )
+                }
             }
         }
     }

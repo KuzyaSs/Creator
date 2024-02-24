@@ -3,8 +3,10 @@ package ru.ermakov.creator.di
 import dagger.Module
 import dagger.Provides
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
-import ru.ermakov.creator.domain.useCase.balance.SearchUserTransactionPageByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.balance.GetUserTransactionPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
+import ru.ermakov.creator.domain.useCase.blog.GetFilteredPostPageByUserAndCreatorIdsUseCase
+import ru.ermakov.creator.domain.useCase.blog.GetTagsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCreatorByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsFollowerByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
@@ -160,6 +162,12 @@ class ViewModelFactoryModule {
         unfollowUseCase: UnfollowUseCase,
         isSubscriberUseCase: IsSubscriberUseCase,
         getCreatorByUserIdUseCase: GetCreatorByUserIdUseCase,
+        getFilteredPostPageByUserAndCreatorIdsUseCase: GetFilteredPostPageByUserAndCreatorIdsUseCase,
+        getTagsByCreatorId: GetTagsByCreatorIdUseCase,
+        deletePostByIdUseCase: DeletePostByIdUseCase,
+        getPostByUserAndPostIdsUseCase: GetPostByUserAndPostIdsUseCase,
+        insertLikeToPostUseCase: InsertLikeToPostUseCase,
+        deleteLikeFromPostUseCase: DeleteLikeFromPostUseCase,
         exceptionHandler: ExceptionHandler,
     ): BlogViewModelFactory {
         return BlogViewModelFactory(
@@ -169,6 +177,12 @@ class ViewModelFactoryModule {
             unfollowUseCase = unfollowUseCase,
             isSubscriberUseCase = isSubscriberUseCase,
             getCreatorByUserIdUseCase = getCreatorByUserIdUseCase,
+            getFilteredPostPageByUserAndCreatorIdsUseCase = getFilteredPostPageByUserAndCreatorIdsUseCase,
+            getTagsByCreatorId = getTagsByCreatorId,
+            deletePostByIdUseCase = deletePostByIdUseCase,
+            getPostByUserAndPostIdsUseCase = getPostByUserAndPostIdsUseCase,
+            insertLikeToPostUseCase = insertLikeToPostUseCase,
+            deleteLikeFromPostUseCase = deleteLikeFromPostUseCase,
             exceptionHandler = exceptionHandler
         )
     }
@@ -391,13 +405,13 @@ class ViewModelFactoryModule {
 
     @Provides
     fun provideBalanceViewModelFactory(
-        searchUserTransactionPageByUserIdUseCase: SearchUserTransactionPageByUserIdUseCase,
+        getUserTransactionPageByUserIdUseCase: GetUserTransactionPageByUserIdUseCase,
         getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
         getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
         exceptionHandler: ExceptionHandler
     ): BalanceViewModelFactory {
         return BalanceViewModelFactory(
-            searchUserTransactionPageByUserIdUseCase = searchUserTransactionPageByUserIdUseCase,
+            getUserTransactionPageByUserIdUseCase = getUserTransactionPageByUserIdUseCase,
             getBalanceByUserIdUseCase = getBalanceByUserIdUseCase,
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             exceptionHandler = exceptionHandler,

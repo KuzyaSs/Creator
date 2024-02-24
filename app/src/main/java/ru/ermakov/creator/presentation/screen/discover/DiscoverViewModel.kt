@@ -235,14 +235,16 @@ class DiscoverViewModel(
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _discoverUiState.postValue(
-                    _discoverUiState.value?.copy(
-                        isRefreshingShown = false,
-                        isLoadingShown = false,
-                        isErrorMessageShown = true,
-                        errorMessage = errorMessage
+                if (errorMessage.isNotBlank()) {
+                    _discoverUiState.postValue(
+                        _discoverUiState.value?.copy(
+                            isRefreshingShown = false,
+                            isLoadingShown = false,
+                            isErrorMessageShown = true,
+                            errorMessage = errorMessage
+                        )
                     )
-                )
+                }
             }
         }
     }
@@ -274,14 +276,16 @@ class DiscoverViewModel(
                 )
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
-                _discoverUiState.postValue(
-                    _discoverUiState.value?.copy(
-                        isRefreshingShown = false,
-                        isLoadingShown = false,
-                        isErrorMessageShown = true,
-                        errorMessage = errorMessage
+                if (errorMessage.isNotBlank()) {
+                    _discoverUiState.postValue(
+                        _discoverUiState.value?.copy(
+                            isRefreshingShown = false,
+                            isLoadingShown = false,
+                            isErrorMessageShown = true,
+                            errorMessage = errorMessage
+                        )
                     )
-                )
+                }
             }
         }
     }

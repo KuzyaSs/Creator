@@ -31,114 +31,39 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewTags"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/progressBarTags"
-                style="@style/ProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/base_margin_size"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/imageViewTagsLogo"
-                    android:layout_width="@dimen/large_image_size"
-                    android:layout_height="@dimen/large_image_size"
-                    android:layout_marginBottom="@dimen/base_margin_size"
-                    android:importantForAccessibility="no"
-                    android:src="@drawable/logo"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/textViewTagsTitle"
-                    style="@style/ExtraLargeTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/empty_tag_list"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/textViewTagsDescription"
-                    style="@style/BaseTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_margin_size"
-                    android:gravity="center"
-                    android:text="@string/empty_tag_list_description"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/viewLoading"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="?android:windowBackground"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/progressBar"
-                style="@style/ProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:id="@+id/linearLayoutRecyclerViewCategoriesState"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/base_margin_size"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="@dimen/base_margin_size"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageViewScreenLogo"
+                    android:id="@+id/imageViewCategoriesLogo"
                     android:layout_width="@dimen/large_image_size"
                     android:layout_height="@dimen/large_image_size"
                     android:layout_marginBottom="@dimen/base_margin_size"
                     android:importantForAccessibility="no"
-                    android:src="@drawable/logo"
-                    android:visibility="gone" />
+                    android:src="@drawable/logo" />
 
                 <TextView
-                    android:id="@+id/textViewScreenErrorMessage"
+                    android:id="@+id/textViewCategoriesTitle"
                     style="@style/ExtraLargeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:visibility="gone" />
+                    android:text="@string/empty_tag_list" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

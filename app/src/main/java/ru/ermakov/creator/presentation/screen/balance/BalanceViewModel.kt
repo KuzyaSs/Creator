@@ -9,16 +9,16 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.domain.model.UserTransactionItem
-import ru.ermakov.creator.domain.useCase.balance.SearchUserTransactionPageByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.balance.GetUserTransactionPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetBalanceByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
-private const val SEARCH_USER_TRANSACTIONS_DELAY = 1000L
+private const val LOAD_USER_TRANSACTIONS_DELAY = 1000L
 private const val DEFAULT_USER_TRANSACTION_ID = Long.MAX_VALUE
 
 class BalanceViewModel(
-    private val searchUserTransactionPageByUserIdUseCase: SearchUserTransactionPageByUserIdUseCase,
+    private val getUserTransactionPageByUserIdUseCase: GetUserTransactionPageByUserIdUseCase,
     private val getBalanceByUserIdUseCase: GetBalanceByUserIdUseCase,
     private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val exceptionHandler: ExceptionHandler
@@ -26,35 +26,34 @@ class BalanceViewModel(
     private val _balanceUiState = MutableLiveData(BalanceUiState())
     val balanceUiState: LiveData<BalanceUiState> = _balanceUiState
 
-    private var searchFollowsJob: Job? = null
-    private var loadNextFollowPageJob: Job? = null
+    private var loadNextUserTransactionPageJob: Job? = null
 
     init {
-        searchUserTransactions()
+        setBalance()
     }
 
     fun refreshUserTransactions() {
         _balanceUiState.value = _balanceUiState.value?.copy(isRefreshingShown = true)
-        searchUserTransactions()
+        setBalance()
     }
 
     fun loadNextUserTransactionPage() {
         if (_balanceUiState.value?.isLoadingShown == true) {
             return
         }
-        loadNextFollowPageJob?.cancel()
+        loadNextUserTransactionPageJob?.cancel()
 
         _balanceUiState.value = _balanceUiState.value?.copy(
             isLoadingShown = true,
             isErrorMessageShown = false
         )
-        loadNextFollowPageJob = viewModelScope.launch(Dispatchers.IO) {
+        loadNextUserTransactionPageJob = viewModelScope.launch(Dispatchers.IO) {
             try {
-                delay(SEARCH_USER_TRANSACTIONS_DELAY)
+                delay(LOAD_USER_TRANSACTIONS_DELAY)
                 val currentUserTransactionItems =
                     _balanceUiState.value?.userTransactionItems ?: listOf()
                 val followingUserTransactionItems: List<UserTransactionItem> =
-                    searchUserTransactionPageByUserIdUseCase(
+                    getUserTransactionPageByUserIdUseCase(
                         userId = getCurrentUserIdUseCase(),
                         userTransactionId = _balanceUiState.value
                             ?.userTransactionItems?.last()
@@ -97,19 +96,18 @@ class BalanceViewModel(
         )
     }
 
-    private fun searchUserTransactions() {
-        searchFollowsJob?.cancel()
-        loadNextFollowPageJob?.cancel()
+    private fun setBalance() {
+        loadNextUserTransactionPageJob?.cancel()
 
         _balanceUiState.value = _balanceUiState.value?.copy(
             isLoadingShown = true,
             isErrorMessageShown = false
         )
-        searchFollowsJob = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                delay(SEARCH_USER_TRANSACTIONS_DELAY)
+                delay(LOAD_USER_TRANSACTIONS_DELAY)
                 val userTransactionItems: List<UserTransactionItem> =
-                    searchUserTransactionPageByUserIdUseCase(
+                    getUserTransactionPageByUserIdUseCase(
                         userId = getCurrentUserIdUseCase(),
                         userTransactionId = DEFAULT_USER_TRANSACTION_ID
                     )

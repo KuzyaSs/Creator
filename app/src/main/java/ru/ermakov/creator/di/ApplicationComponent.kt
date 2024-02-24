@@ -7,6 +7,9 @@ import ru.ermakov.creator.presentation.screen.CreatorActivity
 import ru.ermakov.creator.presentation.screen.balance.BalanceFragment
 import ru.ermakov.creator.presentation.screen.blog.CreatorBioFragment
 import ru.ermakov.creator.presentation.screen.blog.BlogFragment
+import ru.ermakov.creator.presentation.screen.blog.blogFilter.BlogFilterFragment
+import ru.ermakov.creator.presentation.screen.blog.blogFilter.PostTypeBlogFilterFragment
+import ru.ermakov.creator.presentation.screen.blog.blogFilter.TagFilterFragment
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordFragment
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryFragment
 import ru.ermakov.creator.presentation.screen.createCreditGoal.CreateCreditGoalFragment
@@ -85,6 +88,9 @@ interface ApplicationComponent {
     fun inject(fragment: TopUpFragment)
     fun inject(fragment: WithdrawalFragment)
     fun inject(fragment: BlogFragment)
+    fun inject(fragment: BlogFilterFragment)
+    fun inject(fragment: TagFilterFragment)
+    fun inject(fragment: PostTypeBlogFilterFragment)
     fun inject(fragment: TipFragment)
     fun inject(fragment: SubscriptionsFragment)
     fun inject(fragment: CreditGoalsFragment)

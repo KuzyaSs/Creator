@@ -1,27 +1,28 @@
 package ru.ermakov.creator.presentation.screen.blog
 
+import ru.ermakov.creator.domain.model.BlogFilter
 import ru.ermakov.creator.domain.model.Creator
-import ru.ermakov.creator.domain.model.Follow
+import ru.ermakov.creator.domain.model.PostItem
+import ru.ermakov.creator.domain.model.Tag
+import ru.ermakov.creator.presentation.screen.blog.DefaultBlogFilter.defaultBlogFilter
+import ru.ermakov.creator.presentation.screen.following.DefaultFeedFilter.ALL_POST_TYPE
+import ru.ermakov.creator.presentation.screen.following.UNSELECTED_POST_ID
 
 data class BlogUiState(
     val currentUserId: String = "",
-    // val userSubscriptions: List<UserSubscription>? = null,
     val isFollower: Boolean = false,
-    val isSubscriber: Boolean = false, // Change it to List<Subscription>.
+    val isSubscriber: Boolean = false,
     val creator: Creator? = null,
-    // val subscriptions: List<Subscription>? = null,
-    // val posts: List<Post>? = null,
-    // val blogFilter: BlogFilter? = null, // And FeedFilter
+    val blogFilter: BlogFilter = defaultBlogFilter,
+    val tags: List<Tag>? = null,
+    val postItems: List<PostItem>? = null,
+    val selectedPostId: Long = UNSELECTED_POST_ID,
     val isRefreshingShown: Boolean = false,
+    val isLoadingShown: Boolean = false,
     val isErrorMessageShown: Boolean = false,
     val errorMessage: String = ""
 )
 
-/*
-data class BlogFilter(
-    val postType: PostType, // ALL, AVAILABLE
-    val tags: List<Tag>,
-    val startDate: LocalDate,
-    val endDate: LocalDate,
-)
-*/
+object DefaultBlogFilter {
+    val defaultBlogFilter = BlogFilter(postType = ALL_POST_TYPE, listOf())
+}

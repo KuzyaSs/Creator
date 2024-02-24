@@ -79,6 +79,23 @@ class FollowingFragment : Fragment(), OptionsHandler {
         followingViewModel.updateSelectedPostId()
     }
 
+    private fun setUpSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.apply {
+            setProgressBackgroundColorSchemeColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.backgroundColor
+                )
+            )
+            setColorSchemeColors(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorAccent
+                )
+            )
+        }
+    }
+
     private fun setUpDeletePostDialog() {
         _dialogDeletePostBinding = DialogDeletePostBinding.inflate(layoutInflater)
         deletePostDialog = Dialog(requireContext())
@@ -94,23 +111,6 @@ class FollowingFragment : Fragment(), OptionsHandler {
                 followingViewModel.deleteSelectedPost()
                 deletePostDialog?.dismiss()
             }
-        }
-    }
-
-    private fun setUpSwipeRefreshLayout() {
-        binding.swipeRefreshLayout.apply {
-            setProgressBackgroundColorSchemeColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.backgroundColor
-                )
-            )
-            setColorSchemeColors(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.colorAccent
-                )
-            )
         }
     }
 

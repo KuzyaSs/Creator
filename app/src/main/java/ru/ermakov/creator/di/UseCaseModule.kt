@@ -15,10 +15,12 @@ import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.repository.UserSubscriptionRepository
 import ru.ermakov.creator.domain.useCase.account.SignOutUseCase
 import ru.ermakov.creator.domain.useCase.balance.GetUserTransactionAmountUseCase
-import ru.ermakov.creator.domain.useCase.balance.SearchUserTransactionPageByUserIdUseCase
+import ru.ermakov.creator.domain.useCase.balance.GetUserTransactionPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
+import ru.ermakov.creator.domain.useCase.blog.GetFilteredPostPageByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCreatorByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.GetFollowByUserAndCreatorIdsUseCase
+import ru.ermakov.creator.domain.useCase.blog.GetTagsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsFollowerByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.blog.IsSubscriberUseCase
 import ru.ermakov.creator.domain.useCase.blog.UnfollowUseCase
@@ -378,8 +380,8 @@ class UseCaseModule {
         transactionRepository: TransactionRepository,
         getUserTransactionAmountUseCase: GetUserTransactionAmountUseCase,
         getDateTimeUseCase: GetDateTimeUseCase
-    ): SearchUserTransactionPageByUserIdUseCase {
-        return SearchUserTransactionPageByUserIdUseCase(
+    ): GetUserTransactionPageByUserIdUseCase {
+        return GetUserTransactionPageByUserIdUseCase(
             transactionRepository = transactionRepository,
             getUserTransactionAmountUseCase = getUserTransactionAmountUseCase,
             getDateTimeUseCase = getDateTimeUseCase
@@ -485,5 +487,21 @@ class UseCaseModule {
             postRepository = postRepository,
             getDateTimeUseCase = getDateTimeUseCase
         )
+    }
+
+    @Provides
+    fun provideGetFilteredPostPageByUserAndCreatorIdsUseCase(
+        postRepository: PostRepository,
+        getDateTimeUseCase: GetDateTimeUseCase
+    ): GetFilteredPostPageByUserAndCreatorIdsUseCase {
+        return GetFilteredPostPageByUserAndCreatorIdsUseCase(
+            postRepository = postRepository,
+            getDateTimeUseCase = getDateTimeUseCase
+        )
+    }
+
+    @Provides
+    fun provideGetTagsByCreatorIdUseCase(): GetTagsByCreatorIdUseCase {
+        return GetTagsByCreatorIdUseCase()
     }
 }

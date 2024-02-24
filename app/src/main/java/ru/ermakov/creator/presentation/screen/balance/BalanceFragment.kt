@@ -122,7 +122,7 @@ class BalanceFragment : Fragment() {
                     binding.textViewBalance.text = balance.toString()
                     userTransactionAdapter?.submitList(userTransactionItems)
                     binding.constraintLayoutHeader.isVisible = isHeaderShown
-                    setEmptyUserTransactionsInfo(isUserTransactionsEmpty = userTransactionItems.isEmpty())
+                    setEmptyTransactionRecyclerViewInfo(isTransactionRecyclerViewEmpty = userTransactionItems.isEmpty())
                     setErrorMessage(
                         errorMessage = textLocalizer.localizeText(text = errorMessage),
                         isErrorMessageShown = isErrorMessageShown
@@ -159,9 +159,9 @@ class BalanceFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun setEmptyUserTransactionsInfo(isUserTransactionsEmpty: Boolean) {
-        binding.imageViewHistory.isVisible = isUserTransactionsEmpty
-        binding.textViewEmptyListMessage.isVisible = isUserTransactionsEmpty
+    private fun setEmptyTransactionRecyclerViewInfo(isTransactionRecyclerViewEmpty: Boolean) {
+        binding.imageViewHistory.isVisible = isTransactionRecyclerViewEmpty
+        binding.textViewEmptyListMessage.isVisible = isTransactionRecyclerViewEmpty
     }
 
     private fun goBack() {

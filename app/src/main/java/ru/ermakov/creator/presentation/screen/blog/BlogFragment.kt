@@ -1,10 +1,14 @@
 package ru.ermakov.creator.presentation.screen.blog
 
+import android.app.Dialog
 import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -12,20 +16,30 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
+import ru.ermakov.creator.databinding.DialogDeletePostBinding
 import ru.ermakov.creator.databinding.FragmentBlogBinding
 import ru.ermakov.creator.domain.model.Creator
+import ru.ermakov.creator.presentation.adapter.PostAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.blog.blogFilter.BlogFilterFragment
+import ru.ermakov.creator.presentation.screen.shared.OptionsFragment
+import ru.ermakov.creator.presentation.screen.shared.OptionsHandler
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class BlogFragment : Fragment() {
+private const val THRESHOLD = 5
+
+class BlogFragment : Fragment(), OptionsHandler {
     private val arguments: BlogFragmentArgs by navArgs()
     private var _binding: FragmentBlogBinding? = null
     private val binding get() = _binding!!
+    private var _dialogDeletePostBinding: DialogDeletePostBinding? = null
 
     @Inject
     lateinit var blogViewModelFactory: BlogViewModelFactory
@@ -33,6 +47,10 @@ class BlogFragment : Fragment() {
 
     @Inject
     lateinit var textLocalizer: TextLocalizer
+
+    private var postAdapter: PostAdapter? = null
+    private var deletePostDialog: Dialog? = null
+    private var optionsFragment: OptionsFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,12 +67,17 @@ class BlogFragment : Fragment() {
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
         blogViewModel = ViewModelProvider(this, blogViewModelFactory)[BlogViewModel::class.java]
         if (blogViewModel.blogUiState.value?.creator == null) {
-            blogViewModel.setBlog(creatorId = arguments.creatorId)
+            blogViewModel.setBlogScreen(creatorId = arguments.creatorId)
         }
         setUpSwipeRefreshLayout()
-        setUpPostRecyclerView()
+        setUpDeletePostDialog()
         setUpListeners()
         setUpObservers()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        blogViewModel.updateSelectedPostId()
     }
 
     private fun setUpSwipeRefreshLayout() {
@@ -74,26 +97,54 @@ class BlogFragment : Fragment() {
         }
     }
 
-    private fun setUpPostRecyclerView() {
-        // Implement later.
+    private fun setUpDeletePostDialog() {
+        _dialogDeletePostBinding = DialogDeletePostBinding.inflate(layoutInflater)
+        deletePostDialog = Dialog(requireContext())
+        deletePostDialog?.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(_dialogDeletePostBinding?.root!!)
+            setCancelable(false)
+            _dialogDeletePostBinding?.textViewNo?.setOnClickListener {
+                deletePostDialog?.dismiss()
+            }
+            _dialogDeletePostBinding?.textViewYes?.setOnClickListener {
+                blogViewModel.deleteSelectedPost()
+                deletePostDialog?.dismiss()
+            }
+        }
     }
 
     private fun setUpListeners() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
-                blogViewModel.refreshBlog(arguments.creatorId)
+                blogViewModel.refreshBlogScreen(arguments.creatorId)
             }
             swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
-                binding.scrollView.canScrollVertically(-1)
+                binding.scrollView.canScrollVertically(-1) || recyclerViewPosts.canScrollVertically(
+                    -1
+                )
             }
+
             textViewTitleWithBackButton.setOnClickListener { goBack() }
+
             val creatorBioFragment = CreatorBioFragment()
-            textViewAbout.setOnClickListener { setBioFragment(creatorBioFragment = creatorBioFragment) }
-            textViewGoals.setOnClickListener { navigateToGoalFragment() }
-            textViewTip.setOnClickListener { navigateToTipFragment() }
-            textViewSubscriptions.setOnClickListener {
-                navigateToSubscriptionFragment(creatorId = arguments.creatorId)
+            textViewAbout.setOnClickListener {
+                setBioFragment(creatorBioFragment = creatorBioFragment)
             }
+
+            textViewGoals.setOnClickListener {
+                navigateToGoalFragment()
+            }
+
+            textViewTip.setOnClickListener {
+                navigateToTipFragment()
+            }
+
+            textViewSubscriptions.setOnClickListener {
+                navigateToSubscriptionsFragment()
+            }
+
             buttonFollow.setOnClickListener {
                 if (blogViewModel.blogUiState.value?.isFollower == true) {
                     blogViewModel.unfollow()
@@ -101,10 +152,20 @@ class BlogFragment : Fragment() {
                     blogViewModel.follow()
                 }
             }
+
             buttonSubscribe.setOnClickListener {
-                navigateToSubscriptionFragment(creatorId = arguments.creatorId)
+                navigateToSubscriptionsFragment()
             }
-            buttonPublish.setOnClickListener { navigateToPublishFragment() }
+
+            buttonPublish.setOnClickListener {
+                navigateToPublishFragment()
+            }
+
+            val blogFilterFragment = BlogFilterFragment()
+            imageViewFilter.setOnClickListener {
+                showBlogFilterFragment(blogFilterFragment = blogFilterFragment)
+            }
+
             viewLoading.setOnClickListener { }
         }
     }
@@ -112,27 +173,77 @@ class BlogFragment : Fragment() {
     private fun setUpObservers() {
         blogViewModel.blogUiState.observe(viewLifecycleOwner) { blogUiState ->
             blogUiState.apply {
-                if (creator != null) {
+                if (creator != null && postItems != null) {
                     val isOwner = currentUserId == creator.user.id
-                    binding.textViewTip.isVisible = !isOwner
-                    binding.textViewSubscriptions.isVisible = isOwner
-                    setFollowButton(isFollower = isFollower, isOwner = isOwner)
-                    setSubscribeButton(isSubscriber = isSubscriber, isOwner = isOwner)
-                    binding.buttonPublish.visibility = if (isOwner) View.VISIBLE else View.INVISIBLE
+                    setUpActionVisibility(
+                        isOwner = isOwner,
+                        isFollower = isFollower,
+                        isSubscriber = isSubscriber
+                    )
                     setCreator(creator = creator)
+
+                    if (postAdapter == null) {
+                        setUpPostRecyclerView(userId = currentUserId)
+                    }
+                    postAdapter?.submitList(postItems)
+                    setEmptyPostRecyclerViewInfo(isPostRecyclerViewEmpty = postItems.isEmpty())
                     setErrorMessage(
-                        errorMessage = errorMessage,
+                        errorMessage = textLocalizer.localizeText(text = errorMessage),
                         isErrorMessageShown = isErrorMessageShown
                     )
+                    binding.recyclerViewPosts.layoutParams.height = 2000
+                    binding.recyclerViewPosts.requestLayout()
                 }
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
                 binding.viewLoading.isVisible = creator == null
-                binding.progressBar.isVisible = !isErrorMessageShown && creator == null
+                binding.progressBar.isVisible = isLoadingShown && creator == null
                 binding.textViewScreenErrorMessage.apply {
                     text = textLocalizer.localizeText(text = errorMessage)
                     isVisible = isErrorMessageShown && creator == null
                 }
                 binding.imageViewScreenLogo.isVisible = isErrorMessageShown && creator == null
+            }
+        }
+    }
+
+    private fun setUpActionVisibility(
+        isOwner: Boolean,
+        isFollower: Boolean,
+        isSubscriber: Boolean
+    ) {
+        binding.textViewTip.isVisible = !isOwner
+        binding.textViewSubscriptions.isVisible = isOwner
+        setFollowButton(isFollower = isFollower, isOwner = isOwner)
+        setSubscribeButton(isSubscriber = isSubscriber, isOwner = isOwner)
+        binding.buttonPublish.visibility = if (isOwner) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun setFollowButton(isFollower: Boolean, isOwner: Boolean) {
+        binding.buttonFollow.apply {
+            isVisible = !isOwner
+            if (isFollower) {
+                setSecondaryButton(this)
+                text = resources.getString(R.string.followed)
+                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite_filled)
+            } else {
+                setPrimaryButton(this)
+                text = resources.getString(R.string.follow)
+                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite)
+            }
+        }
+    }
+
+    private fun setSubscribeButton(isSubscriber: Boolean, isOwner: Boolean) {
+        binding.buttonSubscribe.apply {
+            isVisible = !isOwner
+            if (isSubscriber) {
+                setSecondaryButton(this)
+                text = resources.getString(R.string.subscribed)
+                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_star_filled)
+            } else {
+                setPrimaryButton(this)
+                text = resources.getString(R.string.subscribe)
+                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_star)
             }
         }
     }
@@ -164,34 +275,41 @@ class BlogFragment : Fragment() {
         )
     }
 
-    private fun setFollowButton(isFollower: Boolean, isOwner: Boolean) {
-        binding.buttonFollow.apply {
-            isVisible = !isOwner
-            if (isFollower) {
-                setSecondaryButton(this)
-                text = resources.getString(R.string.followed)
-                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite_filled)
-            } else {
-                setPrimaryButton(this)
-                text = resources.getString(R.string.follow)
-                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite)
+    private fun setUpPostRecyclerView(userId: String) {
+        postAdapter = PostAdapter(
+            userId = userId,
+            onItemClickListener = { postItem ->
+                blogViewModel.setSelectedPostId(postId = postItem.id)
+                navigateToPostFragment(postId = postItem.id)
+            }, onProfileAvatarClickListener = { postItem ->
+                blogViewModel.setSelectedPostId(postId = postItem.id)
+                navigateToPostFragment(postId = postItem.id)
+            }, onMoreClickListener = { postItem ->
+                blogViewModel.setSelectedPostId(postId = postItem.id)
+                optionsFragment?.show(childFragmentManager, optionsFragment.toString())
+            }, onSubscribeClickListener = { postItem ->
+                blogViewModel.setSelectedPostId(postId = postItem.id)
+                navigateToSubscriptionsFragment()
+            }, onLikeClickListener = { postItem ->
+                blogViewModel.insertLikeToPost(postId = postItem.id)
+            }, onDislikeClickListener = { postItem ->
+                blogViewModel.deleteLikeFromPost(postId = postItem.id)
+            }, onCommentClickListener = { postItem ->
+                blogViewModel.setSelectedPostId(postId = postItem.id)
+                showToast("Comment")
             }
-        }
-    }
-
-    private fun setSubscribeButton(isSubscriber: Boolean, isOwner: Boolean) {
-        binding.buttonSubscribe.apply {
-            isVisible = !isOwner
-            if (isSubscriber) {
-                setSecondaryButton(this)
-                text = resources.getString(R.string.subscribed)
-                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_star_filled)
-            } else {
-                setPrimaryButton(this)
-                text = resources.getString(R.string.subscribe)
-                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_star)
+        )
+        binding.recyclerViewPosts.adapter = postAdapter
+        binding.recyclerViewPosts.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                if (layoutManager.itemCount - lastVisibleItemPosition <= THRESHOLD && recyclerView.scrollState != RecyclerView.SCROLL_STATE_IDLE) {
+                    blogViewModel.loadNextPostPage()
+                }
             }
-        }
+        })
     }
 
     private fun setPrimaryButton(button: MaterialButton) {
@@ -238,6 +356,17 @@ class BlogFragment : Fragment() {
         }
     }
 
+    private fun showBlogFilterFragment(blogFilterFragment: BlogFilterFragment) {
+        if (!blogFilterFragment.isVisible) {
+            blogFilterFragment.show(
+                childFragmentManager,
+                blogFilterFragment.toString()
+            )
+        } else {
+            blogFilterFragment.dismiss()
+        }
+    }
+
     private fun navigateToGoalFragment() {
         val action = BlogFragmentDirections.actionBlogFragmentToCreditGoalsFragment(
             creatorId = arguments.creatorId
@@ -252,9 +381,9 @@ class BlogFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun navigateToSubscriptionFragment(creatorId: String) {
+    private fun navigateToSubscriptionsFragment() {
         val action = BlogFragmentDirections.actionBlogFragmentToSubscriptionsFragment(
-            creatorId = creatorId
+            creatorId = arguments.creatorId
         )
         findNavController().navigate(action)
     }
@@ -263,19 +392,45 @@ class BlogFragment : Fragment() {
 
     }
 
+    private fun navigateToPostFragment(postId: Long) {
+        showToast("navigateToPostFragment (post id: $postId)")
+    }
+
+    private fun setEmptyPostRecyclerViewInfo(isPostRecyclerViewEmpty: Boolean) {
+        binding.imageViewLogo.isVisible = isPostRecyclerViewEmpty
+        binding.textViewEmptyListMessage.isVisible = isPostRecyclerViewEmpty
+    }
+
     private fun goBack() {
         requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 
     private fun setErrorMessage(errorMessage: String, isErrorMessageShown: Boolean) {
         if (isErrorMessageShown) {
-            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            showToast(message = errorMessage)
             blogViewModel.clearErrorMessage()
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        postAdapter = null
     }
+
+    override fun edit() {
+        // Navigate to edit post screen.
+        showToast("*Edit post*")
+        // navigateToPostFragment(postId = *)
+    }
+
+    override fun delete() {
+        deletePostDialog?.show()
+    }
+
+    override fun close() {}
 }
