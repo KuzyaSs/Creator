@@ -40,7 +40,6 @@ class BlogFilterFragment : BottomSheetDialogFragment() {
         blogViewModel = ViewModelProvider(
             requireParentFragment(), blogViewModelFactory
         )[BlogViewModel::class.java]
-        (activity as CreatorActivity).showBottomNavigationView()
         setUpListeners()
         setUpObservers()
     }

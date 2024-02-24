@@ -12,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.remote.api.CategoryApi
 import ru.ermakov.creator.data.remote.api.CreatorApi
@@ -19,6 +20,7 @@ import ru.ermakov.creator.data.remote.api.CreditGoalApi
 import ru.ermakov.creator.data.remote.api.FollowApi
 import ru.ermakov.creator.data.remote.api.PostApi
 import ru.ermakov.creator.data.remote.api.SubscriptionApi
+import ru.ermakov.creator.data.remote.api.TagApi
 import ru.ermakov.creator.data.remote.api.TransactionApi
 import ru.ermakov.creator.data.remote.api.UserApi
 import ru.ermakov.creator.data.remote.api.UserSubscriptionApi
@@ -38,6 +40,8 @@ import ru.ermakov.creator.data.remote.dataSource.PostRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.PostRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSourceImpl
+import ru.ermakov.creator.data.remote.dataSource.TagRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.TagRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.TransactionRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.TransactionRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.UserRemoteDataSource
@@ -138,6 +142,11 @@ class RemoteModule {
     }
 
     @Provides
+    fun provideTagApi(retrofit: Retrofit): TagApi {
+        return retrofit.create(TagApi::class.java)
+    }
+
+    @Provides
     fun provideUserRemoteDataSource(
         userApi: UserApi,
         apiExceptionLocalizer: ApiExceptionLocalizer
@@ -232,6 +241,17 @@ class RemoteModule {
     ): PostRemoteDataSource {
         return PostRemoteDataSourceImpl(
             postApi = postApi,
+            apiExceptionLocalizer = apiExceptionLocalizer
+        )
+    }
+
+    @Provides
+    fun provideTagRemoteDataSource(
+        tagApi: TagApi,
+        apiExceptionLocalizer: ApiExceptionLocalizer
+    ): TagRemoteDataSource {
+        return TagRemoteDataSourceImpl(
+            tagApi = tagApi,
             apiExceptionLocalizer = apiExceptionLocalizer
         )
     }

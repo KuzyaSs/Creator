@@ -10,6 +10,7 @@ import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
 import ru.ermakov.creator.domain.repository.PostRepository
 import ru.ermakov.creator.domain.repository.SubscriptionRepository
+import ru.ermakov.creator.domain.repository.TagRepository
 import ru.ermakov.creator.domain.repository.TransactionRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.repository.UserSubscriptionRepository
@@ -501,7 +502,7 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetTagsByCreatorIdUseCase(): GetTagsByCreatorIdUseCase {
-        return GetTagsByCreatorIdUseCase()
+    fun provideGetTagsByCreatorIdUseCase(tagRepository: TagRepository): GetTagsByCreatorIdUseCase {
+        return GetTagsByCreatorIdUseCase(tagRepository = tagRepository)
     }
 }

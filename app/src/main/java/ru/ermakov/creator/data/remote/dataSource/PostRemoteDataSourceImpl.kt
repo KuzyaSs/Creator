@@ -149,20 +149,16 @@ class PostRemoteDataSourceImpl(
             remotePostRequest = postRequest.toRemotePostRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "updatePost SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "updatePost ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
     override suspend fun deletePostById(postId: Long) {
         val response = postApi.deletePostById(postId = postId)
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "deletePostById SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "deletePostById ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
@@ -171,10 +167,8 @@ class PostRemoteDataSourceImpl(
             remoteLikeRequest = likeRequest.toRemoteLikeRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "insertLikeToPost SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "insertLikeToPost ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
@@ -184,10 +178,8 @@ class PostRemoteDataSourceImpl(
             userId = likeRequest.userId
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "deleteLikeFromPost SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "deleteLikeFromPost ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 }

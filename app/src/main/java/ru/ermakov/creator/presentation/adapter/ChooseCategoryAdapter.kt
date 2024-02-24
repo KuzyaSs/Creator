@@ -12,20 +12,20 @@ import ru.ermakov.creator.presentation.util.TextLocalizer
 class ChooseCategoryAdapter(
     private val textLocalizer: TextLocalizer,
     private val onItemClickListener: (Category) -> Unit
-) : ListAdapter<Category, ChooseCategoryAdapter.CategoryViewHolder>(DiffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        return CategoryViewHolder(
+) : ListAdapter<Category, ChooseCategoryAdapter.ChooseCategoryViewHolder>(DiffCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChooseCategoryViewHolder {
+        return ChooseCategoryViewHolder(
             ItemSelectCategoryBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ChooseCategoryViewHolder, position: Int) {
         holder.bind(category = getItem(position))
     }
 
-    inner class CategoryViewHolder(private val binding: ItemSelectCategoryBinding) :
+    inner class ChooseCategoryViewHolder(private val binding: ItemSelectCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category) {
             binding.apply {

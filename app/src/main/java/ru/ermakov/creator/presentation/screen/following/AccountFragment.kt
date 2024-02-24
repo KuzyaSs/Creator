@@ -50,7 +50,6 @@ class AccountFragment : BottomSheetDialogFragment() {
             textViewMyBlog.setOnClickListener { navigateToMyBlogFragment() }
             textViewStatistics.setOnClickListener { navigateToStatisticsFragment() }
             textViewBalance.setOnClickListener { navigateToBalanceFragment() }
-            textViewDownloads.setOnClickListener { navigateToDownloadsFragment() }
             textViewSettings.setOnClickListener { navigateToSettingsFragment() }
             textViewSignOut.setOnClickListener { signOut() }
         }
@@ -90,10 +89,6 @@ class AccountFragment : BottomSheetDialogFragment() {
     private fun navigateToBalanceFragment() {
         val action = FollowingFragmentDirections.actionFollowingFragmentToBalanceFragment()
         findNavController().navigate(action)
-    }
-
-    private fun navigateToDownloadsFragment() {
-
     }
 
     private fun navigateToSettingsFragment() {

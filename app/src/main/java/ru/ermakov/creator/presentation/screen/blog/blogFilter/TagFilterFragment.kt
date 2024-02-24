@@ -1,7 +1,6 @@
 package ru.ermakov.creator.presentation.screen.blog.blogFilter
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentTagFilterBinding
 import ru.ermakov.creator.presentation.adapter.ChooseTagAdapter
-import ru.ermakov.creator.presentation.screen.CreatorActivity
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModel
 import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.util.TextLocalizer
@@ -43,7 +41,6 @@ class TagFilterFragment : BottomSheetDialogFragment() {
         blogViewModel = ViewModelProvider(
             requireParentFragment(), blogViewModelFactory
         )[BlogViewModel::class.java]
-        (activity as CreatorActivity).showBottomNavigationView()
         setUpListeners()
         setUpObservers()
     }
@@ -73,7 +70,6 @@ class TagFilterFragment : BottomSheetDialogFragment() {
         chooseTagAdapter = ChooseTagAdapter(
             selectedTagIds = selectedTagIds.toMutableList(),
             onItemClickListener = {
-                Log.d("MY_TAG", chooseTagAdapter?.getSelectedTagIds().toString())
                 blogViewModel.changeTagFilter(
                     chooseTagAdapter?.getSelectedTagIds() ?: listOf()
                 )

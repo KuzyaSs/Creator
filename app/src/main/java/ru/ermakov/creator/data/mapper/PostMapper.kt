@@ -5,11 +5,13 @@ import ru.ermakov.creator.data.remote.model.RemoteLikeRequest
 import ru.ermakov.creator.data.remote.model.RemotePost
 import ru.ermakov.creator.data.remote.model.RemotePostRequest
 import ru.ermakov.creator.data.remote.model.RemoteTag
+import ru.ermakov.creator.data.remote.model.RemoteTagRequest
 import ru.ermakov.creator.domain.model.Image
 import ru.ermakov.creator.domain.model.LikeRequest
 import ru.ermakov.creator.domain.model.Post
 import ru.ermakov.creator.domain.model.PostRequest
 import ru.ermakov.creator.domain.model.Tag
+import ru.ermakov.creator.domain.model.TagRequest
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -68,4 +70,11 @@ fun PostRequest.toRemotePostRequest(): RemotePostRequest {
 
 fun LikeRequest.toRemoteLikeRequest(): RemoteLikeRequest {
     return RemoteLikeRequest(userId = userId, postId = postId)
+}
+
+fun TagRequest.toRemoteTagRequest(): RemoteTagRequest {
+    return RemoteTagRequest(
+        creatorId = creatorId,
+        name = name
+    )
 }

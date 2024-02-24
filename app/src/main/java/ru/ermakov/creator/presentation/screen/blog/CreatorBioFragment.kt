@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentCreatorBioBinding
+import ru.ermakov.creator.presentation.adapter.CategoryAdapter
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
@@ -23,6 +24,8 @@ class CreatorBioFragment : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var textLocalizer: TextLocalizer
+
+    private var categoryAdapter: CategoryAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +43,13 @@ class CreatorBioFragment : BottomSheetDialogFragment() {
             requireParentFragment(),
             blogViewModelFactory
         )[BlogViewModel::class.java]
+        setUpCategoryRecyclerView()
         setUpObservers()
+    }
+
+    private fun setUpCategoryRecyclerView() {
+        categoryAdapter = CategoryAdapter()
+        binding.recyclerViewCategories.adapter = categoryAdapter
     }
 
     private fun setUpObservers() {
@@ -55,6 +64,11 @@ class CreatorBioFragment : BottomSheetDialogFragment() {
                         creator?.user?.username.toString()
                     )
                 }
+                categoryAdapter?.submitList(
+                    creator?.categories?.filter { category ->
+                        category.isSelected
+                    }
+                )
             }
         }
     }

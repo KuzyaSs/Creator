@@ -15,6 +15,7 @@ import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.PostRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.TagRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.TransactionRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.UserSubscriptionRemoteDataSource
 import ru.ermakov.creator.data.repository.CategoryRepositoryImpl
@@ -24,6 +25,7 @@ import ru.ermakov.creator.data.repository.FileRepositoryImpl
 import ru.ermakov.creator.data.repository.FollowRepositoryImpl
 import ru.ermakov.creator.data.repository.PostRepositoryImpl
 import ru.ermakov.creator.data.repository.SubscriptionRepositoryImpl
+import ru.ermakov.creator.data.repository.TagRepositoryImpl
 import ru.ermakov.creator.data.repository.TransactionRepositoryImpl
 import ru.ermakov.creator.data.repository.UserSubscriptionRepositoryImpl
 import ru.ermakov.creator.domain.repository.AuthRepository
@@ -34,6 +36,7 @@ import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
 import ru.ermakov.creator.domain.repository.PostRepository
 import ru.ermakov.creator.domain.repository.SubscriptionRepository
+import ru.ermakov.creator.domain.repository.TagRepository
 import ru.ermakov.creator.domain.repository.TransactionRepository
 import ru.ermakov.creator.domain.repository.UserRepository
 import ru.ermakov.creator.domain.repository.UserSubscriptionRepository
@@ -125,5 +128,10 @@ class RepositoryModule {
     @Provides
     fun providePostRepository(postRemoteDataSource: PostRemoteDataSource): PostRepository {
         return PostRepositoryImpl(postRemoteDataSource = postRemoteDataSource)
+    }
+
+    @Provides
+    fun provideTagRepository(tagRemoteDataSource: TagRemoteDataSource): TagRepository {
+        return TagRepositoryImpl(tagRemoteDataSource = tagRemoteDataSource)
     }
 }

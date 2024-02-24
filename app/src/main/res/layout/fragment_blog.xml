@@ -276,7 +276,6 @@
                     android:layout_marginHorizontal="@dimen/base_margin_size"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/recyclerViewPosts"
                     app:layout_constraintEnd_toEndOf="@id/recyclerViewPosts"
                     app:layout_constraintStart_toStartOf="@id/recyclerViewPosts"
@@ -288,7 +287,8 @@
                         android:layout_height="@dimen/large_image_size"
                         android:layout_marginBottom="@dimen/base_margin_size"
                         android:importantForAccessibility="no"
-                        android:src="@drawable/logo" />
+                        android:src="@drawable/logo"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/textViewEmptyListMessage"
@@ -297,7 +297,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/base_margin_size"
                         android:gravity="center"
-                        android:text="@string/empty_post_list" />
+                        android:text="@string/empty_post_list"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <View
