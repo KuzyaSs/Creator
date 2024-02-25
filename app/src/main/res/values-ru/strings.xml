@@ -148,6 +148,7 @@
     <string name="credit_goal_created_successfully">Цель успешно создана</string>
     <string name="credit_goal_edited_successfully">Цель успешно изменена</string>
     <string name="subscription_purchased_successfully">Подписка успешно куплена</string>
+    <string name="post_published_successfully">Пост успешно опубликован</string>
     <string name="tip_sent_successfully">Донат успешно отправлен</string>
     <string name="donate_sent_successfully">Донат успешно отправлен</string>
     <string name="purchase_subscription">Покупка подписки</string>
@@ -191,6 +192,8 @@
     <string name="edited">Изменено</string>
     <string name="selected_number">Выбрано %d</string>
     <string name="subscription_required">Необходимые подписки</string>
+    <string name="new_post">Новый пост</string>
+    <string name="content">Содержимое</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

@@ -29,6 +29,7 @@ import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.createCreditGoal.CreateCreditGoalUseCase
+import ru.ermakov.creator.domain.useCase.createPost.PublishPostUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
@@ -504,5 +505,10 @@ class UseCaseModule {
     @Provides
     fun provideGetTagsByCreatorIdUseCase(tagRepository: TagRepository): GetTagsByCreatorIdUseCase {
         return GetTagsByCreatorIdUseCase(tagRepository = tagRepository)
+    }
+
+    @Provides
+    fun providePublishPostUseCase(postRepository: PostRepository): PublishPostUseCase {
+        return PublishPostUseCase(postRepository = postRepository)
     }
 }

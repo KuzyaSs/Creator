@@ -148,6 +148,7 @@
     <string name="credit_goal_created_successfully">Goal created successfully</string>
     <string name="credit_goal_edited_successfully">Goal edited successfully</string>
     <string name="subscription_purchased_successfully">Subscription purchased successfully</string>
+    <string name="post_published_successfully">Post published successfully</string>
     <string name="tip_sent_successfully">Tip sent successfully</string>
     <string name="donate_sent_successfully">Donate sent successfully</string>
     <string name="purchase_subscription">Purchase subscription</string>
@@ -191,6 +192,8 @@
     <string name="edited">Edited</string>
     <string name="selected_number">Selected %d</string>
     <string name="subscription_required">Subscription required</string>
+    <string name="new_post">New post</string>
+    <string name="content">Content</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

@@ -15,6 +15,7 @@ import ru.ermakov.creator.domain.useCase.changePassword.ChangePasswordUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoriesUseCase
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.createCreditGoal.CreateCreditGoalUseCase
+import ru.ermakov.creator.domain.useCase.createPost.PublishPostUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
@@ -59,6 +60,7 @@ import ru.ermakov.creator.presentation.screen.blog.BlogViewModelFactory
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordViewModelFactory
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewModelFactory
 import ru.ermakov.creator.presentation.screen.createCreditGoal.CreateCreditGoalViewModelFactory
+import ru.ermakov.creator.presentation.screen.createPost.CreatePostViewModelFactory
 import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFactory
 import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionViewModelFactory
@@ -490,6 +492,21 @@ class ViewModelFactoryModule {
             getPostByUserAndPostIdsUseCase = getPostByUserAndPostIdsUseCase,
             insertLikeToPostUseCase = insertLikeToPostUseCase,
             deleteLikeFromPostUseCase = deleteLikeFromPostUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideCreatePostViewModelFactory(
+        getTagsByCreatorIdUseCase: GetTagsByCreatorIdUseCase,
+        getSubscriptionsByCreatorIdUseCase: GetSubscriptionsByCreatorIdUseCase,
+        publishPostUseCase: PublishPostUseCase,
+        exceptionHandler: ExceptionHandler
+    ): CreatePostViewModelFactory {
+        return CreatePostViewModelFactory(
+            getTagsByCreatorIdUseCase = getTagsByCreatorIdUseCase,
+            getSubscriptionsByCreatorIdUseCase = getSubscriptionsByCreatorIdUseCase,
+            publishPostUseCase = publishPostUseCase,
             exceptionHandler = exceptionHandler
         )
     }

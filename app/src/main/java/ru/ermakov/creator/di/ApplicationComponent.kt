@@ -13,6 +13,7 @@ import ru.ermakov.creator.presentation.screen.blog.blogFilter.TagFilterFragment
 import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordFragment
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryFragment
 import ru.ermakov.creator.presentation.screen.createCreditGoal.CreateCreditGoalFragment
+import ru.ermakov.creator.presentation.screen.createPost.CreatePostFragment
 import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.following.AccountFragment
 import ru.ermakov.creator.presentation.screen.discover.DiscoverFragment
@@ -107,4 +108,5 @@ interface ApplicationComponent {
     fun inject(fragment: EditBioFragment)
     fun inject(fragment: ChooseCategoryFragment)
     fun inject(fragment: ChangePasswordFragment)
+    fun inject(fragment: CreatePostFragment)
 }

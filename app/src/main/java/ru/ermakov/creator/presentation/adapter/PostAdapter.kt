@@ -36,7 +36,7 @@ class PostAdapter(
     inner class PostViewHolder(
         private val binding: ItemPostBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        private var postTagAdapter: PostTagAdapter? = null
+        private var tagAdapter: TagAdapter? = null
         private var postSubscriptionAdapter: PostSubscriptionAdapter? = null
 
         fun bind(postItem: PostItem) {
@@ -53,9 +53,9 @@ class PostAdapter(
 
                 // viewPagerImages - later...
 
-                postTagAdapter = PostTagAdapter()
-                recyclerViewTags.adapter = postTagAdapter
-                postTagAdapter?.submitList(postItem.tags)
+                tagAdapter = TagAdapter()
+                recyclerViewTags.adapter = tagAdapter
+                tagAdapter?.submitList(postItem.tags)
 
                 textViewIsEdited.isVisible = postItem.isEdited
                 constraintLayoutIsNotAvailable.isVisible = !postItem.isAvailable

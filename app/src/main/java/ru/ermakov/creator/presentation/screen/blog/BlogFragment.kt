@@ -69,6 +69,7 @@ class BlogFragment : Fragment(), OptionsHandler {
         if (blogViewModel.blogUiState.value?.creator == null) {
             blogViewModel.setBlogScreen(creatorId = arguments.creatorId)
         }
+        optionsFragment = OptionsFragment(isEditShown = true, isDeleteShown = true)
         setUpSwipeRefreshLayout()
         setUpDeletePostDialog()
         setUpListeners()
@@ -389,7 +390,10 @@ class BlogFragment : Fragment(), OptionsHandler {
     }
 
     private fun navigateToPublishFragment() {
-
+        val action = BlogFragmentDirections.actionBlogFragmentToCreatePostFragment(
+            creatorId = arguments.creatorId
+        )
+        findNavController().navigate(action)
     }
 
     private fun navigateToPostFragment(postId: Long) {
