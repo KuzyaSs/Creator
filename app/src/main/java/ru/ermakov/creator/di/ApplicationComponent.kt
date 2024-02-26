@@ -14,6 +14,8 @@ import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordFragm
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryFragment
 import ru.ermakov.creator.presentation.screen.createCreditGoal.CreateCreditGoalFragment
 import ru.ermakov.creator.presentation.screen.createPost.CreatePostFragment
+import ru.ermakov.creator.presentation.screen.createPost.SelectSubscriptionsFragment
+import ru.ermakov.creator.presentation.screen.createPost.SelectTagsFragment
 import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.following.AccountFragment
 import ru.ermakov.creator.presentation.screen.discover.DiscoverFragment
@@ -109,4 +111,6 @@ interface ApplicationComponent {
     fun inject(fragment: ChooseCategoryFragment)
     fun inject(fragment: ChangePasswordFragment)
     fun inject(fragment: CreatePostFragment)
+    fun inject(fragment: SelectTagsFragment)
+    fun inject(fragment: SelectSubscriptionsFragment)
 }

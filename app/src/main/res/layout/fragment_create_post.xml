@@ -84,29 +84,57 @@
                         android:maxLength="10000" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:id="@+id/textViewTagsLabel"
+                    style="@style/LargeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:drawablePadding="@dimen/medium_margin_size"
+                    android:gravity="center"
+                    android:text="@string/tags"
+                    app:drawableStartCompat="@drawable/ic_tag"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutContent" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewTags"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/medium_margin_size"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/base_margin_size"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textInputLayoutContent" />
+                    app:layout_constraintTop_toBottomOf="@id/textViewTagsLabel" />
+
+                <TextView
+                    android:id="@+id/textViewSubscriptionsLabel"
+                    style="@style/LargeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:drawablePadding="@dimen/medium_margin_size"
+                    android:gravity="center"
+                    android:text="@string/subscriptions"
+                    app:drawableStartCompat="@drawable/ic_star"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerViewTags" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewSubscriptions"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/medium_margin_size"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/base_margin_size"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recyclerViewTags"/>
+                    app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionsLabel" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonPublish"

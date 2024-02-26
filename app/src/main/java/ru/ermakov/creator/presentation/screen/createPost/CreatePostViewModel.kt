@@ -32,6 +32,7 @@ class CreatePostViewModel(
             try {
                 _createPostUiState.postValue(
                     _createPostUiState.value?.copy(
+                        creatorId = creatorId,
                         tags = getTagsByCreatorIdUseCase(creatorId = creatorId),
                         subscriptions = getSubscriptionsByCreatorIdUseCase(creatorId = creatorId),
                         isRefreshingShown = false,
@@ -99,5 +100,15 @@ class CreatePostViewModel(
                 )
             }
         }
+    }
+
+    fun changeSelectedTagIds(selectedTagIds: List<Long>) {
+        _createPostUiState.value = _createPostUiState.value?.copy(selectedTagIds = selectedTagIds)
+    }
+
+    fun changeSelectedSubscriptionIds(selectedSubscriptionIds: List<Long>) {
+        _createPostUiState.value = _createPostUiState.value?.copy(
+            requiredSubscriptionIds = selectedSubscriptionIds
+        )
     }
 }

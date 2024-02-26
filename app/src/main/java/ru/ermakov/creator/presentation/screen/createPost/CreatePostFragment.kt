@@ -14,7 +14,7 @@ import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentCreatePostBinding
 import ru.ermakov.creator.presentation.adapter.PostSubscriptionAdapter
-import ru.ermakov.creator.presentation.adapter.TagAdapter
+import ru.ermakov.creator.presentation.adapter.PostTagAdapter
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
@@ -30,7 +30,7 @@ class CreatePostFragment : Fragment() {
     @Inject
     lateinit var textLocalizer: TextLocalizer
 
-    private var tagAdapter: TagAdapter? = null
+    private var postTagAdapter: PostTagAdapter? = null
     private var postSubscriptionAdapter: PostSubscriptionAdapter? = null
 
     override fun onCreateView(
@@ -77,12 +77,18 @@ class CreatePostFragment : Fragment() {
     }
 
     private fun setUpTagRecyclerView() {
-        tagAdapter = TagAdapter()
-        binding.recyclerViewTags.adapter = tagAdapter
+        postTagAdapter = PostTagAdapter(onChangeClickListener = {
+            val selectTagsFragment = SelectTagsFragment()
+            showSelectTagsFragment(selectTagsFragment = selectTagsFragment)
+        })
+        binding.recyclerViewTags.adapter = postTagAdapter
     }
 
     private fun setUpSubscriptionRecyclerView() {
-        postSubscriptionAdapter = PostSubscriptionAdapter()
+        postSubscriptionAdapter = PostSubscriptionAdapter(onChangeClickListener = {
+            val selectSubscriptionsFragment = SelectSubscriptionsFragment()
+            showSelectSubscriptionsFragment(selectSubscriptionsFragment = selectSubscriptionsFragment)
+        })
         binding.recyclerViewSubscriptions.adapter = postSubscriptionAdapter
     }
 
@@ -108,8 +114,15 @@ class CreatePostFragment : Fragment() {
         createPostViewModel.createPostUiState.observe(viewLifecycleOwner) { createPostUiState ->
             createPostUiState.apply {
                 if (tags != null && subscriptions != null) {
-                    tagAdapter?.submitList(tags)
-                    postSubscriptionAdapter?.submitList(subscriptions)
+                    postTagAdapter?.submitList(
+                        tags.filter { tag ->
+                            selectedTagIds.contains(tag.id)
+                        } + FakeItems.fakeTag
+                    )
+                    postSubscriptionAdapter?.submitList(
+                        subscriptions.filter { subscription ->
+                            requiredSubscriptionIds.contains(subscription.id)
+                        } + FakeItems.fakeSubscription)
                     setLoading(isLoadingShown = isProgressBarPublishShown)
                     setErrorMessage(
                         errorMessage = errorMessage,
@@ -141,6 +154,28 @@ class CreatePostFragment : Fragment() {
             title = title,
             content = content
         )
+    }
+
+    private fun showSelectTagsFragment(selectTagsFragment: SelectTagsFragment) {
+        if (!selectTagsFragment.isVisible) {
+            selectTagsFragment.show(
+                childFragmentManager,
+                selectTagsFragment.toString()
+            )
+        } else {
+            selectTagsFragment.dismiss()
+        }
+    }
+
+    private fun showSelectSubscriptionsFragment(selectSubscriptionsFragment: SelectSubscriptionsFragment) {
+        if (!selectSubscriptionsFragment.isVisible) {
+            selectSubscriptionsFragment.show(
+                childFragmentManager,
+                selectSubscriptionsFragment.toString()
+            )
+        } else {
+            selectSubscriptionsFragment.dismiss()
+        }
     }
 
     private fun goBack() {

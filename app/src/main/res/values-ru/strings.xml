@@ -194,6 +194,10 @@
     <string name="subscription_required">Необходимые подписки</string>
     <string name="new_post">Новый пост</string>
     <string name="content">Содержимое</string>
+    <string name="change">Изменить</string>
+    <string name="manage">Управление</string>
+    <string name="tag_selection">Выбор тегов</string>
+    <string name="subscription_selection">Выбор подписок</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

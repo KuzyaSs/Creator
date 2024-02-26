@@ -17,4 +17,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Junior Android Developer" />
+
+    <TextView
+        android:id="@+id/textViewChange"
+        style="@style/LargeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/container_accent_background"
+        android:paddingHorizontal="@dimen/base_margin_size"
+        android:paddingVertical="@dimen/medium_margin_size"
+        android:text="@string/change"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

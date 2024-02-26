@@ -14,7 +14,7 @@
         android:drawablePadding="@dimen/medium_margin_size"
         android:paddingTop="@dimen/base_margin_size"
         android:paddingBottom="@dimen/medium_margin_size"
-        android:text="@string/tags"
+        android:text="@string/tag_selection"
         app:drawableStartCompat="@drawable/ic_back" />
 
     <androidx.core.widget.NestedScrollView
@@ -32,10 +32,25 @@
                 android:id="@+id/recyclerViewTags"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:minHeight="200dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonManage"
+                style="@style/PrimaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_margin_size"
+                android:layout_marginTop="@dimen/base_margin_size"
+                android:text="@string/manage"
+                app:icon="@drawable/ic_settings"
+                app:iconPadding="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewTags" />
 
             <View
                 android:layout_width="0dp"
@@ -43,7 +58,7 @@
                 android:layout_marginTop="@dimen/base_margin_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerViewTags" />
+                app:layout_constraintTop_toBottomOf="@id/buttonManage" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutRecyclerViewTagsState"
@@ -52,9 +67,10 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="@dimen/base_margin_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintBottom_toBottomOf="@id/recyclerViewTags"
+                app:layout_constraintEnd_toEndOf="@id/recyclerViewTags"
+                app:layout_constraintStart_toStartOf="@id/recyclerViewTags"
+                app:layout_constraintTop_toTopOf="@id/recyclerViewTags">
 
                 <ImageView
                     android:id="@+id/imageViewTagsLogo"

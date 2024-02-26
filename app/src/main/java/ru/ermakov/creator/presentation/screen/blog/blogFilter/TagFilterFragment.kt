@@ -60,7 +60,7 @@ class TagFilterFragment : BottomSheetDialogFragment() {
                     setUpTagRecyclerView(selectedTagIds = blogFilter.tagIds)
                 }
                 chooseTagAdapter?.submitList(blogUiState.tags)
-                binding.linearLayoutRecyclerViewCategoriesState.isVisible =
+                binding.linearLayoutRecyclerViewTagsState.isVisible =
                     blogUiState.tags.isNullOrEmpty()
             }
         }

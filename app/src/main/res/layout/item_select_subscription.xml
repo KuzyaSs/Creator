@@ -7,7 +7,7 @@
     android:paddingVertical="@dimen/medium_margin_size">
 
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/textViewTitle"
         style="@style/LargeTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toStartOf="@id/checkBox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Some category" />
+        tools:text="Juniour Android Developer" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/checkBox"

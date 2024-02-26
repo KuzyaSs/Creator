@@ -13,17 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/base_margin_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/checkBox"
+        app:layout_constraintEnd_toStartOf="@id/imageViewMore"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Some category" />
+        tools:text="Dagger" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/checkBox"
+    <ImageView
+        android:id="@+id/imageViewMore"
         android:layout_width="@dimen/base_icon_size"
         android:layout_height="@dimen/base_icon_size"
         android:layout_marginEnd="@dimen/base_margin_size"
-        android:clickable="false"
+        android:src="@drawable/ic_more"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
