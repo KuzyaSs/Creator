@@ -44,6 +44,7 @@ import ru.ermakov.creator.presentation.screen.splash.SplashFragment
 import ru.ermakov.creator.presentation.screen.signIn.SignInFragment
 import ru.ermakov.creator.presentation.screen.signUp.SignUpFragment
 import ru.ermakov.creator.presentation.screen.subscriptions.SubscriptionsFragment
+import ru.ermakov.creator.presentation.screen.tags.TagsFragment
 import ru.ermakov.creator.presentation.screen.tip.TipFragment
 import ru.ermakov.creator.presentation.screen.topUp.TopUpFragment
 import ru.ermakov.creator.presentation.screen.withdrawal.WithdrawalFragment
@@ -113,4 +114,5 @@ interface ApplicationComponent {
     fun inject(fragment: CreatePostFragment)
     fun inject(fragment: SelectTagsFragment)
     fun inject(fragment: SelectSubscriptionsFragment)
+    fun inject(fragment: TagsFragment)
 }

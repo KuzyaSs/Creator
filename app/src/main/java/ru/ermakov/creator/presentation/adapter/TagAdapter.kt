@@ -9,7 +9,7 @@ import ru.ermakov.creator.databinding.ItemTagBinding
 import ru.ermakov.creator.domain.model.Tag
 
 class TagAdapter(
-    private val onMoreClickListener: () -> Unit
+    private val onMoreClickListener: (Tag) -> Unit
 ) : ListAdapter<Tag, TagAdapter.TagViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
         return TagViewHolder(
@@ -28,7 +28,7 @@ class TagAdapter(
         fun bind(tag: Tag) {
             binding.textViewName.text = tag.name
             binding.imageViewMore.setOnClickListener {
-                onMoreClickListener()
+                onMoreClickListener(tag)
             }
         }
     }

@@ -70,6 +70,7 @@ import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreator
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
+import ru.ermakov.creator.domain.useCase.tags.DeleteTagByIdUseCase
 import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardDetailsUseCase
 import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardNumberUseCase
 import ru.ermakov.creator.domain.useCase.topUp.ValidateCvvUseCase
@@ -510,5 +511,10 @@ class UseCaseModule {
     @Provides
     fun providePublishPostUseCase(postRepository: PostRepository): PublishPostUseCase {
         return PublishPostUseCase(postRepository = postRepository)
+    }
+
+    @Provides
+    fun provideDeleteTagByIdUseCase(tagRepository: TagRepository): DeleteTagByIdUseCase {
+        return DeleteTagByIdUseCase(tagRepository = tagRepository)
     }
 }

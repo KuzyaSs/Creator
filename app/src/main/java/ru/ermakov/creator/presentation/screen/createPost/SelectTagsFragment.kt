@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSelectTagsBinding
@@ -80,7 +81,10 @@ class SelectTagsFragment : BottomSheetDialogFragment() {
     }
 
     private fun navigateToTagsFragment() {
-
+        val action = CreatePostFragmentDirections.actionCreatePostFragmentToTagsFragment(
+            creatorId = createPostViewModel.createPostUiState.value?.creatorId ?: ""
+        )
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

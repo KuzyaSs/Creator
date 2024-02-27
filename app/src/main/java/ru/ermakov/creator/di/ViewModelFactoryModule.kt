@@ -53,6 +53,7 @@ import ru.ermakov.creator.domain.useCase.subscriptions.GetSubscriptionsByCreator
 import ru.ermakov.creator.domain.useCase.subscriptions.GetUserSubscriptionsByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.subscriptions.UnsubscribeUseCase
 import ru.ermakov.creator.domain.useCase.shared.InsertUserTransactionUseCase
+import ru.ermakov.creator.domain.useCase.tags.DeleteTagByIdUseCase
 import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardDetailsUseCase
 import ru.ermakov.creator.domain.useCase.topUp.ValidateCreditCardNumberUseCase
 import ru.ermakov.creator.presentation.screen.balance.BalanceViewModelFactory
@@ -78,6 +79,7 @@ import ru.ermakov.creator.presentation.screen.signIn.SignInViewModelFactory
 import ru.ermakov.creator.presentation.screen.signUp.SignUpViewModelFactory
 import ru.ermakov.creator.presentation.screen.splash.SplashViewModelFactory
 import ru.ermakov.creator.presentation.screen.subscriptions.SubscriptionsViewModelFactory
+import ru.ermakov.creator.presentation.screen.tags.TagsViewModelFactory
 import ru.ermakov.creator.presentation.screen.tip.TipViewModelFactory
 import ru.ermakov.creator.presentation.screen.topUp.TopUpViewModelFactory
 import ru.ermakov.creator.presentation.screen.withdrawal.WithdrawalViewModelFactory
@@ -507,6 +509,19 @@ class ViewModelFactoryModule {
             getTagsByCreatorIdUseCase = getTagsByCreatorIdUseCase,
             getSubscriptionsByCreatorIdUseCase = getSubscriptionsByCreatorIdUseCase,
             publishPostUseCase = publishPostUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideTagsViewModelFactory(
+        getTagsByCreatorIdUseCase: GetTagsByCreatorIdUseCase,
+        deleteTagByIdUseCase: DeleteTagByIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): TagsViewModelFactory {
+        return TagsViewModelFactory(
+            getTagsByCreatorIdUseCase = getTagsByCreatorIdUseCase,
+            deleteTagByIdUseCase = deleteTagByIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }

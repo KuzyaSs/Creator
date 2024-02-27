@@ -124,6 +124,8 @@
     <string name="delete_subscription_description">Подписка больше не будет доступна другим пользователям, но те, у которых она уже есть, не потеряют её</string>
     <string name="close_credit_goal_question">Вы уверены, что хотите закрыть вашу цель?</string>
     <string name="close_credit_goal_description">После закрытия цели, кредиты будут переведены на баланс вашего аккаунта</string>
+    <string name="delete_tag_question">Вы уверены, что хотите удалить ваш тег?</string>
+    <string name="delete_tag_description">Тег больше не будет доступен другим пользователям</string>
     <string name="delete_post_question">Вы уверены, что хотите удалить ваш пост?</string>
     <string name="delete_post_description">Пост больше не будет доступен другим пользователям</string>
     <string name="no">Нет</string>
