@@ -17,6 +17,7 @@ import ru.ermakov.creator.presentation.screen.createPost.CreatePostFragment
 import ru.ermakov.creator.presentation.screen.createPost.SelectSubscriptionsFragment
 import ru.ermakov.creator.presentation.screen.createPost.SelectTagsFragment
 import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionFragment
+import ru.ermakov.creator.presentation.screen.createTag.CreateTagFragment
 import ru.ermakov.creator.presentation.screen.following.AccountFragment
 import ru.ermakov.creator.presentation.screen.discover.DiscoverFragment
 import ru.ermakov.creator.presentation.screen.editProfile.EditBioFragment
@@ -115,4 +116,5 @@ interface ApplicationComponent {
     fun inject(fragment: SelectTagsFragment)
     fun inject(fragment: SelectSubscriptionsFragment)
     fun inject(fragment: TagsFragment)
+    fun inject(fragment: CreateTagFragment)
 }

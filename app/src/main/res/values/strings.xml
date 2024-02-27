@@ -15,6 +15,7 @@
     <string name="invalid_cvv_length_exception">CVV must be 3 characters long</string>
     <string name="invalid_transaction_amount_exception">Enter the amount of CR-credit for the transaction</string>
     <string name="duplicate_subscription_title_exception">Subscription with the same title already exists</string>
+    <string name="duplicate_tag_name_exception">Tag with the same title already exists</string>
     <string name="duplicate_user_subscription_exception">You already have this subscription</string>
     <string name="email_format_exception">The email address is badly formatted</string>
     <string name="email_verification_exception">Verify your account email</string>
@@ -149,6 +150,8 @@
     <string name="subscription_edited_successfully">Subscription edited successfully</string>
     <string name="credit_goal_created_successfully">Goal created successfully</string>
     <string name="credit_goal_edited_successfully">Goal edited successfully</string>
+    <string name="tag_created_successfully">Tag created successfully</string>
+    <string name="tag_edited_successfully">Tag edited successfully</string>
     <string name="subscription_purchased_successfully">Subscription purchased successfully</string>
     <string name="post_published_successfully">Post published successfully</string>
     <string name="tip_sent_successfully">Tip sent successfully</string>
@@ -200,6 +203,7 @@
     <string name="manage">Manage</string>
     <string name="tag_selection">Tag selection</string>
     <string name="subscription_selection">Subscription selection</string>
+    <string name="new_tag">New tag</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

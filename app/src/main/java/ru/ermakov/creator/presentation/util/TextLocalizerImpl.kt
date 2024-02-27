@@ -4,6 +4,7 @@ import android.content.Context
 import ru.ermakov.creator.R
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.CREDIT_GOAL_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_TAG_NAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_COLLISION_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_FORMAT_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.EMAIL_VERIFICATION_EXCEPTION
@@ -151,6 +152,10 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
 
             DUPLICATE_USER_SUBSCRIPTION_EXCEPTION -> {
                 context.getString(R.string.duplicate_user_subscription_exception)
+            }
+
+            DUPLICATE_TAG_NAME_EXCEPTION -> {
+                context.getString(R.string.duplicate_tag_name_exception)
             }
 
             FOLLOW_NOT_FOUND_EXCEPTION -> {

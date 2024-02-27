@@ -18,6 +18,7 @@ import ru.ermakov.creator.domain.useCase.createCreditGoal.CreateCreditGoalUseCas
 import ru.ermakov.creator.domain.useCase.createPost.PublishPostUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.createTag.InsertTagUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.GetCreditGoalsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.discover.GetFilteredPostPageByUserIdUseCase
@@ -63,6 +64,7 @@ import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryViewM
 import ru.ermakov.creator.presentation.screen.createCreditGoal.CreateCreditGoalViewModelFactory
 import ru.ermakov.creator.presentation.screen.createPost.CreatePostViewModelFactory
 import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionViewModelFactory
+import ru.ermakov.creator.presentation.screen.createTag.CreateTagViewModelFactory
 import ru.ermakov.creator.presentation.screen.editProfile.EditProfileViewModelFactory
 import ru.ermakov.creator.presentation.screen.editSubscription.EditSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.following.FollowingViewModelFactory
@@ -522,6 +524,17 @@ class ViewModelFactoryModule {
         return TagsViewModelFactory(
             getTagsByCreatorIdUseCase = getTagsByCreatorIdUseCase,
             deleteTagByIdUseCase = deleteTagByIdUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideCreateTagViewModelFactory(
+        insertTagUseCase: InsertTagUseCase,
+        exceptionHandler: ExceptionHandler
+    ): CreateTagViewModelFactory {
+        return CreateTagViewModelFactory(
+            insertTagUseCase = insertTagUseCase,
             exceptionHandler = exceptionHandler
         )
     }

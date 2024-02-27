@@ -18,6 +18,7 @@ class ErrorConstants {
         const val INVALID_CVV_LENGTH_EXCEPTION = "CVV must be 3 characters long"
         const val DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION = "Subscription with the same title already exists"
         const val DUPLICATE_USER_SUBSCRIPTION_EXCEPTION = "User already has this subscription"
+        const val DUPLICATE_TAG_NAME_EXCEPTION = "Tag with the same name already exists"
         const val EMAIL_FORMAT_EXCEPTION = "The email address is badly formatted"
         const val EMAIL_COLLISION_EXCEPTION = "The email address is already in use by another account"
         const val EMAIL_VERIFICATION_EXCEPTION = "Verify your account email"

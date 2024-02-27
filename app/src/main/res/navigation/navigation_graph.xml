@@ -438,5 +438,20 @@
         <argument
             android:name="creatorId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_tagsFragment_to_createTagFragment"
+            app:destination="@id/createTagFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/createTagFragment"
+        android:name="ru.ermakov.creator.presentation.screen.createTag.CreateTagFragment"
+        android:label="CreateTagFragment">
+        <argument
+            android:name="creatorId"
+            app:argType="string" />
     </fragment>
 </navigation>

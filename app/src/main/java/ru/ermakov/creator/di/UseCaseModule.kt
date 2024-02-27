@@ -32,6 +32,7 @@ import ru.ermakov.creator.domain.useCase.createCreditGoal.CreateCreditGoalUseCas
 import ru.ermakov.creator.domain.useCase.createPost.PublishPostUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.CreateSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.createSubscription.DeleteSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.createTag.InsertTagUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.CloseCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.creditGoals.GetCreditGoalsByCreatorIdUseCase
 import ru.ermakov.creator.domain.useCase.discover.GetFilteredPostPageByUserIdUseCase
@@ -516,5 +517,10 @@ class UseCaseModule {
     @Provides
     fun provideDeleteTagByIdUseCase(tagRepository: TagRepository): DeleteTagByIdUseCase {
         return DeleteTagByIdUseCase(tagRepository = tagRepository)
+    }
+
+    @Provides
+    fun provideInsertTagUseCase(tagRepository: TagRepository): InsertTagUseCase {
+        return InsertTagUseCase(tagRepository = tagRepository)
     }
 }

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
@@ -158,7 +159,10 @@ class TagsFragment : Fragment(), OptionsHandler {
     }
 
     private fun navigateToCreateTagFragment() {
-
+        val action = TagsFragmentDirections.actionTagsFragmentToCreateTagFragment(
+            creatorId = arguments.creatorId
+        )
+        findNavController().navigate(action)
     }
 
     private fun goBack() {

@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import kotlinx.coroutines.CancellationException
 import ru.ermakov.creator.data.exception.CreditGoalNotFoundException
 import ru.ermakov.creator.data.exception.DuplicateSubscriptionTitleException
+import ru.ermakov.creator.data.exception.DuplicateTagNameException
 import ru.ermakov.creator.data.exception.DuplicateUserSubscriptionException
 import ru.ermakov.creator.data.exception.EmailVerificationException
 import ru.ermakov.creator.data.exception.FollowNotFoundException
@@ -97,6 +98,10 @@ class ExceptionHandlerImpl : ExceptionHandler {
             }
 
             is DuplicateUserSubscriptionException -> {
+                exception.message
+            }
+
+            is DuplicateTagNameException -> {
                 exception.message
             }
 

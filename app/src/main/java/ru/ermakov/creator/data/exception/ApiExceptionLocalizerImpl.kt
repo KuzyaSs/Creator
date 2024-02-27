@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import retrofit2.Response
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.CREDIT_GOAL_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_TAG_NAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.FOLLOW_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USERNAME_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_USER_SUBSCRIPTION_EXCEPTION
@@ -47,6 +48,10 @@ class ApiExceptionLocalizerImpl(private val gson: Gson) : ApiExceptionLocalizer 
 
             DUPLICATE_USER_SUBSCRIPTION_EXCEPTION -> {
                 DuplicateUserSubscriptionException()
+            }
+
+            DUPLICATE_TAG_NAME_EXCEPTION -> {
+                DuplicateTagNameException()
             }
 
             INSUFFICIENT_FUNDS_IN_ACCOUNT_EXCEPTION -> {
