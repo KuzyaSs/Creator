@@ -58,7 +58,7 @@ class EditCreditGoalViewModel(
         setCreditGoal(creditGoalId = creditGoalId)
     }
 
-    fun editSubscription(creditGoalId: Long, targetBalance: Long, description: String) {
+    fun editCreditGoal(creditGoalId: Long, targetBalance: Long, description: String) {
         _editCreditGoalUiState.postValue(
             _editCreditGoalUiState.value?.copy(
                 isProgressBarSaveChangesShown = true,

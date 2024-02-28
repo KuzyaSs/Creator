@@ -1,6 +1,7 @@
-package ru.ermakov.creator.presentation.screen.editCreditGoal
+package ru.ermakov.creator.presentation.screen.editTag
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,19 +13,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
-import ru.ermakov.creator.databinding.FragmentEditCreditGoalBinding
-import ru.ermakov.creator.domain.model.CreditGoal
+import ru.ermakov.creator.databinding.FragmentEditTagBinding
+import ru.ermakov.creator.domain.model.Tag
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class EditCreditGoalFragment : Fragment() {
-    private val arguments: EditCreditGoalFragmentArgs by navArgs()
-    private var _binding: FragmentEditCreditGoalBinding? = null
+class EditTagFragment : Fragment() {
+    private val arguments: EditTagFragmentArgs by navArgs()
+    private var _binding: FragmentEditTagBinding? = null
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var editCreditGoalViewModelFactory: EditCreditGoalViewModelFactory
-    private lateinit var editCreditGoalViewModel: EditCreditGoalViewModel
+    lateinit var editTagViewModelFactory: EditTagViewModelFactory
+    private lateinit var editTagViewModel: EditTagViewModel
 
     @Inject
     lateinit var textLocalizer: TextLocalizer
@@ -34,19 +35,19 @@ class EditCreditGoalFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEditCreditGoalBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentEditTagBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
-        editCreditGoalViewModel = ViewModelProvider(
+        editTagViewModel = ViewModelProvider(
             this,
-            editCreditGoalViewModelFactory
-        )[EditCreditGoalViewModel::class.java]
-        if (editCreditGoalViewModel.editCreditGoalUiState.value?.creditGoal == null) {
-            editCreditGoalViewModel.setCreditGoal(creditGoalId = arguments.creditGoalId)
+            editTagViewModelFactory
+        )[EditTagViewModel::class.java]
+        if (editTagViewModel.editTagUiState.value?.tag == null) {
+            editTagViewModel.setEditTagScreen(tagId = arguments.tagId)
         }
         setUpSwipeRefreshLayout()
         setUpListeners()
@@ -73,63 +74,55 @@ class EditCreditGoalFragment : Fragment() {
     private fun setUpListeners() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
-                editCreditGoalViewModel.refreshCreditGoal(creditGoalId = arguments.creditGoalId)
+                editTagViewModel.refreshEditTagScreen(tagId = arguments.tagId)
             }
             swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
                 scrollView.canScrollVertically(-1)
             }
             textViewTitleWithBackButton.setOnClickListener { goBack() }
-            buttonSaveChanges.setOnClickListener { editCreditGoal() }
+            buttonSaveChanges.setOnClickListener { editTag() }
             viewLoading.setOnClickListener { }
         }
     }
 
     private fun setUpObservers() {
-        editCreditGoalViewModel.editCreditGoalUiState.observe(viewLifecycleOwner) { editCreditGoalUiState ->
-            editCreditGoalUiState.apply {
-                if (creditGoal != null) {
-                    setCreditGoal(creditGoal = creditGoal)
+        editTagViewModel.editTagUiState.observe(viewLifecycleOwner) { editTagUiState ->
+            editTagUiState.apply {
+                if (tag != null) {
+                    setTag(tag = tag)
                     setLoading(isLoadingShown = isProgressBarSaveChangesShown)
                     setErrorMessage(
                         errorMessage = errorMessage,
                         isErrorMessageShown = isErrorMessageShown
                     )
-                    if (isCreditGoalEdited) {
-                        showToast(message = resources.getString(R.string.credit_goal_edited_successfully))
+                    if (isTagEdited) {
+                        showToast(message = resources.getString(R.string.tag_edited_successfully))
                         goBack()
                     }
                 }
 
                 binding.swipeRefreshLayout.isRefreshing = isRefreshingShown
-                binding.viewLoading.isVisible = creditGoal == null
-                binding.progressBarScreen.isVisible = isLoadingShown && creditGoal == null
+                binding.viewLoading.isVisible = tag == null
+                binding.progressBarScreen.isVisible = isLoadingShown && tag == null
+                val isErrorVisible = isErrorMessageShown && tag == null
+                binding.imageViewScreenLogo.isVisible = isErrorVisible
                 binding.textViewScreenErrorMessage.apply {
                     text = textLocalizer.localizeText(text = errorMessage)
-                    isVisible = isErrorMessageShown && creditGoal == null
+                    isVisible = isErrorVisible
                 }
-                binding.imageViewScreenLogo.isVisible = isErrorMessageShown && creditGoal == null
             }
         }
     }
 
-    private fun setCreditGoal(creditGoal: CreditGoal) {
-        if (binding.textInputEditTextTargetBalance.text.isNullOrBlank()) {
-            binding.textInputEditTextTargetBalance.setText(creditGoal.targetBalance.toString())
-        }
-        if (binding.textInputEditTextDescription.text.isNullOrBlank()) {
-            binding.textInputEditTextDescription.setText(creditGoal.description)
+    private fun setTag(tag: Tag) {
+        if (binding.textInputEditTextName.text.isNullOrBlank()) {
+            binding.textInputEditTextName.setText(tag.name)
         }
     }
 
-    private fun editCreditGoal() {
-        val targetBalance = binding.textInputEditTextTargetBalance.text.toString()
-            .toLongOrNull() ?: 0
-        val description = binding.textInputEditTextDescription.text?.trim().toString()
-        editCreditGoalViewModel.editCreditGoal(
-            creditGoalId = arguments.creditGoalId,
-            targetBalance = targetBalance,
-            description = description
-        )
+    private fun editTag() {
+        val name = binding.textInputEditTextName.text?.trim().toString()
+        editTagViewModel.editTag(tagId = arguments.tagId, name = name)
     }
 
     private fun goBack() {

@@ -165,6 +165,13 @@ class TagsFragment : Fragment(), OptionsHandler {
         findNavController().navigate(action)
     }
 
+    private fun navigateToEditTagFragment() {
+        val action = TagsFragmentDirections.actionTagsFragmentToEditTagFragment(
+            tagId = tagsViewModel.tagsUiState.value?.selectedTagId ?: UNSELECTED_TAG_ID
+        )
+        findNavController().navigate(action)
+    }
+
     private fun goBack() {
         requireActivity().onBackPressedDispatcher.onBackPressed()
     }
@@ -191,8 +198,7 @@ class TagsFragment : Fragment(), OptionsHandler {
     }
 
     override fun edit() {
-        showToast(message = "edit")
-
+        navigateToEditTagFragment()
     }
 
     override fun delete() {

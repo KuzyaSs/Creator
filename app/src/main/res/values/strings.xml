@@ -204,6 +204,7 @@
     <string name="tag_selection">Tag selection</string>
     <string name="subscription_selection">Subscription selection</string>
     <string name="new_tag">New tag</string>
+    <string name="edit_tag">Edit tag</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

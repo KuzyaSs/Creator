@@ -51,6 +51,8 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.editTag.EditTagUseCase
+import ru.ermakov.creator.domain.useCase.editTag.GetTagByIdUseCase
 import ru.ermakov.creator.domain.useCase.following.DeleteLikeFromPostUseCase
 import ru.ermakov.creator.domain.useCase.following.DeletePostByIdUseCase
 import ru.ermakov.creator.domain.useCase.following.GetAllCategoriesUseCase
@@ -522,5 +524,15 @@ class UseCaseModule {
     @Provides
     fun provideInsertTagUseCase(tagRepository: TagRepository): InsertTagUseCase {
         return InsertTagUseCase(tagRepository = tagRepository)
+    }
+
+    @Provides
+    fun provideGetTagByIdUseCase(tagRepository: TagRepository): GetTagByIdUseCase {
+        return GetTagByIdUseCase(tagRepository = tagRepository)
+    }
+
+    @Provides
+    fun provideEditTagUseCase(tagRepository: TagRepository): EditTagUseCase {
+        return EditTagUseCase(tagRepository = tagRepository)
     }
 }

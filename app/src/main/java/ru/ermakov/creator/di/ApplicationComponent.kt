@@ -33,6 +33,7 @@ import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalFragm
 import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.CategoryDiscoverFilterFragment
 import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.DiscoverFeedFilterFragment
 import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.PostTypeDiscoverFilterFragment
+import ru.ermakov.creator.presentation.screen.editTag.EditTagFragment
 import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.CategoryFollowingFilterFragment
 import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.FollowingFeedFilterFragment
 import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.PostTypeFollowingFilterFragment
@@ -117,4 +118,5 @@ interface ApplicationComponent {
     fun inject(fragment: SelectSubscriptionsFragment)
     fun inject(fragment: TagsFragment)
     fun inject(fragment: CreateTagFragment)
+    fun inject(fragment: EditTagFragment)
 }

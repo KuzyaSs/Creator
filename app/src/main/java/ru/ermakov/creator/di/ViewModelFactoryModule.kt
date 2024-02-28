@@ -35,6 +35,8 @@ import ru.ermakov.creator.domain.useCase.editProfile.UpdateUsernameUseCase
 import ru.ermakov.creator.domain.useCase.editProfile.UploadProfileFileUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.EditSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.editSubscription.GetSubscriptionByIdUseCase
+import ru.ermakov.creator.domain.useCase.editTag.EditTagUseCase
+import ru.ermakov.creator.domain.useCase.editTag.GetTagByIdUseCase
 import ru.ermakov.creator.domain.useCase.following.DeleteLikeFromPostUseCase
 import ru.ermakov.creator.domain.useCase.following.DeletePostByIdUseCase
 import ru.ermakov.creator.domain.useCase.following.GetAllCategoriesUseCase
@@ -73,6 +75,7 @@ import ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsViewModelFa
 import ru.ermakov.creator.presentation.screen.discover.DiscoverViewModelFactory
 import ru.ermakov.creator.presentation.screen.donateToCreditGoal.DonateToCreditGoalViewModelFactory
 import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalViewModelFactory
+import ru.ermakov.creator.presentation.screen.editTag.EditTagViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorViewModelFactory
@@ -535,6 +538,21 @@ class ViewModelFactoryModule {
     ): CreateTagViewModelFactory {
         return CreateTagViewModelFactory(
             insertTagUseCase = insertTagUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideEditTagViewModelFactory(
+        getTagByIdUseCase: GetTagByIdUseCase,
+        editTagUseCase: EditTagUseCase,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): EditTagViewModelFactory {
+        return EditTagViewModelFactory(
+            getTagByIdUseCase = getTagByIdUseCase,
+            editTagUseCase = editTagUseCase,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }

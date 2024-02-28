@@ -77,20 +77,12 @@ class PostRemoteDataSourceImpl(
             limit = LIMIT
         )
         if (remotePostsResponse.isSuccessful) {
-            Log.d(
-                "MY_TAG",
-                "getFilteredPostPageByUserAndCreatorIds SUCCESS ${remotePostsResponse.body()?.map { it.id }}"
-            )
             remotePostsResponse.body()?.let { remotePosts ->
                 return remotePosts.map { remotePost ->
                     remotePost.toPost()
                 }
             }
         }
-        Log.d(
-            "MY_TAG",
-            "getFilteredPostPageByUserAndCreatorIds ERROR ${remotePostsResponse.errorBody()}"
-        )
         throw apiExceptionLocalizer.localizeApiException(response = remotePostsResponse)
     }
 
@@ -106,20 +98,12 @@ class PostRemoteDataSourceImpl(
             limit = LIMIT
         )
         if (remotePostsResponse.isSuccessful) {
-            Log.d(
-                "MY_TAG",
-                "getPostPageByUserIdAndSearchQuery SUCCESS ${remotePostsResponse.body()?.map { it.id }}"
-            )
             remotePostsResponse.body()?.let { remotePosts ->
                 return remotePosts.map { remotePost ->
                     remotePost.toPost()
                 }
             }
         }
-        Log.d(
-            "MY_TAG",
-            "getPostPageByUserIdAndSearchQuery ERROR ${remotePostsResponse.errorBody()}"
-        )
         throw apiExceptionLocalizer.localizeApiException(response = remotePostsResponse)
     }
 
@@ -136,10 +120,8 @@ class PostRemoteDataSourceImpl(
     override suspend fun insertPost(postRequest: PostRequest) {
         val response = postApi.insertPost(remotePostRequest = postRequest.toRemotePostRequest())
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "insertPost SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "insertPost ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
@@ -149,8 +131,10 @@ class PostRemoteDataSourceImpl(
             remotePostRequest = postRequest.toRemotePostRequest()
         )
         if (response.isSuccessful) {
+            Log.d("MY_TAG", "updatePost SUCCESS ${response.body()}")
             return
         }
+        Log.d("MY_TAG", "updatePost ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 

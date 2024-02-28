@@ -16,14 +16,12 @@ class TagRemoteDataSourceImpl(
     override suspend fun getTagsByCreatorId(creatorId: String): List<Tag> {
         val remoteTagsResponse = tagApi.getTagsByCreatorId(creatorId = creatorId)
         if (remoteTagsResponse.isSuccessful) {
-            Log.d("MY_TAG", "getTagsByCreatorId SUCCESS ${remoteTagsResponse.body()}")
             remoteTagsResponse.body()?.let { remoteTags ->
                 return remoteTags.map { remoteTag ->
                     remoteTag.toTag()
                 }
             }
         }
-        Log.d("MY_TAG", "getTagsByCreatorId ERROR ${remoteTagsResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = remoteTagsResponse)
     }
 
@@ -42,10 +40,8 @@ class TagRemoteDataSourceImpl(
     override suspend fun insertTag(tagRequest: TagRequest) {
         val response = tagApi.insertTag(remoteTagRequest = tagRequest.toRemoteTagRequest())
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "insertTag SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "insertTag ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
@@ -65,10 +61,8 @@ class TagRemoteDataSourceImpl(
     override suspend fun deleteTagById(tagId: Long) {
         val response = tagApi.deleteTagById(tagId = tagId)
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "deleteTagById SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "deleteTagById ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 }

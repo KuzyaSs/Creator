@@ -204,6 +204,7 @@
     <string name="tag_selection">Выбор тегов</string>
     <string name="subscription_selection">Выбор подписок</string>
     <string name="new_tag">Новый тег</string>
+    <string name="edit_tag">Редактирование тега</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>
