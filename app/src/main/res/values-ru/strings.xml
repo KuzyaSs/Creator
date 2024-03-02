@@ -66,7 +66,7 @@
     <string name="profile_background">Фон профиля</string>
     <string name="profile_avatar">Аватар профиля</string>
     <string name="discover">Обзор</string>
-    <string name="following">Отслеживаемое</string>
+    <string name="following">Любимое</string>
     <string name="search">Поиск</string>
     <string name="password_recovery">Восстановление пароля</string>
     <string name="CR_credits">CR-кредиты</string>
@@ -154,6 +154,7 @@
     <string name="tag_edited_successfully">Тег успешно изменён</string>
     <string name="subscription_purchased_successfully">Подписка успешно куплена</string>
     <string name="post_published_successfully">Пост успешно опубликован</string>
+    <string name="post_edited_successfully">Пост успешно изменён</string>
     <string name="tip_sent_successfully">Донат успешно отправлен</string>
     <string name="donate_sent_successfully">Донат успешно отправлен</string>
     <string name="purchase_subscription">Покупка подписки</string>
@@ -205,6 +206,7 @@
     <string name="subscription_selection">Выбор подписок</string>
     <string name="new_tag">Новый тег</string>
     <string name="edit_tag">Редактирование тега</string>
+    <string name="edit_goal">Редактирование поста</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

@@ -1,4 +1,4 @@
-package ru.ermakov.creator.presentation.screen.createPost
+package ru.ermakov.creator.presentation.screen.editPost
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,22 +13,28 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.ermakov.creator.R
 import ru.ermakov.creator.app.CreatorApplication
-import ru.ermakov.creator.databinding.FragmentCreatePostBinding
+import ru.ermakov.creator.databinding.FragmentEditPostBinding
+import ru.ermakov.creator.domain.model.PostItem
 import ru.ermakov.creator.domain.model.Subscription
 import ru.ermakov.creator.domain.model.Tag
 import ru.ermakov.creator.presentation.adapter.PostSubscriptionAdapter
 import ru.ermakov.creator.presentation.adapter.PostTagAdapter
+import ru.ermakov.creator.presentation.screen.createPost.FakeItems
+import ru.ermakov.creator.presentation.screen.createPost.SelectSubscriptionsFragment
+import ru.ermakov.creator.presentation.screen.createPost.SelectTagsFragment
+import ru.ermakov.creator.presentation.screen.createPost.SubscriptionSelectorSource
+import ru.ermakov.creator.presentation.screen.createPost.TagSelectorSource
 import ru.ermakov.creator.presentation.util.TextLocalizer
 import javax.inject.Inject
 
-class CreatePostFragment : Fragment(), TagSelectorSource, SubscriptionSelectorSource {
-    private val arguments: CreatePostFragmentArgs by navArgs()
-    private var _binding: FragmentCreatePostBinding? = null
+class EditPostFragment : Fragment(), TagSelectorSource, SubscriptionSelectorSource {
+    private val arguments: EditPostFragmentArgs by navArgs()
+    private var _binding: FragmentEditPostBinding? = null
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var createPostViewModelFactory: CreatePostViewModelFactory
-    private lateinit var createPostViewModel: CreatePostViewModel
+    lateinit var editPostViewModelFactory: EditPostViewModelFactory
+    private lateinit var editPostViewModel: EditPostViewModel
 
     @Inject
     lateinit var textLocalizer: TextLocalizer
@@ -41,19 +47,22 @@ class CreatePostFragment : Fragment(), TagSelectorSource, SubscriptionSelectorSo
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCreatePostBinding.inflate(inflater, container, false)
+        _binding = FragmentEditPostBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
-        createPostViewModel = ViewModelProvider(
+        editPostViewModel = ViewModelProvider(
             this,
-            createPostViewModelFactory
-        )[CreatePostViewModel::class.java]
-        if (createPostViewModel.createPostUiState.value?.tags == null) {
-            createPostViewModel.setCreatePostScreen(creatorId = arguments.creatorId)
+            editPostViewModelFactory
+        )[EditPostViewModel::class.java]
+        if (editPostViewModel.editPostUiState.value?.postItem == null) {
+            editPostViewModel.setEditPostScreen(
+                creatorId = arguments.creatorId,
+                postId = arguments.postId
+            )
         }
         setUpSwipeRefreshLayout()
         setUpSubscriptionRecyclerView()
@@ -81,8 +90,8 @@ class CreatePostFragment : Fragment(), TagSelectorSource, SubscriptionSelectorSo
 
     private fun setUpTagRecyclerView() {
         postTagAdapter = PostTagAdapter(onChangeClickListener = {
-            val selectTagsFragment = SelectTagsFragment()
-            showSelectTagsFragment(selectTagsFragment = selectTagsFragment)
+            val selectCreatePostTagsFragment = SelectTagsFragment()
+            showSelectTagsFragment(selectCreatePostTagsFragment = selectCreatePostTagsFragment)
         })
         binding.recyclerViewTags.adapter = postTagAdapter
     }
@@ -98,7 +107,10 @@ class CreatePostFragment : Fragment(), TagSelectorSource, SubscriptionSelectorSo
     private fun setUpListeners() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
-                createPostViewModel.refreshCreatePostScreen(creatorId = arguments.creatorId)
+                editPostViewModel.refreshEditPostScreen(
+                    creatorId = arguments.creatorId,
+                    postId = arguments.postId
+                )
             }
 
             swipeRefreshLayout.setOnChildScrollUpCallback { _, _ ->
@@ -107,32 +119,30 @@ class CreatePostFragment : Fragment(), TagSelectorSource, SubscriptionSelectorSo
 
             textViewTitleWithBackButton.setOnClickListener { goBack() }
 
-            buttonPublish.setOnClickListener { publishPost() }
+            buttonSaveChanges.setOnClickListener { editPost() }
 
             viewLoading.setOnClickListener { }
         }
     }
 
     private fun setUpObservers() {
-        createPostViewModel.createPostUiState.observe(viewLifecycleOwner) { createPostUiState ->
-            createPostUiState.apply {
-                if (tags != null && subscriptions != null) {
-                    postTagAdapter?.submitList(
-                        tags.filter { tag ->
-                            selectedTagIds.contains(tag.id)
-                        } + FakeItems.fakeTag
+        editPostViewModel.editPostUiState.observe(viewLifecycleOwner) { editPostUiState ->
+            editPostUiState.apply {
+                if (postItem != null && tags != null && subscriptions != null) {
+                    setPost(
+                        postItem = postItem,
+                        tags = tags,
+                        selectedTagIds = selectedTagIds,
+                        subscriptions = subscriptions,
+                        requiredSubscriptionIds = requiredSubscriptionIds
                     )
-                    postSubscriptionAdapter?.submitList(
-                        subscriptions.filter { subscription ->
-                            requiredSubscriptionIds.contains(subscription.id)
-                        } + FakeItems.fakeSubscription)
-                    setLoading(isLoadingShown = isProgressBarPublishShown)
+                    setLoading(isLoadingShown = isProgressBarSaveChangesShown)
                     setErrorMessage(
                         errorMessage = errorMessage,
                         isErrorMessageShown = isErrorMessageShown
                     )
-                    if (isPostPublished) {
-                        showToast(message = resources.getString(R.string.post_published_successfully))
+                    if (isPostEdited) {
+                        showToast(message = resources.getString(R.string.post_edited_successfully))
                         goBack()
                     }
                 }
@@ -149,24 +159,50 @@ class CreatePostFragment : Fragment(), TagSelectorSource, SubscriptionSelectorSo
         }
     }
 
-    private fun publishPost() {
+    private fun setPost(
+        postItem: PostItem,
+        tags: List<Tag>,
+        selectedTagIds: List<Long>,
+        subscriptions: List<Subscription>,
+        requiredSubscriptionIds: List<Long>
+    ) {
+        if (binding.textInputEditTextTitle.text.isNullOrBlank()) {
+            binding.textInputEditTextTitle.setText(postItem.title)
+        }
+        if (binding.textInputEditTextContent.text.isNullOrBlank()) {
+            binding.textInputEditTextContent.setText(postItem.content)
+        }
+        postTagAdapter?.submitList(
+            tags.filter { tag ->
+                selectedTagIds.contains(tag.id)
+            } + FakeItems.fakeTag
+        )
+        postSubscriptionAdapter?.submitList(
+            subscriptions.filter { subscription ->
+                requiredSubscriptionIds.contains(subscription.id)
+            } + FakeItems.fakeSubscription
+        )
+    }
+
+    private fun editPost() {
         val title = binding.textInputEditTextTitle.text?.trim().toString()
         val content = binding.textInputEditTextContent.text?.trim().toString()
-        createPostViewModel.publishPost(
+        editPostViewModel.editPost(
             creatorId = arguments.creatorId,
+            postId = arguments.postId,
             title = title,
             content = content
         )
     }
 
-    private fun showSelectTagsFragment(selectTagsFragment: SelectTagsFragment) {
-        if (!selectTagsFragment.isVisible) {
-            selectTagsFragment.show(
+    private fun showSelectTagsFragment(selectCreatePostTagsFragment: SelectTagsFragment) {
+        if (!selectCreatePostTagsFragment.isVisible) {
+            selectCreatePostTagsFragment.show(
                 childFragmentManager,
-                selectTagsFragment.toString()
+                selectCreatePostTagsFragment.toString()
             )
         } else {
-            selectTagsFragment.dismiss()
+            selectCreatePostTagsFragment.dismiss()
         }
     }
 
@@ -187,8 +223,8 @@ class CreatePostFragment : Fragment(), TagSelectorSource, SubscriptionSelectorSo
 
     private fun setLoading(isLoadingShown: Boolean) {
         binding.apply {
-            progressBarPublish.isVisible = isLoadingShown
-            buttonPublish.visibility = if (isLoadingShown) View.INVISIBLE else View.VISIBLE
+            progressBarSaveChanges.isVisible = isLoadingShown
+            buttonSaveChanges.visibility = if (isLoadingShown) View.INVISIBLE else View.VISIBLE
         }
     }
 
@@ -209,41 +245,41 @@ class CreatePostFragment : Fragment(), TagSelectorSource, SubscriptionSelectorSo
     }
 
     override fun getTags(): List<Tag>? {
-        return createPostViewModel.createPostUiState.value?.tags
+        return editPostViewModel.editPostUiState.value?.tags
     }
 
     override fun getSelectedTagIds(): List<Long> {
-        return createPostViewModel.createPostUiState.value?.selectedTagIds ?: listOf()
+        return editPostViewModel.editPostUiState.value?.selectedTagIds ?: listOf()
     }
 
     override fun changeSelectedTagIds(selectedTagIds: List<Long>) {
-        createPostViewModel.changeSelectedTagIds(selectedTagIds = selectedTagIds)
+        editPostViewModel.changeSelectedTagIds(selectedTagIds = selectedTagIds)
     }
 
     override fun navigateToTagsFragment() {
-        val action = CreatePostFragmentDirections.actionCreatePostFragmentToTagsFragment(
-            creatorId = createPostViewModel.createPostUiState.value?.creatorId ?: ""
+        val action = EditPostFragmentDirections.actionEditPostFragmentToTagsFragment(
+            creatorId = editPostViewModel.editPostUiState.value?.creatorId ?: ""
         )
         findNavController().navigate(action)
     }
 
     override fun getSubscriptions(): List<Subscription>? {
-        return createPostViewModel.createPostUiState.value?.subscriptions
+        return editPostViewModel.editPostUiState.value?.subscriptions
     }
 
     override fun getRequiredSubscriptionIds(): List<Long> {
-        return createPostViewModel.createPostUiState.value?.requiredSubscriptionIds ?: listOf()
+        return editPostViewModel.editPostUiState.value?.requiredSubscriptionIds ?: listOf()
     }
 
     override fun changeSelectedSubscriptionIds(selectedSubscriptionIds: List<Long>) {
-        createPostViewModel.changeSelectedSubscriptionIds(
+        editPostViewModel.changeSelectedSubscriptionIds(
             selectedSubscriptionIds = selectedSubscriptionIds
         )
     }
 
     override fun navigateToSubscriptionsFragment() {
-        val action = CreatePostFragmentDirections.actionCreatePostFragmentToSubscriptionsFragment(
-            creatorId = createPostViewModel.createPostUiState.value?.creatorId ?: ""
+        val action = EditPostFragmentDirections.actionEditPostFragmentToSubscriptionsFragment(
+            creatorId = editPostViewModel.editPostUiState.value?.creatorId ?: ""
         )
         findNavController().navigate(action)
     }

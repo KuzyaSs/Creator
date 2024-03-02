@@ -68,7 +68,7 @@ class PostRepositoryImpl(private val postRemoteDataSource: PostRemoteDataSource)
     }
 
     override suspend fun updatePost(postId: Long, postRequest: PostRequest) {
-        postRemoteDataSource.insertPost(postRequest = postRequest)
+        postRemoteDataSource.updatePost(postId = postId, postRequest = postRequest)
 
     }
 

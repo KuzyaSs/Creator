@@ -39,6 +39,7 @@ import ru.ermakov.creator.domain.useCase.discover.GetFilteredPostPageByUserIdUse
 import ru.ermakov.creator.domain.useCase.donateToCreditGoal.InsertCreditGoalTransactionUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.EditCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.GetCreditGoalByIdUseCase
+import ru.ermakov.creator.domain.useCase.editPost.EditPostUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
@@ -534,5 +535,10 @@ class UseCaseModule {
     @Provides
     fun provideEditTagUseCase(tagRepository: TagRepository): EditTagUseCase {
         return EditTagUseCase(tagRepository = tagRepository)
+    }
+
+    @Provides
+    fun provideEditPostUseCase(postRepository: PostRepository): EditPostUseCase {
+        return EditPostUseCase(postRepository = postRepository)
     }
 }

@@ -1,25 +1,18 @@
 package ru.ermakov.creator.presentation.screen.createPost
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import ru.ermakov.creator.app.CreatorApplication
 import ru.ermakov.creator.databinding.FragmentSelectTagsBinding
 import ru.ermakov.creator.presentation.adapter.ChooseTagAdapter
-import javax.inject.Inject
 
 class SelectTagsFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentSelectTagsBinding? = null
     private val binding get() = _binding!!
-
-    @Inject
-    lateinit var createPostViewModelFactory: CreatePostViewModelFactory
-    private lateinit var createPostViewModel: CreatePostViewModel
 
     private var chooseTagAdapter: ChooseTagAdapter? = null
 
@@ -34,28 +27,29 @@ class SelectTagsFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity?.application as CreatorApplication).applicationComponent.inject(fragment = this)
-        createPostViewModel = ViewModelProvider(
-            requireParentFragment(),
-            createPostViewModelFactory
-        )[CreatePostViewModel::class.java]
-        setUpTagRecyclerView(
-            selectedTagIds = createPostViewModel
-                .createPostUiState
-                .value
-                ?.selectedTagIds
-                ?.toMutableList() ?: mutableListOf(),
-        )
+        setUpSelectTagsScreen()
         setUpListeners()
-        setUpObservers()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        setUpSelectTagsScreen()
+    }
+
+    private fun setUpSelectTagsScreen() {
+        val tags = (requireParentFragment() as TagSelectorSource).getTags()
+        val selectedTagIds = (requireParentFragment() as TagSelectorSource).getSelectedTagIds()
+        setUpTagRecyclerView(selectedTagIds = selectedTagIds)
+        chooseTagAdapter?.submitList(tags)
+        binding.linearLayoutRecyclerViewTagsState.isVisible = tags.isNullOrEmpty()
     }
 
     private fun setUpTagRecyclerView(selectedTagIds: List<Long>) {
         chooseTagAdapter = ChooseTagAdapter(
             selectedTagIds = selectedTagIds.toMutableList(),
             onItemClickListener = {
-                createPostViewModel.changeSelectedTagIds(
-                    chooseTagAdapter?.getSelectedTagIds() ?: listOf()
+                (requireParentFragment() as TagSelectorSource).changeSelectedTagIds(
+                    selectedTagIds = chooseTagAdapter?.getSelectedTagIds() ?: listOf()
                 )
             }
         )
@@ -67,24 +61,10 @@ class SelectTagsFragment : BottomSheetDialogFragment() {
             textViewTitleWithBackButton.setOnClickListener {
                 dismiss()
             }
-            buttonManage.setOnClickListener { navigateToTagsFragment() }
-        }
-    }
-
-    private fun setUpObservers() {
-        createPostViewModel.createPostUiState.observe(viewLifecycleOwner) { createPostUiState ->
-            createPostUiState.apply {
-                chooseTagAdapter?.submitList(tags)
-                binding.linearLayoutRecyclerViewTagsState.isVisible = tags.isNullOrEmpty()
+            buttonManage.setOnClickListener {
+                (requireParentFragment() as TagSelectorSource).navigateToTagsFragment()
             }
         }
-    }
-
-    private fun navigateToTagsFragment() {
-        val action = CreatePostFragmentDirections.actionCreatePostFragmentToTagsFragment(
-            creatorId = createPostViewModel.createPostUiState.value?.creatorId ?: ""
-        )
-        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

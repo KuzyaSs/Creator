@@ -29,13 +29,9 @@ class PostTagAdapter(
     inner class PostTagViewHolder(private val binding: ItemPostTagBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tag: Tag) {
-            if (tag.id != INVALID_TAG_ID) {
-                binding.textViewName.text = tag.name
-            } else {
-                binding.textViewName.isVisible = false
-                binding.textViewChange.isVisible = true
-            }
-
+            binding.textViewName.text = tag.name
+            binding.textViewName.isVisible = tag.id != INVALID_TAG_ID
+            binding.textViewChange.isVisible = tag.id == INVALID_TAG_ID
             binding.textViewChange.setOnClickListener {
                 onChangeClickListener()
             }

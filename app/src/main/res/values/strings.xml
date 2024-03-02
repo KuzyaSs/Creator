@@ -154,6 +154,7 @@
     <string name="tag_edited_successfully">Tag edited successfully</string>
     <string name="subscription_purchased_successfully">Subscription purchased successfully</string>
     <string name="post_published_successfully">Post published successfully</string>
+    <string name="post_edited_successfully">Post edited successfully</string>
     <string name="tip_sent_successfully">Tip sent successfully</string>
     <string name="donate_sent_successfully">Donate sent successfully</string>
     <string name="purchase_subscription">Purchase subscription</string>
@@ -205,6 +206,7 @@
     <string name="subscription_selection">Subscription selection</string>
     <string name="new_tag">New tag</string>
     <string name="edit_tag">Edit tag</string>
+    <string name="edit_goal">Edit goal</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

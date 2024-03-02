@@ -25,6 +25,7 @@ import ru.ermakov.creator.domain.useCase.discover.GetFilteredPostPageByUserIdUse
 import ru.ermakov.creator.domain.useCase.donateToCreditGoal.InsertCreditGoalTransactionUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.EditCreditGoalUseCase
 import ru.ermakov.creator.domain.useCase.editCreditGoal.GetCreditGoalByIdUseCase
+import ru.ermakov.creator.domain.useCase.editPost.EditPostUseCase
 import ru.ermakov.creator.domain.useCase.shared.CancelUploadTaskUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCategoriesByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
@@ -75,6 +76,7 @@ import ru.ermakov.creator.presentation.screen.creditGoals.CreditGoalsViewModelFa
 import ru.ermakov.creator.presentation.screen.discover.DiscoverViewModelFactory
 import ru.ermakov.creator.presentation.screen.donateToCreditGoal.DonateToCreditGoalViewModelFactory
 import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalViewModelFactory
+import ru.ermakov.creator.presentation.screen.editPost.EditPostViewModelFactory
 import ru.ermakov.creator.presentation.screen.editTag.EditTagViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionViewModelFactory
@@ -553,6 +555,23 @@ class ViewModelFactoryModule {
             getTagByIdUseCase = getTagByIdUseCase,
             editTagUseCase = editTagUseCase,
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun provideEditPostViewModelFactory(
+        getPostByUserAndPostIdsUseCase: GetPostByUserAndPostIdsUseCase,
+        getTagsByCreatorIdUseCase: GetTagsByCreatorIdUseCase,
+        getSubscriptionsByCreatorIdUseCase: GetSubscriptionsByCreatorIdUseCase,
+        editPostUseCase: EditPostUseCase,
+        exceptionHandler: ExceptionHandler
+    ): EditPostViewModelFactory {
+        return EditPostViewModelFactory(
+            getPostByUserAndPostIdsUseCase = getPostByUserAndPostIdsUseCase,
+            getTagsByCreatorIdUseCase = getTagsByCreatorIdUseCase,
+            getSubscriptionsByCreatorIdUseCase = getSubscriptionsByCreatorIdUseCase,
+            editPostUseCase = editPostUseCase,
             exceptionHandler = exceptionHandler
         )
     }

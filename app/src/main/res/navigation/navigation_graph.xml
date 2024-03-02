@@ -137,6 +137,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_followingFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -157,6 +164,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_discoverFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -173,6 +187,13 @@
         <action
             android:id="@+id/action_searchFragment_to_subscriptionsFragment"
             app:destination="@id/subscriptionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_searchFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -249,6 +270,13 @@
         <action
             android:id="@+id/action_blogFragment_to_createPostFragment"
             app:destination="@id/createPostFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_blogFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -467,6 +495,31 @@
         android:label="EditTagFragment">
         <argument
             android:name="tagId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="ru.ermakov.creator.presentation.screen.editPost.EditPostFragment"
+        android:label="EditPostFragment">
+        <action
+            android:id="@+id/action_editPostFragment_to_tagsFragment"
+            app:destination="@id/tagsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_editPostFragment_to_subscriptionsFragment"
+            app:destination="@id/subscriptionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="creatorId"
+            app:argType="string" />
+        <argument
+            android:name="postId"
             app:argType="long" />
     </fragment>
 </navigation>

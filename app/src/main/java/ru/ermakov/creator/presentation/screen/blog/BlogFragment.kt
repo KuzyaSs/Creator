@@ -28,6 +28,7 @@ import ru.ermakov.creator.domain.model.Creator
 import ru.ermakov.creator.presentation.adapter.PostAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
 import ru.ermakov.creator.presentation.screen.blog.blogFilter.BlogFilterFragment
+import ru.ermakov.creator.presentation.screen.following.UNSELECTED_POST_ID
 import ru.ermakov.creator.presentation.screen.shared.OptionsFragment
 import ru.ermakov.creator.presentation.screen.shared.OptionsHandler
 import ru.ermakov.creator.presentation.util.TextLocalizer
@@ -427,9 +428,11 @@ class BlogFragment : Fragment(), OptionsHandler {
     }
 
     override fun edit() {
-        // Navigate to edit post screen.
-        showToast("*Edit post*")
-        // navigateToPostFragment(postId = *)
+        val action = BlogFragmentDirections.actionBlogFragmentToEditPostFragment(
+            creatorId = arguments.creatorId,
+            postId = blogViewModel.blogUiState.value?.selectedPostId ?: UNSELECTED_POST_ID
+        )
+        findNavController().navigate(action)
     }
 
     override fun delete() {

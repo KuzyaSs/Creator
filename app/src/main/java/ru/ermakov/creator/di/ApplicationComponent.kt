@@ -14,8 +14,6 @@ import ru.ermakov.creator.presentation.screen.changePassword.ChangePasswordFragm
 import ru.ermakov.creator.presentation.screen.chooseCategory.ChooseCategoryFragment
 import ru.ermakov.creator.presentation.screen.createCreditGoal.CreateCreditGoalFragment
 import ru.ermakov.creator.presentation.screen.createPost.CreatePostFragment
-import ru.ermakov.creator.presentation.screen.createPost.SelectSubscriptionsFragment
-import ru.ermakov.creator.presentation.screen.createPost.SelectTagsFragment
 import ru.ermakov.creator.presentation.screen.createSubscription.CreateSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.createTag.CreateTagFragment
 import ru.ermakov.creator.presentation.screen.following.AccountFragment
@@ -33,6 +31,7 @@ import ru.ermakov.creator.presentation.screen.editCreditGoal.EditCreditGoalFragm
 import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.CategoryDiscoverFilterFragment
 import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.DiscoverFeedFilterFragment
 import ru.ermakov.creator.presentation.screen.discover.discoverFeedFilter.PostTypeDiscoverFilterFragment
+import ru.ermakov.creator.presentation.screen.editPost.EditPostFragment
 import ru.ermakov.creator.presentation.screen.editTag.EditTagFragment
 import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.CategoryFollowingFilterFragment
 import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.FollowingFeedFilterFragment
@@ -114,8 +113,7 @@ interface ApplicationComponent {
     fun inject(fragment: ChooseCategoryFragment)
     fun inject(fragment: ChangePasswordFragment)
     fun inject(fragment: CreatePostFragment)
-    fun inject(fragment: SelectTagsFragment)
-    fun inject(fragment: SelectSubscriptionsFragment)
+    fun inject(fragment: EditPostFragment)
     fun inject(fragment: TagsFragment)
     fun inject(fragment: CreateTagFragment)
     fun inject(fragment: EditTagFragment)
