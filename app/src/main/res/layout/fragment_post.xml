@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?android:windowBackground"
+            app:cardElevation="@dimen/base_margin_size">
+
+            <TextView
+                android:id="@+id/textViewTitleWithBackButton"
+                style="@style/TitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_margin_size"
+                android:drawablePadding="@dimen/medium_margin_size"
+                android:paddingTop="@dimen/medium_margin_size"
+                android:paddingBottom="@dimen/medium_margin_size"
+                android:text="@string/post"
+                app:drawableStartCompat="@drawable/ic_back" />
+        </androidx.cardview.widget.CardView>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageViewCreatorProfileAvatar"
+                    android:layout_width="@dimen/base_image_size"
+                    android:layout_height="@dimen/base_image_size"
+                    android:layout_marginStart="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_profile_avatar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewCreatorName"
+                    style="@style/LargeTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/medium_margin_size"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    app:layout_constraintBottom_toTopOf="@id/textViewPublicationDate"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewMore"
+                    app:layout_constraintStart_toEndOf="@id/imageViewCreatorProfileAvatar"
+                    app:layout_constraintTop_toTopOf="@id/imageViewCreatorProfileAvatar"
+                    tools:text="Kuzya" />
+
+                <TextView
+                    android:id="@+id/textViewPublicationDate"
+                    style="@style/BaseTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/medium_margin_size"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="?android:textColorSecondary"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewCreatorProfileAvatar"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewMore"
+                    app:layout_constraintStart_toEndOf="@id/imageViewCreatorProfileAvatar"
+                    app:layout_constraintTop_toBottomOf="@id/textViewCreatorName"
+                    tools:text="10 February" />
+
+                <ImageView
+                    android:id="@+id/imageViewMore"
+                    android:layout_width="@dimen/base_icon_size"
+                    android:layout_height="@dimen/base_icon_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:layout_marginEnd="@dimen/medium_margin_size"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_more"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    style="@style/LargeTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/medium_margin_size"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:paddingBottom="@dimen/medium_margin_size"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewCreatorProfileAvatar"
+                    tools:text="Title of the post" />
+
+                <TextView
+                    android:id="@+id/textViewContent"
+                    style="@style/BaseTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:ellipsize="end"
+                    android:maxLines="12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+                    tools:text="Some content of the post. Some conte. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some cont. Some content of the post. Some contnt of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. Some content of the post. " />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutIsNotAvailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:background="@drawable/container_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewContent">
+
+                    <ImageView
+                        android:id="@+id/imageViewLock"
+                        android:layout_width="@dimen/large_image_size"
+                        android:layout_height="@dimen/large_image_size"
+                        android:layout_marginTop="@dimen/base_margin_size"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_lock"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textViewSubscriptionRequired"
+                        style="@style/LargeTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/base_margin_size"
+                        android:text="@string/subscription_required"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imageViewLock" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewRequiredSubscriptions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/medium_margin_size"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewSubscriptionRequired" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonSubscribe"
+                        style="@style/PrimaryButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/subscribe"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recyclerViewRequiredSubscriptions" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/base_margin_size"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/buttonSubscribe" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerImages"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/constraintLayoutIsNotAvailable" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewTags"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/medium_margin_size"
+                    android:paddingTop="@dimen/base_margin_size"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/constraintLayoutIsNotAvailable" />
+
+                <ImageView
+                    android:id="@+id/imageViewLike"
+                    android:layout_width="@dimen/base_icon_size"
+                    android:layout_height="@dimen/base_icon_size"
+                    android:layout_marginStart="@dimen/base_margin_size"
+                    android:layout_marginTop="@dimen/base_margin_size"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_favorite"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerViewTags" />
+
+                <TextView
+                    android:id="@+id/textViewLikeCount"
+                    style="@style/LargeTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medium_margin_size"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewLike"
+                    app:layout_constraintStart_toEndOf="@id/imageViewLike"
+                    app:layout_constraintTop_toTopOf="@id/imageViewLike"
+                    tools:text="62" />
+
+                <ImageView
+                    android:id="@+id/imageViewComment"
+                    android:layout_width="@dimen/base_icon_size"
+                    android:layout_height="@dimen/base_icon_size"
+                    android:layout_marginStart="@dimen/base_margin_size"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_comment"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewLike"
+                    app:layout_constraintStart_toEndOf="@id/textViewLikeCount"
+                    app:layout_constraintTop_toTopOf="@id/imageViewLike" />
+
+                <TextView
+                    android:id="@+id/textViewCommentCount"
+                    style="@style/LargeTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medium_margin_size"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewComment"
+                    app:layout_constraintStart_toEndOf="@id/imageViewComment"
+                    app:layout_constraintTop_toTopOf="@id/imageViewComment"
+                    tools:text="15" />
+
+                <TextView
+                    android:id="@+id/textViewIsEdited"
+                    style="@style/BaseTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medium_margin_size"
+                    android:layout_marginEnd="@dimen/base_margin_size"
+                    android:text="@string/edited"
+                    android:textColor="?android:textColorSecondary"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewComment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imageViewComment" />
+
+                <View
+                    android:id="@+id/viewLoading"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="?android:windowBackground"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progressBar"
+                    style="@style/ProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_margin_size"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageViewScreenLogo"
+                        android:layout_width="@dimen/large_image_size"
+                        android:layout_height="@dimen/large_image_size"
+                        android:layout_marginBottom="@dimen/base_margin_size"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/logo"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textViewScreenErrorMessage"
+                        style="@style/ExtraLargeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

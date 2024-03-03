@@ -1,6 +1,5 @@
 package ru.ermakov.creator.data.remote.dataSource
 
-import android.util.Log
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.mapper.toPost
 import ru.ermakov.creator.data.mapper.toRemoteLikeRequest
@@ -131,10 +130,8 @@ class PostRemoteDataSourceImpl(
             remotePostRequest = postRequest.toRemotePostRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "updatePost SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "updatePost ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 

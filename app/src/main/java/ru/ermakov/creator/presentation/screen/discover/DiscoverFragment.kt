@@ -175,7 +175,7 @@ class DiscoverFragment : Fragment(), OptionsHandler {
                 discoverViewModel.deleteLikeFromPost(postId = postItem.id)
             }, onCommentClickListener = { postItem ->
                 discoverViewModel.setSelectedPostId(postId = postItem.id)
-                showToast("Comment")
+                navigateToPostFragment(postId = postItem.id)
             }
         )
         binding.recyclerViewPosts.adapter = postAdapter
@@ -193,14 +193,20 @@ class DiscoverFragment : Fragment(), OptionsHandler {
 
     private fun showDiscoverFeedFilterFragment(discoverFeedFilterFragment: DiscoverFeedFilterFragment) {
         if (!discoverFeedFilterFragment.isVisible) {
-            discoverFeedFilterFragment.show(childFragmentManager, discoverFeedFilterFragment.toString())
+            discoverFeedFilterFragment.show(
+                childFragmentManager,
+                discoverFeedFilterFragment.toString()
+            )
         } else {
             discoverFeedFilterFragment.dismiss()
         }
     }
 
     private fun navigateToPostFragment(postId: Long) {
-        showToast("navigateToPostFragment (post id: $postId)")
+        val action = DiscoverFragmentDirections.actionDiscoverFragmentToPostFragment(
+            postId = postId
+        )
+        findNavController().navigate(action)
     }
 
     private fun navigateToBlogFragment(creatorId: String) {

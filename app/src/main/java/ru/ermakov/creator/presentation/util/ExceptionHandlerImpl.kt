@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import kotlinx.coroutines.CancellationException
+import ru.ermakov.creator.data.exception.CommentNotFoundException
 import ru.ermakov.creator.data.exception.CreditGoalNotFoundException
 import ru.ermakov.creator.data.exception.DuplicateSubscriptionTitleException
 import ru.ermakov.creator.data.exception.DuplicateTagNameException
@@ -25,6 +26,7 @@ import ru.ermakov.creator.data.exception.UserNotFoundException
 import ru.ermakov.creator.data.exception.DuplicateUsernameException
 import ru.ermakov.creator.data.exception.InsufficientFundsInAccountException
 import ru.ermakov.creator.data.exception.InsufficientFundsInGoalException
+import ru.ermakov.creator.data.exception.PostNotFoundException
 import ru.ermakov.creator.data.exception.SubscriptionNotFoundException
 import ru.ermakov.creator.data.exception.TransactionNotFoundException
 import ru.ermakov.creator.domain.exception.EmptyDataException
@@ -126,6 +128,14 @@ class ExceptionHandlerImpl : ExceptionHandler {
             }
 
             is TransactionNotFoundException -> {
+                exception.message
+            }
+
+            is CommentNotFoundException -> {
+                exception.message
+            }
+
+            is PostNotFoundException -> {
                 exception.message
             }
 

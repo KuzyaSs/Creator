@@ -37,6 +37,7 @@ import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.Cate
 import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.FollowingFeedFilterFragment
 import ru.ermakov.creator.presentation.screen.following.followingFeedFilter.PostTypeFollowingFilterFragment
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryFragment
+import ru.ermakov.creator.presentation.screen.post.PostFragment
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionFragment
 import ru.ermakov.creator.presentation.screen.search.SearchFragment
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorFragment
@@ -117,4 +118,5 @@ interface ApplicationComponent {
     fun inject(fragment: TagsFragment)
     fun inject(fragment: CreateTagFragment)
     fun inject(fragment: EditTagFragment)
+    fun inject(fragment: PostFragment)
 }

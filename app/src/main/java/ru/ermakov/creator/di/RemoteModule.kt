@@ -19,6 +19,7 @@ import ru.ermakov.creator.data.remote.api.CreatorApi
 import ru.ermakov.creator.data.remote.api.CreditGoalApi
 import ru.ermakov.creator.data.remote.api.FollowApi
 import ru.ermakov.creator.data.remote.api.PostApi
+import ru.ermakov.creator.data.remote.api.PostCommentApi
 import ru.ermakov.creator.data.remote.api.SubscriptionApi
 import ru.ermakov.creator.data.remote.api.TagApi
 import ru.ermakov.creator.data.remote.api.TransactionApi
@@ -36,6 +37,8 @@ import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSourceImpl
+import ru.ermakov.creator.data.remote.dataSource.PostCommentRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.PostCommentRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.PostRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.PostRemoteDataSourceImpl
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSource
@@ -147,6 +150,11 @@ class RemoteModule {
     }
 
     @Provides
+    fun providePostCommentApi(retrofit: Retrofit): PostCommentApi {
+        return retrofit.create(PostCommentApi::class.java)
+    }
+
+    @Provides
     fun provideUserRemoteDataSource(
         userApi: UserApi,
         apiExceptionLocalizer: ApiExceptionLocalizer
@@ -252,6 +260,17 @@ class RemoteModule {
     ): TagRemoteDataSource {
         return TagRemoteDataSourceImpl(
             tagApi = tagApi,
+            apiExceptionLocalizer = apiExceptionLocalizer
+        )
+    }
+
+    @Provides
+    fun providePostCommentRemoteDataSource(
+        postCommentApi: PostCommentApi,
+        apiExceptionLocalizer: ApiExceptionLocalizer
+    ): PostCommentRemoteDataSource {
+        return PostCommentRemoteDataSourceImpl(
+            postCommentApi = postCommentApi,
             apiExceptionLocalizer = apiExceptionLocalizer
         )
     }

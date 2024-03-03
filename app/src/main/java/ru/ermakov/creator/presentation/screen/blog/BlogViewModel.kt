@@ -9,6 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.ermakov.creator.data.exception.PostNotFoundException
 import ru.ermakov.creator.domain.model.Tag
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
 import ru.ermakov.creator.domain.useCase.blog.GetFilteredPostPageByUserAndCreatorIdsUseCase
@@ -266,15 +267,14 @@ class BlogViewModel(
     }
 
     fun updateSelectedPostId() {
+        val userId = _blogUiState.value?.currentUserId
+        val selectedPostId = _blogUiState.value?.selectedPostId ?: UNSELECTED_POST_ID
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val userId = _blogUiState.value?.currentUserId
-                val selectedPostId = _blogUiState.value?.selectedPostId ?: UNSELECTED_POST_ID
                 val updatedPostItem = getPostByUserAndPostIdsUseCase(
                     userId = userId,
                     postId = selectedPostId
                 )
-
                 val postItems = _blogUiState.value?.postItems?.map { postItem ->
                     if (postItem.id == selectedPostId) {
                         updatedPostItem
@@ -283,7 +283,13 @@ class BlogViewModel(
                     }
                 }
                 _blogUiState.postValue(_blogUiState.value?.copy(postItems = postItems))
-            } catch (_: Exception) {
+            } catch (exception: Exception) {
+                if (exception is PostNotFoundException) {
+                    val remainingPostItems = _blogUiState.value?.postItems?.filter { postItem ->
+                        postItem.id != selectedPostId
+                    }
+                    _blogUiState.postValue(_blogUiState.value?.copy(postItems = remainingPostItems))
+                }
             }
         }
     }

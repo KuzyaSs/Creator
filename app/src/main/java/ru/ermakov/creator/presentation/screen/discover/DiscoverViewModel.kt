@@ -9,6 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.ermakov.creator.data.exception.PostNotFoundException
 import ru.ermakov.creator.domain.model.Category
 import ru.ermakov.creator.domain.useCase.chooseCategory.UpdateCategoryInListUseCase
 import ru.ermakov.creator.domain.useCase.discover.GetFilteredPostPageByUserIdUseCase
@@ -97,10 +98,10 @@ class DiscoverViewModel(
     }
 
     fun updateSelectedPostId() {
+        val userId = _discoverUiState.value?.currentUser?.id
+        val selectedPostId = _discoverUiState.value?.selectedPostId ?: UNSELECTED_POST_ID
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val userId = _discoverUiState.value?.currentUser?.id
-                val selectedPostId = _discoverUiState.value?.selectedPostId ?: UNSELECTED_POST_ID
                 val updatedPostItem = getPostByUserAndPostIdsUseCase(
                     userId = userId,
                     postId = selectedPostId
@@ -114,7 +115,13 @@ class DiscoverViewModel(
                     }
                 }
                 _discoverUiState.postValue(_discoverUiState.value?.copy(postItems = postItems))
-            } catch (_: Exception) {
+            } catch (exception: Exception) {
+                if (exception is PostNotFoundException) {
+                    val remainingPostItems = _discoverUiState.value?.postItems?.filter { postItem ->
+                        postItem.id != selectedPostId
+                    }
+                    _discoverUiState.postValue(_discoverUiState.value?.copy(postItems = remainingPostItems))
+                }
             }
         }
     }

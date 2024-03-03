@@ -8,6 +8,7 @@ import ru.ermakov.creator.domain.repository.CreatorRepository
 import ru.ermakov.creator.domain.repository.CreditGoalRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
+import ru.ermakov.creator.domain.repository.PostCommentRepository
 import ru.ermakov.creator.domain.repository.PostRepository
 import ru.ermakov.creator.domain.repository.SubscriptionRepository
 import ru.ermakov.creator.domain.repository.TagRepository
@@ -62,6 +63,7 @@ import ru.ermakov.creator.domain.useCase.following.GetPostByUserAndPostIdsUseCas
 import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
+import ru.ermakov.creator.domain.useCase.post.GetCommentPageByPostAndReplyCommentIdsUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.search.GetPostPageByUserIdAndSearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorPageBySearchQueryUseCase
@@ -540,5 +542,16 @@ class UseCaseModule {
     @Provides
     fun provideEditPostUseCase(postRepository: PostRepository): EditPostUseCase {
         return EditPostUseCase(postRepository = postRepository)
+    }
+
+    @Provides
+    fun provideGetCommentPageByPostAndReplyCommentIdsUseCase(
+        postCommentRepository: PostCommentRepository,
+        getDateTimeUseCase: GetDateTimeUseCase
+    ): GetCommentPageByPostAndReplyCommentIdsUseCase {
+        return GetCommentPageByPostAndReplyCommentIdsUseCase(
+            postCommentRepository = postCommentRepository,
+            getDateTimeUseCase = getDateTimeUseCase
+        )
     }
 }

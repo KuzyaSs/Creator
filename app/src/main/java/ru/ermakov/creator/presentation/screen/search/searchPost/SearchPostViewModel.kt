@@ -9,6 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.ermakov.creator.data.exception.PostNotFoundException
 import ru.ermakov.creator.domain.model.PostItem
 import ru.ermakov.creator.domain.useCase.following.DeleteLikeFromPostUseCase
 import ru.ermakov.creator.domain.useCase.following.DeletePostByIdUseCase
@@ -193,10 +194,10 @@ class SearchPostViewModel(
     }
 
     fun updateSelectedPostId() {
+        val userId = _searchPostUiState.value?.currentUserId
+        val selectedPostId = _searchPostUiState.value?.selectedPostId ?: UNSELECTED_POST_ID
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val userId = _searchPostUiState.value?.currentUserId
-                val selectedPostId = _searchPostUiState.value?.selectedPostId ?: UNSELECTED_POST_ID
                 val updatedPostItem = getPostByUserAndPostIdsUseCase(
                     userId = userId,
                     postId = selectedPostId
@@ -210,7 +211,13 @@ class SearchPostViewModel(
                     }
                 }
                 _searchPostUiState.postValue(_searchPostUiState.value?.copy(postItems = postItems))
-            } catch (_: Exception) {
+            } catch (exception: Exception) {
+                if (exception is PostNotFoundException) {
+                    val remainingPostItems = _searchPostUiState.value?.postItems?.filter { postItem ->
+                        postItem.id != selectedPostId
+                    }
+                    _searchPostUiState.postValue(_searchPostUiState.value?.copy(postItems = remainingPostItems))
+                }
             }
         }
     }

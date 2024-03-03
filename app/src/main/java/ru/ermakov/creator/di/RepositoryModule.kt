@@ -13,6 +13,7 @@ import ru.ermakov.creator.data.remote.dataSource.CreatorRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.CreditGoalRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FileRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.FollowRemoteDataSource
+import ru.ermakov.creator.data.remote.dataSource.PostCommentRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.PostRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.SubscriptionRemoteDataSource
 import ru.ermakov.creator.data.remote.dataSource.TagRemoteDataSource
@@ -23,6 +24,7 @@ import ru.ermakov.creator.data.repository.CreatorRepositoryImpl
 import ru.ermakov.creator.data.repository.CreditGoalRepositoryImpl
 import ru.ermakov.creator.data.repository.FileRepositoryImpl
 import ru.ermakov.creator.data.repository.FollowRepositoryImpl
+import ru.ermakov.creator.data.repository.PostCommentRepositoryImpl
 import ru.ermakov.creator.data.repository.PostRepositoryImpl
 import ru.ermakov.creator.data.repository.SubscriptionRepositoryImpl
 import ru.ermakov.creator.data.repository.TagRepositoryImpl
@@ -34,6 +36,7 @@ import ru.ermakov.creator.domain.repository.CreatorRepository
 import ru.ermakov.creator.domain.repository.CreditGoalRepository
 import ru.ermakov.creator.domain.repository.FileRepository
 import ru.ermakov.creator.domain.repository.FollowRepository
+import ru.ermakov.creator.domain.repository.PostCommentRepository
 import ru.ermakov.creator.domain.repository.PostRepository
 import ru.ermakov.creator.domain.repository.SubscriptionRepository
 import ru.ermakov.creator.domain.repository.TagRepository
@@ -133,5 +136,12 @@ class RepositoryModule {
     @Provides
     fun provideTagRepository(tagRemoteDataSource: TagRemoteDataSource): TagRepository {
         return TagRepositoryImpl(tagRemoteDataSource = tagRemoteDataSource)
+    }
+
+    @Provides
+    fun providePostCommentRepository(postCommentRemoteDataSource: PostCommentRemoteDataSource): PostCommentRepository {
+        return PostCommentRepositoryImpl(
+            postCommentRemoteDataSource = postCommentRemoteDataSource
+        )
     }
 }

@@ -1,8 +1,6 @@
 package ru.ermakov.creator.data.remote.dataSource
 
-import android.util.Log
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
-import ru.ermakov.creator.data.mapper.toRemotePostRequest
 import ru.ermakov.creator.data.mapper.toRemoteTagRequest
 import ru.ermakov.creator.data.mapper.toTag
 import ru.ermakov.creator.data.remote.api.TagApi
@@ -28,12 +26,10 @@ class TagRemoteDataSourceImpl(
     override suspend fun getTagById(tagId: Long): Tag {
         val remoteTagResponse = tagApi.getTagById(tagId = tagId)
         if (remoteTagResponse.isSuccessful) {
-            Log.d("MY_TAG", "getTagById SUCCESS ${remoteTagResponse.body()}")
             remoteTagResponse.body()?.let { remoteTag ->
                 return remoteTag.toTag()
             }
         }
-        Log.d("MY_TAG", "getTagById ERROR ${remoteTagResponse.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = remoteTagResponse)
     }
 
@@ -51,10 +47,8 @@ class TagRemoteDataSourceImpl(
             remoteTagRequest = tagRequest.toRemoteTagRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "updateTag SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "updateTag ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 

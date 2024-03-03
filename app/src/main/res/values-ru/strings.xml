@@ -27,6 +27,8 @@
     <string name="insufficient_funds_in_account_exception">Недостаточно средств на счёте аккаунта</string>
     <string name="insufficient_funds_in_goal_exception">Недостаточно средств на счёте цели</string>
     <string name="transaction_not_found_exception">Транзакция не найдена</string>
+    <string name="comment_not_found_exception">Комментарий не найден</string>
+    <string name="post_not_found_exception">Пост не найден</string>
     <string name="too_many_requests_exception">Аккаунт заблокирован. Сбросьте пароль или повторите попытку позже</string>
     <string name="unknown_exception">Ошибка соединения</string>
     <string name="account">Аккаунт</string>
@@ -207,6 +209,7 @@
     <string name="new_tag">Новый тег</string>
     <string name="edit_tag">Редактирование тега</string>
     <string name="edit_goal">Редактирование поста</string>
+    <string name="post">Пост</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

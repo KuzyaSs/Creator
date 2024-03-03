@@ -29,6 +29,8 @@ class ErrorConstants {
         const val INSUFFICIENT_FUNDS_IN_ACCOUNT_EXCEPTION = "Insufficient funds in the account"
         const val INSUFFICIENT_FUNDS_IN_GOAL_EXCEPTION = "Insufficient funds in the goal"
         const val TRANSACTION_NOT_FOUND_EXCEPTION = "Transaction is not found"
+        const val COMMENT_NOT_FOUND_EXCEPTION = "Comment is not found"
+        const val POST_NOT_FOUND_EXCEPTION = "Post is not found"
         const val TOO_MANY_REQUESTS_EXCEPTION = "The account has been blocked. Reset your password or try again later"
         const val UNKNOWN_EXCEPTION = "Unknown error"
     }

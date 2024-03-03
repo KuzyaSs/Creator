@@ -27,6 +27,8 @@
     <string name="insufficient_funds_in_account_exception">Insufficient funds in the account</string>
     <string name="insufficient_funds_in_goal_exception">Insufficient funds in the goal</string>
     <string name="transaction_not_found_exception">Transaction is not found</string>
+    <string name="comment_not_found_exception">Comment is not found</string>
+    <string name="post_not_found_exception">Post is not found</string>
     <string name="too_many_requests_exception">The account has been blocked. Reset your password or try again later</string>
     <string name="unknown_exception">Connection error</string>
     <string name="account">Account</string>
@@ -207,6 +209,7 @@
     <string name="new_tag">New tag</string>
     <string name="edit_tag">Edit tag</string>
     <string name="edit_goal">Edit goal</string>
+    <string name="post">Post</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

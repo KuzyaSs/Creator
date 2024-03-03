@@ -298,7 +298,7 @@ class BlogFragment : Fragment(), OptionsHandler {
                 blogViewModel.deleteLikeFromPost(postId = postItem.id)
             }, onCommentClickListener = { postItem ->
                 blogViewModel.setSelectedPostId(postId = postItem.id)
-                showToast("Comment")
+                navigateToPostFragment(postId = postItem.id)
             }
         )
         binding.recyclerViewPosts.adapter = postAdapter
@@ -398,7 +398,10 @@ class BlogFragment : Fragment(), OptionsHandler {
     }
 
     private fun navigateToPostFragment(postId: Long) {
-        showToast("navigateToPostFragment (post id: $postId)")
+        val action = BlogFragmentDirections.actionBlogFragmentToPostFragment(
+            postId = postId
+        )
+        findNavController().navigate(action)
     }
 
     private fun setEmptyPostRecyclerViewInfo(isPostRecyclerViewEmpty: Boolean) {

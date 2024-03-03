@@ -186,7 +186,7 @@ class FollowingFragment : Fragment(), OptionsHandler {
                 followingViewModel.deleteLikeFromPost(postId = postItem.id)
             }, onCommentClickListener = { postItem ->
                 followingViewModel.setSelectedPostId(postId = postItem.id)
-                showToast("Comment")
+                navigateToPostFragment(postId = postItem.id)
             }
         )
         binding.recyclerViewPosts.adapter = postAdapter
@@ -236,7 +236,10 @@ class FollowingFragment : Fragment(), OptionsHandler {
     }
 
     private fun navigateToPostFragment(postId: Long) {
-        showToast("navigateToPostFragment (post id: $postId)")
+        val action = FollowingFragmentDirections.actionFollowingFragmentToPostFragment(
+            postId = postId
+        )
+        findNavController().navigate(action)
     }
 
     private fun navigateToBlogFragment(creatorId: String) {

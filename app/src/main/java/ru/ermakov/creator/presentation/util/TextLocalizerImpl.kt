@@ -2,6 +2,7 @@ package ru.ermakov.creator.presentation.util
 
 import android.content.Context
 import ru.ermakov.creator.R
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.COMMENT_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.CREDIT_GOAL_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_SUBSCRIPTION_TITLE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.DUPLICATE_TAG_NAME_EXCEPTION
@@ -26,6 +27,7 @@ import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_CVV_
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_SUBSCRIPTION_PRICE_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_TRANSACTION_AMOUNT_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.INVALID_VALIDITY_LENGTH_EXCEPTION
+import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.POST_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.SUBSCRIPTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.TRANSACTION_NOT_FOUND_EXCEPTION
 import ru.ermakov.creator.domain.exception.ErrorConstants.Companion.USER_NOT_FOUND_EXCEPTION
@@ -205,6 +207,14 @@ class TextLocalizerImpl(private val context: Context) : TextLocalizer {
 
             TRANSACTION_NOT_FOUND_EXCEPTION -> {
                 context.getString(R.string.transaction_not_found_exception)
+            }
+
+            COMMENT_NOT_FOUND_EXCEPTION -> {
+                context.getString(R.string.comment_not_found_exception)
+            }
+
+            POST_NOT_FOUND_EXCEPTION -> {
+                context.getString(R.string.post_not_found_exception)
             }
 
             TOO_MANY_REQUESTS_EXCEPTION -> {
