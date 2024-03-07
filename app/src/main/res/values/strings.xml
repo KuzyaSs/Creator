@@ -114,6 +114,7 @@
     <string name="empty_follow_list_description">Here you can see the creators you are following</string>
     <string name="empty_transaction_list">Here will be your transaction history</string>
     <string name="empty_tag_list">The tag list is still empty, but it will be added soon</string>
+    <string name="empty_comment_list">Be the first to share your thoughts</string>
     <string name="empty_tag_list_description">Here you can see the author\'s tags</string>
     <string name="empty_category_list">The category list is still empty, but it will be added soon</string>
     <string name="empty_post_list">The post list is still empty, but it will be added soon</string>
@@ -210,6 +211,9 @@
     <string name="edit_tag">Edit tag</string>
     <string name="edit_goal">Edit goal</string>
     <string name="post">Post</string>
+    <string name="comments">Comments</string>
+    <string name="comment">Comment</string>
+    <string name="reply">Reply</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>

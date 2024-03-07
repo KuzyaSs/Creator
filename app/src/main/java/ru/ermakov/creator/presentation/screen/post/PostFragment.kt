@@ -24,6 +24,7 @@ import ru.ermakov.creator.domain.model.PostItem
 import ru.ermakov.creator.presentation.adapter.PostSubscriptionAdapter
 import ru.ermakov.creator.presentation.adapter.PostTagAdapter
 import ru.ermakov.creator.presentation.screen.CreatorActivity
+import ru.ermakov.creator.presentation.screen.postComments.PostCommentsFragment
 import ru.ermakov.creator.presentation.screen.shared.OptionsFragment
 import ru.ermakov.creator.presentation.screen.shared.OptionsHandler
 import ru.ermakov.creator.presentation.util.TextLocalizer
@@ -154,8 +155,9 @@ class PostFragment : Fragment(), OptionsHandler {
                 }
             }
 
+            val postCommentFragment = PostCommentsFragment()
             imageViewComment.setOnClickListener {
-                showCommentsScreen()
+                showCommentsScreen(postCommentFragment = postCommentFragment)
             }
 
             viewLoading.setOnClickListener { }
@@ -220,11 +222,16 @@ class PostFragment : Fragment(), OptionsHandler {
             textViewCommentCount.text = postItem.commentCount.toString()
             textViewCommentCount.isVisible = postItem.isAvailable
             imageViewComment.isVisible = postItem.isAvailable
+            textViewIsEdited.isVisible = postItem.isAvailable
         }
     }
 
-    private fun showCommentsScreen() {
-        showToast("showCommentsScreen")
+    private fun showCommentsScreen(postCommentFragment: PostCommentsFragment) {
+        if (!postCommentFragment.isVisible) {
+            postCommentFragment.show(childFragmentManager, postCommentFragment.toString())
+        } else {
+            postCommentFragment.dismiss()
+        }
     }
 
     private fun navigateToBlogScreen() {

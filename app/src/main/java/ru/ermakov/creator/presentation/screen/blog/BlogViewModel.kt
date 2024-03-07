@@ -10,7 +10,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.ermakov.creator.data.exception.PostNotFoundException
-import ru.ermakov.creator.domain.model.Tag
 import ru.ermakov.creator.domain.useCase.blog.FollowUseCase
 import ru.ermakov.creator.domain.useCase.blog.GetFilteredPostPageByUserAndCreatorIdsUseCase
 import ru.ermakov.creator.domain.useCase.blog.GetTagsByCreatorIdUseCase
@@ -263,10 +262,10 @@ class BlogViewModel(
 
     fun setSelectedPostId(postId: Long) {
         _blogUiState.value = _blogUiState.value?.copy(selectedPostId = postId)
-        updateSelectedPostId()
+        updateSelectedPost()
     }
 
-    fun updateSelectedPostId() {
+    fun updateSelectedPost() {
         val userId = _blogUiState.value?.currentUserId
         val selectedPostId = _blogUiState.value?.selectedPostId ?: UNSELECTED_POST_ID
         viewModelScope.launch(Dispatchers.IO) {

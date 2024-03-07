@@ -2,7 +2,7 @@ package ru.ermakov.creator.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class RemoteComment(
+data class RemotePostComment(
     @SerializedName("id")
     val id: Long,
     @SerializedName("user")
@@ -15,6 +15,10 @@ data class RemoteComment(
     val content: String,
     @SerializedName("publicationDate")
     val publicationDate: String,
+    @SerializedName("likeCount")
+    val likeCount: Long,
+    @SerializedName("isLiked")
+    val isLiked: Boolean,
     @SerializedName("isEdited")
     val isEdited: Boolean
 )

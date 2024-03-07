@@ -79,7 +79,7 @@ class BlogFragment : Fragment(), OptionsHandler {
 
     override fun onStart() {
         super.onStart()
-        blogViewModel.updateSelectedPostId()
+        blogViewModel.updateSelectedPost()
     }
 
     private fun setUpSwipeRefreshLayout() {

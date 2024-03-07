@@ -1,20 +1,27 @@
 package ru.ermakov.creator.data.remote.dataSource
 
-import ru.ermakov.creator.domain.model.Comment
-import ru.ermakov.creator.domain.model.CommentRequest
+import retrofit2.http.Query
+import ru.ermakov.creator.data.remote.model.RemotePostCommentLikeRequest
+import ru.ermakov.creator.domain.model.PostComment
+import ru.ermakov.creator.domain.model.PostCommentLikeRequest
+import ru.ermakov.creator.domain.model.PostCommentRequest
 
 interface PostCommentRemoteDataSource {
-    suspend fun getCommentPageByPostAndReplyCommentIds(
+    suspend fun getPostCommentPageByPostAndUserIds(
         postId: Long,
+        userId: String,
         replyCommentId: Long,
-        commentId: Long
-    ): List<Comment>
+        postCommentId: Long
+    ): List<PostComment>
 
-    suspend fun getCommentById(commentId: Long): Comment
+    suspend fun getPostCommentByCommentAndUserIds(postCommentId: Long, userId: String): PostComment
 
-    suspend fun insertComment(commentRequest: CommentRequest)
+    suspend fun insertPostComment(postCommentRequest: PostCommentRequest)
 
-    suspend fun updateComment(commentId: Long, commentRequest: CommentRequest)
+    suspend fun updatePostComment(postCommentId: Long, postCommentRequest: PostCommentRequest)
 
-    suspend fun deleteCommentById(commentId: Long)
+    suspend fun deletePostCommentById(postCommentId: Long)
+
+    suspend fun insertPostCommentLike(postCommentLikeRequest: PostCommentLikeRequest)
+    suspend fun deletePostCommentLike(postCommentId: Long, userId: String)
 }

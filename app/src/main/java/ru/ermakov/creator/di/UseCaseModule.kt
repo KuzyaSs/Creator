@@ -63,7 +63,13 @@ import ru.ermakov.creator.domain.useCase.following.GetPostByUserAndPostIdsUseCas
 import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
-import ru.ermakov.creator.domain.useCase.post.GetCommentPageByPostAndReplyCommentIdsUseCase
+import ru.ermakov.creator.domain.useCase.postComments.DeletePostCommentByIdUseCase
+import ru.ermakov.creator.domain.useCase.postComments.DeletePostCommentLikeUseCase
+import ru.ermakov.creator.domain.useCase.postComments.GetPostCommentByCommentAndUserIdsUseCase
+import ru.ermakov.creator.domain.useCase.postComments.GetPostCommentPageByPostAndUserIdsUseCase
+import ru.ermakov.creator.domain.useCase.postComments.InsertPostCommentLikeUseCase
+import ru.ermakov.creator.domain.useCase.postComments.InsertPostCommentUseCase
+import ru.ermakov.creator.domain.useCase.postComments.UpdatePostCommentUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.search.GetPostPageByUserIdAndSearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorPageBySearchQueryUseCase
@@ -545,13 +551,63 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetCommentPageByPostAndReplyCommentIdsUseCase(
+    fun provideGetPostCommentPageByPostAndUserIdsUseCase(
         postCommentRepository: PostCommentRepository,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
         getDateTimeUseCase: GetDateTimeUseCase
-    ): GetCommentPageByPostAndReplyCommentIdsUseCase {
-        return GetCommentPageByPostAndReplyCommentIdsUseCase(
+    ): GetPostCommentPageByPostAndUserIdsUseCase {
+        return GetPostCommentPageByPostAndUserIdsUseCase(
             postCommentRepository = postCommentRepository,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
             getDateTimeUseCase = getDateTimeUseCase
         )
+    }
+
+    @Provides
+    fun provideGetPostCommentByCommentAndUserIdsUseCase(
+        postCommentRepository: PostCommentRepository,
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        getDateTimeUseCase: GetDateTimeUseCase
+    ): GetPostCommentByCommentAndUserIdsUseCase {
+        return GetPostCommentByCommentAndUserIdsUseCase(
+            postCommentRepository = postCommentRepository,
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            getDateTimeUseCase = getDateTimeUseCase
+        )
+    }
+
+    @Provides
+    fun provideInsertPostCommentUseCase(
+        postCommentRepository: PostCommentRepository
+    ): InsertPostCommentUseCase {
+        return InsertPostCommentUseCase(postCommentRepository = postCommentRepository)
+    }
+
+    @Provides
+    fun provideUpdatePostCommentUseCase(
+        postCommentRepository: PostCommentRepository
+    ): UpdatePostCommentUseCase {
+        return UpdatePostCommentUseCase(postCommentRepository = postCommentRepository)
+    }
+
+    @Provides
+    fun provideDeletePostCommentByIdUseCase(
+        postCommentRepository: PostCommentRepository
+    ): DeletePostCommentByIdUseCase {
+        return DeletePostCommentByIdUseCase(postCommentRepository = postCommentRepository)
+    }
+
+    @Provides
+    fun provideInsertPostCommentLikeUseCase(
+        postCommentRepository: PostCommentRepository
+    ): InsertPostCommentLikeUseCase {
+        return InsertPostCommentLikeUseCase(postCommentRepository = postCommentRepository)
+    }
+
+    @Provides
+    fun provideDeletePostCommentLikeUseCase(
+        postCommentRepository: PostCommentRepository
+    ): DeletePostCommentLikeUseCase {
+        return DeletePostCommentLikeUseCase(postCommentRepository = postCommentRepository)
     }
 }

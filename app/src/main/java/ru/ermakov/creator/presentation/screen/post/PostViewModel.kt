@@ -7,20 +7,17 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.ermakov.creator.data.exception.PostNotFoundException
-import ru.ermakov.creator.data.mapper.INVALID_COMMENT_ID
 import ru.ermakov.creator.domain.useCase.following.DeleteLikeFromPostUseCase
 import ru.ermakov.creator.domain.useCase.following.DeletePostByIdUseCase
 import ru.ermakov.creator.domain.useCase.following.GetPostByUserAndPostIdsUseCase
 import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
-import ru.ermakov.creator.domain.useCase.post.GetCommentPageByPostAndReplyCommentIdsUseCase
 import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
-private const val DEFAULT_COMMENT_ID = Long.MAX_VALUE
+const val INVALID_POST_ID = -1L
 
 class PostViewModel(
     private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
-    private val getCommentPageByPostAndReplyCommentIdsUseCase: GetCommentPageByPostAndReplyCommentIdsUseCase,
     private val deletePostByIdUseCase: DeletePostByIdUseCase,
     private val getPostByUserAndPostIdsUseCase: GetPostByUserAndPostIdsUseCase,
     private val insertLikeToPostUseCase: InsertLikeToPostUseCase,
@@ -40,20 +37,12 @@ class PostViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val currentUserId = getCurrentUserIdUseCase()
-
                 _postUiState.postValue(
                     _postUiState.value?.copy(
                         currentUserId = currentUserId,
                         postItem = getPostByUserAndPostIdsUseCase(
                             userId = currentUserId,
                             postId = postId
-                        ),
-                        comments = getCommentPageByPostAndReplyCommentIdsUseCase(
-                            postId = postId,
-                            replyCommentId = _postUiState.value
-                                ?.replyCommentId ?: INVALID_COMMENT_ID,
-                            commentId = _postUiState.value?.comments
-                                ?.lastOrNull()?.id ?: DEFAULT_COMMENT_ID
                         ),
                         isRefreshingShown = false,
                         isLoadingShown = false,
@@ -82,7 +71,7 @@ class PostViewModel(
     fun updatePost(postId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val userId = _postUiState.value?.currentUserId
+                val userId = getCurrentUserIdUseCase()
                 val updatedPostItem = getPostByUserAndPostIdsUseCase(
                     userId = userId,
                     postId = postId
@@ -180,43 +169,4 @@ class PostViewModel(
             errorMessage = ""
         )
     }
-
-
-    // PostCommentsScreen
-
-    /*    fun setEditMessageMode(isEditMessageMode: Boolean) {
-            _postUiState.value = _postUiState.value?.copy(isEditCommentMode = isEditMessageMode)
-        }
-
-        fun loadNextCommentPage() {
-            TODO("Not implemented yet")
-        }
-
-        fun insertComment(postId: Long, content: String) {
-            TODO("Not implemented yet")
-        }
-
-        fun editComment(postId: Long, content: String) {
-            TODO("Not implemented yet")
-        }
-
-        fun deleteComment(commentId: Long) {
-            TODO("Not implemented yet")
-        }
-
-        fun setSelectedCommentId(commentId: Long) {
-            _postUiState.value = _postUiState.value?.copy(selectedCommentId = commentId)
-        }
-
-        fun updateSelectedComment() {
-            TODO("Not implemented yet")
-        }
-
-        fun insertLikeToComment(commentId: Long) {
-            TODO("Not implemented yet")
-        }
-
-        fun deleteLikeFromComment(commentId: Long) {
-            TODO("Not implemented yet")
-        }*/
 }

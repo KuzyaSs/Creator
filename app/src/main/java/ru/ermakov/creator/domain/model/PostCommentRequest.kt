@@ -1,6 +1,6 @@
 package ru.ermakov.creator.domain.model
 
-data class CommentRequest(
+data class PostCommentRequest(
     val userId: String,
     val postId: Long,
     val replyCommentId: Long,

@@ -106,6 +106,7 @@ class PostAdapter(
                 imageViewComment.setOnClickListener {
                     onCommentClickListener(postItem)
                 }
+                textViewIsEdited.isVisible = postItem.isAvailable
             }
         }
     }

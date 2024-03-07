@@ -46,7 +46,11 @@ import ru.ermakov.creator.domain.useCase.following.GetPostByUserAndPostIdsUseCas
 import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
-import ru.ermakov.creator.domain.useCase.post.GetCommentPageByPostAndReplyCommentIdsUseCase
+import ru.ermakov.creator.domain.useCase.postComments.DeletePostCommentByIdUseCase
+import ru.ermakov.creator.domain.useCase.postComments.GetPostCommentByCommentAndUserIdsUseCase
+import ru.ermakov.creator.domain.useCase.postComments.GetPostCommentPageByPostAndUserIdsUseCase
+import ru.ermakov.creator.domain.useCase.postComments.InsertPostCommentUseCase
+import ru.ermakov.creator.domain.useCase.postComments.UpdatePostCommentUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
 import ru.ermakov.creator.domain.useCase.search.GetPostPageByUserIdAndSearchQueryUseCase
 import ru.ermakov.creator.domain.useCase.search.SearchCreatorPageBySearchQueryUseCase
@@ -81,6 +85,7 @@ import ru.ermakov.creator.presentation.screen.editPost.EditPostViewModelFactory
 import ru.ermakov.creator.presentation.screen.editTag.EditTagViewModelFactory
 import ru.ermakov.creator.presentation.screen.passwordRecovery.PasswordRecoveryViewModelFactory
 import ru.ermakov.creator.presentation.screen.post.PostViewModelFactory
+import ru.ermakov.creator.presentation.screen.postComments.PostCommentsViewModelFactory
 import ru.ermakov.creator.presentation.screen.purchaseSubscription.PurchaseSubscriptionViewModelFactory
 import ru.ermakov.creator.presentation.screen.search.searchCreator.SearchCreatorViewModelFactory
 import ru.ermakov.creator.presentation.screen.search.searchPost.SearchPostViewModelFactory
@@ -581,7 +586,6 @@ class ViewModelFactoryModule {
     @Provides
     fun providePostViewModelFactory(
         getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
-        getCommentPageByPostAndReplyCommentIdsUseCase: GetCommentPageByPostAndReplyCommentIdsUseCase,
         deletePostByIdUseCase: DeletePostByIdUseCase,
         getPostByUserAndPostIdsUseCase: GetPostByUserAndPostIdsUseCase,
         insertLikeToPostUseCase: InsertLikeToPostUseCase,
@@ -590,11 +594,31 @@ class ViewModelFactoryModule {
     ): PostViewModelFactory {
         return PostViewModelFactory(
             getCurrentUserIdUseCase = getCurrentUserIdUseCase,
-            getCommentPageByPostAndReplyCommentIdsUseCase = getCommentPageByPostAndReplyCommentIdsUseCase,
             deletePostByIdUseCase = deletePostByIdUseCase,
             getPostByUserAndPostIdsUseCase = getPostByUserAndPostIdsUseCase,
             insertLikeToPostUseCase = insertLikeToPostUseCase,
             deleteLikeFromPostUseCase = deleteLikeFromPostUseCase,
+            exceptionHandler = exceptionHandler
+        )
+    }
+
+    @Provides
+    fun providePostCommentsViewModelFactory(
+        getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
+        getPostCommentPageByPostAndUserIdsUseCase: GetPostCommentPageByPostAndUserIdsUseCase,
+        getPostCommentByCommentAndUserIdsUseCase: GetPostCommentByCommentAndUserIdsUseCase,
+        insertPostCommentUseCase: InsertPostCommentUseCase,
+        updatePostCommentUseCase: UpdatePostCommentUseCase,
+        deletePostCommentByIdUseCase: DeletePostCommentByIdUseCase,
+        exceptionHandler: ExceptionHandler
+    ): PostCommentsViewModelFactory {
+        return PostCommentsViewModelFactory(
+            getCurrentUserIdUseCase = getCurrentUserIdUseCase,
+            getPostCommentPageByPostAndUserIdsUseCase = getPostCommentPageByPostAndUserIdsUseCase,
+            getPostCommentByCommentAndUserIdsUseCase = getPostCommentByCommentAndUserIdsUseCase,
+            insertPostCommentUseCase = insertPostCommentUseCase,
+            updatePostCommentUseCase = updatePostCommentUseCase,
+            deletePostCommentByIdUseCase = deletePostCommentByIdUseCase,
             exceptionHandler = exceptionHandler
         )
     }

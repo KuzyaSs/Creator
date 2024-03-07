@@ -7,6 +7,7 @@
     <dimen name="small_text_size">12sp</dimen>
 
     <dimen name="base_icon_size">32dp</dimen>
+    <dimen name="medium_icon_size">24dp</dimen>
     <dimen name="small_icon_size">16dp</dimen>
 
     <dimen name="large_image_size">125dp</dimen>

@@ -1,20 +1,24 @@
 package ru.ermakov.creator.domain.repository
 
-import ru.ermakov.creator.domain.model.Comment
-import ru.ermakov.creator.domain.model.CommentRequest
+import ru.ermakov.creator.domain.model.PostComment
+import ru.ermakov.creator.domain.model.PostCommentLikeRequest
+import ru.ermakov.creator.domain.model.PostCommentRequest
 
 interface PostCommentRepository {
-    suspend fun getCommentPageByPostAndReplyCommentIds(
+    suspend fun getPostCommentPageByPostAndUserIds(
         postId: Long,
+        userId: String,
         replyCommentId: Long,
         commentId: Long
-    ): List<Comment>
+    ): List<PostComment>
 
-    suspend fun getCommentById(commentId: Long): Comment
+    suspend fun getPostCommentByCommentAndUserIds(postCommentId: Long, userId: String): PostComment
 
-    suspend fun insertComment(commentRequest: CommentRequest)
+    suspend fun insertPostComment(postCommentRequest: PostCommentRequest)
 
-    suspend fun updateComment(commentId: Long, commentRequest: CommentRequest)
+    suspend fun updatePostComment(postCommentId: Long, postCommentRequest: PostCommentRequest)
 
-    suspend fun deleteCommentById(commentId: Long)
+    suspend fun deletePostCommentById(postCommentId: Long)
+    suspend fun insertPostCommentLike(postCommentLikeRequest: PostCommentLikeRequest)
+    suspend fun deletePostCommentLike(postCommentId: Long, userId: String)
 }

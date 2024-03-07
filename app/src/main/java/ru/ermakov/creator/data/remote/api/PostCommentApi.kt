@@ -8,30 +8,46 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
-import ru.ermakov.creator.data.remote.model.RemoteComment
-import ru.ermakov.creator.data.remote.model.RemoteCommentRequest
+import ru.ermakov.creator.data.remote.model.RemotePostComment
+import ru.ermakov.creator.data.remote.model.RemotePostCommentLikeRequest
+import ru.ermakov.creator.data.remote.model.RemotePostCommentRequest
 
 interface PostCommentApi {
     @GET("posts/{postId}/comments")
-    suspend fun getCommentPageByPostAndReplyCommentIds(
+    suspend fun getPostCommentPageByPostAndUserIds(
         @Path("postId") postId: Long,
+        @Query("userId") userId: String,
         @Query("replyCommentId") replyCommentId: Long?,
-        @Query("commentId") commentId: Long,
+        @Query("postCommentId") postCommentId: Long,
         @Query("limit") limit: Long
-    ): Response<List<RemoteComment>>
+    ): Response<List<RemotePostComment>>
 
-    @GET("posts/comments/{commentId}")
-    suspend fun getCommentById(@Path("commentId") commentId: Long): Response<RemoteComment>
+    @GET("posts/comments/{postCommentId}")
+    suspend fun getPostCommentByCommentAndUserIds(
+        @Path("postCommentId") postCommentId: Long,
+        @Query("userId") userId: String
+    ): Response<RemotePostComment>
 
     @POST("posts/comments")
-    suspend fun insertComment(@Body remoteCommentRequest: RemoteCommentRequest): Response<Unit>
+    suspend fun insertPostComment(@Body remotePostCommentRequest: RemotePostCommentRequest): Response<Unit>
 
-    @PUT("posts/comments/{commentId}")
-    suspend fun updateComment(
-        @Path("commentId") commentId: Long,
-        @Body remoteCommentRequest: RemoteCommentRequest
+    @PUT("posts/comments/{postCommentId}")
+    suspend fun updatePostComment(
+        @Path("postCommentId") postCommentId: Long,
+        @Body remotePostCommentRequest: RemotePostCommentRequest
     ): Response<Unit>
 
-    @DELETE("posts/comments/{commentId}")
-    suspend fun deleteCommentById(@Path("commentId") commentId: Long): Response<Unit>
+    @DELETE("posts/comments/{postCommentId}")
+    suspend fun deletePostCommentById(@Path("postCommentId") postCommentId: Long): Response<Unit>
+
+    @POST("posts/comments/likes")
+    suspend fun insertPostCommentLike(
+        @Body remotePostCommentLikeRequest: RemotePostCommentLikeRequest
+    ): Response<Unit>
+
+    @DELETE("posts/comments/{postCommentId}/likes")
+    suspend fun deletePostCommentLike(
+        @Path("postCommentId") postCommentId: Long,
+        @Query("userId") userId: String
+    ): Response<Unit>
 }

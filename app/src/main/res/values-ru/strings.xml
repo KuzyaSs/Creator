@@ -114,6 +114,7 @@
     <string name="empty_follow_list_description">Здесь отображаются авторы, которых вы отслеживаете</string>
     <string name="empty_transaction_list">Здесь будет история ваших транзакций</string>
     <string name="empty_tag_list">Список тегов пока пуст, но в скором времени он пополнится</string>
+    <string name="empty_comment_list">Будь первым, кто поделится своими мыслями</string>
     <string name="empty_tag_list_description">Здесь отображаются теги текущнго автора</string>
     <string name="empty_category_list">Список категорий пока пуст, но в скором времени он пополнится</string>
     <string name="empty_post_list">Список постов пока пуст, но в скором времени он пополнится</string>
@@ -210,6 +211,9 @@
     <string name="edit_tag">Редактирование тега</string>
     <string name="edit_goal">Редактирование поста</string>
     <string name="post">Пост</string>
+    <string name="comments">Комментарии</string>
+    <string name="comment">Комментарий</string>
+    <string name="reply">Ответить</string>
     <plurals name="plural_follower">
         <item quantity="one">подписчик</item>
         <item quantity="few">подписчика</item>

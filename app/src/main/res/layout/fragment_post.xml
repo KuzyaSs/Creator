@@ -115,8 +115,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/base_margin_size"
-                    android:ellipsize="end"
-                    android:maxLines="12"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textViewTitle"
@@ -128,6 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/base_margin_size"
                     android:background="@drawable/container_background"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textViewContent">
