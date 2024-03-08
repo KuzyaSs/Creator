@@ -1,6 +1,5 @@
 package ru.ermakov.creator.data.remote.dataSource
 
-import android.util.Log
 import ru.ermakov.creator.data.exception.ApiExceptionLocalizer
 import ru.ermakov.creator.data.mapper.INVALID_COMMENT_ID
 import ru.ermakov.creator.data.mapper.toPostComment
@@ -31,20 +30,12 @@ class PostCommentRemoteDataSourceImpl(
             limit = LIMIT
         )
         if (remotePostCommentsResponse.isSuccessful) {
-            Log.d(
-                "MY_TAG",
-                "getPostCommentPageByPostAndUserIds SUCCESS ${remotePostCommentsResponse.body()}"
-            )
             remotePostCommentsResponse.body()?.let { remoteComments ->
                 return remoteComments.map { remoteComment ->
                     remoteComment.toPostComment()
                 }
             }
         }
-        Log.d(
-            "MY_TAG",
-            "getPostCommentPageByPostAndUserIds ERROR ${remotePostCommentsResponse.errorBody()}"
-        )
         throw apiExceptionLocalizer.localizeApiException(response = remotePostCommentsResponse)
     }
 
@@ -57,30 +48,22 @@ class PostCommentRemoteDataSourceImpl(
             userId = userId
         )
         if (remotePostCommentResponse.isSuccessful) {
-            Log.d(
-                "MY_TAG",
-                "getPostCommentByCommentAndUserIds SUCCESS ${remotePostCommentResponse.body()}"
-            )
             remotePostCommentResponse.body()?.let { remoteComment ->
                 return remoteComment.toPostComment()
             }
         }
-        Log.d(
-            "MY_TAG",
-            "getPostCommentByCommentAndUserIds ERROR ${remotePostCommentResponse.errorBody()}"
-        )
         throw apiExceptionLocalizer.localizeApiException(response = remotePostCommentResponse)
     }
 
-    override suspend fun insertPostComment(postCommentRequest: PostCommentRequest) {
+    override suspend fun insertPostComment(postCommentRequest: PostCommentRequest): Long {
         val response = postCommentApi.insertPostComment(
             remotePostCommentRequest = postCommentRequest.toRemotePostCommentRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "insertPostComment SUCCESS ${response.body()}")
-            return
+            response.body()?.let { postCommentId ->
+                return postCommentId
+            }
         }
-        Log.d("MY_TAG", "insertPostComment ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
@@ -93,20 +76,16 @@ class PostCommentRemoteDataSourceImpl(
             remotePostCommentRequest = postCommentRequest.toRemotePostCommentRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "updatePostComment SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "updatePostComment ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
     override suspend fun deletePostCommentById(postCommentId: Long) {
         val response = postCommentApi.deletePostCommentById(postCommentId = postCommentId)
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "deletePostCommentById SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "deletePostCommentById ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
@@ -115,10 +94,8 @@ class PostCommentRemoteDataSourceImpl(
             remotePostCommentLikeRequest = postCommentLikeRequest.toRemotePostCommentLikeRequest()
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "insertPostCommentLike SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "insertPostCommentLike ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 
@@ -128,10 +105,8 @@ class PostCommentRemoteDataSourceImpl(
             userId = userId
         )
         if (response.isSuccessful) {
-            Log.d("MY_TAG", "deletePostCommentLike SUCCESS ${response.body()}")
             return
         }
-        Log.d("MY_TAG", "deletePostCommentLike ERROR ${response.errorBody()}")
         throw apiExceptionLocalizer.localizeApiException(response = response)
     }
 }

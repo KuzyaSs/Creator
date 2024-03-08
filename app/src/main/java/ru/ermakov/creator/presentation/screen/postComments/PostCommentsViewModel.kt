@@ -10,12 +10,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.ermakov.creator.data.exception.CommentNotFoundException
-import ru.ermakov.creator.data.mapper.INVALID_COMMENT_ID
+import ru.ermakov.creator.domain.model.PostCommentItem
 import ru.ermakov.creator.domain.model.PostCommentLikeRequest
+import ru.ermakov.creator.domain.model.PostCommentRequest
 import ru.ermakov.creator.domain.useCase.postComments.DeletePostCommentByIdUseCase
 import ru.ermakov.creator.domain.useCase.postComments.DeletePostCommentLikeUseCase
-import ru.ermakov.creator.domain.useCase.postComments.GetPostCommentPageByPostAndUserIdsUseCase
 import ru.ermakov.creator.domain.useCase.postComments.GetPostCommentByCommentAndUserIdsUseCase
+import ru.ermakov.creator.domain.useCase.postComments.GetPostCommentPageByPostAndUserIdsUseCase
 import ru.ermakov.creator.domain.useCase.postComments.InsertPostCommentLikeUseCase
 import ru.ermakov.creator.domain.useCase.postComments.InsertPostCommentUseCase
 import ru.ermakov.creator.domain.useCase.postComments.UpdatePostCommentUseCase
@@ -23,6 +24,7 @@ import ru.ermakov.creator.domain.useCase.shared.GetCurrentUserIdUseCase
 import ru.ermakov.creator.presentation.util.ExceptionHandler
 
 private const val LOAD_NEXT_POST_COMMENT_PAGE_DELAY = 1000L
+private const val POST_COMMENT_SENDING_DELAY = 250L
 private const val DEFAULT_COMMENT_ID = Long.MAX_VALUE
 
 class PostCommentsViewModel(
@@ -52,11 +54,13 @@ class PostCommentsViewModel(
             try {
                 _postCommentsUiState.postValue(
                     _postCommentsUiState.value?.copy(
+                        currentUserId = getCurrentUserIdUseCase(),
                         postCommentItems = getPostCommentPageByPostAndUserIdsUseCase(
                             postId = postId,
-                            replyCommentId = INVALID_COMMENT_ID,
+                            replyCommentId = UNSELECTED_COMMENT_ID,
                             commentId = DEFAULT_COMMENT_ID
                         ),
+                        isRefreshingShown = false,
                         isLoadingShown = false,
                         isErrorMessageShown = false
                     )
@@ -65,6 +69,7 @@ class PostCommentsViewModel(
                 val errorMessage = exceptionHandler.handleException(exception = exception)
                 _postCommentsUiState.postValue(
                     _postCommentsUiState.value?.copy(
+                        isRefreshingShown = false,
                         isLoadingShown = false,
                         isErrorMessageShown = true,
                         errorMessage = errorMessage
@@ -74,10 +79,11 @@ class PostCommentsViewModel(
         }
     }
 
-    fun setEditMessageMode(isEditMessageMode: Boolean) {
+    fun refreshPostCommentScreen(postId: Long) {
         _postCommentsUiState.value = _postCommentsUiState.value?.copy(
-            isEditCommentMode = isEditMessageMode
+            isRefreshingShown = true
         )
+        setPostCommentsScreen(postId = postId)
     }
 
     fun loadNextPostCommentPage(postId: Long) {
@@ -96,7 +102,7 @@ class PostCommentsViewModel(
                 val currentCommentItems = _postCommentsUiState.value?.postCommentItems ?: listOf()
                 val nextCommentItems = getPostCommentPageByPostAndUserIdsUseCase(
                     postId = postId,
-                    replyCommentId = INVALID_COMMENT_ID,
+                    replyCommentId = UNSELECTED_COMMENT_ID,
                     commentId = _postCommentsUiState.value?.postCommentItems?.lastOrNull()?.id
                         ?: DEFAULT_COMMENT_ID
                 )
@@ -122,52 +128,139 @@ class PostCommentsViewModel(
         }
     }
 
-    fun insertPostComment(postId: Long, content: String) {
-
+    fun sendPostComment(postId: Long, content: String) {
+        _postCommentsUiState.value = _postCommentsUiState.value?.copy(
+            isLoadingDialogShown = true,
+            isErrorMessageShown = false
+        )
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val postCommentRequest = PostCommentRequest(
+                    userId = getCurrentUserIdUseCase(),
+                    postId = postId,
+                    replyCommentId = UNSELECTED_COMMENT_ID,
+                    content = content
+                )
+                val newPostCommentId = insertPostCommentUseCase(
+                    postCommentRequest = postCommentRequest
+                )
+                val newPostCommentItem = getPostCommentByCommentAndUserIdsUseCase(
+                    postCommentId = newPostCommentId
+                )
+                val currentPostCommentItems = _postCommentsUiState
+                    .value
+                    ?.postCommentItems ?: listOf()
+                _postCommentsUiState.postValue(
+                    _postCommentsUiState.value?.copy(
+                        postCommentItems = (currentPostCommentItems + newPostCommentItem).sortedByDescending { postComment ->
+                            postComment.id
+                        },
+                        isLoadingDialogShown = false,
+                        isErrorMessageShown = false,
+                    )
+                )
+                delay(POST_COMMENT_SENDING_DELAY)
+                _postCommentsUiState.postValue(_postCommentsUiState.value?.copy(isPostCommentSent = true))
+            } catch (exception: Exception) {
+                val errorMessage = exceptionHandler.handleException(exception = exception)
+                _postCommentsUiState.postValue(
+                    _postCommentsUiState.value?.copy(
+                        isLoadingDialogShown = false,
+                        isErrorMessageShown = true,
+                        errorMessage = errorMessage
+                    )
+                )
+            }
+        }
     }
 
     fun editPostComment(postId: Long, content: String) {
-
+        _postCommentsUiState.value = _postCommentsUiState.value?.copy(
+            isLoadingDialogShown = true,
+            isErrorMessageShown = false
+        )
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val editedPostCommentItem = _postCommentsUiState.value?.editedPostCommentItem
+                val postCommentId = editedPostCommentItem?.id ?: UNSELECTED_COMMENT_ID
+                val postCommentRequest = PostCommentRequest(
+                    userId = getCurrentUserIdUseCase(),
+                    postId = postId,
+                    replyCommentId = UNSELECTED_COMMENT_ID,
+                    content = content
+                )
+                updatePostCommentUseCase(
+                    postCommentId = postCommentId,
+                    postCommentRequest = postCommentRequest
+                )
+                withContext(Dispatchers.Main) {
+                    _postCommentsUiState.value = _postCommentsUiState.value?.copy(
+                        isEditCommentMode = false,
+                        isPostCommentEdited = true,
+                        isLoadingDialogShown = false,
+                        isErrorMessageShown = false,
+                    )
+                }
+                updatePostComment(postComment = editedPostCommentItem)
+            } catch (exception: Exception) {
+                val errorMessage = exceptionHandler.handleException(exception = exception)
+                _postCommentsUiState.postValue(
+                    _postCommentsUiState.value?.copy(
+                        isLoadingDialogShown = false,
+                        isErrorMessageShown = true,
+                        errorMessage = errorMessage
+                    )
+                )
+            }
+        }
     }
 
-    fun setSelectedPostCommentId(postCommentId: Long) {
+    fun setSelectedPostComment(postComment: PostCommentItem) {
         _postCommentsUiState.value = _postCommentsUiState.value?.copy(
-            selectedPostCommentId = postCommentId
+            selectedPostCommentItem = postComment
         )
     }
 
-    fun updateSelectedPostComment() {
-        val selectedPostCommentId = _postCommentsUiState.value?.selectedPostCommentId
-            ?: UNSELECTED_COMMENT_ID
+    fun setEditedPostComment() {
+        _postCommentsUiState.value = _postCommentsUiState.value?.copy(
+            editedPostCommentItem = _postCommentsUiState.value?.selectedPostCommentItem,
+            isEditCommentMode = true
+        )
+    }
+
+    fun updatePostComment(
+        postComment: PostCommentItem? = _postCommentsUiState.value?.selectedPostCommentItem
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val updatedCommentItem = getPostCommentByCommentAndUserIdsUseCase(
-                    postCommentId = selectedPostCommentId
+                val updatedPostCommentItem = getPostCommentByCommentAndUserIdsUseCase(
+                    postCommentId = postComment?.id ?: UNSELECTED_COMMENT_ID
                 )
-                val commentItems =
-                    _postCommentsUiState.value?.postCommentItems?.map { commentItem ->
-                        if (commentItem.id == selectedPostCommentId) {
-                            updatedCommentItem
+                val postCommentItems = _postCommentsUiState
+                    .value
+                    ?.postCommentItems?.map { postCommentItem ->
+                        if (postCommentItem.id == postComment?.id) {
+                            updatedPostCommentItem
                         } else {
-                            commentItem
+                            postCommentItem
                         }
                     }
                 _postCommentsUiState.postValue(
                     _postCommentsUiState.value?.copy(
-                        postCommentItems = commentItems
+                        postCommentItems = postCommentItems
                     )
                 )
             } catch (exception: Exception) {
                 if (exception is CommentNotFoundException) {
-                    val remainingCommentItems = _postCommentsUiState
+                    val remainingPostCommentItems = _postCommentsUiState
                         .value
                         ?.postCommentItems
-                        ?.filter { commentItem ->
-                            commentItem.id != selectedPostCommentId
+                        ?.filter { postCommentItem ->
+                            postCommentItem.id != postComment?.id
                         }
                     _postCommentsUiState.postValue(
                         _postCommentsUiState.value?.copy(
-                            postCommentItems = remainingCommentItems
+                            postCommentItems = remainingPostCommentItems
                         )
                     )
                 }
@@ -179,20 +272,20 @@ class PostCommentsViewModel(
         _postCommentsUiState.value = _postCommentsUiState.value?.copy(isErrorMessageShown = false)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val selectedPostCommentId = _postCommentsUiState.value?.selectedPostCommentId
-                    ?: UNSELECTED_COMMENT_ID
-                deletePostCommentByIdUseCase(postCommentId = selectedPostCommentId)
-
-                val remainingCommentItems = _postCommentsUiState
+                val selectedPostCommentItem = _postCommentsUiState.value?.selectedPostCommentItem
+                deletePostCommentByIdUseCase(
+                    postCommentId = selectedPostCommentItem?.id ?: UNSELECTED_COMMENT_ID
+                )
+                val remainingPostCommentItems = _postCommentsUiState
                     .value
                     ?.postCommentItems
-                    ?.filter { commentItem ->
-                        commentItem.id != selectedPostCommentId
+                    ?.filter { postCommentItem ->
+                        postCommentItem.id != selectedPostCommentItem?.id
                     }
 
                 _postCommentsUiState.postValue(
                     _postCommentsUiState.value?.copy(
-                        postCommentItems = remainingCommentItems,
+                        postCommentItems = remainingPostCommentItems,
                         isLoadingShown = false,
                         isErrorMessageShown = false
                     )
@@ -218,7 +311,7 @@ class PostCommentsViewModel(
                     userId = getCurrentUserIdUseCase()
                 )
                 insertPostCommentLikeUseCase(postCommentLikeRequest = postCommentLikeRequest)
-                updateSelectedPostComment()
+                updatePostComment()
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
                 _postCommentsUiState.postValue(
@@ -238,7 +331,7 @@ class PostCommentsViewModel(
                     postCommentId = postCommentId,
                     userId = getCurrentUserIdUseCase()
                 )
-                updateSelectedPostComment()
+                updatePostComment()
             } catch (exception: Exception) {
                 val errorMessage = exceptionHandler.handleException(exception = exception)
                 _postCommentsUiState.postValue(
@@ -249,6 +342,18 @@ class PostCommentsViewModel(
                 )
             }
         }
+    }
+
+    fun clearEditCommentMode() {
+        _postCommentsUiState.value = _postCommentsUiState.value?.copy(isEditCommentMode = false)
+    }
+
+    fun clearIsPostCommentSent() {
+        _postCommentsUiState.value = _postCommentsUiState.value?.copy(isPostCommentSent = false)
+    }
+
+    fun clearIsPostCommentEdited() {
+        _postCommentsUiState.value = _postCommentsUiState.value?.copy(isPostCommentEdited = false)
     }
 
     fun clearErrorMessage() {

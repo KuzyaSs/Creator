@@ -16,7 +16,7 @@ interface PostCommentRemoteDataSource {
 
     suspend fun getPostCommentByCommentAndUserIds(postCommentId: Long, userId: String): PostComment
 
-    suspend fun insertPostComment(postCommentRequest: PostCommentRequest)
+    suspend fun insertPostComment(postCommentRequest: PostCommentRequest): Long
 
     suspend fun updatePostComment(postCommentId: Long, postCommentRequest: PostCommentRequest)
 

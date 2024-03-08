@@ -29,7 +29,7 @@ interface PostCommentApi {
     ): Response<RemotePostComment>
 
     @POST("posts/comments")
-    suspend fun insertPostComment(@Body remotePostCommentRequest: RemotePostCommentRequest): Response<Unit>
+    suspend fun insertPostComment(@Body remotePostCommentRequest: RemotePostCommentRequest): Response<Long>
 
     @PUT("posts/comments/{postCommentId}")
     suspend fun updatePostComment(

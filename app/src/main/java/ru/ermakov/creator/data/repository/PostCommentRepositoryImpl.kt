@@ -33,8 +33,8 @@ class PostCommentRepositoryImpl(
         )
     }
 
-    override suspend fun insertPostComment(postCommentRequest: PostCommentRequest) {
-        postCommentRemoteDataSource.insertPostComment(postCommentRequest = postCommentRequest)
+    override suspend fun insertPostComment(postCommentRequest: PostCommentRequest): Long {
+        return postCommentRemoteDataSource.insertPostComment(postCommentRequest = postCommentRequest)
     }
 
     override suspend fun updatePostComment(

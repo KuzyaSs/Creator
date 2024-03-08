@@ -2,6 +2,7 @@ package ru.ermakov.creator.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import ru.ermakov.creator.databinding.ItemPostCommentBinding
 import ru.ermakov.creator.domain.model.PostCommentItem
 
 class PostCommentAdapter(
+    private val userId: String,
     private val onProfileAvatarClickListener: (PostCommentItem) -> Unit,
     private val onMoreClickListener: (PostCommentItem) -> Unit,
     private val onLikeClickListener: (PostCommentItem) -> Unit,
@@ -47,10 +49,12 @@ class PostCommentAdapter(
                 } else {
                     imageViewLike.setImageResource(R.drawable.ic_favorite)
                 }
+                textViewIsEdited.isVisible = postCommentItem.isEdited
 
                 imageViewCreatorProfileAvatar.setOnClickListener {
                     onProfileAvatarClickListener(postCommentItem)
                 }
+                imageViewMore.isVisible = userId == postCommentItem.user.id
                 imageViewMore.setOnClickListener {
                     onMoreClickListener(postCommentItem)
                 }

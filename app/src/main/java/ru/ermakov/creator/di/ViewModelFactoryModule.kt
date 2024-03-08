@@ -47,8 +47,10 @@ import ru.ermakov.creator.domain.useCase.following.InsertLikeToPostUseCase
 import ru.ermakov.creator.domain.useCase.follows.SearchFollowPageByUserIdUseCase
 import ru.ermakov.creator.domain.useCase.passwordRecovery.RecoverPasswordByEmailUseCase
 import ru.ermakov.creator.domain.useCase.postComments.DeletePostCommentByIdUseCase
+import ru.ermakov.creator.domain.useCase.postComments.DeletePostCommentLikeUseCase
 import ru.ermakov.creator.domain.useCase.postComments.GetPostCommentByCommentAndUserIdsUseCase
 import ru.ermakov.creator.domain.useCase.postComments.GetPostCommentPageByPostAndUserIdsUseCase
+import ru.ermakov.creator.domain.useCase.postComments.InsertPostCommentLikeUseCase
 import ru.ermakov.creator.domain.useCase.postComments.InsertPostCommentUseCase
 import ru.ermakov.creator.domain.useCase.postComments.UpdatePostCommentUseCase
 import ru.ermakov.creator.domain.useCase.purchaseSubscription.PurchaseSubscriptionUseCase
@@ -610,6 +612,8 @@ class ViewModelFactoryModule {
         insertPostCommentUseCase: InsertPostCommentUseCase,
         updatePostCommentUseCase: UpdatePostCommentUseCase,
         deletePostCommentByIdUseCase: DeletePostCommentByIdUseCase,
+        insertPostCommentLikeUseCase: InsertPostCommentLikeUseCase,
+        deletePostCommentLikeUseCase: DeletePostCommentLikeUseCase,
         exceptionHandler: ExceptionHandler
     ): PostCommentsViewModelFactory {
         return PostCommentsViewModelFactory(
@@ -619,6 +623,8 @@ class ViewModelFactoryModule {
             insertPostCommentUseCase = insertPostCommentUseCase,
             updatePostCommentUseCase = updatePostCommentUseCase,
             deletePostCommentByIdUseCase = deletePostCommentByIdUseCase,
+            insertPostCommentLikeUseCase = insertPostCommentLikeUseCase,
+            deletePostCommentLikeUseCase = deletePostCommentLikeUseCase,
             exceptionHandler = exceptionHandler
         )
     }

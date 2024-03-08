@@ -214,6 +214,7 @@
     <string name="comments">Comments</string>
     <string name="comment">Comment</string>
     <string name="reply">Reply</string>
+    <string name="editing_a_comment">Editing a comment</string>
     <plurals name="plural_follower">
         <item quantity="one">follower</item>
         <item quantity="many">followers</item>
